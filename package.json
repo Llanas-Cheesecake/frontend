@@ -10,8 +10,15 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
     "nuxt": "^3.9.3",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.0.0",
     "vue": "^3.4.14",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.2"
   }
 }
