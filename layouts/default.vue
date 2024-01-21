@@ -14,7 +14,7 @@
   <div>
     <Navbar />
 
-    <section class="main-content">
+    <section class="main-content container">
       <slot />
     </section>
 
