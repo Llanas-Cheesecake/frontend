@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/styles/main.scss'],
   modules: [
-      '@nuxtjs/google-fonts'
+      '@nuxtjs/google-fonts',
+      '@pinia/nuxt'
   ],
 
   // Site Metadata
