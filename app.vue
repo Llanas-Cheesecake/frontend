@@ -15,7 +15,7 @@
 
   :root {
     --bg-primary: #77A042;
-    --bg-secondary: #59702e;
+    --bg-secondary: #f2ffda;
 
     --color-text-primary: #FFFFFF;
     --color-text-disabled: color-mix(in srgb,var(--navbar-text), #000 15%);
@@ -45,5 +45,14 @@
         background-color: color-mix(in srgb,var(--btn-bg-secondary), #000 60%);;
       }
     }
+  }
+
+  .form-control {
+    background-color: var(--bg-secondary);
+    &:focus {
+      background-color: var(--bg-secondary);
+      box-shadow: none;
+    }
+    color: color-mix(in srgb,var(--btn-bg-secondary), #000 65%);
   }
 </style>
