@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+<br />
+<br />
+@*MAIN CONTAINER*@
+<div class="container-fluid d-flex align-items-center flex-column bg-yellow">
+
+    @*MARKETING CAROUSEL (TO DO)*@
+    <div class="d-flex justify-content-center my-5">
+        <img class = "w-75 h-75" src="~/assets/home_carsl_img_1.png"/>
+    </div>
+
+    @*PANELS*@
+    <div class= "w-75 h-75 d-flex justify-content-evenly  ">
+        <a asp-area="" asp-controller="Home" asp-action="Menu"><img class="mh-100 mw-100 panel_anim" src="~/assets/menu_panel.png" /></a>
+        <a href=""><img class="mw-100 h-100 panel_anim" src="~/assets/delivery_panel.png" /></a>
+    </div>
+
+    <div class="w-75 h-75 d-flex justify-content-evenly ">
+        <a href=""><img class="mw-100 mh-100 panel_anim" src="~/assets/contact_panel.png" /> </a>
+        <a asp-area="" asp-controller="Home" asp-action="About"><img class="mw-100 mh-100 panel_anim" src="~/assets/about_panel.png" /></a>
+    </div>
+    <br />
+    <br />
+</div>

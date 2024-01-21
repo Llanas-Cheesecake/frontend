@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @*Page Title*@
+    <title>@ViewData["Title"] | Llana's Cheesecake</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/owl.carousel.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/owl.theme.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/owl.transitions.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DairyBlendv1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/owl.carousel.js"></script>
+    <script src="~/lib/jquery/dist/owl.carousel.min.js"></script>
+    @*Logo Favicon*@
+    <link rel="icon" href ="~/assets/db_logo_xhd.png"/>
+</head>
+<body class="bg-eggshell">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow col_theme_1 justify-content-between fixed-top">
+            <div class="container-fluid">
+                
+                @*NAV LOGO*@
+                <div class="collapse d-none d-sm-block">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src = "~/assets/llana_logo_m.png" class="w-60 ms-3"/></a>
+                </div>
+                
+                @*NAV TOGGLER*@
+                <button class="navbar-toggler justify-content-center w-100 my-2 border-2" type="button" data-bs-toggle="collapse" data-bs-target="#dbTogglerContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                @*NAV SEARCH BAR*@
+                <div class="d-flex mx-3 w-50 collapse d-none d-sm-inline-flex justify-content-center">
+                </div>
+
+                @*NAV TABS*@
+                <div class="navbar-collapse collapse d-none d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="font_white mx-4 px-3 py-1 border-1 rounded text-decoration-none" asp-area="" asp-controller="Home" asp-action="Index"><b>HOME</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="font_white mx-4 px-3 py-1 border-1 rounded text-decoration-none" asp-area="" asp-controller="Home" asp-action="About"><b>ABOUT</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="font_green bg-light mx-4 px-3 py-1 border-1 rounded text-decoration-none" asp-area="" asp-controller="Home" asp-action="Menu"><b>MENU</b></a>
+                        </li>
+                    </ul>
+                </div>
+
+                @*NAV SEARCH BAR*@
+                <div class="d-flex mx-3 w-50 collapse d-none d-sm-inline-flex justify-content-center">
+                </div>
+
+                @*NAV ICONS*@
+                <div class="d-flex mx-3 w-25 collapse d-none d-sm-inline-flex ">
+                    <a class="navbar-collapse collapse" asp-area="" asp-controller="Home" asp-action="Menu"><img src="~/assets/cart_s.png" class="mx-3 w-50" /></a>
+                    <a class="navbar-collapse collapse" asp-area="" asp-controller="Home" asp-action="About"><img src="~/assets/user_s.png" class="mx-3 w-50" /></a>
+                </div>
+            </div>
+
+            @*NAV TOGGLER CONTENT*@
+            <div class="collapse align-self-auto d-sm-none d-md-none d-lg-none d-xl-none flex-column bg-green text-center w-100" id="dbTogglerContent" data-bs-theme="dark">
+                <ul class="navbar-nav">
+
+                    <a class="font_white link_white" asp-area=" " asp-controller="Home" asp-action="Index">
+                    <li class="nav-item py-2">
+                        <span class=" mx-4 px-3 py-1 border-1 rounded"><b>HOME</b></span>
+                    </li>
+                    </a>
+
+                    <a class="font_white link_white" asp-area=" " asp-controller="Home" asp-action="About">
+                    <li class="nav-item py-2">
+                        <span class="mx-4 px-3 py-1 border-1 rounded"><b>ABOUT</b></span>
+                    </li>
+                    </a>
+
+                    <a class="font_white link_white" asp-area="" asp-controller="Home" asp-action="Menu">
+                    <li class="nav-item py-2">
+                        <span class=" mx-4 px-3 py-1 border-1 rounded"><b>MENU</b></span>
+                    </li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+
+           
+        </header>
+
+    @*MAIN BODY*@
+    <div class= "mt-4">
+        <main role="main" class="">
+            @RenderBody()
+        </main>
+    </div>
+
+        @*FOOTER*@
+        <div class="d-flex align-items-center flex-column container-fluid bg-green py-3">
+                
+                @*FOOTER SOCMED ICONS*@
+                <div class="d-flex justify-content-evenly">
+                    <a href="https://www.facebook.com/dairyblend2022"><img class="w-25 my-3 mx-5" src="~/assets/fb_icon_v2_s.png" /></a>
+                    <a href="https://www.facebook.com/dairyblend2022"><img class="w-25 my-3 mx-5" src="~/assets/twitter_icon_v2_s.png" /></a>
+                    <a href="https://www.facebook.com/dairyblend2022"><img class="w-25 my-3 mx-5" src="~/assets/ig_icon_v2_s.png" /></a>
+                </div>
+                
+                @*FOOTER LINKS*@
+                <div class="d-flex justify-content-evenly my-3">
+                <a asp-controller="Home" asp-action="Terms" asp class="font_white mx-3">Terms of Use</a>
+                <a asp-controller="Home" asp-action="Privacy" class="font_white mx-3">Privacy Policy</a>
+                </div>
+
+                @*FOOTER COPYRIGHT*@
+            <p class="font_white my-3">&copy; 2023 Copyright: Llana's Cheesecake</p>
+            </div>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

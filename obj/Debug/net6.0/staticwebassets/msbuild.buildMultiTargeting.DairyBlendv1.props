@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\DairyBlendv1.props" />
+</Project>

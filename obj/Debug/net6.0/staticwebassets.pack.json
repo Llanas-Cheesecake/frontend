@@ -1,0 +1,669 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\DairyBlendv1.bundle.scp.css",
+      "PackagePath": "staticwebassets\\DairyBlendv1.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\about_carsl2_img_1.png",
+      "PackagePath": "staticwebassets\\assets\\about_carsl2_img_1.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\about_carsl_img_1.png",
+      "PackagePath": "staticwebassets\\assets\\about_carsl_img_1.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\about_panel.png",
+      "PackagePath": "staticwebassets\\assets\\about_panel.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\basket_m.png",
+      "PackagePath": "staticwebassets\\assets\\basket_m.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\basket_s.png",
+      "PackagePath": "staticwebassets\\assets\\basket_s.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\basket_xs.png",
+      "PackagePath": "staticwebassets\\assets\\basket_xs.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\cart_s.png",
+      "PackagePath": "staticwebassets\\assets\\cart_s.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\category_cheesecake.png",
+      "PackagePath": "staticwebassets\\assets\\category_cheesecake.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\category_coffee.png",
+      "PackagePath": "staticwebassets\\assets\\category_coffee.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\category_colddrinks.png",
+      "PackagePath": "staticwebassets\\assets\\category_colddrinks.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\category_egg.png",
+      "PackagePath": "staticwebassets\\assets\\category_egg.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\category_fries.png",
+      "PackagePath": "staticwebassets\\assets\\category_fries.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\category_slices.png",
+      "PackagePath": "staticwebassets\\assets\\category_slices.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\category_smoothies.png",
+      "PackagePath": "staticwebassets\\assets\\category_smoothies.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\cheesecake_mango.jpg",
+      "PackagePath": "staticwebassets\\assets\\cheesecake_mango.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\cheesecake_mangoblue.png",
+      "PackagePath": "staticwebassets\\assets\\cheesecake_mangoblue.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\cheesecake_oreoblue.png",
+      "PackagePath": "staticwebassets\\assets\\cheesecake_oreoblue.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\coffee_americano.png",
+      "PackagePath": "staticwebassets\\assets\\coffee_americano.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\coffee_cappucino.png",
+      "PackagePath": "staticwebassets\\assets\\coffee_cappucino.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\coffee_macchiato.png",
+      "PackagePath": "staticwebassets\\assets\\coffee_macchiato.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\coffee_mochaccino.png",
+      "PackagePath": "staticwebassets\\assets\\coffee_mochaccino.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\coffee_wmocha.png",
+      "PackagePath": "staticwebassets\\assets\\coffee_wmocha.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\cold_bnw.png",
+      "PackagePath": "staticwebassets\\assets\\cold_bnw.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\cold_frenchmacch.png",
+      "PackagePath": "staticwebassets\\assets\\cold_frenchmacch.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\cold_latte.png",
+      "PackagePath": "staticwebassets\\assets\\cold_latte.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\cold_spanish.png",
+      "PackagePath": "staticwebassets\\assets\\cold_spanish.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\contact_panel.png",
+      "PackagePath": "staticwebassets\\assets\\contact_panel.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\db_logo_hd.png",
+      "PackagePath": "staticwebassets\\assets\\db_logo_hd.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\db_logo_m.png",
+      "PackagePath": "staticwebassets\\assets\\db_logo_m.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\db_logo_s.png",
+      "PackagePath": "staticwebassets\\assets\\db_logo_s.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\db_logo_xhd.png",
+      "PackagePath": "staticwebassets\\assets\\db_logo_xhd.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\db_logo_xs.png",
+      "PackagePath": "staticwebassets\\assets\\db_logo_xs.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\delivery_panel.png",
+      "PackagePath": "staticwebassets\\assets\\delivery_panel.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fb_icon_hd.png",
+      "PackagePath": "staticwebassets\\assets\\fb_icon_hd.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fb_icon_m.png",
+      "PackagePath": "staticwebassets\\assets\\fb_icon_m.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fb_icon_s.png",
+      "PackagePath": "staticwebassets\\assets\\fb_icon_s.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fb_icon_v2_hd.png",
+      "PackagePath": "staticwebassets\\assets\\fb_icon_v2_hd.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fb_icon_v2_m.png",
+      "PackagePath": "staticwebassets\\assets\\fb_icon_v2_m.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fb_icon_v2_s.png",
+      "PackagePath": "staticwebassets\\assets\\fb_icon_v2_s.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fries_coated.png",
+      "PackagePath": "staticwebassets\\assets\\fries_coated.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fries_curly.png",
+      "PackagePath": "staticwebassets\\assets\\fries_curly.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fries_mojos.png",
+      "PackagePath": "staticwebassets\\assets\\fries_mojos.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fries_onion.png",
+      "PackagePath": "staticwebassets\\assets\\fries_onion.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\fries_wedges.png",
+      "PackagePath": "staticwebassets\\assets\\fries_wedges.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\home_carsl_img_1.png",
+      "PackagePath": "staticwebassets\\assets\\home_carsl_img_1.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\ig_icon_hd.png",
+      "PackagePath": "staticwebassets\\assets\\ig_icon_hd.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\ig_icon_m.png",
+      "PackagePath": "staticwebassets\\assets\\ig_icon_m.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\ig_icon_s.png",
+      "PackagePath": "staticwebassets\\assets\\ig_icon_s.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\ig_icon_v2_hd.png",
+      "PackagePath": "staticwebassets\\assets\\ig_icon_v2_hd.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\ig_icon_v2_m.png",
+      "PackagePath": "staticwebassets\\assets\\ig_icon_v2_m.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\ig_icon_v2_s.png",
+      "PackagePath": "staticwebassets\\assets\\ig_icon_v2_s.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\llana_logo_m.png",
+      "PackagePath": "staticwebassets\\assets\\llana_logo_m.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\menu_panel.png",
+      "PackagePath": "staticwebassets\\assets\\menu_panel.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\menu_section_best.png",
+      "PackagePath": "staticwebassets\\assets\\menu_section_best.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\menu_section_coffee.png",
+      "PackagePath": "staticwebassets\\assets\\menu_section_coffee.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\menu_section_cold.png",
+      "PackagePath": "staticwebassets\\assets\\menu_section_cold.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\menu_section_egg.png",
+      "PackagePath": "staticwebassets\\assets\\menu_section_egg.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\menu_section_fries.png",
+      "PackagePath": "staticwebassets\\assets\\menu_section_fries.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\menu_section_must.png",
+      "PackagePath": "staticwebassets\\assets\\menu_section_must.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\menu_section_sandwiches.png",
+      "PackagePath": "staticwebassets\\assets\\menu_section_sandwiches.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\menu_section_slices.png",
+      "PackagePath": "staticwebassets\\assets\\menu_section_slices.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\menu_section_smoothies.png",
+      "PackagePath": "staticwebassets\\assets\\menu_section_smoothies.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\sandwich_ft.png",
+      "PackagePath": "staticwebassets\\assets\\sandwich_ft.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\sandwich_jb.png",
+      "PackagePath": "staticwebassets\\assets\\sandwich_jb.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\sandwich_pt.png",
+      "PackagePath": "staticwebassets\\assets\\sandwich_pt.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\sandwich_sg.png",
+      "PackagePath": "staticwebassets\\assets\\sandwich_sg.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\slice_blueberry.png",
+      "PackagePath": "staticwebassets\\assets\\slice_blueberry.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\slice_darkchoco.jpg",
+      "PackagePath": "staticwebassets\\assets\\slice_darkchoco.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\slice_mango.png",
+      "PackagePath": "staticwebassets\\assets\\slice_mango.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\slice_newyork.png",
+      "PackagePath": "staticwebassets\\assets\\slice_newyork.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\slice_strawberry.png",
+      "PackagePath": "staticwebassets\\assets\\slice_strawberry.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\slice_ube.png",
+      "PackagePath": "staticwebassets\\assets\\slice_ube.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\smoothies_berry.png",
+      "PackagePath": "staticwebassets\\assets\\smoothies_berry.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\smoothies_blueberry.png",
+      "PackagePath": "staticwebassets\\assets\\smoothies_blueberry.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\smoothies_lychee.png",
+      "PackagePath": "staticwebassets\\assets\\smoothies_lychee.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\smoothies_mango.png",
+      "PackagePath": "staticwebassets\\assets\\smoothies_mango.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\twitter_icon_hd.png",
+      "PackagePath": "staticwebassets\\assets\\twitter_icon_hd.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\twitter_icon_m.png",
+      "PackagePath": "staticwebassets\\assets\\twitter_icon_m.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\twitter_icon_s.png",
+      "PackagePath": "staticwebassets\\assets\\twitter_icon_s.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\twitter_icon_v2_hd.png",
+      "PackagePath": "staticwebassets\\assets\\twitter_icon_v2_hd.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\twitter_icon_v2_m.png",
+      "PackagePath": "staticwebassets\\assets\\twitter_icon_v2_m.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\twitter_icon_v2_s.png",
+      "PackagePath": "staticwebassets\\assets\\twitter_icon_v2_s.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\user_m.png",
+      "PackagePath": "staticwebassets\\assets\\user_m.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\user_s.png",
+      "PackagePath": "staticwebassets\\assets\\user_s.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\user_xs.png",
+      "PackagePath": "staticwebassets\\assets\\user_xs.png"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\css\\bootstrapTheme.css",
+      "PackagePath": "staticwebassets\\css\\bootstrapTheme.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\css\\custom.css",
+      "PackagePath": "staticwebassets\\css\\custom.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\css\\owl.carousel.css",
+      "PackagePath": "staticwebassets\\css\\owl.carousel.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\css\\owl.theme.css",
+      "PackagePath": "staticwebassets\\css\\owl.theme.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\css\\owl.transitions.css",
+      "PackagePath": "staticwebassets\\css\\owl.transitions.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\css\\prettify.css",
+      "PackagePath": "staticwebassets\\css\\prettify.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\css\\responsive.css",
+      "PackagePath": "staticwebassets\\css\\responsive.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery\\dist\\owl.carousel.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\owl.carousel.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\jquery\\dist\\owl.carousel.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\owl.carousel.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\owl-carousel\\assets\\js\\application.js",
+      "PackagePath": "staticwebassets\\lib\\owl-carousel\\assets\\js\\application.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\owl-carousel\\assets\\js\\bootstrap-collapse.js",
+      "PackagePath": "staticwebassets\\lib\\owl-carousel\\assets\\js\\bootstrap-collapse.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\owl-carousel\\assets\\js\\bootstrap-tab.js",
+      "PackagePath": "staticwebassets\\lib\\owl-carousel\\assets\\js\\bootstrap-tab.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\owl-carousel\\assets\\js\\bootstrap-transition.js",
+      "PackagePath": "staticwebassets\\lib\\owl-carousel\\assets\\js\\bootstrap-transition.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\owl-carousel\\assets\\js\\jquery-1.9.1.min.js",
+      "PackagePath": "staticwebassets\\lib\\owl-carousel\\assets\\js\\jquery-1.9.1.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\owl-carousel\\assets\\js\\prettify.js",
+      "PackagePath": "staticwebassets\\lib\\owl-carousel\\assets\\js\\prettify.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\owl-carousel\\assets\\js\\run_prettify.js",
+      "PackagePath": "staticwebassets\\lib\\owl-carousel\\assets\\js\\run_prettify.js"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\owl-carousel\\main\\AjaxLoader.gif",
+      "PackagePath": "staticwebassets\\lib\\owl-carousel\\main\\AjaxLoader.gif"
+    },
+    {
+      "Id": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\lib\\owl-carousel\\main\\grabbing.png",
+      "PackagePath": "staticwebassets\\lib\\owl-carousel\\main\\grabbing.png"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.DairyBlendv1.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.DairyBlendv1.props",
+      "PackagePath": "build\\DairyBlendv1.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.DairyBlendv1.props",
+      "PackagePath": "buildMultiTargeting\\DairyBlendv1.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.DairyBlendv1.props",
+      "PackagePath": "buildTransitive\\DairyBlendv1.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

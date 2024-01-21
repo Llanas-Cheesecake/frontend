@@ -1,0 +1,524 @@
+﻿@{
+    ViewData["Title"] = "Menu";
+}
+
+<div id="food_category" class="owl-carousel owl-theme bg-yellow">
+
+    <div>
+        <a href="#section_best">
+            <img src="~/assets/category_cheesecake.png" class="w-100 panel_anim" alt="...">
+        </a>
+    </div>
+    <div>
+        <a href="#section_coffee">
+            <img src="~/assets/category_colddrinks.png" class="panel_anim w-100" alt="...">
+        </a>
+    </div>
+    <div>
+        <a href="#section_slices">
+            <img src="~/assets/category_slices.png" class="w-100 panel_anim" alt="...">
+        </a>
+    </div>
+    <div>
+        <a href="#section_best">
+            <img src="~/assets/category_cheesecake.png" class="w-100 panel_anim" alt="...">
+        </a>
+    </div>
+    <div>
+        <a href="#section_coffee">
+            <img src="~/assets/category_colddrinks.png" class="panel_anim w-100" alt="...">
+        </a>
+    </div>
+    <div>
+        <a href="#section_slices">
+            <img src="~/assets/category_slices.png" class="w-100 panel_anim" alt="...">
+        </a>
+    </div>
+
+</div>
+
+    <script>
+    $(document).ready(function () {
+
+        $("#food_category").owlCarousel({
+            items: 3, //3 items above 1000px browser width
+            itemsDesktop: [992, 3], //3 items between 1000px and 901px
+            itemsDesktopSmall: [768, 3], //3 items betweem 900px and 601px
+            itemsTablet: [575, 2], //2 items between 600 and 0;
+            itemsMobile: false, // itemsMobile disabled - inherit from itemsTablet option
+            
+        });
+
+    });
+        </script>
+
+<div class = "container-fluid bg-yellow w-100">
+    <br />
+<br />
+<br />
+    @* Best Sellers Section *@
+
+    <div id="section_best" class=" container-fluid w-75">
+        <img class="mw-100" src="~/assets/menu_section_best.png" />
+    </div>
+
+    <br />
+    <br />
+
+    <div class="container-fluid w-75">
+
+        <div id="best_sellers" class="owl-carousel owl-theme">
+
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/cheesecake_mango.jpg" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>MANGO CHEESECAKE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/cheesecake_mangoblue.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>OREO BLUEBERRY CHEESECAKE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/cheesecake_oreoblue.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>OREO BLUEBERRY CHEESECAKE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/slice_ube.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>UBE SLICE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/slice_darkchoco.jpg" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>DARK CHOCO SLICE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#best_sellers").owlCarousel({
+                items: 4, //3 items above 1000px browser width
+                itemsDesktop: [992, 4], //3 items between 1000px and 901px
+                itemsDesktopSmall: [768, 4], //3 items betweem 900px and 601px
+                itemsTablet: [575, 2], //2 items between 600 and 0;
+                itemsMobile: false // itemsMobile disabled - inherit from itemsTablet option
+            });
+
+        });
+    </script>
+
+    <br />
+    <br />
+
+    @* Cheesecake Slices Section *@
+
+    <div class=" container-fluid w-75">
+        <img class="mw-100" src="~/assets/menu_section_slices.png" />
+    </div>
+
+    <br />
+    <br />
+
+    <div class="container-fluid w-75">
+
+        <div id="section_slices" class="owl-carousel owl-theme">
+
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/slice_blueberry.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>BLUEBERRY SLICE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/slice_strawberry.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>STRAWBERRY SLICE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/slice_mango.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>MANGO SLICES</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/slice_newyork.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>NEW YORK SLICE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/slice_darkchoco.jpg" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>DARK CHOCO SLICE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#section_slices").owlCarousel({
+                items: 4, //3 items above 1000px browser width
+                itemsDesktop: [992, 4], //3 items between 1000px and 901px
+                itemsDesktopSmall: [768, 4], //3 items betweem 900px and 601px
+                itemsTablet: [575, 2], //2 items between 600 and 0;
+                itemsMobile: false // itemsMobile disabled - inherit from itemsTablet option
+            });
+
+        });
+    </script>
+
+    <br />
+    <br />
+
+    @* Cold Drinks Section *@
+
+    <div id="section_coffee" class=" container-fluid w-75">
+        <img class="mw-100" src="~/assets/menu_section_cold.png" />
+    </div>
+
+    <br />
+    <br />
+
+    <div class="container-fluid w-75">
+
+        <div id="iced_coffee" class="owl-carousel owl-theme">
+
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/cold_latte.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>ICED LATTE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/cold_frenchmacch.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>FRENCH MACCHIATO</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/cold_bnw.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>BLACK AND WHITE MACCHIATO</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/cold_spanish.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>SPANISH LATTE</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="card w-100 bg-transparent border-0">
+                    <img src="~/assets/coffee_macchiato.png" class="w-100" alt="...">
+                    <div class="card-body">
+                        <p class="card-text font_white text-center"><b>CARAMEL MACCHIATO</b></p>
+                        <p class="card-text font_white text-center">₱150</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#iced_coffee").owlCarousel({
+                items: 4, //3 items above 1000px browser width
+                itemsDesktop: [992, 4], //3 items between 1000px and 901px
+                itemsDesktopSmall: [768, 4], //3 items betweem 900px and 601px
+                itemsTablet: [575, 2], //2 items between 600 and 0;
+                itemsMobile: false // itemsMobile disabled - inherit from itemsTablet option
+            });
+
+        });
+    </script>
+
+    <br />
+    <br />
+    @*
+    Fries Section
+
+    <div id="section_fries" class=" container-fluid w-75">
+    <img class="mw-100" src="~/assets/menu_section_fries.png" />
+    </div>
+
+    <br />
+    <br />
+
+    <div class="container-fluid w-75">
+
+    <div id="fries" class="owl-carousel owl-theme">
+
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/fries_coated.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>COATED FRIES</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/fries_curly.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>CURLY FRIES</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/fries_mojos.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>MOJOS</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/fries_wedges.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>WEDGES</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/fries_onion.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>ONION RINGS</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+
+    <script>
+    $(document).ready(function () {
+
+    $("#fries").owlCarousel({
+    items: 4, //3 items above 1000px browser width
+    itemsDesktop: [992, 4], //3 items between 1000px and 901px
+    itemsDesktopSmall: [768, 4], //3 items betweem 900px and 601px
+    itemsTablet: [575, 2], //2 items between 600 and 0;
+    itemsMobile: false // itemsMobile disabled - inherit from itemsTablet option
+    });
+
+    });
+    </script>
+
+    <br />
+    <br />
+
+    Smoothies Section
+
+    <div id="section_smoothies" class=" container-fluid w-75">
+    <img class="mw-100" src="~/assets/menu_section_smoothies.png" />
+    </div>
+
+    <br />
+    <br />
+
+    <div class="container-fluid w-75">
+
+    <div id="smoothies" class="owl-carousel owl-theme">
+
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/smoothies_berry.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>STRAWBERRY</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/smoothies_blueberry.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>BLUEBERRY</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/smoothies_lychee.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>LYCHEE</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/smoothies_mango.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>MANGO</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/smoothies_berry.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>MIXED BERRIES</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+
+    <script>
+    $(document).ready(function () {
+
+    $("#smoothies").owlCarousel({
+    items: 4, //3 items above 1000px browser width
+    itemsDesktop: [992, 4], //3 items between 1000px and 901px
+    itemsDesktopSmall: [768, 4], //3 items betweem 900px and 601px
+    itemsTablet: [575, 2], //2 items between 600 and 0;
+    itemsMobile: false // itemsMobile disabled - inherit from itemsTablet option
+    });
+
+    });
+    </script>
+
+    <br />
+    <br />
+
+    Sandwiches Section
+
+    <div id="section_sandwiches" class=" container-fluid w-75">
+    <img class="mw-100" src="~/assets/menu_section_sandwiches.png" />
+    </div>
+
+    <br />
+    <br />
+
+    <div class="container-fluid w-75">
+
+    <div id="sandwiches" class="owl-carousel owl-theme">
+
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/sandwich_jb.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>JAW BREAKER</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/sandwich_pt.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>PORK TONKATSU</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/sandwich_sg.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>SPAM GIM</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+    <div class="mx-2">
+    <div class="card w-100 bg-transparent border-0">
+    <img src="~/assets/sandwich_ft.png" class="w-100" alt="...">
+    <div class="card-body">
+    <p class="card-text font_brown text-center"><b>FRENCH TOAST</b></p>
+    <p class="card-text font_brown text-center">₱150</p>
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+
+    <script>
+    $(document).ready(function () {
+
+    $("#sandwiches").owlCarousel({
+    items: 4, //3 items above 1000px browser width
+    itemsDesktop: [992, 4], //3 items between 1000px and 901px
+    itemsDesktopSmall: [768, 4], //3 items betweem 900px and 601px
+    itemsTablet: [575, 2], //2 items between 600 and 0;
+    itemsMobile: false // itemsMobile disabled - inherit from itemsTablet option
+    });
+
+    });
+    </script>
+
+    *@
+    <br />
+    <br />
+</div>
