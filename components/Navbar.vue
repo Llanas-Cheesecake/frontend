@@ -1,29 +1,31 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+    <div class="nav-links">
+
+      <ul class="navbar-nav nav-centered">
+        <li class="nav-item">
+          <nuxt-link to="/" class="nav-link">Home</nuxt-link>
+        </li>
+        <li class="nav-item">
+          <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
+        </li>
+        <li class="nav-item">
+          <nuxt-link to="/about" class="nav-link">About</nuxt-link>
+        </li>
+      </ul>
+
+    </div>
+
     <div class="container">
 
       <a class="navbar-brand" href="#">
         <img src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />
       </a>
 
-      <div class="nav-content">
-
-        <ul class="navbar-nav nav-centered">
-          <li class="nav-item">
-            <nuxt-link to="/" class="nav-link">Home</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/about" class="nav-link">About</nuxt-link>
-          </li>
-        </ul>
-
-      </div>
-
       <div>
-        <div class="ms-auto w-auto">
+
+        <div class="d-flex align-items-center ms-auto w-auto">
           <div class="nav-item dropdown d-inline-block px-3">
             <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="/icons/shopping-cart.svg" alt="Shopping Cart" />
@@ -36,18 +38,24 @@
             </ul>
           </div>
 
-          <div class="nav-item dropdown d-inline-block px-3">
-            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="/icons/user.svg" alt="Shopping Cart" />
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+          <div class="d-flex gap-2" style="z-index: 100;">
+            <nuxt-link to="/login" class="btn btn-primary ms-3">Login</nuxt-link>
+            <nuxt-link to="/login" class="btn btn-secondary">Register</nuxt-link>
           </div>
+
+<!--          <div class="nav-item dropdown d-inline-block px-3">-->
+<!--            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--              <img src="/icons/user.svg" alt="User" />-->
+<!--            </a>-->
+<!--            <ul class="dropdown-menu">-->
+<!--              <li><a class="dropdown-item" href="#">Action</a></li>-->
+<!--              <li><a class="dropdown-item" href="#">Another action</a></li>-->
+<!--              <li><hr class="dropdown-divider"></li>-->
+<!--              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+<!--            </ul>-->
+<!--          </div>-->
         </div>
+
       </div>
 
     </div>
@@ -67,9 +75,11 @@
       width: 50px;
     }
 
-    .nav-content {
-      position: relative;
+    .nav-links {
+      position: absolute;
       min-height: 40px;
+      width: 100%;
+      z-index: 99;
 
       .nav-item {
         padding: 0 1.5rem;
