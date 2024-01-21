@@ -4,8 +4,8 @@
   useHead({
     titleTemplate: () => {
       return route.meta.title
-          ? `${route.meta.title} - Llana's Cheesecase`
-          : 'Llana\'s Cheesecase'
+          ? `${route.meta.title} - Llana's Cheesecake`
+          : 'Llana\'s Cheesecake'
     }
   })
 </script>
