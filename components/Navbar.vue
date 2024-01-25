@@ -23,7 +23,7 @@
         <img src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />
       </a>
 
-      <div>
+      <div style="z-index: 100;">
 
         <div class="d-flex align-items-center ms-auto w-auto">
           <div class="nav-item dropdown d-inline-block px-3">
@@ -38,22 +38,22 @@
             </ul>
           </div>
 
-          <div class="d-flex gap-2" style="z-index: 100;">
+          <div v-if="$auth.isLoggedIn()" class="nav-item dropdown d-inline-block px-3">
+            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="/icons/user.svg" alt="User" />
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+
+          <div v-else class="d-flex gap-2" style="z-index: 100;">
             <nuxt-link to="/login" class="btn btn-primary ms-3">Login</nuxt-link>
             <nuxt-link to="/login" class="btn btn-secondary">Register</nuxt-link>
           </div>
-
-<!--          <div class="nav-item dropdown d-inline-block px-3">-->
-<!--            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--              <img src="/icons/user.svg" alt="User" />-->
-<!--            </a>-->
-<!--            <ul class="dropdown-menu">-->
-<!--              <li><a class="dropdown-item" href="#">Action</a></li>-->
-<!--              <li><a class="dropdown-item" href="#">Another action</a></li>-->
-<!--              <li><hr class="dropdown-divider"></li>-->
-<!--              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
-<!--            </ul>-->
-<!--          </div>-->
         </div>
 
       </div>
@@ -62,8 +62,8 @@
   </nav>
 </template>
 
-<script>
-
+<script setup lang="ts">
+  const { $auth } = useNuxtApp();
 </script>
 
 <style scoped lang="scss">

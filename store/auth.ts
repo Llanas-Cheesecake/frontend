@@ -1,3 +1,5 @@
+import type {ApiResponse} from "../types/ApiResponse";
+
 export const useAuthStore = defineStore('auth', () => {
     // States
     const authenticated = ref(false)
@@ -14,15 +16,20 @@ export const useAuthStore = defineStore('auth', () => {
 
         await $fetch(baseUrl + '/sanctum/csrf-cookie', { credentials: 'include' })
 
-        const res = await $fetch(baseUrl + '/login', {
+        const xsrfToken = useCookie('XSRF-TOKEN')
+
+        return await $fetch<ApiResponse>(baseUrl + '/login', {
+            // @ts-ignore
+            headers: {
+                "X-XSRF-TOKEN": xsrfToken.value
+            },
             method: 'POST',
             body: credentials,
             credentials: 'include'
+        }).then((res) => {
+            authenticated.value = true
+            user.value = res.data
         })
-
-        await getUserDetails()
-
-        return res
     }
 
     const getUserDetails = async () => {
@@ -45,4 +52,4 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     return { authenticated, user, _authenticated, _user, loginAsCustomer, getUserDetails }
-})
+}, { persist: true })

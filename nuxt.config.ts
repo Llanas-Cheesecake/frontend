@@ -4,7 +4,8 @@ export default defineNuxtConfig({
   css: ['~/assets/styles/main.scss'],
   modules: [
       '@nuxtjs/google-fonts',
-      '@pinia/nuxt'
+      '@pinia/nuxt',
+      '@pinia-plugin-persistedstate/nuxt'
   ],
 
   // Site Metadata
@@ -12,6 +13,13 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
+    }
+  },
+
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: process.env.API_BASEURL,
+      apiVersion: process.env.API_VERSION
     }
   },
 

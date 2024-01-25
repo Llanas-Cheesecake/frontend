@@ -1,4 +1,20 @@
 <script setup lang="ts">
+  import { useAuthStore } from "../store/auth";
+
+  const auth = useAuthStore()
+
+  const form = reactive({
+    email: "",
+    password: ""
+  })
+
+  const handleForm = () => {
+    auth.loginAsCustomer({ email: form.email, password: form.password })
+      .then((response) => {
+        location.href = '/'
+      })
+  }
+
 
 </script>
 
@@ -12,14 +28,14 @@
         Sign In
       </h3>
 
-      <form>
+      <form @submit.prevent="handleForm">
         <div class="mb-4">
           <label class="form-label">Email address</label>
-          <input type="email" class="form-control">
+          <input v-model="form.email" type="email" class="form-control">
         </div>
         <div class="mb-5">
           <label class="form-label">Password</label>
-          <input type="password" class="form-control">
+          <input v-model="form.password" type="password" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">
           Sign In
