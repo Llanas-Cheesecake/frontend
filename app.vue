@@ -55,4 +55,17 @@
     }
     color: color-mix(in srgb,var(--btn-bg-secondary), #000 65%);
   }
+
+  .dropdown-menu {
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    .dropdown-item {
+      border-radius: 8px;
+      padding: 0.3rem 0.5rem;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
 </style>

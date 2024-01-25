@@ -10,7 +10,7 @@
 
   const handleForm = () => {
     auth.loginAsCustomer({ email: form.email, password: form.password })
-      .then((response) => {
+      .then(() => {
         location.href = '/'
       })
   }

@@ -1,4 +1,4 @@
-import type {ApiResponse} from "../types/ApiResponse";
+import type { ApiResponse } from "../types/ApiResponse";
 
 export const useAuthStore = defineStore('auth', () => {
     // States
@@ -32,6 +32,17 @@ export const useAuthStore = defineStore('auth', () => {
         })
     }
 
+    const logout = async () => {
+        return await useFetchAPI('/logout', { method: 'POST' })
+            .then(() => {
+                authenticated.value = false
+                user.value = {}
+            })
+            .catch((err) => {
+                throw new Error("There was a problem while logging out:" + err)
+            })
+    }
+
     const getUserDetails = async () => {
         const config = useRuntimeConfig()
         const endpoint = config.public.apiEndpoint
@@ -51,5 +62,5 @@ export const useAuthStore = defineStore('auth', () => {
             })
     }
 
-    return { authenticated, user, _authenticated, _user, loginAsCustomer, getUserDetails }
+    return { authenticated, user, _authenticated, _user, loginAsCustomer, getUserDetails, logout }
 }, { persist: true })
