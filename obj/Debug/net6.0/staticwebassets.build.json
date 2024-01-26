@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Eks+tDptHQ6nfXWIyuY+/uqrXtbC7VgvgpgJiFwBT2E=",
+  "Hash": "MlfDm5gNFrkhgt4+0VdUpa3TXJpa34MUnW7YMJRDr1U=",
   "Source": "DairyBlendv1",
   "BasePath": "_content/DairyBlendv1",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\about_panel.png"
+    },
+    {
+      "Identity": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\assets.zip",
+      "SourceId": "DairyBlendv1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\",
+      "BasePath": "_content/DairyBlendv1",
+      "RelativePath": "assets/assets.zip",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\assets.zip"
     },
     {
       "Identity": "C:\\Users\\Ms. Mildred Santos\\source\\repos\\DairyBlendv1\\wwwroot\\assets\\basket_m.png",
