@@ -4,6 +4,10 @@
   const { $auth } = useNuxtApp();
   const auth = useAuthStore();
 
+  const currentUserName = computed(() => {
+    return `${auth.user?.first_name} ${auth.user?.last_name}`
+  })
+
   const logoutUser = () => {
     auth.logout()
       .then(() => {
@@ -58,6 +62,12 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end mt-2">
               <li>
+                <h6 class="dropdown-header">
+                  <span>{{ currentUserName }}</span>
+                </h6>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <img src="/icons/shopping-bag.svg" alt="Order History" />
                   <span class="ms-2 fs-6">Order History</span>
@@ -83,7 +93,7 @@
             <nuxt-link to="/login" class="btn btn-primary ms-3">
               Login
             </nuxt-link>
-            <nuxt-link to="/login" class="btn btn-secondary">
+            <nuxt-link to="/register" class="btn btn-secondary">
               Register
             </nuxt-link>
           </div>
