@@ -5,7 +5,7 @@
     titleTemplate: () => {
       return route.meta.title
           ? `${route.meta.title} - Llana's Cheesecake`
-          : 'Llana\'s Cheesecake'
+          : 'Llana\'s Cheesecake balls'
     }
   })
 </script>
