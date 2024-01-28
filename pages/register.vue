@@ -4,6 +4,8 @@
 
   const auth = useAuthStore()
 
+  const isLoading = ref(false)
+
   const form = reactive({
     first_name: "",
     last_name: "",
@@ -13,7 +15,51 @@
     c_password: ""
   })
 
+  // Generic error
+  const error = ref("");
+  // Validation error
+  const validationErrors = reactive({
+    first_name: [],
+    last_name: [],
+    email: [],
+    password: []
+  })
+
+
+  // Ugly error handler omg
+  const resetErrors = () => {
+    // Reset generic error message
+    error.value = ""
+
+    // Reset validation errors
+    validationErrors.first_name = []
+    validationErrors.last_name = []
+    validationErrors.email = []
+    validationErrors.password = []
+  }
+
+  const setValidationErrors = (errors: any) => {
+    if (errors.first_name) {
+      validationErrors.first_name = errors.first_name
+    }
+    if (errors.last_name) {
+      validationErrors.last_name = errors.last_name
+    }
+    if (errors.email) {
+      validationErrors.email = errors.email
+    }
+    if (errors.password) {
+      validationErrors.password = errors.password
+    }
+  }
+
   const handleForm = () => {
+    // Enable loading indicator
+    isLoading.value = true
+
+    // Reset errors
+    resetErrors()
+
     auth.register(form)
         .then(() => {
           Swal.fire({
@@ -23,11 +69,17 @@
           })
         })
         .catch((err) => {
-          Swal.fire({
-            title: "Error occurred",
-            text: "Something went wrong during registration",
-            icon: "error"
-          })
+          if (err.response.status === 422) {
+            // Validation error handler
+            setValidationErrors(err.data.errors)
+          } else {
+            // Generic error handler
+            error.value = err.data.message
+          }
+        })
+        .finally(() => {
+          // Disable loading indicator
+          isLoading.value = false
         })
   }
 </script>
@@ -38,51 +90,94 @@
 
       <img class="logo d-block mx-auto mb-3" src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo">
 
-      <h3 class="card-title text-center fw-bold mb-5">
+      <h3 class="card-title text-center fw-bold mb-4">
         Sign Up
       </h3>
 
-      <form @submit.prevent="handleForm">
+      <div v-if="error.length > 0" class="alert alert-danger my-4" role="alert">
+        {{ error }}
+      </div>
+
+      <form class="mt-4" @submit.prevent="handleForm">
 
         <div class="row gap-3 mb-4">
-          <div class="col-auto">
+          <div class="col">
             <label class="form-label">First Name</label>
-            <input v-model="form.first_name" type="text" class="form-control">
-          </div>
-          <div class="col-auto">
-            <label class="form-label">Last Name</label>
-            <input v-model="form.last_name" type="text" class="form-control">
-          </div>
-        </div>
+            <input v-model="form.first_name" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.first_name.length > 0 }">
 
-        <div class="row gap-3 mb-4">
-          <div class="col-auto">
-            <label class="form-label">Email address</label>
-            <input v-model="form.email" type="email" class="form-control">
+            <div v-if="validationErrors.first_name" class="invalid-feedback">
+              <div v-for="firstName in validationErrors.first_name">
+                {{ firstName }}
+              </div>
+            </div>
           </div>
-          <div class="col-auto">
-            <label class="form-label">Phone number</label>
-            <input v-model="form.phone" type="text" class="form-control">
-            <div class="form-text">
-              Leave empty for now.
+          <div class="col">
+            <label class="form-label">Last Name</label>
+            <input v-model="form.last_name" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.last_name.length > 0 }">
+
+            <div v-if="validationErrors.last_name" class="invalid-feedback">
+              <div v-for="lastName in validationErrors.last_name">
+                {{ lastName }}
+              </div>
             </div>
           </div>
         </div>
 
+<!--        <div class="col mb-4">-->
+<!--          <label class="form-label">Email address</label>-->
+<!--          <input v-model="form.email" type="email" class="form-control" :class="{ 'is-invalid': validationErrors.email.length > 0 }">-->
+
+<!--          <div v-if="validationErrors.email" class="invalid-feedback">-->
+<!--            <div v-for="email in validationErrors.email">-->
+<!--              {{ email }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
         <div class="row gap-3 mb-4">
-          <div class="col-auto">
-            <label class="form-label">Password</label>
-            <input v-model="form.password" type="password" class="form-control">
+          <div class="col">
+            <label class="form-label">Email address</label>
+            <input v-model="form.email" type="email" class="form-control" :class="{ 'is-invalid': validationErrors.email.length > 0 }">
+
+            <div v-if="validationErrors.email" class="invalid-feedback">
+              <div v-for="email in validationErrors.email">
+                {{ email }}
+              </div>
+            </div>
           </div>
-          <div class="col-auto">
+<!--          <div class="col">-->
+<!--            <label class="form-label">Phone number</label>-->
+<!--            <input v-model="form.phone" type="text" class="form-control">-->
+<!--            <div class="form-text">-->
+<!--              Leave empty for now.-->
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+
+        <div class="row gap-3 mb-4">
+          <div class="col">
+            <label class="form-label">Password</label>
+            <input v-model="form.password" type="password" class="form-control" :class="{ 'is-invalid': validationErrors.password.length > 0 }">
+
+            <div v-if="validationErrors.password" class="invalid-feedback">
+              <div v-for="password in validationErrors.password">
+                {{ password }}
+              </div>
+            </div>
+          </div>
+          <div class="col">
             <label class="form-label">Confirm Password</label>
-            <input v-model="form.c_password" type="password" class="form-control">
+            <input v-model="form.c_password" type="password" class="form-control" :class="{ 'is-invalid': validationErrors.password.length > 0 }">
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">
-          Sign In
-        </button>
+        <div class="d-flex align-items-center gap-2">
+          <button type="submit" class="btn btn-primary" :disabled="isLoading">
+            Sign In
+          </button>
+
+          <LoadingIcon v-if="isLoading" />
+        </div>
       </form>
 
     </div>
