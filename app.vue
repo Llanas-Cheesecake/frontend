@@ -68,4 +68,8 @@
       }
     }
   }
+
+  .invalid-feedback {
+    color: #f70018;
+  }
 </style>
