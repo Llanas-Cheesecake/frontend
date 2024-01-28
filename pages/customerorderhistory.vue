@@ -74,7 +74,7 @@
 .content {
   background-color: white;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
 .content h5 {
