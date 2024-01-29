@@ -129,9 +129,11 @@
   position: relative;
   top: 20px;
   border: none;
-  height: 5px;
+  height: 3px;
   margin-bottom: 50px;
   opacity: 100%;
+  margin-left: -60px;
+  margin-right: -60px;
 }
 
 .content {
