@@ -131,6 +131,7 @@
   border: none;
   height: 5px;
   margin-bottom: 50px;
+  opacity: 100%;
 }
 
 .content {
