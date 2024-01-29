@@ -19,6 +19,8 @@
         </div>
         <div class="col-lg-2 col-md-6">
           <h5>Name</h5>
+          <p>Chicken Pesto Sandwich</p>
+          <p>Iced Spanish Latte</p>
         </div>
         <div class="col-lg-2 col-md-6">
           <h5>Quantity</h5>
@@ -69,12 +71,12 @@
   background-color: #ffd47e;
   width: fit-content;
   height: fit-content;
+  margin-right: -20px;
 }
 
 .content {
   background-color: white;
   padding: 20px;
-  border-radius: 15px;
 }
 
 .content h5 {
