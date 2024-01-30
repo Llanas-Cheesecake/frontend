@@ -86,13 +86,10 @@
           </div>
         </div>
 
-        <div class="d-flex align-items-center gap-2">
-          <button type="submit" class="btn btn-primary" :disabled="isLoading">
-            Sign In
-          </button>
-
-          <LoadingIcon v-if="isLoading" />
-        </div>
+        <button type="submit" class="btn btn-primary d-block w-100" :disabled="isLoading">
+          <span>Sign In</span>
+          <LoadingIcon v-if="isLoading" class="ms-2" />
+        </button>
       </form>
 
     </div>

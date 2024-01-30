@@ -154,7 +154,7 @@
 <!--          </div>-->
         </div>
 
-        <div class="row gap-3 mb-4">
+        <div class="row gap-3 mb-5">
           <div class="col">
             <label class="form-label">Password</label>
             <input v-model="form.password" type="password" class="form-control" :class="{ 'is-invalid': validationErrors.password.length > 0 }">
@@ -171,13 +171,10 @@
           </div>
         </div>
 
-        <div class="d-flex align-items-center gap-2">
-          <button type="submit" class="btn btn-primary" :disabled="isLoading">
-            Sign In
-          </button>
-
-          <LoadingIcon v-if="isLoading" />
-        </div>
+        <button type="submit" class="btn btn-primary d-block w-100" :disabled="isLoading">
+          <span>Sign Up</span>
+          <LoadingIcon v-if="isLoading" class="ms-2" />
+        </button>
       </form>
 
     </div>

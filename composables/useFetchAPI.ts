@@ -1,24 +1,22 @@
-import type {FetchOptions} from "ofetch";
+import type { UseFetchOptions } from "nuxt/app";
+import defu from "defu";
 
-export const useFetchAPI = async (url: string, options?: FetchOptions) => {
+export const useFetchAPI = async <T>(url: string, options: UseFetchOptions<T> = {}) => {
     const xsrfToken = useCookie('XSRF-TOKEN');
 
     const config = useRuntimeConfig();
-    const apiBaseUrl = config.public.apiBaseUrl
-    const apiVersion = config.public.apiVersion
-    const apiEndpoint = apiBaseUrl + '/api/' + apiVersion
+    const apiEndpoint = config.public.apiBaseUrl + '/api/' + config.public.apiVersion
 
     if (!apiEndpoint) throw new Error("API Base URL not set!")
 
-    // @ts-ignore
-    return await $fetch<any>(url, {
+    const defaults: UseFetchOptions<T> = {
         baseURL: apiEndpoint,
-        // @ts-ignore
-        headers: {
-            accept: 'application/json',
-            "X-XSRF-TOKEN": xsrfToken.value
-        },
-        credentials: 'include',
-        ...(options && {...options})
-    })
+        key: url,
+        headers: xsrfToken.value ? { "X-XSRF-TOKEN": xsrfToken.value } : {},
+        credentials: "include"
+    }
+
+    const params = defu(options, defaults)
+
+    return useFetch(url, params)
 }
