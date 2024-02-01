@@ -20,6 +20,8 @@
     --color-text-primary: #FFFFFF;
     --color-text-disabled: color-mix(in srgb,var(--navbar-text), #000 15%);
 
+    --color-link: #e5ffb4;
+
     --btn-bg-primary: #59702e;
     --btn-bg-secondary: #f2ffda;
   }
@@ -48,12 +50,19 @@
   }
 
   .form-control {
-    background-color: var(--bg-secondary);
+    background-color: color-mix(in srgb, var(--bg-primary), #000 15%);
+    border: 1px solid color-mix(in srgb, var(--bg-primary), #000 40%);
     &:focus {
-      background-color: var(--bg-secondary);
+      background-color: color-mix(in srgb, var(--bg-primary), #000 15%);
+      border: 1px solid color-mix(in srgb, var(--bg-primary), #000 60%);
       box-shadow: none;
+      color: var(--color-text-primary);
     }
-    color: color-mix(in srgb,var(--btn-bg-secondary), #000 65%);
+    color: var(--color-text-primary);
+  }
+
+  a.form-text {
+    color: var(--color-link);
   }
 
   .dropdown-menu {

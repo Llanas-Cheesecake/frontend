@@ -84,12 +84,15 @@
               {{ password }}
             </div>
           </div>
+
+          <nuxt-link to="/forget-password" class="form-text mt-2 d-inline-block">Forgot password?</nuxt-link>
         </div>
 
         <button type="submit" class="btn btn-primary d-block w-100" :disabled="isLoading">
           <span>Sign In</span>
           <LoadingIcon v-if="isLoading" class="ms-2" />
         </button>
+
       </form>
 
     </div>
