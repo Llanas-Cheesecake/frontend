@@ -55,13 +55,12 @@
 html {
   position: relative;
   min-height: 100%;
-
 }
 
 body {
   font-family: "Inter", sans-serif;
   max-width: 100%;
-  background-color: #FFD47E;
+  background-color: #ffd47e;
   min-height: 100%;
 }
 
@@ -156,3 +155,114 @@ body {
 //.h-60 {
 //  height: 60%;
 //}
+.review-container {
+  width: 90%;
+  background: #77a042;
+  color: #fff;
+  margin: 2rem;
+  box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem;
+}
+
+h2 {
+  margin-bottom: 3rem;
+}
+
+.cards {
+  margin-top: 2.5rem;
+}
+
+.cards .card {
+  width: 100%;
+  margin-bottom: 0.7rem;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.card > * {
+  padding: 1rem 1.2rem;
+}
+
+.card-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.img {
+  width: 50px;
+  height: 50px;
+  background: purple;
+  border-radius: 50%;
+  outline: none;
+}
+
+.name .one {
+  background: orange;
+}
+
+.name,
+.name .img {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.name .img {
+  justify-content: center;
+}
+
+.rate i {
+  color: yellow;
+}
+
+.card-content {
+  margin: 0;
+  padding-top: 0;
+}
+
+.card-content p {
+  font-size: 0.8rem;
+  color: rgb(152, 152, 165);
+}
+
+.card-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-action span {
+  font-size: 0.8rem;
+  color: RGB(101, 101, 114);
+}
+
+.card-action .btn {
+  padding: 0.3rem 0.7rem;
+  background: transparent;
+  border: 1px solid #000;
+  border-radius: 2px;
+  color: #8c8c9f;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background: #000;
+  color: #fff;
+}
+
+@media screen and (max-width: 750px) {
+  body {
+    padding: 0rem;
+    margin: 0;
+  }
+
+  .review-container {
+    /*     padding:0; */
+    margin: 1rem 0;
+    width: 75%;
+  }
+}
