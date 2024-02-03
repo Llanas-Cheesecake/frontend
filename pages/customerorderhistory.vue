@@ -16,6 +16,9 @@
       <div class="content row d-flex justify-content-center">
         <div class="col-lg-2 col-md-6">
           <h5>Items</h5>
+
+          <img src="/images/chicken-pesto.jpeg" class="product" />
+          <img src="/images/iced-latte.png" class="product" />
         </div>
         <div class="col-lg-2 col-md-6">
           <h5>Name</h5>
@@ -81,5 +84,17 @@
 
 .content h5 {
   font-weight: bold;
+  text-align: center;
+}
+
+.content p {
+  margin-top: 40px;
+}
+
+.product {
+  width: 100%;
+  align-items: center;
+  border-radius: 100px;
+  margin-top: 40px;
 }
 </style>
