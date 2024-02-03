@@ -16,23 +16,36 @@
       <div class="content row d-flex justify-content-center">
         <div class="col-lg-2 col-md-6">
           <h5>Items</h5>
-
-          <img src="/images/chicken-pesto.jpeg" class="product" />
-          <img src="/images/iced-latte.png" class="product" />
+          <Row class="chicken-pesto">
+            <img src="/images/chicken-pesto.jpeg" class="product" />
+          </Row>
+          <Row>
+            <img src="/images/iced-latte.png" class="product" />
+          </Row>
         </div>
         <div class="col-lg-2 col-md-6">
           <h5>Name</h5>
-          <p>Chicken Pesto Sandwich</p>
-          <p>Iced Spanish Latte</p>
+          <row class="chicken-pesto">
+            <p>Chicken Pesto Sandwich</p>
+          </row>
         </div>
         <div class="col-lg-2 col-md-6">
           <h5>Quantity</h5>
+          <Row class="chicken-pesto">
+            <p>3</p>
+          </Row>
         </div>
         <div class="col-lg-2 col-md-6">
           <h5>Price</h5>
         </div>
         <div class="col-lg-2 col-md-6">
           <h5>Order Information</h5>
+          <Row>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </Row>
         </div>
       </div>
     </div>
@@ -58,8 +71,11 @@
   position: relative;
   top: 20px;
   border: none;
-  height: 5px;
+  height: 3px;
   margin-bottom: 50px;
+  opacity: 100%;
+  margin-left: -60px;
+  margin-right: -60px;
 }
 
 .header {
@@ -74,17 +90,20 @@
   background-color: #ffd47e;
   width: fit-content;
   height: fit-content;
-  margin-right: -20px;
+  margin-bottom: -20px;
+  padding: 7px;
 }
 
 .content {
   background-color: white;
-  padding: 20px;
+  padding: 30px;
+  margin: 0px;
 }
 
 .content h5 {
   font-weight: bold;
   text-align: center;
+  font-size: 30px;
 }
 
 .content p {
