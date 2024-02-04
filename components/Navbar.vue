@@ -4,9 +4,15 @@
   const { $auth } = useNuxtApp();
   const auth = useAuthStore();
 
+  const isSidebarOpen = ref(true)
+
   const currentUserName = computed(() => {
     return `${auth.user?.first_name} ${auth.user?.last_name}`
   })
+
+  const toggleSidebar = () => {
+    isSidebarOpen.value = !isSidebarOpen.value
+  }
 
   const logoutUser = () => {
     auth.logout()
@@ -19,7 +25,8 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
 
-    <div class="nav-links">
+    <!-- Centered Links -->
+    <div class="nav-links d-none d-md-block">
 
       <ul class="navbar-nav nav-centered">
         <li class="nav-item">
@@ -34,14 +41,23 @@
       </ul>
 
     </div>
+    <!-- END Centered Links -->
 
+    <!-- Logo and Action Links -->
     <div class="container">
 
       <a class="navbar-brand" href="#">
         <img src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />
       </a>
 
-      <div style="z-index: 100;">
+      <div class="text-white fw-bold">Llana's Cheesecake</div>
+
+      <div class="ms-auto cursor-pointer" @click="toggleSidebar">
+        <img v-show="!isSidebarOpen" src="/icons/menu.svg" alt="Menu Icon" />
+        <img v-show="isSidebarOpen" src="/icons/arrow-left.svg" alt="Back Icon" />
+      </div>
+
+      <div class="d-none d-md-block" style="z-index: 100;">
 
         <div class="d-flex align-items-center ms-auto w-auto">
           <div class="nav-item dropdown d-inline-block px-3">
@@ -102,6 +118,30 @@
       </div>
 
     </div>
+    <!-- END Logo and Action Links -->
+
+    <!-- Sidebar -->
+    <div class="nav-sidebar" :class="{ 'show': isSidebarOpen }">
+      <div class="container">
+        <div class="nav-items">
+          <nuxt-link class="nav-link" to="/">
+            <img src="/icons/home.svg" width="20" height="20" alt="Home Icon"/>
+            <span>Home</span>
+          </nuxt-link>
+
+          <nuxt-link class="nav-link" to="/menu">
+            <img src="/icons/tag.svg" width="20" height="20" alt="Home Icon"/>
+            <span>Menu</span>
+          </nuxt-link>
+
+          <nuxt-link class="nav-link" to="/about">
+            <img src="/icons/info.svg" width="20" height="20" alt="Home Icon"/>
+            <span>About</span>
+          </nuxt-link>
+        </div>
+      </div>
+    </div>
+    <!-- END Sidebar -->
   </nav>
 </template>
 
@@ -144,6 +184,39 @@
 
           &.disabled {
             color: var(--color-text-disabled)!important;
+          }
+        }
+      }
+    }
+
+    .nav-sidebar {
+      position: absolute;
+      top: 76px;
+      width: 100%;
+      height: calc(100vh - 76px);
+      background-color: var(--bg-primary);
+      z-index: 99;
+      right: 100%;
+      transition: 0.2s;
+      &.show {
+        right: 0;
+      }
+      .nav-items {
+        padding: 0;
+        margin-bottom: 0;
+        .nav-link {
+          background-color: color-mix(in srgb, var(--bg-primary), #000 15%);
+          border-radius: 8px;
+          padding: 0.7rem 0.7rem;
+          margin-bottom: 1rem;
+
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          text-decoration: none;
+          color: var(--color-text-primary);
+          &.router-link-exact-active {
+            background-color: color-mix(in srgb, var(--bg-primary), #000 35%);
           }
         }
       }

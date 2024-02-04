@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <div class="container">
+  <div>
     <Carousel class="my-5"/>
 
     <div class= "d-md-flex justify-content-center card-link">
