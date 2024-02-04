@@ -26,6 +26,18 @@
     --btn-bg-secondary: #f2ffda;
   }
 
+  .flicking-pagination-bullet {
+    background-color: rgba(10, 10, 10, 0.3);
+  }
+
+  .flicking-pagination-bullet-active {
+    background-color: var(--bg-primary);
+  }
+
+  .flicking-arrow-prev::before, .flicking-arrow-prev::after, .flicking-arrow-next::before, .flicking-arrow-next::after {
+    background-color: var(--bg-primary);
+  }
+
   .main-content {
     min-height: calc(100vh - 76px - 219px);
   }

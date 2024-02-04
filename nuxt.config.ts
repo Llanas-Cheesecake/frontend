@@ -33,7 +33,7 @@ export default defineNuxtConfig({
     preload: true,
 
     families: {
-      Inter: [400, 700]
+      Inter: [300, 400, 700]
     }
   }
 })
