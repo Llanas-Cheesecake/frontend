@@ -3,8 +3,9 @@
 
   const { $auth } = useNuxtApp();
   const auth = useAuthStore();
+  const route = useRoute();
 
-  const isSidebarOpen = ref(true)
+  const isSidebarOpen = ref(false)
 
   const currentUserName = computed(() => {
     return `${auth.user?.first_name} ${auth.user?.last_name}`
@@ -13,6 +14,11 @@
   const toggleSidebar = () => {
     isSidebarOpen.value = !isSidebarOpen.value
   }
+
+  // When route changes, close the sidebar
+  watch(() => route.path,() => {
+    isSidebarOpen.value = false
+  })
 
   const logoutUser = () => {
     auth.logout()
@@ -46,15 +52,28 @@
     <!-- Logo and Action Links -->
     <div class="container">
 
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
         <img src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />
+        <span class="text-white fw-bold">Llana's Cheesecake</span>
       </a>
 
-      <div class="text-white fw-bold">Llana's Cheesecake</div>
-
-      <div class="ms-auto cursor-pointer" @click="toggleSidebar">
+      <div class="ms-auto cursor-pointer d-block d-md-none" @click="toggleSidebar">
         <img v-show="!isSidebarOpen" src="/icons/menu.svg" alt="Menu Icon" />
         <img v-show="isSidebarOpen" src="/icons/arrow-left.svg" alt="Back Icon" />
+      </div>
+
+      <div class="nav-links-alt me-auto">
+        <div class="d-flex align-items-center">
+          <div class="nav-item">
+            <nuxt-link to="/" class="nav-link">Home</nuxt-link>
+          </div>
+          <div class="nav-item">
+            <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
+          </div>
+          <div class="nav-item">
+            <nuxt-link to="/about" class="nav-link">About</nuxt-link>
+          </div>
+        </div>
       </div>
 
       <div class="d-none d-md-block" style="z-index: 100;">
@@ -167,24 +186,31 @@
       min-height: 40px;
       width: 100%;
       z-index: 99;
+    }
 
-      .nav-item {
-        padding: 0 1.5rem;
-        .nav-link {
-          color: var(--color-text-primary)!important;
-          padding-left: 10px;
-          padding-right: 10px;
-          border-radius: 4px;
+    .nav-links-alt {
+      display: none;
+    }
 
-          &.router-link-exact-active {
-            background-color: var(--color-text-primary);
-            color: var(--bg-primary)!important;
-            font-weight: bold;
-          }
+    .nav-item {
+      padding: 0 1.5rem;
+      //&:first-child {
+      //  padding-left: 0!important;
+      //}
+      .nav-link {
+        color: var(--color-text-primary)!important;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 4px;
 
-          &.disabled {
-            color: var(--color-text-disabled)!important;
-          }
+        &.router-link-exact-active {
+          background-color: var(--color-text-primary);
+          color: var(--bg-primary)!important;
+          font-weight: bold;
+        }
+
+        &.disabled {
+          color: var(--color-text-disabled)!important;
         }
       }
     }
@@ -229,5 +255,19 @@
       transform: translateX(-50%);
     }
 
+  }
+
+  @media print, screen and (min-width: 768px) and (max-width: 991px) {
+    .navbar-brand span, .nav-links {
+      display: none!important;
+    }
+
+    .nav-links-alt {
+      display: block!important;
+    }
+
+    .nav-links-alt .nav-item {
+      padding: 0 1rem!important;
+    }
   }
 </style>
