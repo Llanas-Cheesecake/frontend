@@ -55,47 +55,21 @@
 html {
   position: relative;
   min-height: 100%;
-
 }
 
 body {
   font-family: "Inter", sans-serif;
   max-width: 100%;
-  background-color: #FFD47E;
+  background-color: #ffd47e;
   min-height: 100%;
 }
 
+/*Cart  */
 h1 {
   color: #fff;
 }
 
-img {
-  padding-top: 20px;
-}
-
-.row{
-  margin: 0;
-}
-
-.col{
-  padding-left: 10%;
-  color: #fff;
-}
-
-.col-2{
-  color: #fff;
-  padding-bottom: 10px;
-}
-
-hr.linea{
-  color: #fff;
-}
-
-hr.lineb{
-  width: 20%;
-  color: #fff;
-}
-
+/*admin panel*/
 //.col_theme_1 {
 //  background-color: #77A042;
 //  color: #FFD47E;
