@@ -17,6 +17,7 @@ export const useFetchAPI = async <T>(url: string, options: UseFetchOptions<T> = 
     }
 
     const params = defu(options, defaults)
+    const { data, pending, status } = useFetch(url, params)
 
-    return useFetch(url, params)
+    return { data, pending, status }
 }
