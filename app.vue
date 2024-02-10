@@ -5,7 +5,19 @@
 </template>
 
 <script setup lang="ts">
+  const { $bootstrap } = useNuxtApp()
   // TODO: Apply user-defined CSS here (customization feature)
+
+  // Apply tooltips
+  onMounted(() => {
+    if (process.client) {
+      window.onload = () => {
+        const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        // @ts-ignore
+        [...tooltips].map(tooltipTriggerEl => new $bootstrap.Tooltip(tooltipTriggerEl))
+      };
+    }
+  })
 </script>
 
 <style lang="scss">
@@ -57,14 +69,14 @@
       background-color: var(--btn-bg-primary);
       color: white;
       &:active {
-        background-color: color-mix(in srgb,var(--btn-bg-primary), #000 15%);;
+        background-color: color-mix(in srgb,var(--btn-bg-primary), #000 15%);
       }
     }
     &.btn-secondary {
       background-color: var(--btn-bg-secondary);
       color: color-mix(in srgb,var(--btn-bg-secondary), #000 65%);
       &:active {
-        background-color: color-mix(in srgb,var(--btn-bg-secondary), #000 60%);;
+        background-color: color-mix(in srgb,var(--btn-bg-secondary), #000 60%);
       }
     }
   }

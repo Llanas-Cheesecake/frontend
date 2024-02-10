@@ -6,6 +6,7 @@ export interface Product {
     thumbnail: string
     price: number
     averageRatings: number
+    totalRatings: number
 
     images: ProductImage[]
 }
