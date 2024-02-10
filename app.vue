@@ -42,6 +42,14 @@
     min-height: calc(100vh - 76px - 219px);
   }
 
+  .bg-primary {
+    background-color: var(--bg-primary)!important;
+  }
+
+  .bg-secondary {
+    background-color: var(--bg-secondary)!important;
+  }
+
   .btn {
     border-color: transparent!important;
     border-radius: 20px;
