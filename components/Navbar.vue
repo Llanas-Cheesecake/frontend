@@ -39,7 +39,7 @@
           <nuxt-link to="/" class="nav-link">Home</nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
+          <nuxt-link to="/menu/all" class="nav-link">Menu</nuxt-link>
         </li>
         <li class="nav-item">
           <nuxt-link to="/about" class="nav-link">About</nuxt-link>
@@ -68,7 +68,7 @@
             <nuxt-link to="/" class="nav-link">Home</nuxt-link>
           </div>
           <div class="nav-item">
-            <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
+            <nuxt-link to="/menu/all" class="nav-link">Menu</nuxt-link>
           </div>
           <div class="nav-item">
             <nuxt-link to="/about" class="nav-link">About</nuxt-link>
@@ -148,7 +148,7 @@
             <span>Home</span>
           </nuxt-link>
 
-          <nuxt-link class="nav-link" to="/menu">
+          <nuxt-link class="nav-link" to="/menu/all">
             <img src="/icons/tag.svg" width="20" height="20" alt="Home Icon"/>
             <span>Menu</span>
           </nuxt-link>
@@ -203,7 +203,7 @@
         padding-right: 10px;
         border-radius: 4px;
 
-        &.router-link-exact-active {
+        &.router-link-active {
           background-color: var(--color-text-primary);
           color: var(--bg-primary)!important;
           font-weight: bold;
@@ -241,7 +241,7 @@
           gap: 0.5rem;
           text-decoration: none;
           color: var(--color-text-primary);
-          &.router-link-exact-active {
+          &.router-link-active {
             background-color: color-mix(in srgb, var(--bg-primary), #000 35%);
           }
         }
