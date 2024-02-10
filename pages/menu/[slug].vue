@@ -46,15 +46,17 @@
 
     <!-- Products -->
     <div class="row mt-4">
-      <div v-for="product in products" class="col-sm-12 col-md-3 mb-4">
+      <div v-for="product in products" class="col-sm-12 col-lg-4 mb-4">
         <div class="card">
           <nuxt-link :to="`/products/${product.slug}`" class="card-body">
             <img class="product-image rounded shadow-sm mb-3" :src="product.thumbnail" :alt="product.name" />
-            <h5 class="card-title">{{ product.name }}</h5>
+            <section>
+              <h5 class="card-title">{{ product.name }}</h5>
 
-            <client-only>
-              <vue-3-star-ratings v-model="product.averageRatings" inactive-color="#8a8a8a" star-size="16" disable-click />
-            </client-only>
+              <client-only>
+                <vue-3-star-ratings v-model="product.averageRatings" inactive-color="#8a8a8a" star-size="16" disable-click />
+              </client-only>
+            </section>
 
           </nuxt-link>
 
@@ -85,7 +87,7 @@
       text-decoration: none;
       .product-image {
         width: 100%;
-        max-width: 200px;
+        max-width: 240px;
       }
     }
     .card-bottom {
@@ -93,6 +95,20 @@
       width: 100%;
       //margin-left: -1rem;
       padding: 1rem;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .card {
+      min-height: auto;
+      .card-body {
+        display: flex;
+        gap: 1rem;
+        .product-image {
+          max-width: 135px!important;
+          max-height: 135px;
+        }
+      }
     }
   }
 </style>

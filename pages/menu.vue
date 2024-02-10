@@ -24,7 +24,7 @@ if (data.value) {
 <template>
   <div class="my-5">
     <div class="row">
-      <div class="col-3">
+      <div class="d-none d-md-block col-md-4 col-lg-3">
 
         <div class="sidebar bg-primary p-3">
           <h5>Categories</h5>
@@ -39,7 +39,7 @@ if (data.value) {
         </div>
 
       </div>
-      <div class="col-9">
+      <div class="col-sm-12 col-md-8">
         <NuxtPage />
       </div>
     </div>
