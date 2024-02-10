@@ -129,4 +129,8 @@
       min-height: initial;
     }
   }
+
+  #offcanvas-section .offcanvas-backdrop.show {
+    opacity: 0!important;
+  }
 </style>
