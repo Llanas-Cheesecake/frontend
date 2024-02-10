@@ -87,7 +87,7 @@
       text-decoration: none;
       .product-image {
         width: 100%;
-        max-width: 240px;
+        //max-width: 240px;
       }
     }
     .card-bottom {

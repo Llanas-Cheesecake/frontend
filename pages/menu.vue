@@ -39,7 +39,7 @@ if (data.value) {
         </div>
 
       </div>
-      <div class="col-sm-12 col-md-8">
+      <div class="col-sm-12 col-md-8 col-lg-9">
         <NuxtPage />
       </div>
     </div>
