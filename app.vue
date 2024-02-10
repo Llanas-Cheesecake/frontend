@@ -113,4 +113,8 @@
   .invalid-feedback {
     color: #f70018;
   }
+
+  #offcanvas-section .offcanvas-backdrop.show {
+    opacity: 0!important;
+  }
 </style>

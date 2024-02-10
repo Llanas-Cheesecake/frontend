@@ -4,7 +4,10 @@
   import vue3StarRatings from "vue3-star-ratings";
 
   const route = useRoute();
-  const slug = route.params.slug
+  const slug = route.params.slug;
+
+  const pageTitle = ref('');
+  const pageDescription = ref('');
 
   const product = ref<Product>({
     slug: '',
@@ -19,12 +22,12 @@
   })
   const quantity = ref(1);
 
-  definePageMeta({
-    title: "test",
+  useHead({
+    title: pageTitle,
     meta: [
       {
         name: "description",
-        content: `Llana's Cheesecake offers a wide variety of pastry`,
+        content: pageDescription,
       }, // TODO: SEO Management
     ]
   });
@@ -34,6 +37,8 @@
   if (result.value) {
     const payload = result.value.data
     product.value = { ...payload }
+    pageTitle.value = payload.name
+    pageDescription.value = payload.description
   }
 
   // TODO: Handle errors
@@ -92,7 +97,7 @@
             </button>
           </div>
           <div class="controls">
-            <button class="btn btn-primary">Add to Cart</button>
+            <button class="btn btn-secondary">Add to Cart</button>
             <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Wishlist product">
               <img src="/icons/heart.svg" alt="Wishlist product" />
               <div class="visually-hidden">Wishlist product</div>
@@ -107,59 +112,59 @@
 
     </div>
 
-<!--    <div>-->
-<!--      <h2 class="reviewTab">REVIEWS</h2>-->
-<!--    </div>-->
-<!--    <div class="reviewArea">-->
-<!--      <div class="reviewItem">-->
-<!--        <div>-->
-<!--          <div class="reviewInfo">-->
-<!--            <div>-->
-<!--              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />-->
-<!--            </div>-->
-<!--            <div>-->
-<!--              <h5>(name)</h5>-->
-<!--              <h6>(date)</h6>-->
-<!--            </div>-->
-<!--            <div class="reviewRating">-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus-->
-<!--        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at-->
-<!--        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque-->
-<!--        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.-->
-<!--      </div>-->
-<!--      <div class="reviewItem">-->
-<!--        <div>-->
-<!--          <div class="reviewInfo">-->
-<!--            <div>-->
-<!--              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />-->
-<!--            </div>-->
-<!--            <div>-->
-<!--              <h5>(name)</h5>-->
-<!--              <h6>(date)</h6>-->
-<!--            </div>-->
-<!--            <div class="reviewRating">-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus-->
-<!--        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at-->
-<!--        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque-->
-<!--        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.-->
-<!--      </div>-->
-<!--    </div>-->
+    <div>
+      <h2 class="reviewTab">REVIEWS</h2>
+    </div>
+    <div class="reviewArea">
+      <div class="reviewItem">
+        <div>
+          <div class="reviewInfo">
+            <div>
+              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />
+            </div>
+            <div>
+              <h5>(name)</h5>
+              <h6>(date)</h6>
+            </div>
+            <div class="reviewRating">
+              <span class="star" star-status="false">★ </span>
+              <span class="star" star-status="false">★ </span>
+              <span class="star" star-status="false">★ </span>
+              <span class="star" star-status="false">★ </span>
+              <span class="star" star-status="false">★ </span>
+            </div>
+          </div>
+        </div>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus
+        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at
+        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque
+        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.
+      </div>
+      <div class="reviewItem">
+        <div>
+          <div class="reviewInfo">
+            <div>
+              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />
+            </div>
+            <div>
+              <h5>(name)</h5>
+              <h6>(date)</h6>
+            </div>
+            <div class="reviewRating">
+              <span class="star" star-status="false">★ </span>
+              <span class="star" star-status="false">★ </span>
+              <span class="star" star-status="false">★ </span>
+              <span class="star" star-status="false">★ </span>
+              <span class="star" star-status="false">★ </span>
+            </div>
+          </div>
+        </div>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus
+        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at
+        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque
+        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.
+      </div>
+    </div>
   </div>
 </template>
 
@@ -173,12 +178,12 @@
 //  background-color: #77a042;
 //}
 //
-//.product-images img {
-//  //width: 600px;
-//  //height: 400px;
-//  border-top-left-radius: 8px;
-//  border-bottom-left-radius: 8px;
-//}
+.product-images img {
+  //width: 600px;
+  //height: 400px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
 //
 //.prodImgDiv {
 //  float: left;
@@ -248,6 +253,8 @@
       img {
         margin: 0 auto;
         display: block;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
       }
     }
     .product-info {
