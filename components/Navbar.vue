@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useAuthStore } from "../store/auth";
+  import { useAuthStore } from "~/store/auth";
 
   const { $auth } = useNuxtApp();
   const auth = useAuthStore();
@@ -79,20 +79,12 @@
       <div class="d-none d-md-block" style="z-index: 100;">
 
         <div class="d-flex align-items-center ms-auto w-auto">
-          <div class="nav-item dropdown d-inline-block px-3">
-            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="/icons/shopping-cart.svg" alt="Shopping Cart" />
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
+          <!-- Cart Dropdown -->
+          <CartDropdown />
+          <!-- END Cart Dropdown -->
 
           <div v-if="$auth.isLoggedIn()" class="nav-item dropdown d-inline-block px-3">
-            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
               <img src="/icons/user.svg" alt="User" />
             </a>
             <ul class="dropdown-menu dropdown-menu-end mt-2">
