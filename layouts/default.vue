@@ -2,10 +2,10 @@
   const route = useRoute();
 
   useHead({
-    titleTemplate: () => {
-      return route.meta.title
-          ? `${route.meta.title} - Llana's Cheesecake`
-          : 'Llana\'s Cheesecake balls'
+    titleTemplate: (title) => {
+      return title
+          ? `${title} - Llana's Cheesecake`
+          : 'Llana\'s Cheesecake'
     }
   })
 </script>
@@ -14,7 +14,12 @@
   <div>
     <Navbar />
 
-    <section class="main-content container">
+    <!-- Alt navbar -->
+    <section id="alt-nav"></section>
+    <section id="offcanvas-section"></section>
+    <!-- END Alt navbar -->
+
+    <section class="main-content container position-relative">
       <slot />
     </section>
 
