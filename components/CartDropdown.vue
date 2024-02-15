@@ -1,4 +1,8 @@
 <script setup lang="ts">
+  import { useCartStore } from "~/store/cart";
+
+  const cart = useCartStore();
+
   const closeDropdown = () => {
     // As much as possible, don't call document
     if (process.client) {
@@ -17,50 +21,43 @@
     </a>
     <div class="dropdown-menu dropdown-menu-end mt-2 me-2 p-3">
       <div class="d-flex justify-content-between">
-        <p class="fw-bold">Your Cart</p>
-        <p class="total-info">
-          Total: <span>&#8369;2000</span>
+        <p class="fw-bold mb-0">Your Cart</p>
+        <p class="total-info mb-0">
+          Total: <span>&#8369;{{ formatPrice(cart._totalPrice) }}</span>
         </p>
       </div>
 
-      <ul class="cart-items">
-        <li class="cart-item">
-          <img class="item-image" src="https://media.pickaroo.com/media/thumb/variant_photos/2021/9/3/b2H2scyWzKzMEk2tVSGVW6_watermark_400.jpg" alt="cart item" />
+
+
+      <ul v-if="cart._items?.length > 0" class="cart-items my-4">
+
+        <li v-for="item in cart._items" class="cart-item">
+          <img class="item-image" :src="item.product.thumbnail" alt="cart item" />
           <div class="item-info">
-            <p class="item-name">Cheesecake</p>
-            <p class="item-category">Cake 8"</p>
+            <p class="item-name">{{ item.product.name }}</p>
+            <p class="item-category">{{ item.product.category }}</p>
           </div>
           <div class="item-info-alt">
             <p class="item-price">
-              &#8369;<span>1000</span>
+              &#8369;<span>{{ formatPrice(cart.getItemTotalPrice(item.product.product_id)) }}</span>
             </p>
             <p class="item-quantity">
-              Quantity: 1
+              Quantity: {{ item.quantity }}
             </p>
             <div class="item-actions">
-              <img src="/icons/trash.svg" alt="Remove item from cart" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove item" />
-            </div>
-          </div>
-        </li>
-        <li class="cart-item">
-          <img class="item-image" src="https://media.pickaroo.com/media/thumb/variant_photos/2021/9/3/b2H2scyWzKzMEk2tVSGVW6_watermark_400.jpg" alt="cart item" />
-          <div class="item-info">
-            <p class="item-name">Cheesecake</p>
-            <p class="item-category">Cake 8"</p>
-          </div>
-          <div class="item-info-alt">
-            <p class="item-price">
-              &#8369;<span>1000</span>
-            </p>
-            <p class="item-quantity">
-              Quantity: 1
-            </p>
-            <div class="item-actions">
-              <img src="/icons/trash.svg" alt="Remove item from cart" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove item" />
+              <img src="/icons/trash.svg"
+                   alt="Remove item from cart"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="top"
+                   data-bs-title="Remove item" @click="cart.removeFromCart(item.product.product_id)" />
             </div>
           </div>
         </li>
       </ul>
+
+      <p v-else class="my-5 text-center">
+        No items yet. Start adding one!
+      </p>
 
       <nuxt-link to="/cart" class="btn btn-primary d-block" @click="closeDropdown">
         View cart
@@ -72,7 +69,7 @@
 
 <style scoped lang="scss">
   .dropdown-menu {
-    min-width: 22rem;
+    min-width: 24rem;
   }
 
   .total-info {

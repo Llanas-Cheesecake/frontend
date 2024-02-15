@@ -1,7 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ['~/assets/styles/main.scss'],
+  css: [
+      '~/assets/styles/main.scss',
+      'vue-toastification/dist/index.css'
+  ],
   modules: [
       '@nuxtjs/google-fonts',
       '@pinia/nuxt',
@@ -14,7 +17,7 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       link: [
-        { rel: "preload", as: "image", href: "/icons/loader.svg" }
+        { rel: "preload", as: "image", href: "/icons/loader-white.svg" }
       ]
     }
   },

@@ -1,7 +1,11 @@
 <script setup lang="ts">
   import type { ApiResponse } from "~/types/ApiResponse";
   import type { Product } from "~/types/Product";
+
   import vue3StarRatings from "vue3-star-ratings";
+  import { useCartStore } from "~/store/cart";
+
+  const cart = useCartStore();
 
   const route = useRoute();
   const slug = route.params.slug;
@@ -10,6 +14,7 @@
   const pageDescription = ref('');
 
   const product = ref<Product>({
+    product_id: 0,
     slug: '',
     name: '',
     description: '',
@@ -21,6 +26,7 @@
     images: [],
   })
   const quantity = ref(1);
+  const isAddingToCart = ref(false)
 
   useHead({
     title: pageTitle,
@@ -57,6 +63,22 @@
     quantity.value--
   }
 
+  const addToCart = async () => {
+    isAddingToCart.value = true
+
+    await cart.addToCart({
+      product_id: product.value.product_id,
+      quantity: quantity.value,
+      type: product.value.category
+    }).then(() => {
+      // Reset quantity value to initial value
+      quantity.value = 1;
+    }).finally(() => {
+      // Set loading indicator to false
+      isAddingToCart.value = false
+    })
+  }
+
 </script>
 
 <template>
@@ -64,7 +86,7 @@
     <div class="product-wrapper d-flex mt-5 justify-content-center">
 
       <div class="product-images">
-        <img :src="product.thumbnail" />
+        <img :src="product.thumbnail" :alt="product.name" />
       </div>
 
       <div class="product-info bg-primary position-relative">
@@ -97,14 +119,19 @@
             </button>
           </div>
           <div class="controls">
-            <button class="btn btn-secondary">Add to Cart</button>
+            <button class="btn btn-secondary" :disabled="isAddingToCart" @click="addToCart">
+              <span>
+                Add to cart
+              </span>
+              <LoadingIcon v-if="isAddingToCart" color="black" class="ms-2" />
+            </button>
             <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Wishlist product">
               <img src="/icons/heart.svg" alt="Wishlist product" />
-              <div class="visually-hidden">Wishlist product</div>
+              <span class="visually-hidden">Wishlist product</span>
             </button>
             <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Share product">
               <img src="/icons/share.svg" alt="Share product" />
-              <div class="visually-hidden">Share product</div>
+              <span class="visually-hidden">Share product</span>
             </button>
           </div>
         </div>
@@ -112,59 +139,59 @@
 
     </div>
 
-    <div>
-      <h2 class="reviewTab">REVIEWS</h2>
-    </div>
-    <div class="reviewArea">
-      <div class="reviewItem">
-        <div>
-          <div class="reviewInfo">
-            <div>
-              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />
-            </div>
-            <div>
-              <h5>(name)</h5>
-              <h6>(date)</h6>
-            </div>
-            <div class="reviewRating">
-              <span class="star" star-status="false">★ </span>
-              <span class="star" star-status="false">★ </span>
-              <span class="star" star-status="false">★ </span>
-              <span class="star" star-status="false">★ </span>
-              <span class="star" star-status="false">★ </span>
-            </div>
-          </div>
-        </div>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus
-        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at
-        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque
-        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.
-      </div>
-      <div class="reviewItem">
-        <div>
-          <div class="reviewInfo">
-            <div>
-              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />
-            </div>
-            <div>
-              <h5>(name)</h5>
-              <h6>(date)</h6>
-            </div>
-            <div class="reviewRating">
-              <span class="star" star-status="false">★ </span>
-              <span class="star" star-status="false">★ </span>
-              <span class="star" star-status="false">★ </span>
-              <span class="star" star-status="false">★ </span>
-              <span class="star" star-status="false">★ </span>
-            </div>
-          </div>
-        </div>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus
-        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at
-        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque
-        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.
-      </div>
-    </div>
+<!--    <div>-->
+<!--      <h2 class="reviewTab">REVIEWS</h2>-->
+<!--    </div>-->
+<!--    <div class="reviewArea">-->
+<!--      <div class="reviewItem">-->
+<!--        <div>-->
+<!--          <div class="reviewInfo">-->
+<!--            <div>-->
+<!--              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />-->
+<!--            </div>-->
+<!--            <div>-->
+<!--              <h5>(name)</h5>-->
+<!--              <h6>(date)</h6>-->
+<!--            </div>-->
+<!--            <div class="reviewRating">-->
+<!--              <span class="star" star-status="false">★ </span>-->
+<!--              <span class="star" star-status="false">★ </span>-->
+<!--              <span class="star" star-status="false">★ </span>-->
+<!--              <span class="star" star-status="false">★ </span>-->
+<!--              <span class="star" star-status="false">★ </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus-->
+<!--        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at-->
+<!--        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque-->
+<!--        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.-->
+<!--      </div>-->
+<!--      <div class="reviewItem">-->
+<!--        <div>-->
+<!--          <div class="reviewInfo">-->
+<!--            <div>-->
+<!--              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />-->
+<!--            </div>-->
+<!--            <div>-->
+<!--              <h5>(name)</h5>-->
+<!--              <h6>(date)</h6>-->
+<!--            </div>-->
+<!--            <div class="reviewRating">-->
+<!--              <span class="star" star-status="false">★ </span>-->
+<!--              <span class="star" star-status="false">★ </span>-->
+<!--              <span class="star" star-status="false">★ </span>-->
+<!--              <span class="star" star-status="false">★ </span>-->
+<!--              <span class="star" star-status="false">★ </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus-->
+<!--        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at-->
+<!--        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque-->
+<!--        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -353,7 +380,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   color: #ffffff;
-  margin: 20px 0px;
+  margin: 20px 0;
 }
 
 .reviewItem {
