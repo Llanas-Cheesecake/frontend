@@ -1,5 +1,16 @@
+<script setup lang="ts">
+  const props = withDefaults(defineProps<{
+    color: string
+  }>(), {
+    color: 'white'
+  })
+</script>
+
 <template>
-  <img id="loader" src="/icons/loader.svg" alt="Loading" width="20" />
+  <div>
+    <img v-if="props.color === 'white'" id="loader" src="/icons/loader-white.svg" alt="Loading" width="20" />
+    <img v-if="props.color === 'black'" id="loader" src="/icons/loader-black.svg" alt="Loading" width="20" />
+  </div>
 </template>
 
 <style scoped lang="scss">
