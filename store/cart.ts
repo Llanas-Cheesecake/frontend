@@ -1,15 +1,18 @@
 import type { Cart } from "~/types/Cart";
 import type { ApiResponse } from "~/types/ApiResponse";
+import { useDebounceFn } from "@vueuse/core";
 import { useToast } from "vue-toastification";
-import {fetchXSRFCookie} from "~/utils";
+import { fetchXSRFCookie } from "~/utils";
 
 const toast = useToast();
 
 export const useCartStore = defineStore('cart', () => {
     // States
     const cart = reactive<Cart>({});
+    const isLoading = ref(true)
 
     // Getters
+    const _is_loading = computed(() => isLoading.value)
     const _cart_id = computed(() => cart.cart_id)
     const _items = computed(() => cart.items)
     const _totalPrice = computed(() => {
@@ -47,6 +50,8 @@ export const useCartStore = defineStore('cart', () => {
 
             cart.cart_id = result.cart.cart_id
             cart.items = result.cart.items
+        }).finally(() => {
+            isLoading.value = false
         })
     }
 
@@ -124,6 +129,74 @@ export const useCartStore = defineStore('cart', () => {
         }
     }
 
+    const removeAllItems = async () => {
+        const cartCookie = useCookie('cart_session', {
+            readonly: true
+        })
+
+        await fetchXSRFCookie()
+
+        const result = await useFetchAPI<ApiResponse>('/cart/remove-all', {
+            method: 'DELETE',
+            body: {
+                cart_id: cartCookie.value || null
+            },
+            server: false,
+            onResponseError(error): Promise<void> | void {
+                toast.error(error.response._data.message)
+            }
+        });
+
+        if (result.status.value != "error") {
+            const response = result.data.value?.data
+
+            cart.items = response.cart.items
+
+            toast.success("All items removed from cart")
+        }
+    }
+
+    const updateItemQuantity = async (product_id: number, quantity: number) => {
+        const item = cart.items?.find(i => i.product.product_id === product_id);
+        let previousQuantity = 0;
+
+        if (item) {
+            previousQuantity = item.quantity;
+
+            item.quantity = quantity;
+
+            await debouncedUpdateItem(item, previousQuantity);
+        }
+    }
+
+    const debouncedUpdateItem = useDebounceFn(async (item, previousQuantity) => {
+        const cartCookie = useCookie('cart_session', {
+            readonly: true
+        })
+
+        await fetchXSRFCookie()
+
+        const result = await useFetchAPI<ApiResponse>('/cart/update', {
+            method: 'PATCH',
+            body: {
+                cart_id: cartCookie.value || null,
+                product_id: item.product.product_id,
+                quantity: item.quantity
+            },
+            server: false,
+            onResponseError(error): Promise<void> | void {
+                toast.error(error.response._data.message)
+                item.quantity = previousQuantity
+            }
+        });
+
+        if (result.status.value != "error") {
+            // const response = result.data.value?.data
+            // cart.items = response.cart.items
+            toast.success("Item updated")
+        }
+    }, 1500)
+
     const getItemTotalPrice = (product_id: number) => {
         const item = cart.items?.find(i => i.product.product_id === product_id);
 
@@ -132,5 +205,5 @@ export const useCartStore = defineStore('cart', () => {
         return item.quantity * item.product.price;
     }
 
-    return { _cart_id, _items, _totalPrice, getCartContents, getItemTotalPrice, addToCart, removeFromCart }
+    return { _is_loading, _cart_id, _items, _totalPrice, getCartContents, getItemTotalPrice, addToCart, removeFromCart, removeAllItems, updateItemQuantity }
 }, { persist: true })

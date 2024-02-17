@@ -94,6 +94,7 @@
         border-radius: 8px;
       }
       .item-info {
+        flex: 1;
         .item-name {
           //font-weight: bold;
           margin-bottom: 0.2rem;
@@ -105,7 +106,7 @@
         }
       }
       .item-info-alt {
-        width: 100%;
+        //width: 100%;
         text-align: end;
         .item-price {
           font-weight: bold;

@@ -109,13 +109,13 @@
         <div class="product-actions d-flex align-items-center justify-content-between w-100">
           <div class="product-quantity-controls">
             <button class="btn btn-primary quantity-btn" @click="decrementQuantity">
-              <img src="/icons/minus.svg" alt="decrement quantity" />
+              <img src="/icons/minus-white.svg" alt="decrement quantity" />
             </button>
             <div class="quantity-count">
               {{ quantity }}
             </div>
             <button class="btn btn-primary quantity-btn" @click="incrementQuantity">
-              <img src="/icons/plus.svg" alt="increment quantity" />
+              <img src="/icons/plus-white.svg" alt="increment quantity" />
             </button>
           </div>
           <div class="controls">

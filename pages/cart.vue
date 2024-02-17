@@ -1,87 +1,206 @@
 <script setup lang="ts">
-definePageMeta({
-  title: "Menu",
-  meta: [
-    {
-      name: "description",
-      content: `Llana's Cheesecake offers a wide variety of pastry`,
-    }, // TODO: SEO Management
-  ],
-});
+  import { useCartStore } from "~/store/cart";
+  import type { CartItem } from "~/types/Cart";
+
+  const cart = useCartStore();
+
+  useHead({
+    title: "Cart"
+  });
+
+  const incrementItem = async (item: CartItem) => {
+    const updatedQuantity = item.quantity + 1
+    await cart.updateItemQuantity(item.product.product_id, updatedQuantity)
+  }
+
+  const decrementItem = async (item: CartItem) => {
+    const currentValue = item.quantity
+
+    if (currentValue <= 1) {
+      item.quantity = 1
+      return
+    }
+
+    const updatedQuantity = item.quantity - 1
+    await cart.updateItemQuantity(item.product.product_id, updatedQuantity)
+  }
+
+  const removeAllItems = async () => {
+    await cart.removeAllItems()
+  }
 </script>
 
 <template>
-  <h1>My Cart</h1>
-  <div class="pb-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-          <!-- Shopping cart table -->
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">
-                    <div class="p-2 px-3 text-uppercase">Product</div>
-                  </th>
-                  <th scope="col">
-                    <div class="py-2 text-uppercase">Price</div>
-                  </th>
-                  <th scope="col">
-                    <div class="py-2 text-uppercase">Quantity</div>
-                  </th>
-                  <th scope="col">
-                    <div class="py-2 text-uppercase">Total</div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row" class="border-0">
-                    <div class="p-2">
-                      <img
-                        src="https://static.wixstatic.com/media/10d1e0_776dc703c344456e80d686035bc6179c~mv2.jpg/v1/fill/w_768,h_576,al_c,q_85,enc_auto/10d1e0_776dc703c344456e80d686035bc6179c~mv2.jpg"
-                        alt=""
-                        width="70"
-                        class="img-fluid rounded shadow-sm"
-                      />
-                      <div class="ml-3 d-inline-block align-middle">
-                        <h5 class="mb-0">Sinless Cheesecake</h5>
+  <section class="my-5">
+    <div class="row">
+
+      <div class="col-sm-12 col-md-9">
+        <div class="card">
+          <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">
+                Cart
+              </h5>
+              <button class="btn btn-primary" @click="removeAllItems">Remove all</button>
+            </div>
+
+            <hr />
+
+            <div class="d-flex align-items-center gap-2 mt-4 mb-3" v-if="cart._is_loading">
+              <LoadingIcon color="black" />
+              <span>Loading cart...</span>
+            </div>
+
+            <section v-if="!cart._is_loading">
+              <ul v-if="cart._items && cart._items.length > 0" class="cart-items my-4">
+
+                <li v-for="item in cart._items" class="cart-item">
+                  <img class="item-image" :src="item.product.thumbnail" alt="cart item" />
+                  <div class="item-info">
+                    <p class="item-name">{{ item.product.name }}</p>
+                    <div class="item-subtitle">
+                      &#8369;{{ formatPrice(item.product.price) }} | {{ item.product.category }}
+                    </div>
+
+                    <div class="btn-group btn-group-sm mt-3" role="group" aria-label="Quantity Control">
+                      <button type="button" class="btn btn-primary" @click="decrementItem(item)">
+                        <img src="/icons/minus-black.svg" alt="increment quantity" width="14" />
+                      </button>
+                      <div class="item-quantity">
+                        {{ item.quantity }}
+                      </div>
+                      <button type="button" class="btn btn-primary" @click="incrementItem(item)">
+                        <img src="/icons/plus-black.svg" alt="increment quantity" width="14" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="item-info-alt position-relative">
+                    <p class="item-price">
+                      &#8369;<span>{{ formatPrice(cart.getItemTotalPrice(item.product.product_id)) }}</span>
+                    </p>
+                    <div class="item-actions position-absolute">
+                      <div class="action" role="button"  @click="cart.removeFromCart(item.product.product_id)">
+                        <img src="/icons/trash.svg"
+                             alt="Remove item from cart"
+                             data-bs-toggle="tooltip"
+                             data-bs-placement="top"
+                             data-bs-title="Remove item"
+                        />
+                        <div class="action-text ms-1">Remove</div>
                       </div>
                     </div>
-                  </th>
-                  <td class="border-0 align-middle">
-                    <strong>P120.00</strong>
-                  </td>
-                  <td class="border-0 align-middle"><strong>3</strong></td>
-                  <td class="border-0 align-middle"></td>
-                </tr>
-                <tr>
-                  <th scope="row" class="border-0">
-                    <div class="p-2">
-                      <img
-                        src="https://static.wixstatic.com/media/10d1e0_776dc703c344456e80d686035bc6179c~mv2.jpg/v1/fill/w_768,h_576,al_c,q_85,enc_auto/10d1e0_776dc703c344456e80d686035bc6179c~mv2.jpg"
-                        alt=""
-                        width="70"
-                        class="img-fluid rounded shadow-sm"
-                      />
-                      <div class="ml-3 d-inline-block align-middle">
-                        <h5 class="mb-0">Cheesecake</h5>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="border-0 align-middle">
-                    <strong>P120.00</strong>
-                  </td>
-                  <td class="border-0 align-middle"><strong>3</strong></td>
-                  <td class="border-0 align-middle"></td>
-                </tr>
-              </tbody>
-            </table>
+                  </div>
+                </li>
+              </ul>
+
+              <p v-else class="mb-0">
+                No items yet. Start adding one!
+              </p>
+            </section>
+
+
           </div>
-          <!-- End -->
         </div>
       </div>
+
+      <div class="col-sm-12 col-md-3">
+        <div class="card bg-primary text-white">
+          <div class="card-body">
+            <h5 class="card-title">
+              Summary
+            </h5>
+
+            <hr />
+
+            <div class="d-flex justify-content-between">
+              <div>Subtotal:</div>
+              <div>&#8369;{{ formatPrice(cart._totalPrice) }}</div>
+            </div>
+
+            <button class="btn btn-secondary d-block mt-4 w-100">
+              Proceed to checkout
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
+  </section>
 </template>
+
+<style scoped lang="scss">
+  .cart-items {
+    list-style: none;
+    padding-left: 0;
+    .cart-item {
+      display: flex;
+      gap: 0.8rem;
+      &:not(:last-child) {
+        margin-bottom: 1.5rem;
+      }
+      .item-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 8px;
+      }
+      .item-info {
+        flex: 1;
+        .item-name {
+          //font-weight: bold;
+          margin-bottom: 0.2rem;
+        }
+        .item-subtitle {
+          color: color-mix(in srgb,var(--color-text-primary), #000 50%);
+          margin-bottom: 0;
+          font-size: 0.9rem;
+        }
+
+        .btn-group {
+          border: 1px solid color-mix(in srgb,var(--color-text-primary), #000 50%);
+          border-radius: 10px;
+          .btn {
+            background-color: transparent!important;
+            padding: 2px 6px;
+          }
+          .btn, .item-quantity {
+
+          }
+          .item-quantity {
+            padding: 2px 6px;
+          }
+        }
+      }
+      .item-info-alt {
+        text-align: end;
+        .item-price {
+          font-weight: bold;
+          font-size: 1.4rem;
+          margin-bottom: 0.2rem;
+        }
+        .item-quantity {
+          color: color-mix(in srgb,var(--color-text-primary), #000 50%);
+          margin-bottom: 0;
+          font-size: 0.9rem;
+        }
+        .item-actions {
+          bottom: 0;
+          right: 0;
+          .action {
+            cursor: pointer;
+            display: flex;
+            img {
+              cursor: pointer;
+              width: 16px;
+            }
+            .action-text {
+              display: inline-block;
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

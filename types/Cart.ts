@@ -5,7 +5,7 @@ export interface Cart {
     items?: CartItem[]
 }
 
-interface CartItem {
+export interface CartItem {
     product: Product,
     quantity: number,
     type: string
