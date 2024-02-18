@@ -129,7 +129,7 @@
   position: relative;
   top: 20px;
   border: none;
-  height: 3px;
+  height: 5px;
   margin-bottom: 50px;
   opacity: 100%;
   margin-left: -60px;
