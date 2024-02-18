@@ -3,30 +3,42 @@
   import type { ApiResponse } from "~/types/ApiResponse";
 
   const route = useRoute()
-  const selectedFilter = ref("default") // TODO: Implement filtering
+  const sortedBy = ref('default')
   const selectedCategory = route.params.slug
 
   const products = reactive<Product[]>([])
 
-  if (selectedCategory === "all") {
-    const { data: result, pending, status } = await useFetchAPI<ApiResponse>('/products', { method: "GET" })
+  watch(sortedBy, (newQuery) => {
+    products.length = 0;
+    fetchMenu()
+  })
 
-    if (result.value) {
-      result.value.data.map((item: Product) => {
-        products.push(item)
-      })
-    }
+  const fetchMenu = async () => {
+    if (selectedCategory === "all") {
+      const fullApiRoute = `/products${ sortedBy.value ? `?sortedBy=${ sortedBy.value }` : '' }`
+      const { data: result, pending, status } = await useFetchAPI<ApiResponse>(fullApiRoute, { method: "GET" })
 
-  } else {
-    const encodedURI = encodeURI(`/products?category=${selectedCategory}`)
-    const { data: result, pending, status } = await useFetchAPI<ApiResponse>(encodedURI, { method: "GET" })
+      if (result.value) {
+        result.value.data.map((item: Product) => {
+          products.push(item)
+        })
+      }
 
-    if (result.value) {
-      result.value.data.map((item: Product) => {
-        products.push(item)
-      })
+    } else {
+      const encodedURI = encodeURI(`/products?category=${selectedCategory}`)
+      const fullApiRoute = sortedBy.value ? `${ encodedURI }&sortedBy=${ sortedBy.value }` : encodedURI;
+      const { data: result, pending, status } = await useFetchAPI<ApiResponse>(fullApiRoute, { method: "GET" })
+
+      if (result.value) {
+        result.value.data.map((item: Product) => {
+          products.push(item)
+        })
+      }
     }
   }
+
+  // Fetch menu on server
+  fetchMenu();
 </script>
 
 <template>
@@ -34,11 +46,11 @@
 
     <!-- Top Buttons -->
     <div class="col-sm-12 col-md-4">
-      <select class="form-select" aria-label="Sort By">
+      <select class="form-select" aria-label="Sort By" v-model="sortedBy">
         <option value="default">Alphabet</option>
         <option value="best-seller">Best sellers</option>
-        <option value="price-high-low">Price: High to Low</option>
-        <option value="price-high-low">Price: Low to High</option>
+        <option value="price-max-to-min">Price: High to Low</option>
+        <option value="price-min-to-max">Price: Low to High</option>
       </select>
     </div>
     <!-- END Top Buttons -->
