@@ -123,4 +123,10 @@
   #offcanvas-section .offcanvas-backdrop.show {
     opacity: 0!important;
   }
+
+  @media (max-height: 775px) {
+    .main-content {
+      min-height: initial;
+    }
+  }
 </style>

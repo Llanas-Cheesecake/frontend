@@ -173,9 +173,18 @@
   }
 }
 
-
 .logo {
   width: 60px;
   height: 60px;
+}
+
+@media (max-height: 775px) {
+  .card {
+    position: initial;
+    top: initial;
+    left: initial;
+    transform: initial;
+    margin: 2rem auto;
+  }
 }
 </style>
