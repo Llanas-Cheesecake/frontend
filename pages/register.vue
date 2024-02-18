@@ -197,4 +197,15 @@
     width: 60px;
     height: 60px;
   }
+
+  @media (max-height: 775px) {
+    .card {
+      max-width: 600px;
+      position: initial;
+      top: initial;
+      left: initial;
+      transform: initial;
+      margin: 2rem auto;
+    }
+  }
 </style>

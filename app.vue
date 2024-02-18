@@ -93,4 +93,10 @@
   .invalid-feedback {
     color: #f70018;
   }
+
+  @media (max-height: 775px) {
+    .main-content {
+      min-height: initial;
+    }
+  }
 </style>
