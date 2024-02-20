@@ -7,7 +7,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="d-inline">
     <img v-if="props.color === 'white'" id="loader" src="/icons/loader-white.svg" alt="Loading" width="20" />
     <img v-if="props.color === 'black'" id="loader" src="/icons/loader-black.svg" alt="Loading" width="20" />
   </div>
