@@ -5,7 +5,25 @@
 </template>
 
 <script setup lang="ts">
+  import { useCartStore } from "~/store/cart";
+
+  const { $bootstrap } = useNuxtApp()
+  const cart = useCartStore();
   // TODO: Apply user-defined CSS here (customization feature)
+
+  // Apply tooltips
+  onMounted(() => {
+    if (process.client) {
+      window.onload = () => {
+        const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        // @ts-ignore
+        [...tooltips].map(tooltipTriggerEl => new $bootstrap.Tooltip(tooltipTriggerEl))
+      };
+
+      // Get cart session
+      cart.getCartContents()
+    }
+  })
 </script>
 
 <style lang="scss">
@@ -42,6 +60,14 @@
     min-height: calc(100vh - 76px - 219px);
   }
 
+  .bg-primary {
+    background-color: var(--bg-primary)!important;
+  }
+
+  .bg-secondary {
+    background-color: var(--bg-secondary)!important;
+  }
+
   .btn {
     border-color: transparent!important;
     border-radius: 20px;
@@ -49,14 +75,14 @@
       background-color: var(--btn-bg-primary);
       color: white;
       &:active {
-        background-color: color-mix(in srgb,var(--btn-bg-primary), #000 15%);;
+        background-color: color-mix(in srgb,var(--btn-bg-primary), #000 15%);
       }
     }
     &.btn-secondary {
       background-color: var(--btn-bg-secondary);
       color: color-mix(in srgb,var(--btn-bg-secondary), #000 65%);
       &:active {
-        background-color: color-mix(in srgb,var(--btn-bg-secondary), #000 60%);;
+        background-color: color-mix(in srgb,var(--btn-bg-secondary), #000 60%);
       }
     }
   }
@@ -92,6 +118,10 @@
 
   .invalid-feedback {
     color: #f70018;
+  }
+
+  #offcanvas-section .offcanvas-backdrop.show {
+    opacity: 0!important;
   }
 
   @media (max-height: 775px) {

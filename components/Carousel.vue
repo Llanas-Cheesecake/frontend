@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="panel">
-      <img src="https://naver.github.io/egjs-flicking/images/bg02.jpg" />
+      <img src="/images/banner2.png" />
       <div class="overlay"></div>
       <div class="panel-text">
         <h3>Baked straight from the oven</h3>
@@ -57,6 +57,7 @@
       border-radius: 0.5rem;
       width: 100%;
       height: 350px;
+      max-width: 1000px;
     }
     .overlay {
       border-radius: 0.5rem;

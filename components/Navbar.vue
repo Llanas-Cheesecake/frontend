@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useAuthStore } from "../store/auth";
+  import { useAuthStore } from "~/store/auth";
 
   const { $auth } = useNuxtApp();
   const auth = useAuthStore();
@@ -39,7 +39,7 @@
           <nuxt-link to="/" class="nav-link">Home</nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
+          <nuxt-link to="/menu/all" class="nav-link">Menu</nuxt-link>
         </li>
         <li class="nav-item">
           <nuxt-link to="/about" class="nav-link">About</nuxt-link>
@@ -68,7 +68,7 @@
             <nuxt-link to="/" class="nav-link">Home</nuxt-link>
           </div>
           <div class="nav-item">
-            <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
+            <nuxt-link to="/menu/all" class="nav-link">Menu</nuxt-link>
           </div>
           <div class="nav-item">
             <nuxt-link to="/about" class="nav-link">About</nuxt-link>
@@ -79,20 +79,12 @@
       <div class="d-none d-md-block" style="z-index: 100;">
 
         <div class="d-flex align-items-center ms-auto w-auto">
-          <div class="nav-item dropdown d-inline-block px-3">
-            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="/icons/shopping-cart.svg" alt="Shopping Cart" />
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
+          <!-- Cart Dropdown -->
+          <CartDropdown />
+          <!-- END Cart Dropdown -->
 
           <div v-if="$auth.isLoggedIn()" class="nav-item dropdown d-inline-block px-3">
-            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
               <img src="/icons/user.svg" alt="User" />
             </a>
             <ul class="dropdown-menu dropdown-menu-end mt-2">
@@ -148,7 +140,7 @@
             <span>Home</span>
           </nuxt-link>
 
-          <nuxt-link class="nav-link" to="/menu">
+          <nuxt-link class="nav-link" to="/menu/all">
             <img src="/icons/tag.svg" width="20" height="20" alt="Home Icon"/>
             <span>Menu</span>
           </nuxt-link>
@@ -203,7 +195,7 @@
         padding-right: 10px;
         border-radius: 4px;
 
-        &.router-link-exact-active {
+        &.router-link-active {
           background-color: var(--color-text-primary);
           color: var(--bg-primary)!important;
           font-weight: bold;
@@ -241,7 +233,7 @@
           gap: 0.5rem;
           text-decoration: none;
           color: var(--color-text-primary);
-          &.router-link-exact-active {
+          &.router-link-active {
             background-color: color-mix(in srgb, var(--bg-primary), #000 35%);
           }
         }
