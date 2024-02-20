@@ -96,6 +96,10 @@
       box-shadow: none;
       color: var(--color-text-primary);
     }
+    &:disabled {
+      background-color: color-mix(in srgb, var(--bg-primary), #000 30%);
+      color: color-mix(in srgb, var(--color-text-primary), #000 20%);
+    }
     color: var(--color-text-primary);
   }
 
