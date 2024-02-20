@@ -3,10 +3,32 @@
 
   const { $auth } = useNuxtApp()
   const cart = useCartStore();
+
+  // Intersection observer
+  const intersection = ref();
+  const isSticking = ref(false)
+
+  onMounted(() => {
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+          isSticking.value = !entry.isIntersecting;
+        },
+        { threshold: 0.0 }
+    )
+
+    observer.observe(intersection.value)
+  })
+
 </script>
 
 <template>
-    <section class="my-5">
+    <section class="my-4">
+
+      <nuxt-link to="/cart" class="btn btn-primary btn-back mb-4">
+        <img src="/icons/arrow-left.svg" width="20" class="me-2" alt="back arrow" />
+        <span>Back to cart</span>
+      </nuxt-link>
+
       <div class="row">
 
         <div class="col-sm-12 col-md-8">
@@ -63,7 +85,7 @@
                   </div>
 
                   <div class="mb-4">
-                    <label class="form-label">State/Province</label>
+                    <label class="form-label">Region</label>
                     <input type="text" class="form-control" placeholder="e.g. Manila" value="Metro Manila" disabled aria-label="City">
                     <div class="form-text">For now, supported province is only Metro Manila</div>
                   </div>
@@ -80,32 +102,39 @@
           </div>
         </div>
         <div class="col-sm-12 col-md-4">
-          <div class="card p-2 mb-3">
-            <div class="card-body">
-              <h5 class="card-title">Order Summary</h5>
 
-              <hr />
+          <div ref="intersection" />
 
-              <CartList :show-actions="false" />
+          <section class="sticky-top" :style="{ 'top': isSticking ? '1.5rem' : '0' }">
+            <div class="card p-2 mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Order Summary</h5>
 
-              <hr />
+                <hr />
 
-              <section>
-                <div class="d-flex justify-content-between mb-2">
-                  <div>Subtotal:</div>
-                  <div>&#8369;{{ formatPrice(cart._totalPrice) }}</div>
-                </div>
-                <div class="d-flex justify-content-between">
-                  <div>Delivery Fee:</div>
-                  <div>&#8369;{{ formatPrice(49.00) }}</div>
-                </div>
-              </section>
+                <CartList :show-actions="false" />
+
+                <hr />
+
+                <section>
+                  <div class="d-flex justify-content-between mb-2">
+                    <div>Subtotal:</div>
+                    <div>&#8369;{{ formatPrice(cart._totalPrice) }}</div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div>Delivery Fee:</div>
+                    <div>&#8369;{{ formatPrice(49.00) }}</div>
+                  </div>
+                </section>
+
+                <button class="btn btn-primary d-block w-100 mt-4">Checkout</button>
+              </div>
             </div>
-          </div>
 
-          <div v-if="!$auth.isLoggedIn()" class="alert alert-info" role="alert">
-            You can easily access your order history when you have an account with us!
-          </div>
+            <div v-if="!$auth.isLoggedIn()" class="alert alert-info" role="alert">
+              You can easily access your order history when you have an account with us!
+            </div>
+          </section>
 
         </div>
       </div>
@@ -113,5 +142,9 @@
 </template>
 
 <style scoped lang="scss">
-
+  .btn-back {
+    position: relative;
+    top: -1px;
+    border-radius: 8px;
+  }
 </style>
