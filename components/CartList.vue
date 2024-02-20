@@ -4,7 +4,7 @@
   const cart = useCartStore();
 
   const props = withDefaults(defineProps<{
-    showActions: boolean
+    showActions?: boolean
   }>(), {
     showActions: true
   })
