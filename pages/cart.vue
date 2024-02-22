@@ -39,7 +39,7 @@
           <div class="card-body">
 
             <div class="d-flex justify-content-between align-items-center">
-              <h5 class="card-title mb-0">
+              <h5 class="fw-bold mb-0">
                 Cart
               </h5>
               <button class="btn btn-primary" @click="removeAllItems">Remove all</button>

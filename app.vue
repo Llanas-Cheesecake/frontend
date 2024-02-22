@@ -103,6 +103,12 @@
     color: var(--color-text-primary);
   }
 
+  .input-group-text {
+    background-color: color-mix(in srgb, var(--bg-primary), #000 25%);
+    border: 1px solid color-mix(in srgb, var(--bg-primary), #000 40%);
+    color: var(--color-text-primary)
+  }
+
   a.form-text {
     color: var(--color-link);
   }
@@ -126,6 +132,10 @@
 
   #offcanvas-section .offcanvas-backdrop.show {
     opacity: 0!important;
+  }
+
+  .sticky-top {
+    z-index: 99;
   }
 
   @media (max-height: 775px) {
