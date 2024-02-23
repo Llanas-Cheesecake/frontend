@@ -49,6 +49,47 @@
         </div>
       </div>
     </div>
+
+    <div class="container mt-4">
+      <div class="date-time">
+        <p>12/16/17/2023 10:39am</p>
+      </div>
+      <div class="content row d-flex justify-content-center">
+        <div class="col-lg-2 col-md-6">
+          <h5>Items</h5>
+          <Row class="chicken-pesto">
+            <img src="/images/chicken-pesto.jpeg" class="product" />
+          </Row>
+          <Row>
+            <img src="/images/iced-latte.png" class="product" />
+          </Row>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5>Name</h5>
+          <row class="chicken-pesto">
+            <p>Chicken Pesto Sandwich</p>
+          </row>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5>Quantity</h5>
+          <Row class="chicken-pesto">
+            <p>3</p>
+          </Row>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5>Price</h5>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5>Order Information</h5>
+          <Row>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </Row>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -108,6 +149,7 @@
 
 .content p {
   margin-top: 40px;
+  text-align: center;
 }
 
 .product {
