@@ -55,7 +55,7 @@
   const handleCheckout = async () => {
     await fetchXSRFCookie();
 
-    let body = {}
+    let body: {}
 
     if (isSameInformation.value) {
       body = {
