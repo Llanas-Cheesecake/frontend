@@ -153,7 +153,7 @@
             <hr />
 
             <section>
-              <ul v-if="order.items.length > 0" class="cart-items my-4">
+              <ul class="cart-items my-4">
 
                 <li v-for="item in order.items" class="cart-item">
                   <img class="item-image" :src="item.product.thumbnail" alt="cart item" />
@@ -170,11 +170,8 @@
                     </p>
                   </div>
                 </li>
-              </ul>
 
-              <p v-else class="my-5 text-center">
-                No items yet. Start adding one!
-              </p>
+              </ul>
             </section>
 
             <hr />
