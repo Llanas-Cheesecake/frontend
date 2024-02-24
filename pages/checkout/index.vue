@@ -299,13 +299,12 @@
                     <div>Subtotal:</div>
                     <div>&#8369;{{ formatPrice(cart._totalPrice) }}</div>
                   </div>
-                  <div class="d-flex justify-content-between">
-                    <div>Delivery Fee:</div>
-                    <div>&#8369;{{ formatPrice(49.00) }}</div>
-                  </div>
                 </section>
 
-                <button class="btn btn-primary d-block w-100 mt-4" @click="handleCheckout">Checkout</button>
+                <button class="btn btn-primary d-block w-100 mt-4 mb-3" @click="handleCheckout">Checkout</button>
+                <div class="form-text">
+                  You are agreeing to our terms & conditions when you continue to checkout
+                </div>
               </div>
             </div>
 
