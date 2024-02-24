@@ -6,12 +6,108 @@
 html {
   position: relative;
   min-height: 100%;
-
 }
 
 body {
   font-family: "Inter", sans-serif;
   max-width: 100%;
-  background-color: #FFD47E;
+  background-color: #ffd47e;
   min-height: 100%;
+}
+
+/*Admin-Panel*/
+.dashboard {
+  // background-color: #77a042;
+  width: calc(100% - 250px);
+  padding-top: 10px;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 20px;
+  transition: var(--tran-05);
+  margin-top: 5%;
+  border-radius: 15px;
+}
+
+.dashboard .dash-content {
+  padding-top: 50px;
+}
+.dash-content .title {
+  display: flex;
+  align-items: center;
+  margin: 60px 0 30px 0;
+}
+
+.dash-content .title .text {
+  font-size: 24px;
+  font-weight: 500;
+  color: #fff;
+}
+.dash-content .boxes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  color: #fff;
+}
+.dash-content .boxes .box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 12px;
+  width: calc(100% / 3 - 15px);
+  padding: 15px 20px;
+}
+
+.boxes .box .text {
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 500;
+}
+.boxes .box .number {
+  font-size: 40px;
+  font-weight: 500;
+}
+.boxes .box.box1 {
+  background-color: #77a042;
+}
+.boxes .box.box2 {
+  background-color: #77a042;
+}
+.boxes .box.box3 {
+  background-color: #77a042;
+}
+.dash-content .activity .activity-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.activity {
+  background-color: #77a042;
+  border-radius: 15px;
+}
+.activity .title {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+.activity .activity-data {
+  display: flex;
+}
+.activity-data .data {
+  display: flex;
+  flex-direction: column;
+  margin: 0 15px;
+}
+.activity-data .data-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+}
+.activity-data .data .data-list {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 20px;
+  white-space: nowrap;
+  color: #fff;
+  padding-bottom: 5px;
 }
