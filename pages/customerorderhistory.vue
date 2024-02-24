@@ -168,7 +168,6 @@
 .menuCard {
   background-color: #77a042;
   margin: 50px 0px;
-  border-radius: 20px;
 }
 
 .menuHeader {
