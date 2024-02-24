@@ -35,8 +35,15 @@
   })
 
   if (error.value) {
-    console.log(error.value)
-    // TODO: Handle errors
+    switch (error.value.statusCode) {
+      case 403:
+      case 404:
+        navigateTo('/')
+        break;
+      default:
+        // TODO: Handle errors
+        console.log(error.value)
+    }
   }
 
   if (response.value) {
@@ -80,8 +87,8 @@
     </nuxt-link>
 
     <div class="row">
-      <div class="col-sm-12 col-md-8">
-        <div class="card bg-primary text-primary p-2">
+      <div class="col-md-12 col-lg-8">
+        <div class="card bg-primary text-primary p-2 mb-4">
           <div class="card-body">
 
             <div class="d-flex align-items-center gap-3 mb-4">
@@ -137,7 +144,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-4">
+      <div class="col-md-12 col-lg-4">
 
         <div class="card p-2 mb-3">
           <div class="card-body">
