@@ -53,7 +53,7 @@
             </div>
 
             <section v-if="!cart._is_loading">
-              <ul v-if="cart._items && cart._items.length > 0" class="cart-items my-4">
+              <ul v-if="cart._items && cart._items.length > 0" class="cart-items mt-4">
 
                 <li v-for="item in cart._items" class="cart-item">
                   <img class="item-image" :src="item.product.thumbnail" alt="cart item" />
