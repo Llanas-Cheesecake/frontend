@@ -68,6 +68,14 @@
     background-color: var(--bg-secondary)!important;
   }
 
+  .text-primary {
+    color: var(--color-text-primary)!important;
+  }
+
+  .text-subtle {
+    color: color-mix(in srgb,var(--color-text-primary), #000 10%);
+  }
+
   .btn {
     border-color: transparent!important;
     border-radius: 20px;
