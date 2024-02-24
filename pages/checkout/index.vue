@@ -1,8 +1,10 @@
 <script setup lang="ts">
+  import { useAuthStore } from "~/store/auth";
   import { useCartStore } from "~/store/cart";
   import type { ApiResponse } from "~/types/ApiResponse";
 
   const { $auth } = useNuxtApp()
+  const auth = useAuthStore();
   const cart = useCartStore();
 
   useHead({
@@ -12,11 +14,11 @@
   // Hides the billing information section when this is true
   const isSameInformation = ref(true)
 
-  const email = ref('');
+  const email = ref( auth._user?.email ? auth._user.email : '' );
   const additionalInfo = ref('');
 
-  const deliveryFirstName = ref('');
-  const deliveryLastName = ref('');
+  const deliveryFirstName = ref( auth._user?.first_name ? auth._user.first_name : '' );
+  const deliveryLastName = ref( auth._user?.last_name ? auth._user.last_name : '' );
   const deliveryPhoneNumber = ref('');
   const deliveryAddressOne = ref('');
   const deliveryAddressTwo = ref('');
@@ -25,8 +27,8 @@
   const deliveryZipCode = ref('');
   const deliveryCountry = ref('PH')
 
-  const billingFirstName = ref('');
-  const billingLastName = ref('');
+  const billingFirstName = ref( auth._user?.first_name ? auth._user.first_name : '' );
+  const billingLastName = ref( auth._user?.last_name ? auth._user.last_name : '' );
   const billingPhoneNumber = ref('');
   const billingAddressOne = ref('');
   const billingAddressTwo = ref('');
@@ -319,8 +321,10 @@
 
 <style scoped lang="scss">
   .btn-back {
-    position: relative;
-    top: -1px;
     border-radius: 8px;
+    img {
+      position: relative;
+      top: -1px;
+    }
   }
 </style>
