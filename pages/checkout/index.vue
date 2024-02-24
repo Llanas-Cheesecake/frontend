@@ -22,6 +22,7 @@
   const deliveryPhoneNumber = ref('');
   const deliveryAddressOne = ref('');
   const deliveryAddressTwo = ref('');
+  const deliveryBarangay = ref('');
   const deliveryCity = ref('');
   const deliveryRegion = ref('Metro Manila')
   const deliveryZipCode = ref('');
@@ -32,6 +33,7 @@
   const billingPhoneNumber = ref('');
   const billingAddressOne = ref('');
   const billingAddressTwo = ref('');
+  const billingBarangay = ref('');
   const billingCity = ref('');
   const billingRegion = ref('')
   const billingZipCode = ref('');
@@ -68,6 +70,7 @@
         'delivery_phone_number': deliveryPhoneNumber.value,
         'delivery_address_1': deliveryAddressOne.value,
         'delivery_address_2': deliveryAddressTwo.value,
+        'delivery_barangay': deliveryBarangay.value,
         'delivery_city': deliveryCity.value,
         'delivery_region': deliveryRegion.value,
         'delivery_zip_code': deliveryZipCode.value,
@@ -80,6 +83,7 @@
         'billing_phone_number': deliveryPhoneNumber.value,
         'billing_address_1': deliveryAddressOne.value,
         'billing_address_2': deliveryAddressTwo.value,
+        'billing_barangay': deliveryBarangay.value,
         'billing_city': deliveryCity.value,
         'billing_region': deliveryRegion.value,
         'billing_zip_code': deliveryZipCode.value,
@@ -95,6 +99,7 @@
         'billing_phone_number': billingPhoneNumber.value,
         'billing_address_1': billingAddressOne.value,
         'billing_address_2': billingAddressTwo.value,
+        'billing_barangay': billingBarangay.value,
         'billing_city': billingCity.value,
         'billing_region': billingRegion.value,
         'billing_zip_code': billingZipCode.value,
@@ -106,6 +111,7 @@
         'delivery_phone_number': deliveryPhoneNumber.value,
         'delivery_address_1': deliveryAddressOne.value,
         'delivery_address_2': deliveryAddressTwo.value,
+        'delivery_barangay': deliveryBarangay.value,
         'delivery_city': deliveryCity.value,
         'delivery_region': deliveryRegion.value,
         'delivery_zip_code': deliveryZipCode.value,
@@ -190,15 +196,22 @@
                     <input v-model="deliveryAddressTwo" type="text" class="form-control" placeholder="e.g. Rm. 101 Green Hills" aria-label="Address line 2">
                   </div>
 
-                  <div class="mb-4">
-                    <label class="form-label">City</label>
-                    <input v-model="deliveryCity" type="text" class="form-control" placeholder="e.g. Manila" aria-label="City">
-                  </div>
+                  <div class="row mb-4">
+                    <div class="col-sm-12 col-md-4">
+                      <label class="form-label">Barangay</label>
+                      <input v-model="deliveryBarangay" type="text" class="form-control" placeholder="e.g. Barangay 310" aria-label="Barangay">
+                    </div>
 
-                  <div class="mb-4">
-                    <label class="form-label">Region</label>
-                    <input type="text" class="form-control" placeholder="e.g. Manila" value="Metro Manila" disabled aria-label="Region">
-                    <div class="form-text">For now, we only deliver within Metro Manila</div>
+                    <div class="col-sm-12 col-md-4">
+                      <label class="form-label">City</label>
+                      <input v-model="deliveryCity" type="text" class="form-control" placeholder="e.g. Manila" aria-label="City">
+                    </div>
+
+                    <div class="col-sm-12 col-md-4">
+                      <label class="form-label">Region</label>
+                      <input type="text" class="form-control" placeholder="e.g. Manila" value="Metro Manila" disabled aria-label="Region">
+                      <div class="form-text">We only deliver within Metro Manila</div>
+                    </div>
                   </div>
 
                   <div class="mb-4">
@@ -253,14 +266,21 @@
                     <input v-model="billingAddressTwo" type="text" class="form-control" placeholder="e.g. Rm. 101 Green Hills" aria-label="Address line 2">
                   </div>
 
-                  <div class="mb-4">
-                    <label class="form-label">City</label>
-                    <input v-model="billingCity" type="text" class="form-control" placeholder="e.g. Manila" aria-label="City">
-                  </div>
+                  <div class="row mb-4">
+                    <div class="col-sm-12 col-md-4">
+                      <label class="form-label">Barangay</label>
+                      <input v-model="billingBarangay" type="text" class="form-control" placeholder="e.g. Barangay 310" aria-label="Barangay">
+                    </div>
 
-                  <div class="mb-4">
-                    <label class="form-label">Region</label>
-                    <input v-model="billingRegion" type="text" class="form-control" placeholder="e.g. Metro Manila" aria-label="Region">
+                    <div class="col-sm-12 col-md-4">
+                      <label class="form-label">City</label>
+                      <input v-model="billingCity" type="text" class="form-control" placeholder="e.g. Manila" aria-label="City">
+                    </div>
+
+                    <div class="col-sm-12 col-md-4">
+                      <label class="form-label">Region</label>
+                      <input v-model="billingRegion" type="text" class="form-control" placeholder="e.g. Metro Manila" aria-label="Region">
+                    </div>
                   </div>
 
                   <div class="mb-4">
