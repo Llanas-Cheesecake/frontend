@@ -1,14 +1,19 @@
 <template>
-  <div class="main">
-    <div class="header">
-      <div class="home-icon">
-        <img src="/icons/home.svg" alt="Customize Order" />
-      </div>
-      <div class="title">
-        <h3>Order History</h3>
+  <div class="menuCard">
+    <div class="menuHeader">
+      <div class="menuHeaderContents">
+        <div id="homeAndName">
+          <a href="https://youtube.com" id="homeButton"></a>
+          <h3>Order History</h3>
+        </div>
+        <button id="addMenuButton" @click="addClick"></button>
+
+        <select v-model="sortby" id="sortDropDown">
+          <option value="alphabetical">A-Z</option>
+          <option value="reverseA">Z-A</option>
+        </select>
       </div>
     </div>
-    <hr />
     <div class="container">
       <div class="date-time">
         <p>12/16/17/2023 10:39am</p>
@@ -158,4 +163,112 @@
   border-radius: 100px;
   margin-top: 40px;
 }
+
+//update
+.menuCard {
+  background-color: #77a042;
+  margin: 50px 0px;
+  border-radius: 20px;
+}
+
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: white solid 5px;
+}
+
+.menuHeader div {
+  padding-top: 12px;
+}
+
+.menuHeaderContents {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 0;
+  justify-content: space-between;
+  display: flex; /* Use flexbox */
+  align-items: center;
+  flex: 1;
+}
+
+.menuHeaderContents h3 {
+  color: white;
+  font-weight: bold;
+  padding-top: 10px;
+  cursor: default;
+}
+
+#homeAndName {
+  display: inline-flex;
+  padding-bottom: 10px;
+  justify-content: space-between;
+  vertical-align: middle;
+}
+
+#homeButton {
+  background-image: url("../icons/homeBtn.png");
+  background-size: 50px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  height: 52px;
+  width: 52px;
+  border: none;
+  outline: none;
+  margin-right: 12px;
+}
+
+#addMenuButton {
+  background-image: url("../icons/addMenu.png");
+  background-size: 50px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  height: 52px;
+  width: 52px;
+  border: none;
+  outline: none;
+}
+
+#sortDropDown {
+  color: white;
+  background-color: #77a042;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  padding: 0 20px 0 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#sortDropDown option {
+  font-weight: bold;
+  align-self: center;
+}
 </style>
+
+<script lang="ts">
+export default {
+  data() {
+    return {
+      search: "",
+      sortby: "alphabetical",
+      items: [
+        //mock data goes here
+      ],
+    };
+  },
+  computed: {
+    sortedItems() {
+      return this.items.sort((a, b) => {
+        if (this.sortby === "alphabetical") {
+          return a.alphabetical.localeCompare(b.alphabetical);
+        } else if (this.sortby === "reverseA") {
+          return b.alphabetical.localeCompare(a.alphabetical);
+        }
+        return 0; // Default case
+      });
+    },
+  },
+};
+</script>

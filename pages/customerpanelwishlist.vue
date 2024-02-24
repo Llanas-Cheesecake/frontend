@@ -1,144 +1,62 @@
 <template>
-  <div class="main">
-    <div class="header">
-      <div class="home-icon">
-        <img src="/icons/home.svg" alt="Customize Order" />
-      </div>
-      <div class="title">
-        <h3>Order History</h3>
-      </div>
-    </div>
-    <hr />
-    <div class="container">
-      <div class="date-time">
-        <p>12/16/17/2023 10:39am</p>
-      </div>
-      <div class="content row d-flex justify-content-center">
-        <div class="col-lg-2 col-md-6">
-          <h5>Items</h5>
-          <Row class="chicken-pesto">
-            <img src="/images/chicken-pesto.jpeg" class="product" />
-          </Row>
-          <Row>
-            <img src="/images/iced-latte.png" class="product" />
-          </Row>
+  <div class="menuCard">
+    <div class="menuHeader">
+      <div class="menuHeaderContents">
+        <div id="homeAndName">
+          <a href="https://youtube.com" id="homeButton"></a>
+          <h3>Wishlist</h3>
         </div>
-        <div class="col-lg-2 col-md-6">
-          <h5>Name</h5>
-          <row class="chicken-pesto">
-            <p>Chicken Pesto Sandwich</p>
-          </row>
-        </div>
-        <div class="col-lg-2 col-md-6">
-          <h5>Quantity</h5>
-          <Row class="chicken-pesto">
-            <p>3</p>
-          </Row>
-        </div>
-        <div class="col-lg-2 col-md-6">
-          <h5>Price</h5>
-        </div>
-        <div class="col-lg-2 col-md-6">
-          <h5>Order Information</h5>
-          <Row>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </Row>
-        </div>
-      </div>
-    </div>
+        <button id="addMenuButton" @click="addClick"></button>
 
-    <div class="container mt-4">
-      <div class="date-time">
-        <p>12/16/17/2023 10:39am</p>
+        <select v-model="sortby" id="sortDropDown">
+          <option value="alphabetical">A-Z</option>
+          <option value="reverseA">Z-A</option>
+        </select>
       </div>
-      <div class="content row d-flex justify-content-center">
-        <div class="col-lg-2 col-md-6">
-          <h5>Items</h5>
-          <Row class="chicken-pesto">
-            <img src="/images/chicken-pesto.jpeg" class="product" />
-          </Row>
-          <Row>
-            <img src="/images/iced-latte.png" class="product" />
-          </Row>
-        </div>
-        <div class="col-lg-2 col-md-6">
-          <h5>Name</h5>
-          <row class="chicken-pesto">
-            <p>Chicken Pesto Sandwich</p>
-          </row>
-        </div>
-        <div class="col-lg-2 col-md-6">
-          <h5>Quantity</h5>
-          <Row class="chicken-pesto">
-            <p>3</p>
-          </Row>
-        </div>
-        <div class="col-lg-2 col-md-6">
-          <h5>Price</h5>
-        </div>
-        <div class="col-lg-2 col-md-6">
-          <h5>Order Information</h5>
-          <Row>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </Row>
-        </div>
+    </div>
+    <div class="content row d-flex justify-content-center">
+      <div class="col-lg-3 col-md-6">
+        <Row class="chicken-pesto">
+          <img src="/images/chicken-pesto.jpeg" class="product" />
+        </Row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <row class="chicken-pesto">
+          <p>Chicken Pesto Sandwich</p>
+        </row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <Row class="chicken-pesto">
+          <p>3</p>
+        </Row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <Row>
+          <img
+            src="/images/dots.png"
+            alt="dots"
+            class="three-dots rounded mx-auto d-block mt-4"
+          />
+        </Row>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-.main {
-  background-color: #77a042;
-  border-radius: 15px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  padding: 60px;
+<style lang="scss">
+// Color Palette
+// https://colors.muz.li/palette/77A042/59702e/f2ffda/e5ffb4/ffffff
+.product {
+  width: 100%;
+  align-items: center;
+  border-radius: 150px;
+  margin-top: 40px;
 }
-
-.main h3 {
-  color: white;
-  font-weight: bold;
-}
-
-.main hr {
-  background-color: white;
-  position: relative;
-  top: 20px;
-  border: none;
-  height: 5px;
-  margin-bottom: 50px;
-  opacity: 100%;
-  margin-left: -60px;
-  margin-right: -60px;
-}
-
-.header {
-  display: flex;
-}
-
-.home-icon {
-  margin-right: 15px;
-}
-
-.date-time {
-  background-color: #ffd47e;
-  width: fit-content;
-  height: fit-content;
-  margin-bottom: -20px;
-  padding: 7px;
-}
-
 .content {
   background-color: white;
   padding: 30px;
-  margin: 0px;
+  margin: 40px;
+  border-radius: 10px;
 }
 
 .content h5 {
@@ -152,10 +70,115 @@
   text-align: center;
 }
 
-.product {
-  width: 100%;
+.menuCard {
+  background-color: #77a042;
+  border-radius: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  border-radius: 100px;
-  margin-top: 40px;
+  border-bottom: white solid 5px;
+}
+
+.menuHeader div {
+  padding-top: 12px;
+}
+
+.menuHeaderContents {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 0;
+  justify-content: space-between;
+  display: flex; /* Use flexbox */
+  align-items: center;
+  flex: 1;
+}
+
+.menuHeaderContents h3 {
+  color: white;
+  font-weight: bold;
+  padding-top: 10px;
+  cursor: default;
+}
+
+#homeAndName {
+  display: inline-flex;
+  padding-bottom: 10px;
+  justify-content: space-between;
+  vertical-align: middle;
+}
+
+#homeButton {
+  background-image: url("../icons/homeBtn.png");
+  background-size: 50px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  height: 52px;
+  width: 52px;
+  border: none;
+  outline: none;
+  margin-right: 12px;
+}
+
+#addMenuButton {
+  background-image: url("../icons/addMenu.png");
+  background-size: 50px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  height: 52px;
+  width: 52px;
+  border: none;
+  outline: none;
+}
+
+#sortDropDown {
+  color: white;
+  background-color: #77a042;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  padding: 0 20px 0 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#sortDropDown option {
+  font-weight: bold;
+  align-self: center;
+}
+
+.three-dots {
+  width: 50px;
 }
 </style>
+
+<script lang="ts">
+export default {
+  data() {
+    return {
+      search: "",
+      sortby: "alphabetical",
+      items: [
+        //mock data goes here
+      ],
+    };
+  },
+  computed: {
+    sortedItems() {
+      return this.items.sort((a, b) => {
+        if (this.sortby === "alphabetical") {
+          return a.alphabetical.localeCompare(b.alphabetical);
+        } else if (this.sortby === "reverseA") {
+          return b.alphabetical.localeCompare(a.alphabetical);
+        }
+        return 0; // Default case
+      });
+    },
+  },
+};
+</script>
