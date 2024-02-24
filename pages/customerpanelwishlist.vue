@@ -17,7 +17,10 @@
     <div class="content row d-flex justify-content-center">
       <div class="col-lg-3 col-md-6">
         <Row class="chicken-pesto">
-          <img src="/images/chicken-pesto.jpeg" class="product" />
+          <img
+            src="/images/chicken-pesto.jpeg"
+            class="product mx-auto d-block mt-4"
+          />
         </Row>
       </div>
       <div class="col-lg-3 col-md-6">
@@ -27,7 +30,7 @@
       </div>
       <div class="col-lg-3 col-md-6">
         <Row class="chicken-pesto">
-          <p>3</p>
+          <p>₱160</p>
         </Row>
       </div>
       <div class="col-lg-3 col-md-6">
@@ -35,7 +38,7 @@
           <img
             src="/images/dots.png"
             alt="dots"
-            class="three-dots rounded mx-auto d-block mt-4"
+            class="three-dots rounded mx-auto d-block mt-5"
           />
         </Row>
       </div>
@@ -47,16 +50,16 @@
 // Color Palette
 // https://colors.muz.li/palette/77A042/59702e/f2ffda/e5ffb4/ffffff
 .product {
-  width: 100%;
-  align-items: center;
+  width: 75%;
   border-radius: 150px;
   margin-top: 40px;
+  padding: 10px;
 }
 .content {
   background-color: white;
-  padding: 30px;
+  padding: 10px;
   margin: 40px;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 .content h5 {
@@ -66,7 +69,7 @@
 }
 
 .content p {
-  margin-top: 40px;
+  margin-top: 70px;
   text-align: center;
 }
 
