@@ -14,18 +14,42 @@
         </select>
       </div>
     </div>
-    <div class="content row d-flex justify-content-center"></div>
+    <div class="content row d-flex justify-content-center">
+      <div class="col-lg-3 col-md-6">
+        <Row class="chicken-pesto">
+          <img src="/images/chicken-pesto.jpeg" class="product" />
+        </Row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <row class="chicken-pesto">
+          <p>Chicken Pesto Sandwich</p>
+        </row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <Row class="chicken-pesto">
+          <p>3</p>
+        </Row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <Row> ... </Row>
+      </div>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 // Color Palette
 // https://colors.muz.li/palette/77A042/59702e/f2ffda/e5ffb4/ffffff
-
+.product {
+  width: 100%;
+  align-items: center;
+  border-radius: 150px;
+  margin-top: 40px;
+}
 .content {
   background-color: white;
   padding: 30px;
-  margin: 30px;
+  margin: 40px;
   border-radius: 10px;
 }
 
@@ -42,8 +66,10 @@
 
 .menuCard {
   background-color: #77a042;
-  margin: 50px 0px;
   border-radius: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 5px;
 }
 
 .menuHeader {
