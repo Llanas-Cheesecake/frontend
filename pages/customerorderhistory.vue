@@ -14,11 +14,11 @@
         </select>
       </div>
     </div>
-    <div class="container">
-      <div class="date-time">
+    <div>
+      <div class="date-time mt-4 mx-4">
         <p>12/16/17/2023 10:39am</p>
       </div>
-      <div class="content row d-flex justify-content-center">
+      <div class="content row d-flex justify-content-center mx-4">
         <div class="col-lg-2 col-md-6">
           <h5>Items</h5>
           <Row class="chicken-pesto">
@@ -53,13 +53,10 @@
           </Row>
         </div>
       </div>
-    </div>
-
-    <div class="container mt-4">
-      <div class="date-time">
+      <div class="date-time mt-4 mx-4">
         <p>12/16/17/2023 10:39am</p>
       </div>
-      <div class="content row d-flex justify-content-center">
+      <div class="content row d-flex justify-content-center mx-4 mb-4">
         <div class="col-lg-2 col-md-6">
           <h5>Items</h5>
           <Row class="chicken-pesto">
@@ -168,6 +165,8 @@
 .menuCard {
   background-color: #77a042;
   margin: 50px 0px;
+  border-radius: 20px;
+  padding-bottom: 1rem;
 }
 
 .menuHeader {

@@ -43,14 +43,74 @@
         </Row>
       </div>
     </div>
+    <div class="content row d-flex justify-content-center">
+      <div class="col-lg-3 col-md-6">
+        <Row class="chicken-pesto">
+          <img
+            src="/images/matcha-cheesecake.jpeg"
+            class="product mx-auto d-block mt-4"
+          />
+        </Row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <row class="chicken-pesto">
+          <p>Matcha Cheesecake</p>
+        </row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <Row class="chicken-pesto">
+          <p>₱160</p>
+        </Row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <Row>
+          <img
+            src="/images/dots.png"
+            alt="dots"
+            class="three-dots rounded mx-auto d-block mt-5"
+          />
+        </Row>
+      </div>
+    </div>
+
+    <div class="content row d-flex justify-content-center">
+      <div class="col-lg-3 col-md-6">
+        <Row class="chicken-pesto">
+          <img
+            src="/images/iced-latte.png"
+            class="product mx-auto d-block mt-4"
+          />
+        </Row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <row class="chicken-pesto">
+          <p>Iced Latte</p>
+        </row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <Row class="chicken-pesto">
+          <p>₱130</p>
+        </Row>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <Row>
+          <img
+            src="/images/dots.png"
+            alt="dots"
+            class="three-dots rounded mx-auto d-block mt-5"
+          />
+        </Row>
+      </div>
+    </div>
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 // Color Palette
 // https://colors.muz.li/palette/77A042/59702e/f2ffda/e5ffb4/ffffff
 .product {
-  width: 75%;
+  width: 200px;
+  height: 200px;
   border-radius: 150px;
   margin-top: 40px;
   padding: 10px;
@@ -78,6 +138,7 @@
   border-radius: 20px;
   margin-top: 50px;
   margin-bottom: 50px;
+  padding-bottom: 30px;
 }
 
 .menuHeader {
