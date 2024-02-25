@@ -16,7 +16,6 @@ const categories = reactive<Category[]>([])
 const { data } = await useFetchAPI<ApiResponse>('/categories', { method: "GET" })
 
 if (data.value) {
-  // @ts-ignore
   const result = data.value.data
 
   result.map((item: Category) => categories.push(item))
@@ -83,36 +82,3 @@ onMounted(() => {
     </div>
   </section>
 </template>
-
-<style scoped lang="scss">
-.sidebar {
-  border-radius: 8px;
-  h5 {
-    color: var(--color-text-primary);
-    margin-bottom: 1rem;
-    font-weight: bold;
-  }
-  .nav {
-    .nav-item {
-      .nav-link {
-        background-color: color-mix(in srgb,var(--bg-primary), #000 15%);
-        color: var(--color-text-primary);
-        border-radius: 8px;
-        &.router-link-exact-active {
-          background-color: color-mix(in srgb,var(--bg-primary), #000 25%);
-        }
-      }
-      margin-bottom: 1rem;
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-  }
-}
-
-.offcanvas {
-  height: calc(100vh - 40px - 76px);
-  margin-top: calc(40px + 76px);
-  background-color: var(--bg-primary);
-}
-</style>

@@ -95,10 +95,10 @@
               </li>
               <li><hr class="dropdown-divider"></li>
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <img src="/icons/shopping-bag.svg" alt="Order History" />
+                <nuxt-link to="/account/order-history" class="dropdown-item d-flex align-items-center">
+                  <img src="/icons/shopping-bag-black.svg" alt="Order History" />
                   <span class="ms-2 fs-6">Order History</span>
-                </a>
+                </nuxt-link>
               </li>
               <li>
                 <a class="dropdown-item d-flex align-items-center" href="#">
