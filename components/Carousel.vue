@@ -16,7 +16,7 @@
   <!-- TODO: Implements props here for banner promotions -->
   <Flicking
       class="flicking"
-      :options="{ circular: true, duration: 500 }"
+      :options="{ hideBeforeInit: true, circular: true, duration: 500 }"
       :plugins="FlickPlugins"
   >
     <div class="panel">

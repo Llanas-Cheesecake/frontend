@@ -68,6 +68,14 @@
     background-color: var(--bg-secondary)!important;
   }
 
+  .text-primary {
+    color: var(--color-text-primary)!important;
+  }
+
+  .text-subtle {
+    color: color-mix(in srgb,var(--color-text-primary), #000 10%);
+  }
+
   .btn {
     border-color: transparent!important;
     border-radius: 20px;
@@ -96,7 +104,17 @@
       box-shadow: none;
       color: var(--color-text-primary);
     }
+    &:disabled {
+      background-color: color-mix(in srgb, var(--bg-primary), #000 30%);
+      color: color-mix(in srgb, var(--color-text-primary), #000 20%);
+    }
     color: var(--color-text-primary);
+  }
+
+  .input-group-text {
+    background-color: color-mix(in srgb, var(--bg-primary), #000 25%);
+    border: 1px solid color-mix(in srgb, var(--bg-primary), #000 40%);
+    color: var(--color-text-primary)
   }
 
   a.form-text {
@@ -122,6 +140,10 @@
 
   #offcanvas-section .offcanvas-backdrop.show {
     opacity: 0!important;
+  }
+
+  .sticky-top {
+    z-index: 99;
   }
 
   @media (max-height: 775px) {
