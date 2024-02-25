@@ -1,9 +1,12 @@
 import type { Cart } from "~/types/Cart";
 import type { ApiResponse } from "~/types/ApiResponse";
 import { useDebounceFn } from "@vueuse/core";
-import { useToast } from "vue-toastification";
 import { fetchXSRFCookie } from "~/utils";
 
+// @ts-ignore
+import * as Toast from "vue-toastification/dist/index.mjs";
+
+const { useToast } = Toast;
 const toast = useToast();
 
 export const useCartStore = defineStore('cart', () => {
