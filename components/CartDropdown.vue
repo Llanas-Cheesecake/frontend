@@ -23,7 +23,7 @@
       <div class="d-flex justify-content-between">
         <p class="fw-bold mb-0">Your Cart</p>
         <p class="total-info mb-0">
-          Total: <span>&#8369;{{ formatPrice(cart._totalPrice) }}</span>
+          Total: <span>{{ formatPrice(cart._totalPrice) }}</span>
         </p>
       </div>
 

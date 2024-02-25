@@ -104,7 +104,7 @@
                   </div>
                   <div class="item-info-alt">
                     <p class="item-price">
-                      &#8369;<span>{{ formatPrice(getItemTotalPrice(item.product.product_id)) }}</span>
+                      <span>{{ formatPrice(getItemTotalPrice(item.product.product_id)) }}</span>
                     </p>
                     <p class="item-quantity">
                       Quantity: {{ item.quantity }}

@@ -163,7 +163,7 @@
                   </div>
                   <div class="item-info-alt">
                     <p class="item-price">
-                      &#8369;<span>{{ formatPrice(getItemTotalPrice(item.product.product_id)) }}</span>
+                      <span>{{ formatPrice(getItemTotalPrice(item.product.product_id)) }}</span>
                     </p>
                     <p class="item-quantity">
                       Quantity: {{ item.quantity }}
@@ -179,7 +179,7 @@
             <section>
               <div class="d-flex justify-content-between">
                 <div>Subtotal:</div>
-                <div>&#8369;{{ formatPrice(order.amountPaid) }}</div>
+                <div>{{ formatPrice(order.amountPaid) }}</div>
               </div>
             </section>
           </div>

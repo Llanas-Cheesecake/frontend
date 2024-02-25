@@ -60,7 +60,7 @@
                   <div class="item-info">
                     <p class="item-name">{{ item.product.name }}</p>
                     <div class="item-subtitle">
-                      &#8369;{{ formatPrice(item.product.price) }} | {{ item.product.category }}
+                      {{ formatPrice(item.product.price) }} | {{ item.product.category }}
                     </div>
 
                     <div class="btn-group btn-group-sm mt-3" role="group" aria-label="Quantity Control">
@@ -78,7 +78,7 @@
 
                   <div class="item-info-alt position-relative">
                     <p class="item-price">
-                      &#8369;<span>{{ formatPrice(cart.getItemTotalPrice(item.product.product_id)) }}</span>
+                      <span>{{ formatPrice(cart.getItemTotalPrice(item.product.product_id)) }}</span>
                     </p>
                     <div class="item-actions position-absolute">
                       <div class="action" role="button"  @click="cart.removeFromCart(item.product.product_id)">
@@ -116,7 +116,7 @@
 
             <div class="d-flex justify-content-between">
               <div>Subtotal:</div>
-              <div>&#8369;{{ formatPrice(cart._totalPrice) }}</div>
+              <div>{{ formatPrice(cart._totalPrice) }}</div>
             </div>
 
             <nuxt-link to="/checkout" class="btn btn-secondary d-block mt-4 w-100">

@@ -317,7 +317,7 @@
                 <section>
                   <div class="d-flex justify-content-between mb-2">
                     <div>Subtotal:</div>
-                    <div>&#8369;{{ formatPrice(cart._totalPrice) }}</div>
+                    <div>{{ formatPrice(cart._totalPrice) }}</div>
                   </div>
                 </section>
 
