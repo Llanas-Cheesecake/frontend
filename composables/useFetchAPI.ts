@@ -12,7 +12,11 @@ export const useFetchAPI = async <T>(url: string, options: UseFetchOptions<T> = 
     const defaults: UseFetchOptions<T> = {
         baseURL: apiEndpoint,
         key: url,
-        headers: xsrfToken.value ? { "X-XSRF-TOKEN": xsrfToken.value } : {},
+        // @ts-ignore
+        headers: {
+            Accept: "application/json",
+            "X-XSRF-TOKEN": xsrfToken.value || null
+        },
         credentials: "include"
     }
 
