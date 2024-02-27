@@ -8,7 +8,8 @@ export default defineNuxtConfig({
   modules: [
       '@nuxtjs/google-fonts',
       '@pinia/nuxt',
-      '@pinia-plugin-persistedstate/nuxt'
+      '@pinia-plugin-persistedstate/nuxt',
+      'nuxt-time'
   ],
 
   // Site Metadata
