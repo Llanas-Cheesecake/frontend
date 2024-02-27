@@ -75,8 +75,12 @@
                 Paid at: <NuxtTime :datetime="order.payment?.paid_at" month="long" day="numeric" year="numeric" />
               </p>
             </div>
-
           </div>
+
+          <div v-if="orders.length === 0">
+            No order history found.
+          </div>
+
         </section>
 
         <section v-else>
