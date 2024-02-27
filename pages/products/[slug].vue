@@ -21,12 +21,14 @@
     category: '',
     thumbnail: '',
     price: 0,
-    averageRatings: 0,
-    totalRatings: 0,
     images: [],
+    average_ratings: 0,
+    total_ratings: 0,
+    is_wishlisted: false
   })
   const quantity = ref(1);
   const isAddingToCart = ref(false)
+  const isAddingToWishlist = ref(false)
 
   useHead({
     title: pageTitle,
@@ -79,6 +81,31 @@
     })
   }
 
+  const wishlistProduct = async () => {
+    isAddingToWishlist.value = true;
+
+    await fetchXSRFCookie();
+
+    const { data: result, error } = await useFetchAPI<ApiResponse>('/wishlist', {
+      method: "POST",
+      body: {
+        product_id: product.value.product_id
+      }
+    })
+
+    if (result.value) {
+      const payload = result.value.data
+
+      product.value.is_wishlisted = payload.is_wishlisted
+    }
+
+    if (error.value) {
+      // TODO: Handle errors
+    }
+
+    isAddingToWishlist.value = false;
+  }
+
 </script>
 
 <template>
@@ -101,9 +128,9 @@
         <p class="mt-4">{{ product.description }}</p>
         <div class="d-flex align-items-center mt-3">
           <client-only>
-            <vue-3-star-ratings v-model="product.averageRatings" star-size="20" disable-click />
+            <vue-3-star-ratings v-model="product.average_ratings" star-size="20" disable-click />
           </client-only>
-          <span class="ms-2">({{ product.totalRatings }})</span>
+          <span class="ms-2">({{ product.total_ratings }})</span>
         </div>
 
         <div class="product-actions d-flex align-items-center justify-content-between w-100">
@@ -125,10 +152,28 @@
               </span>
               <LoadingIcon v-if="isAddingToCart" color="black" class="ms-2" />
             </button>
-            <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Wishlist product">
-              <img src="/icons/heart.svg" alt="Wishlist product" />
-              <span class="visually-hidden">Wishlist product</span>
+
+            <button class="btn btn-primary"
+                    :disabled="isAddingToWishlist"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-title="Wishlist product"
+                    @click="wishlistProduct">
+
+              <span v-if="!isAddingToWishlist">
+
+                <img v-if="product.is_wishlisted" src="/icons/heart-filled.svg" alt="Wishlist product" />
+                <img v-if="!product.is_wishlisted" src="/icons/heart.svg" alt="Wishlist product" />
+
+                <span class="visually-hidden">
+                  Wishlist product
+                </span>
+
+              </span>
+              <LoadingIcon v-if="isAddingToWishlist" color="white" class="position-relative" style="top: -1px" />
+
             </button>
+
             <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Share product">
               <img src="/icons/share.svg" alt="Share product" />
               <span class="visually-hidden">Share product</span>

@@ -29,6 +29,12 @@
                   <span>Order History</span>
                 </nuxt-link>
               </li>
+              <li class="nav-item">
+                <nuxt-link to="/account/wishlist" class="nav-link d-flex align-items-center gap-2">
+                  <img src="/icons/star-white.svg" alt="star Icon" width="22" />
+                  <span>Wishlisted Items</span>
+                </nuxt-link>
+              </li>
             </ul>
           </div>
 

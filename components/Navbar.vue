@@ -101,12 +101,14 @@
                 </nuxt-link>
               </li>
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <img src="/icons/star.svg" alt="Wishlist" />
+                <nuxt-link to="/account/wishlist" class="dropdown-item d-flex align-items-center">
+                  <img src="/icons/star-black.svg" alt="Wishlist" />
                   <span class="ms-2">My Wishlist</span>
-                </a>
+                </nuxt-link>
               </li>
-              <li><hr class="dropdown-divider"></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
               <li>
                 <button type="button" class="dropdown-item d-flex align-items-center" @click="logoutUser">
                   <img src="/icons/log-out.svg" alt="Logout" />
