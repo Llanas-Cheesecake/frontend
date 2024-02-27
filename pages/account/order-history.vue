@@ -1,3 +1,30 @@
+<script setup lang="ts">
+  import type { ApiResponse } from "~/types/ApiResponse";
+  import type { Order } from "~/types/Order";
+
+  const orders = reactive<Order[]>([])
+
+  const { data: result, error, pending } = await useFetchAPI<ApiResponse>('/account/order-history', {
+    method: "GET",
+    server: false,
+    onResponse({ response }): Promise<void> | void {
+      const fetchedOrders = response._data.data.orders;
+
+      fetchedOrders.map((order: Order) => {
+        orders.push(order)
+      })
+    }
+  })
+
+  const getItemTotalPrice = (order: Order, product_id: number) => {
+    const item = order.items.find(i => i.product.product_id === product_id);
+
+    if (!item) return 0;
+
+    return formatPrice(item.quantity * item.product.price);
+  }
+</script>
+
 <template>
   <section>
     <div class="card bg-primary text-white p-2">
@@ -5,59 +32,58 @@
         <h4 class="card-title">Order History</h4>
         <hr />
 
-        <div class="card bg-primary text-white">
+        <section v-if="!pending">
+          <div v-for="order in orders" class="order-item card bg-primary text-white">
 
-          <div class="card-header p-3">
-            <div class="order-info">
-              <div>
-                <p class="title">Receipt ID</p>
-                <p class="subtitle">029301209389128390128</p>
-              </div>
-              <div class="flex-fill">
-                <p class="title">Total Amount</p>
-                <p class="subtitle">&#8369;600.00</p>
-              </div>
-              <div>
-                <button class="btn btn-primary me-2">
-                  Give Review
-                </button>
-                <button class="btn btn-secondary">
-                  View Details
-                </button>
+            <div class="card-header p-3">
+              <div class="order-info">
+                <div>
+                  <p class="title">Receipt ID</p>
+                  <p class="subtitle">{{ order.order_id }}</p>
+                </div>
+                <div class="flex-fill">
+                  <p class="title">Total Amount</p>
+                  <p class="subtitle">&#8369;600.00</p>
+                </div>
+                <div>
+                  <button class="btn btn-primary me-2">
+                    Give Review
+                  </button>
+                  <button class="btn btn-secondary">
+                    View Details
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="card-body">
-            <div class="product-item">
-              <img src="https://media.pickaroo.com/media/thumb/variant_photos/2021/9/3/kG9HsYh2Rd3hXM5pEKqmLM_watermark_400.jpg" class="img-thumbnail" alt="product name" />
-              <div class="product-info">
-                <p class="fw-bold mb-3">Product name</p>
-                <small class="mb-1 d-block">Size - Cake 8"</small>
-                <small class="mb-0 d-block">Quantity - 1</small>
-              </div>
-              <div class="product-price">
-                &#8369;300.00
+            <div class="card-body">
+              <div v-for="item in order.items" class="product-item">
+                <img :src="item.product.thumbnail" class="img-thumbnail" :alt="item.product.name" />
+                <div class="product-info">
+                  <p class="fw-bold mb-3">{{ item.product.name }}</p>
+                  <small class="mb-1 d-block">Size - {{ item.type }}</small>
+                  <small class="mb-0 d-block">Quantity - {{ item.quantity }}</small>
+                </div>
+                <div class="product-price">
+                  {{ getItemTotalPrice(order, item.product.product_id) }}
+                </div>
               </div>
             </div>
-            <div class="product-item">
-              <img src="https://media.pickaroo.com/media/thumb/variant_photos/2021/9/3/kG9HsYh2Rd3hXM5pEKqmLM_watermark_400.jpg" class="img-thumbnail" alt="product name" />
-              <div class="product-info">
-                <p class="fw-bold mb-3">Product name</p>
-                <small class="mb-1 d-block">Size - Cake 8"</small>
-                <small class="mb-0 d-block">Quantity - 1</small>
-              </div>
-              <div class="product-price">
-                &#8369;300.00
-              </div>
+
+            <div class="card-footer">
+              <p class="mb-0">
+                Paid at: <NuxtTime :datetime="order.payment?.paid_at" month="long" day="numeric" year="numeric" />
+              </p>
             </div>
-          </div>
 
-          <div class="card-footer">
-            <p class="mb-0">Paid at: September 11, 2002</p>
           </div>
+        </section>
 
-        </div>
+        <section v-else>
+          <loading-icon color="white" />
+          <span class="ms-2">Loading order history</span>
+        </section>
+
       </div>
     </div>
   </section>
@@ -200,21 +226,10 @@
   padding: 7px;
 }
 
-.content {
-  background-color: white;
-  padding: 30px;
-  margin: 0px;
-}
-
-.content h5 {
-  font-weight: bold;
-  text-align: center;
-  font-size: 30px;
-}
-
-.content p {
-  margin-top: 40px;
-  text-align: center;
+.order-item {
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
 }
 
 .product-item {
