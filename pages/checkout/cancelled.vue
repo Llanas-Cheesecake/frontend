@@ -15,7 +15,7 @@
   })
 
   const order = reactive<Order>({
-    id: '',
+    order_id: '',
     items: []
   })
 
@@ -41,7 +41,7 @@
     const data = result.order;
 
     // Set data
-    order.id = data.order_id
+    order.order_id = data.order_id
     order.items = data.items
   }
 
@@ -70,7 +70,7 @@
             <div class="d-flex align-items-center gap-3 mb-4">
               <img src="/icons/check-circle.svg" alt="checked icon" width="50" />
               <div>
-                <small class="text-subtle d-block mb-1">Order #{{ order.id }}</small>
+                <small class="text-subtle d-block mb-1">Order #{{ order.order_id }}</small>
                 <h4 class="mb-0">Payment Cancelled</h4>
               </div>
             </div>
