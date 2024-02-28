@@ -28,7 +28,7 @@
   })
   const quantity = ref(1);
   const isAddingToCart = ref(false)
-  const isAddingToWishlist = ref(false)
+  const isHandlingWishlist = ref(false)
 
   useHead({
     title: pageTitle,
@@ -81,29 +81,46 @@
     })
   }
 
-  const wishlistProduct = async () => {
-    isAddingToWishlist.value = true;
+  const addToWishlist = async () => {
+    isHandlingWishlist.value = true;
 
-    await fetchXSRFCookie();
-
-    const { data: result, error } = await useFetchAPI<ApiResponse>('/wishlist', {
+    const { data: result, error } = await useFetchAPI<ApiResponse>('/wishlist/add', {
       method: "POST",
       body: {
         product_id: product.value.product_id
       }
     })
-
+    // Handle success response
     if (result.value) {
       const payload = result.value.data
-
       product.value.is_wishlisted = payload.is_wishlisted
     }
-
     if (error.value) {
       // TODO: Handle errors
     }
 
-    isAddingToWishlist.value = false;
+    isHandlingWishlist.value = false;
+  }
+
+  const removeFromWishlist = async () => {
+    isHandlingWishlist.value = true;
+
+    const { data: result, error } = await useFetchAPI<ApiResponse>('/wishlist/remove', {
+      method: "DELETE",
+      body: {
+        product_id: product.value.product_id
+      }
+    })
+    // Handle success response
+    if (result.value) {
+      const payload = result.value.data
+      product.value.is_wishlisted = payload.is_wishlisted
+    }
+    if (error.value) {
+      // TODO: Handle errors
+    }
+
+    isHandlingWishlist.value = false;
   }
 
 </script>
@@ -153,26 +170,39 @@
               <LoadingIcon v-if="isAddingToCart" color="black" class="ms-2" />
             </button>
 
-            <button class="btn btn-primary"
-                    :disabled="isAddingToWishlist"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    data-bs-title="Wishlist product"
-                    @click="wishlistProduct">
+            <!-- Add to wishlist button -->
+            <button v-show="!product.is_wishlisted"
+                    class="btn btn-primary"
+                    :disabled="isHandlingWishlist"
+                    @click="addToWishlist">
 
-              <span v-if="!isAddingToWishlist">
+              <img v-if="!product.is_wishlisted" src="/icons/heart.svg" alt="Wishlist product" />
 
-                <img v-if="product.is_wishlisted" src="/icons/heart-filled.svg" alt="Wishlist product" />
-                <img v-if="!product.is_wishlisted" src="/icons/heart.svg" alt="Wishlist product" />
-
-                <span class="visually-hidden">
-                  Wishlist product
-                </span>
-
+              <span class="visually-hidden">
+                Wishlist product
               </span>
-              <LoadingIcon v-if="isAddingToWishlist" color="white" class="position-relative" style="top: -1px" />
+
+              <LoadingIcon v-if="isHandlingWishlist" color="white" class="ms-2 position-relative" style="top: -1px" />
 
             </button>
+            <!-- END Add to wishlist button -->
+
+            <!-- Remove from wishlist button -->
+            <button v-show="product.is_wishlisted"
+                    class="btn btn-primary"
+                    :disabled="isHandlingWishlist"
+                    @click="removeFromWishlist">
+
+              <img src="/icons/heart-filled.svg" alt="Wishlist product" />
+
+              <span class="visually-hidden">
+                Remove from wishlist
+              </span>
+
+              <LoadingIcon v-if="isHandlingWishlist" color="white" class="ms-2 position-relative" style="top: -1px" />
+
+            </button>
+            <!-- Remove from wishlist button -->
 
             <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Share product">
               <img src="/icons/share.svg" alt="Share product" />
