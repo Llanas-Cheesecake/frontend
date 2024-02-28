@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import type { Customer } from "~/types/Customer";
   import type { ApiResponse } from "~/types/ApiResponse";
-  import ChangePassword from "~/components/account/ChangePassword.vue";
 
   const customer = reactive<Customer>({
     first_name: '',
