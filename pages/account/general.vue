@@ -37,12 +37,12 @@
             <h5 class="fw-bold mb-4">Change Personal Information</h5>
 
             <form>
-              <div class="row mb-4">
-                <div class="col">
+              <div class="row">
+                <div class="col-md-12 col-lg mb-4">
                   <label class="form-label">First name</label>
                   <input v-model="customer.first_name" type="text" class="form-control" placeholder="First name">
                 </div>
-                <div class="col">
+                <div class="col-md-12 col-lg mb-4">
                   <label class="form-label">Last name</label>
                   <input v-model="customer.last_name" type="text" class="form-control" placeholder="Last name">
                 </div>
