@@ -1,5 +1,20 @@
 <script setup lang="ts">
+  import type { Wishlist } from "~/types/Wishlist";
+  import type {ApiResponse} from "~/types/ApiResponse";
 
+  const wishlist = ref<Wishlist[]>([])
+
+  const { data: result, pending, error } = await useFetchAPI<ApiResponse>('/wishlist', {
+    method: "GET",
+    server: false,
+    onResponse({ response }) {
+      const data = response._data.data.wishlist
+
+      data.map((item: Wishlist) => {
+        wishlist.value.push(item)
+      })
+    }
+  })
 </script>
 
 <template>
@@ -9,117 +24,25 @@
         <h4 class="card-title fw-bold">Wishlisted Items</h4>
         <hr />
 
+        <section v-if="pending">
+          <loading-icon color="white" />
+          <span class="ms-2">Loading wishlist</span>
+        </section>
 
+        <section v-else class="row">
+          <div v-for="item in wishlist" class="col-sm-12 col-md-3">
+            <ProductCard :product="item.product" />
+          </div>
 
+          <div v-if="wishlist.length === 0">
+            No products were found on your wishlist.
+          </div>
+
+        </section>
 
       </div>
     </div>
   </section>
-
-<!--  <div class="menuCard">-->
-<!--    <div class="menuHeader">-->
-<!--      <div class="menuHeaderContents">-->
-<!--        <div id="homeAndName">-->
-<!--          <a href="https://youtube.com" id="homeButton"></a>-->
-<!--          <h3>Wishlist</h3>-->
-<!--        </div>-->
-<!--        <button id="addMenuButton" @click="addClick"></button>-->
-
-<!--        <select v-model="sortby" id="sortDropDown">-->
-<!--          <option value="alphabetical">A-Z</option>-->
-<!--          <option value="reverseA">Z-A</option>-->
-<!--        </select>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="content row d-flex justify-content-center">-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <Row class="chicken-pesto">-->
-<!--          <img-->
-<!--            src="/images/chicken-pesto.jpeg"-->
-<!--            class="product mx-auto d-block mt-4"-->
-<!--          />-->
-<!--        </Row>-->
-<!--      </div>-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <row class="chicken-pesto">-->
-<!--          <p>Chicken Pesto Sandwich</p>-->
-<!--        </row>-->
-<!--      </div>-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <Row class="chicken-pesto">-->
-<!--          <p>₱160</p>-->
-<!--        </Row>-->
-<!--      </div>-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <Row>-->
-<!--          <img-->
-<!--            src="/images/dots.png"-->
-<!--            alt="dots"-->
-<!--            class="three-dots rounded mx-auto d-block mt-5"-->
-<!--          />-->
-<!--        </Row>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="content row d-flex justify-content-center">-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <Row class="chicken-pesto">-->
-<!--          <img-->
-<!--            src="/images/matcha-cheesecake.jpeg"-->
-<!--            class="product mx-auto d-block mt-4"-->
-<!--          />-->
-<!--        </Row>-->
-<!--      </div>-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <row class="chicken-pesto">-->
-<!--          <p>Matcha Cheesecake</p>-->
-<!--        </row>-->
-<!--      </div>-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <Row class="chicken-pesto">-->
-<!--          <p>₱160</p>-->
-<!--        </Row>-->
-<!--      </div>-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <Row>-->
-<!--          <img-->
-<!--            src="/images/dots.png"-->
-<!--            alt="dots"-->
-<!--            class="three-dots rounded mx-auto d-block mt-5"-->
-<!--          />-->
-<!--        </Row>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="content row d-flex justify-content-center">-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <Row class="chicken-pesto">-->
-<!--          <img-->
-<!--            src="/images/iced-latte.png"-->
-<!--            class="product mx-auto d-block mt-4"-->
-<!--          />-->
-<!--        </Row>-->
-<!--      </div>-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <row class="chicken-pesto">-->
-<!--          <p>Iced Latte</p>-->
-<!--        </row>-->
-<!--      </div>-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <Row class="chicken-pesto">-->
-<!--          <p>₱130</p>-->
-<!--        </Row>-->
-<!--      </div>-->
-<!--      <div class="col-lg-3 col-md-6">-->
-<!--        <Row>-->
-<!--          <img-->
-<!--            src="/images/dots.png"-->
-<!--            alt="dots"-->
-<!--            class="three-dots rounded mx-auto d-block mt-5"-->
-<!--          />-->
-<!--        </Row>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
 </template>
 
 <style scoped lang="scss">
