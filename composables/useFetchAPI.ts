@@ -3,8 +3,10 @@ import defu from "defu";
 
 export const useFetchAPI = async <T>(url: string, options: UseFetchOptions<T> = {}) => {
     const xsrfToken = useCookie('XSRF-TOKEN');
+    const cookieHeaders = useRequestHeaders(["cookie"]);
 
     const config = useRuntimeConfig();
+    const appUrl = config.public.appUrl;
     const apiEndpoint = config.public.apiBaseUrl + '/api/' + config.public.apiVersion
 
     if (!apiEndpoint) throw new Error("API Base URL not set!")
@@ -15,6 +17,8 @@ export const useFetchAPI = async <T>(url: string, options: UseFetchOptions<T> = 
         // @ts-ignore
         headers: {
             Accept: "application/json",
+            Origin: appUrl,
+            Cookie: cookieHeaders.cookie,
             "X-XSRF-TOKEN": xsrfToken.value || null
         },
         credentials: "include"
@@ -22,5 +26,5 @@ export const useFetchAPI = async <T>(url: string, options: UseFetchOptions<T> = 
 
     const params = defu(options, defaults)
 
-    return useFetch(url, params)
+    return useFetch(url, params);
 }
