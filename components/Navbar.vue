@@ -85,7 +85,7 @@
 
           <div v-if="$auth.isLoggedIn()" class="nav-item dropdown d-inline-block px-3">
             <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
-              <img src="/icons/user.svg" alt="User" />
+              <img src="/icons/user-white.svg" alt="User" />
             </a>
             <ul class="dropdown-menu dropdown-menu-end mt-2">
               <li>
@@ -94,6 +94,12 @@
                 </h6>
               </li>
               <li><hr class="dropdown-divider"></li>
+              <li>
+                <nuxt-link to="/account/general" class="dropdown-item d-flex align-items-center">
+                  <img src="/icons/user-black.svg" alt="User Icon" width="22" />
+                  <span class="ms-2 fs-6">Account Settings</span>
+                </nuxt-link>
+              </li>
               <li>
                 <nuxt-link to="/account/order-history" class="dropdown-item d-flex align-items-center">
                   <img src="/icons/shopping-bag-black.svg" alt="Order History" />

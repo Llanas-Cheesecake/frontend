@@ -13,7 +13,7 @@
             <ul class="nav flex-column">
               <li class="nav-item">
                 <nuxt-link to="/account/general" class="nav-link d-flex align-items-center gap-2">
-                  <img src="/icons/user.svg" alt="User Icon" width="22" />
+                  <img src="/icons/user-white.svg" alt="User Icon" width="22" />
                   <span>Account</span>
                 </nuxt-link>
               </li>
