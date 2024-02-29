@@ -33,7 +33,7 @@
         <h5 class="card-title">{{ product.name }}</h5>
 
         <client-only>
-          <vue-3-star-ratings v-model="product.averageRatings" inactive-color="#8a8a8a" star-size="16" disable-click />
+          <vue-3-star-ratings v-model="product.average_ratings" inactive-color="#8a8a8a" star-size="16" disable-click />
         </client-only>
       </section>
 

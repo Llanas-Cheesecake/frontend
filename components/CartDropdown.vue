@@ -17,7 +17,7 @@
 <template>
   <div class="nav-item dropdown d-inline-block px-3">
     <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-      <img src="/icons/shopping-cart.svg" alt="Shopping Cart" />
+      <img src="/icons/shopping-cart-white.svg" alt="Shopping Cart" />
     </a>
     <div class="dropdown-menu dropdown-menu-end mt-2 me-2 p-3">
       <div class="d-flex justify-content-between">
