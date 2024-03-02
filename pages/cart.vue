@@ -82,7 +82,7 @@
                     </p>
                     <div class="item-actions position-absolute">
                       <div class="action" role="button"  @click="cart.removeFromCart(item.product.product_id)">
-                        <img src="/icons/trash.svg"
+                        <img src="/icons/trash-black.svg"
                              alt="Remove item from cart"
                              data-bs-toggle="tooltip"
                              data-bs-placement="top"
