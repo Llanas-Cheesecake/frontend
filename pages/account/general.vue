@@ -10,17 +10,19 @@
 
   const newEmail = ref('');
 
-  const { pending } = await useFetchAPI<ApiResponse>('/account/general', {
-    method: "GET",
-    server: false,
-    onResponse({ response }) {
-      const data: Customer = response._data.data.customer
-
-      customer.first_name = data.first_name;
-      customer.last_name = data.last_name;
-      customer.email = data.email;
-    }
+  const { data: result } = await useFetchAPI<ApiResponse>('/account/general', {
+    method: "GET"
   })
+
+  if (result.value) {
+    const payload = result.value.data.customer;
+
+    customer.first_name = payload.first_name;
+    customer.last_name = payload.last_name;
+    customer.email = payload.email;
+  }
+
+  // TODO: Handle errors
 
 </script>
 

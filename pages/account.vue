@@ -1,5 +1,8 @@
 <script setup lang="ts">
-  import { useChangeCase } from "@vueuse/integrations/useChangeCase"
+  definePageMeta({
+    middleware: ["authenticated"]
+  })
+
   const route = useRoute();
 
   const currentCategory = computed(() => {

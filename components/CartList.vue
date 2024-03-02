@@ -28,7 +28,7 @@
             Quantity: {{ item.quantity }}
           </p>
           <div v-show="showActions" class="item-actions">
-            <img src="/icons/trash.svg"
+            <img src="/icons/trash-black.svg"
                  alt="Remove item from cart"
                  data-bs-toggle="tooltip"
                  data-bs-placement="top"
