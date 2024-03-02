@@ -34,8 +34,8 @@
   <section class="my-5">
     <div class="row">
 
-      <div class="col-sm-12 col-md-9">
-        <div class="card p-2">
+      <div class="col-md-12 col-lg-9">
+        <div class="card p-2 mb-4">
           <div class="card-body">
 
             <div class="d-flex justify-content-between align-items-center">
@@ -105,7 +105,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12 col-md-3">
+      <div class="col-md-12 col-lg-3">
         <div class="card bg-primary text-white p-2">
           <div class="card-body">
             <h5 class="card-title">

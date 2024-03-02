@@ -43,7 +43,7 @@
                 </div>
                 <div class="flex-fill">
                   <p class="title">Total Amount</p>
-                  <p class="subtitle">&#8369;600.00</p>
+                  <p class="subtitle">{{ formatPrice(order.amountPaid) }}</p>
                 </div>
                 <div>
                   <button class="btn btn-primary me-2">

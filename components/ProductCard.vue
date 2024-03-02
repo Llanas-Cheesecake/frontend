@@ -44,9 +44,7 @@
         &#8369;<span>{{ product.price }}</span>
       </div>
       <button class="btn btn-primary" :disabled="isAddingToCart" @click="addToCart">
-              <span>
-                Add
-              </span>
+        <span>Add</span>
         <LoadingIcon v-if="isAddingToCart" color="black" class="ms-2" />
       </button>
     </div>
