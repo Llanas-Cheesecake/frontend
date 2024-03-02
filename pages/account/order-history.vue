@@ -48,10 +48,7 @@
                   </p>
                 </div>
                 <div>
-                  <button class="btn btn-primary me-2">
-                    Give Review
-                  </button>
-                  <button class="btn btn-secondary">
+                  <button class="btn btn-primary">
                     View Details
                   </button>
                 </div>
@@ -66,8 +63,16 @@
                   <small class="mb-1 d-block">Size - {{ item.type }}</small>
                   <small class="mb-0 d-block">Quantity - {{ item.quantity }}</small>
                 </div>
-                <div class="product-price">
-                  {{ getItemTotalPrice(order, item.product.product_id) }}
+                <div class="position-relative">
+                  <div class="product-price">
+                    {{ getItemTotalPrice(order, item.product.product_id) }}
+                  </div>
+                  <div class="product-actions">
+                    <div class="action" role="button" >
+                      <img src="/icons/edit-white.svg" alt="Remove item from cart"/>
+                      <span class="action-text ms-2 w-100 no-wrap">Write Review</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -93,101 +98,6 @@
       </div>
     </div>
   </section>
-
-<!--  <div class="menuCard">-->
-<!--    <div class="menuHeader">-->
-<!--      <div class="menuHeaderContents">-->
-<!--        <div id="homeAndName">-->
-<!--          <a href="https://youtube.com" id="homeButton"></a>-->
-<!--          <h3>Order History</h3>-->
-<!--        </div>-->
-<!--        <button id="addMenuButton" @click="addClick"></button>-->
-
-<!--        <select v-model="sortby" id="sortDropDown">-->
-<!--          <option value="alphabetical">A-Z</option>-->
-<!--          <option value="reverseA">Z-A</option>-->
-<!--        </select>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <div class="date-time mt-4 mx-4">-->
-<!--        <p>12/16/17/2023 10:39am</p>-->
-<!--      </div>-->
-<!--      <div class="content row d-flex justify-content-center mx-4">-->
-<!--        <div class="col-lg-2 col-md-6">-->
-<!--          <h5>Items</h5>-->
-<!--          <Row class="chicken-pesto">-->
-<!--            <img src="/images/chicken-pesto.jpeg" class="product" />-->
-<!--          </Row>-->
-<!--          <Row>-->
-<!--            <img src="/images/iced-latte.png" class="product" />-->
-<!--          </Row>-->
-<!--        </div>-->
-<!--        <div class="col-lg-2 col-md-6">-->
-<!--          <h5>Name</h5>-->
-<!--          <row class="chicken-pesto">-->
-<!--            <p>Chicken Pesto Sandwich</p>-->
-<!--          </row>-->
-<!--        </div>-->
-<!--        <div class="col-lg-2 col-md-6">-->
-<!--          <h5>Quantity</h5>-->
-<!--          <Row class="chicken-pesto">-->
-<!--            <p>3</p>-->
-<!--          </Row>-->
-<!--        </div>-->
-<!--        <div class="col-lg-2 col-md-6">-->
-<!--          <h5>Price</h5>-->
-<!--        </div>-->
-<!--        <div class="col-lg-2 col-md-6">-->
-<!--          <h5>Order Information</h5>-->
-<!--          <Row>-->
-<!--            <p>-->
-<!--              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
-<!--              eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
-<!--            </p>-->
-<!--          </Row>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="date-time mt-4 mx-4">-->
-<!--        <p>12/16/17/2023 10:39am</p>-->
-<!--      </div>-->
-<!--      <div class="content row d-flex justify-content-center mx-4 mb-4">-->
-<!--        <div class="col-lg-2 col-md-6">-->
-<!--          <h5>Items</h5>-->
-<!--          <Row class="chicken-pesto">-->
-<!--            <img src="/images/chicken-pesto.jpeg" class="product" />-->
-<!--          </Row>-->
-<!--          <Row>-->
-<!--            <img src="/images/iced-latte.png" class="product" />-->
-<!--          </Row>-->
-<!--        </div>-->
-<!--        <div class="col-lg-2 col-md-6">-->
-<!--          <h5>Name</h5>-->
-<!--          <row class="chicken-pesto">-->
-<!--            <p>Chicken Pesto Sandwich</p>-->
-<!--          </row>-->
-<!--        </div>-->
-<!--        <div class="col-lg-2 col-md-6">-->
-<!--          <h5>Quantity</h5>-->
-<!--          <Row class="chicken-pesto">-->
-<!--            <p>3</p>-->
-<!--          </Row>-->
-<!--        </div>-->
-<!--        <div class="col-lg-2 col-md-6">-->
-<!--          <h5>Price</h5>-->
-<!--        </div>-->
-<!--        <div class="col-lg-2 col-md-6">-->
-<!--          <h5>Order Information</h5>-->
-<!--          <Row>-->
-<!--            <p>-->
-<!--              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
-<!--              eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
-<!--            </p>-->
-<!--          </Row>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
 </template>
 
 <style scoped lang="scss">
@@ -262,6 +172,29 @@
   .product-price {
     font-weight: bold;
     text-align: end;
+  }
+  .product-actions {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    .action {
+      cursor: pointer;
+      display: flex;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      &:hover {
+        background-color: rgba(0,0,0,0.2);
+      }
+      img {
+        cursor: pointer;
+        width: 20px;
+      }
+      .action-text {
+        display: inline-block;
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+    }
   }
 }
 
