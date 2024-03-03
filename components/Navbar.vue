@@ -144,7 +144,7 @@
       <div class="container">
         <div class="nav-items">
           <nuxt-link class="nav-link" to="/">
-            <img src="/icons/home.svg" width="20" height="20" alt="Home Icon"/>
+            <img src="/icons/home-white.svg" width="20" height="20" alt="Home Icon"/>
             <span>Home</span>
           </nuxt-link>
 
