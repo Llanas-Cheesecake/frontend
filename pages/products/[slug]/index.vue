@@ -145,7 +145,7 @@
         <p class="mt-4">{{ product.description }}</p>
         <div class="d-flex align-items-center mt-3">
           <client-only>
-            <vue-3-star-ratings v-model="product.average_ratings" star-size="20" disable-click />
+            <vue3-star-ratings v-model="product.average_ratings" star-size="20" disable-click />
           </client-only>
           <span class="ms-2">({{ product.total_ratings }})</span>
         </div>
@@ -211,85 +211,35 @@
           </div>
         </div>
       </div>
-
     </div>
 
-<!--    <div>-->
-<!--      <h2 class="reviewTab">REVIEWS</h2>-->
-<!--    </div>-->
-<!--    <div class="reviewArea">-->
-<!--      <div class="reviewItem">-->
-<!--        <div>-->
-<!--          <div class="reviewInfo">-->
-<!--            <div>-->
-<!--              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />-->
-<!--            </div>-->
-<!--            <div>-->
-<!--              <h5>(name)</h5>-->
-<!--              <h6>(date)</h6>-->
-<!--            </div>-->
-<!--            <div class="reviewRating">-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus-->
-<!--        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at-->
-<!--        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque-->
-<!--        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.-->
-<!--      </div>-->
-<!--      <div class="reviewItem">-->
-<!--        <div>-->
-<!--          <div class="reviewInfo">-->
-<!--            <div>-->
-<!--              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />-->
-<!--            </div>-->
-<!--            <div>-->
-<!--              <h5>(name)</h5>-->
-<!--              <h6>(date)</h6>-->
-<!--            </div>-->
-<!--            <div class="reviewRating">-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus-->
-<!--        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at-->
-<!--        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque-->
-<!--        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.-->
-<!--      </div>-->
-<!--    </div>-->
+    <h3 class="mt-5 mb-4">Reviews</h3>
+
+    <section class="product-reviews mb-5 row">
+      <div v-for="rating in product.ratings" class="col-md-12 col-lg-6">
+        <ProductRating :rating="rating" />
+      </div>
+
+      <div v-if="product.ratings?.length === 0" class="col-md-12 col-lg-6">
+        <div class="card bg-primary text-white">
+          <div class="card-body">
+            No reviews found for this product.
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+
+
   </div>
 </template>
 
 <style scoped lang="scss">
-// Color Palette
-// https://colors.muz.li/palette/77A042/59702e/f2ffda/e5ffb4/ffffff
-//.itemCard {
-//  margin-top: 16px;
-//  width: 100%;
-//  height: 400px;
-//  background-color: #77a042;
-//}
-//
 .product-images img {
-  //width: 600px;
-  //height: 400px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
-//
-//.prodImgDiv {
-//  float: left;
-//}
 
 .product-wrapper {
   .product-info {

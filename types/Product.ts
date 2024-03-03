@@ -8,6 +8,7 @@ export interface Product {
     price: number
     images: ProductImage[]
 
+    ratings?: ProductRating[]
     average_ratings: number
     total_ratings: number
     is_wishlisted: boolean
@@ -15,4 +16,12 @@ export interface Product {
 
 interface ProductImage {
     image: string
+}
+
+export interface ProductRating {
+    reviewer_name: string,
+    rating: number,
+    headline: string,
+    review: string,
+    published_at: string
 }
