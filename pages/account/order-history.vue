@@ -68,10 +68,10 @@
                     {{ getItemTotalPrice(order, item.product.product_id) }}
                   </div>
                   <div class="product-actions">
-                    <div class="action" role="button" >
+                    <nuxt-link :to="`/products/${item.product.slug}/review`" class="action" role="button" >
                       <img src="/icons/edit-white.svg" alt="Remove item from cart"/>
                       <span class="action-text ms-2 w-100 no-wrap">Write Review</span>
-                    </div>
+                    </nuxt-link>
                   </div>
                 </div>
               </div>
@@ -178,10 +178,12 @@
     bottom: 0;
     right: 0;
     .action {
+      border-radius: 4px;
+      color: var(--color-text-primary);
       cursor: pointer;
       display: flex;
       padding: 0.3rem 0.6rem;
-      border-radius: 4px;
+      text-decoration: none;
       &:hover {
         background-color: rgba(0,0,0,0.2);
       }
