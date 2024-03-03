@@ -140,7 +140,7 @@
               <nuxt-link :to="`/products/${slug}`" class="btn btn-primary d-block w-50" role="button">
                 Cancel
               </nuxt-link>
-              <button type="submit" class="btn btn-secondary d-block w-50" :disabled="pending">
+              <button type="submit" class="btn btn-secondary d-block w-50">
                 Submit review
               </button>
             </div>
