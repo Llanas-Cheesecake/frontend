@@ -21,12 +21,14 @@
     category: '',
     thumbnail: '',
     price: 0,
-    averageRatings: 0,
-    totalRatings: 0,
     images: [],
+    average_ratings: 0,
+    total_ratings: 0,
+    is_wishlisted: false
   })
   const quantity = ref(1);
   const isAddingToCart = ref(false)
+  const isHandlingWishlist = ref(false)
 
   useHead({
     title: pageTitle,
@@ -79,6 +81,48 @@
     })
   }
 
+  const addToWishlist = async () => {
+    isHandlingWishlist.value = true;
+
+    const { data: result, error } = await useFetchAPI<ApiResponse>('/wishlist/add', {
+      method: "POST",
+      body: {
+        product_id: product.value.product_id
+      }
+    })
+    // Handle success response
+    if (result.value) {
+      const payload = result.value.data
+      product.value.is_wishlisted = payload.is_wishlisted
+    }
+    if (error.value) {
+      // TODO: Handle errors
+    }
+
+    isHandlingWishlist.value = false;
+  }
+
+  const removeFromWishlist = async () => {
+    isHandlingWishlist.value = true;
+
+    const { data: result, error } = await useFetchAPI<ApiResponse>('/wishlist/remove', {
+      method: "DELETE",
+      body: {
+        product_id: product.value.product_id
+      }
+    })
+    // Handle success response
+    if (result.value) {
+      const payload = result.value.data
+      product.value.is_wishlisted = payload.is_wishlisted
+    }
+    if (error.value) {
+      // TODO: Handle errors
+    }
+
+    isHandlingWishlist.value = false;
+  }
+
 </script>
 
 <template>
@@ -101,9 +145,9 @@
         <p class="mt-4">{{ product.description }}</p>
         <div class="d-flex align-items-center mt-3">
           <client-only>
-            <vue-3-star-ratings v-model="product.averageRatings" star-size="20" disable-click />
+            <vue3-star-ratings v-model="product.average_ratings" star-size="20" disable-click />
           </client-only>
-          <span class="ms-2">({{ product.totalRatings }})</span>
+          <span class="ms-2">({{ product.total_ratings }})</span>
         </div>
 
         <div class="product-actions d-flex align-items-center justify-content-between w-100">
@@ -125,10 +169,41 @@
               </span>
               <LoadingIcon v-if="isAddingToCart" color="black" class="ms-2" />
             </button>
-            <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Wishlist product">
-              <img src="/icons/heart.svg" alt="Wishlist product" />
-              <span class="visually-hidden">Wishlist product</span>
+
+            <!-- Add to wishlist button -->
+            <button v-show="!product.is_wishlisted"
+                    class="btn btn-primary"
+                    :disabled="isHandlingWishlist"
+                    @click="addToWishlist">
+
+              <img v-if="!product.is_wishlisted" src="/icons/heart.svg" alt="Wishlist product" />
+
+              <span class="visually-hidden">
+                Wishlist product
+              </span>
+
+              <LoadingIcon v-if="isHandlingWishlist" color="white" class="ms-2 position-relative" style="top: -1px" />
+
             </button>
+            <!-- END Add to wishlist button -->
+
+            <!-- Remove from wishlist button -->
+            <button v-show="product.is_wishlisted"
+                    class="btn btn-primary"
+                    :disabled="isHandlingWishlist"
+                    @click="removeFromWishlist">
+
+              <img src="/icons/heart-filled.svg" alt="Wishlist product" />
+
+              <span class="visually-hidden">
+                Remove from wishlist
+              </span>
+
+              <LoadingIcon v-if="isHandlingWishlist" color="white" class="ms-2 position-relative" style="top: -1px" />
+
+            </button>
+            <!-- Remove from wishlist button -->
+
             <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Share product">
               <img src="/icons/share.svg" alt="Share product" />
               <span class="visually-hidden">Share product</span>
@@ -136,85 +211,35 @@
           </div>
         </div>
       </div>
-
     </div>
 
-<!--    <div>-->
-<!--      <h2 class="reviewTab">REVIEWS</h2>-->
-<!--    </div>-->
-<!--    <div class="reviewArea">-->
-<!--      <div class="reviewItem">-->
-<!--        <div>-->
-<!--          <div class="reviewInfo">-->
-<!--            <div>-->
-<!--              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />-->
-<!--            </div>-->
-<!--            <div>-->
-<!--              <h5>(name)</h5>-->
-<!--              <h6>(date)</h6>-->
-<!--            </div>-->
-<!--            <div class="reviewRating">-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus-->
-<!--        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at-->
-<!--        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque-->
-<!--        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.-->
-<!--      </div>-->
-<!--      <div class="reviewItem">-->
-<!--        <div>-->
-<!--          <div class="reviewInfo">-->
-<!--            <div>-->
-<!--              <img src="..\images\cheese.jpg" alt="" class="reviewImg" />-->
-<!--            </div>-->
-<!--            <div>-->
-<!--              <h5>(name)</h5>-->
-<!--              <h6>(date)</h6>-->
-<!--            </div>-->
-<!--            <div class="reviewRating">-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--              <span class="star" star-status="false">★ </span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et lectus-->
-<!--        dictum, commodo metus vel, tincidunt quam. Fusce imperdiet velit at-->
-<!--        cursus consectetur. Integer tincidunt ex odio, eget fermentum neque-->
-<!--        iaculis a. Nullam elit nisi, lobortis id erat tincidunt, tempus.-->
-<!--      </div>-->
-<!--    </div>-->
+    <h3 class="mt-5 mb-4">Reviews</h3>
+
+    <section class="product-reviews mb-5 row">
+      <div v-for="rating in product.ratings" class="col-md-12 col-lg-6">
+        <ProductRating :rating="rating" />
+      </div>
+
+      <div v-if="product.ratings?.length === 0" class="col-md-12 col-lg-6">
+        <div class="card bg-primary text-white">
+          <div class="card-body">
+            No reviews found for this product.
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+
+
   </div>
 </template>
 
 <style scoped lang="scss">
-// Color Palette
-// https://colors.muz.li/palette/77A042/59702e/f2ffda/e5ffb4/ffffff
-//.itemCard {
-//  margin-top: 16px;
-//  width: 100%;
-//  height: 400px;
-//  background-color: #77a042;
-//}
-//
 .product-images img {
-  //width: 600px;
-  //height: 400px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
-//
-//.prodImgDiv {
-//  float: left;
-//}
 
 .product-wrapper {
   .product-info {

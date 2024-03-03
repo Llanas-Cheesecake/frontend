@@ -6,12 +6,22 @@ export interface Product {
     category: string
     thumbnail: string
     price: number
-    averageRatings: number
-    totalRatings: number
-
     images: ProductImage[]
+
+    ratings?: ProductRating[]
+    average_ratings: number
+    total_ratings: number
+    is_wishlisted: boolean
 }
 
 interface ProductImage {
     image: string
+}
+
+export interface ProductRating {
+    reviewer_name: string,
+    rating: number,
+    headline: string,
+    review: string,
+    published_at: string
 }

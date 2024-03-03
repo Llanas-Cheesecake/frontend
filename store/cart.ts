@@ -1,9 +1,12 @@
 import type { Cart } from "~/types/Cart";
 import type { ApiResponse } from "~/types/ApiResponse";
 import { useDebounceFn } from "@vueuse/core";
-import { useToast } from "vue-toastification";
 import { fetchXSRFCookie } from "~/utils";
 
+// @ts-ignore
+import * as Toast from "vue-toastification/dist/index.mjs";
+
+const { useToast } = Toast;
 const toast = useToast();
 
 export const useCartStore = defineStore('cart', () => {
@@ -195,7 +198,7 @@ export const useCartStore = defineStore('cart', () => {
             // cart.items = response.cart.items
             toast.success("Item updated")
         }
-    }, 1500)
+    }, 1000)
 
     const getItemTotalPrice = (product_id: number) => {
         const item = cart.items?.find(i => i.product.product_id === product_id);

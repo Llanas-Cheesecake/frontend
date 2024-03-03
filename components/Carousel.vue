@@ -16,25 +16,26 @@
   <!-- TODO: Implements props here for banner promotions -->
   <Flicking
       class="flicking"
+      :firstPanelSize="'1000px'"
       :options="{ circular: true, duration: 500 }"
       :plugins="FlickPlugins"
   >
-    <div class="panel">
-      <img src="/images/banner1.png" />
+    <div class="panel" style="background-image: url('/images/banner1.png')">
+<!--      <img src="/images/banner1.png" />-->
       <div class="overlay"></div>
       <div class="panel-text">
         <h3>Only the best cheesecakes</h3>
       </div>
     </div>
-    <div class="panel">
-      <img src="/images/banner2.png" />
+    <div class="panel" style="background-image: url('/images/banner2.png')">
+<!--      <img src="/images/banner2.png" />-->
       <div class="overlay"></div>
       <div class="panel-text">
         <h3>Baked straight from the oven</h3>
       </div>
     </div>
-    <div class="panel">
-      <img src="https://naver.github.io/egjs-flicking/images/bg03.jpg" />
+    <div class="panel" style="background-image: url('https://naver.github.io/egjs-flicking/images/bg03.jpg')">
+<!--      <img src="https://naver.github.io/egjs-flicking/images/bg03.jpg" />-->
       <div class="overlay"></div>
       <div class="panel-text">
         <h3>Limited discounts</h3>
@@ -51,13 +52,18 @@
 
 <style scoped lang="scss">
   .panel {
+    border-radius: 0.5rem;
     margin: 0 2rem;
     position: relative;
+    width: 1000px;
+    height: 350px;
+    background-size: cover!important;
+    background: no-repeat center;
+
     img {
-      border-radius: 0.5rem;
       width: 100%;
       height: 350px;
-      max-width: 1000px;
+      //max-width: 1000px;
     }
     .overlay {
       border-radius: 0.5rem;

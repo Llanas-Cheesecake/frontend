@@ -34,12 +34,12 @@
   <section class="my-5">
     <div class="row">
 
-      <div class="col-sm-12 col-md-9">
-        <div class="card">
+      <div class="col-md-12 col-lg-9">
+        <div class="card p-2 mb-4">
           <div class="card-body">
 
             <div class="d-flex justify-content-between align-items-center">
-              <h5 class="card-title mb-0">
+              <h5 class="fw-bold mb-0">
                 Cart
               </h5>
               <button class="btn btn-primary" @click="removeAllItems">Remove all</button>
@@ -53,14 +53,14 @@
             </div>
 
             <section v-if="!cart._is_loading">
-              <ul v-if="cart._items && cart._items.length > 0" class="cart-items my-4">
+              <ul v-if="cart._items && cart._items.length > 0" class="cart-items mt-4">
 
                 <li v-for="item in cart._items" class="cart-item">
                   <img class="item-image" :src="item.product.thumbnail" alt="cart item" />
                   <div class="item-info">
                     <p class="item-name">{{ item.product.name }}</p>
                     <div class="item-subtitle">
-                      &#8369;{{ formatPrice(item.product.price) }} | {{ item.product.category }}
+                      {{ formatPrice(item.product.price) }} | {{ item.product.category }}
                     </div>
 
                     <div class="btn-group btn-group-sm mt-3" role="group" aria-label="Quantity Control">
@@ -78,11 +78,11 @@
 
                   <div class="item-info-alt position-relative">
                     <p class="item-price">
-                      &#8369;<span>{{ formatPrice(cart.getItemTotalPrice(item.product.product_id)) }}</span>
+                      <span>{{ formatPrice(cart.getItemTotalPrice(item.product.product_id)) }}</span>
                     </p>
                     <div class="item-actions position-absolute">
                       <div class="action" role="button"  @click="cart.removeFromCart(item.product.product_id)">
-                        <img src="/icons/trash.svg"
+                        <img src="/icons/trash-black.svg"
                              alt="Remove item from cart"
                              data-bs-toggle="tooltip"
                              data-bs-placement="top"
@@ -105,8 +105,8 @@
         </div>
       </div>
 
-      <div class="col-sm-12 col-md-3">
-        <div class="card bg-primary text-white">
+      <div class="col-md-12 col-lg-3">
+        <div class="card bg-primary text-white p-2">
           <div class="card-body">
             <h5 class="card-title">
               Summary
@@ -116,12 +116,12 @@
 
             <div class="d-flex justify-content-between">
               <div>Subtotal:</div>
-              <div>&#8369;{{ formatPrice(cart._totalPrice) }}</div>
+              <div>{{ formatPrice(cart._totalPrice) }}</div>
             </div>
 
-            <button class="btn btn-secondary d-block mt-4 w-100">
+            <nuxt-link to="/checkout" class="btn btn-secondary d-block mt-4 w-100">
               Proceed to checkout
-            </button>
+            </nuxt-link>
           </div>
         </div>
       </div>

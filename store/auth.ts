@@ -71,24 +71,5 @@ export const useAuthStore = defineStore('auth', () => {
             })
     }
 
-    const getUserDetails = async () => {
-        const config = useRuntimeConfig()
-        const endpoint = config.public.apiEndpoint
-
-        return await $fetch(endpoint + '/user/me', { credentials: 'include' })
-            .then((res: any) => { // TODO: Add response type
-                authenticated.value = true
-                user.value = res.payload
-            })
-            .catch(err => {
-                authenticated.value = false
-                user.value = undefined
-
-                // Debug
-                console.log("There was a problem in validating user session")
-                console.debug(err)
-            })
-    }
-
-    return { authenticated, user, _authenticated, _user, loginAsCustomer, register, getUserDetails, logout }
+    return { authenticated, user, _authenticated, _user, loginAsCustomer, register, logout }
 }, { persist: true })

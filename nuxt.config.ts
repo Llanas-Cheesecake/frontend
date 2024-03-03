@@ -8,7 +8,8 @@ export default defineNuxtConfig({
   modules: [
       '@nuxtjs/google-fonts',
       '@pinia/nuxt',
-      '@pinia-plugin-persistedstate/nuxt'
+      '@pinia-plugin-persistedstate/nuxt',
+      'nuxt-time'
   ],
 
   // Site Metadata
@@ -24,6 +25,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
+      appUrl: process.env.APP_URL,
       apiBaseUrl: process.env.API_BASEURL,
       apiVersion: process.env.API_VERSION
     }

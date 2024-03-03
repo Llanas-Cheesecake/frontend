@@ -5,4 +5,8 @@ export const fetchXSRFCookie = async () => {
     return await $fetch(baseUrl + '/sanctum/csrf-cookie', { credentials: 'include' });
 }
 
-export const { format: formatPrice } = Intl.NumberFormat('en-PH')
+export const { format: formatPrice } = Intl.NumberFormat('en-PH', {
+    style: 'currency',
+    currency: 'PHP',
+    minimumFractionDigits: 2
+})
