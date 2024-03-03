@@ -1,7 +1,6 @@
 <script setup lang="ts">
   // @ts-ignore
   import * as Toast from "vue-toastification/dist/index.mjs";
-  import vue3StarRatings from "vue3-star-ratings";
   import type { ApiResponse } from "~/types/ApiResponse";
 
   const { useToast } = Toast;
@@ -35,12 +34,16 @@
   const review = ref('');
   const isNameHidden = ref(false);
 
+  // Errors
+  const errorMessage = ref('');
+
   const setRating = (value: number) => {
     rating.value = value
   }
 
   const handleSubmitReview = async () => {
     isSubmittingForm.value = true;
+    errorMessage.value = "";
 
     const { data: result, error } = await useFetchAPI<ApiResponse>(`/review/create`, {
       method: "POST",
@@ -56,6 +59,17 @@
     if (result.value) {
       toast.success("Thank you for your review!")
       navigateTo(`/products/${ slug }`);
+    }
+
+    if (error.value) {
+      switch (error.value.statusCode) {
+        case 403:
+          errorMessage.value = "It seems that you don't own this product.";
+          break;
+        default:
+          errorMessage.value = "Something went wrong. Please try again later!";
+          break;
+      }
     }
 
     // Regardless of result, set loading indicator to false
@@ -88,6 +102,11 @@
       <!-- Review Form -->
       <section class="card bg-primary text-white">
         <div class="card-body">
+
+          <div v-if="errorMessage.length > 0" class="alert alert-danger" role="alert">
+            <span class="fw-bold">Error:</span> {{ errorMessage }}
+          </div>
+
 
           <div class="d-flex align-items-center gap-3">
             <div class="star-rating" :class="{ selected: rating === 1 }" @click="setRating(1)">
