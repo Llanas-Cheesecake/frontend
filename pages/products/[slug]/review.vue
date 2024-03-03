@@ -140,8 +140,9 @@
               <nuxt-link :to="`/products/${slug}`" class="btn btn-primary d-block w-50" role="button">
                 Cancel
               </nuxt-link>
-              <button type="submit" class="btn btn-secondary d-block w-50">
-                Submit review
+              <button type="submit" class="btn btn-secondary d-block w-50" :disabled="isSubmittingForm">
+                <span>Submit review</span>
+                <LoadingIcon v-if="isSubmittingForm" color="white" class="ms-2 position-relative" style="top: -1px" />
               </button>
             </div>
 
