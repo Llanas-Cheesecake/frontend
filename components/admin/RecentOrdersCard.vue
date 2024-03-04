@@ -14,7 +14,7 @@
         </small>
       </div>
 
-      <table class="table table-striped w-100" style="table-layout: fixed;">
+      <table class="table table-striped w-100 mb-0" style="table-layout: fixed;">
         <colgroup>
           <col span="1" style="width: 15%;">
           <col span="1" style="width: 20%;">
@@ -115,6 +115,7 @@
           }
           background: var(--bg-tertiary);
           color: var(--color-text-secondary);
+          padding: 1rem 0.5rem;
         }
       }
     }
@@ -133,6 +134,7 @@
         }
         td {
           vertical-align: middle;
+          padding: 1rem 0.5rem;
           &:first-child {
             padding-left: 1rem;
           }
