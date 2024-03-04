@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <nav class="sidebar">
+  <nav class="sidebar sticky-top">
     <div class="header">
       <img class="logo" src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />
       <h5 class="fw-bold mb-0">
@@ -55,9 +55,10 @@
     background-color: var(--bg-secondary);
     border: 3px solid rgba(0,0,0,0.1);
     border-radius: 12px;
-    padding: 1rem;
+    height: calc(100vh - 2rem);
     min-width: 350px;
-    min-height: calc(100vh - 2rem);
+    padding: 1rem;
+    top: 1rem;
 
     .header {
       display: flex;
