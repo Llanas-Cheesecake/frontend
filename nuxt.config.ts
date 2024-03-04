@@ -12,13 +12,20 @@ export default defineNuxtConfig({
       'nuxt-time'
   ],
 
+  // Components
+  components: [
+      '~/components',
+      { path: '~/components/admin', prefix: 'Admin' }
+  ],
+
   // Site Metadata
   app: {
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       link: [
-        { rel: "preload", as: "image", href: "/icons/loader-white.svg" }
+        { rel: "preload", as: "image", type: "image/svg+xml", href: "/icons/loader-white.svg" },
+        { rel: "preload", as: "image", type: "image/svg+xml", href: "/icons/loader-black.svg" }
       ]
     }
   },
@@ -40,5 +47,12 @@ export default defineNuxtConfig({
     families: {
       Inter: [300, 400, 700]
     }
+  },
+
+  routeRules: {
+      '/': { prerender: true },
+      '/products': { swr: true },
+      '/products/**': { swr: 3600 }, // Generate on-demand and cached for 1 hour
+      '/admin/**': { ssr: false } // Do not render admin pages on server. Doing so will risk of cached data appearing on CDN
   }
 })
