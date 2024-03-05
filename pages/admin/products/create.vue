@@ -27,6 +27,7 @@
   }
 
   const form = reactive({
+    category_id: '',
     name: '',
     description: '',
     price: 1,
@@ -49,8 +50,30 @@
     form.files = []
   }
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
+    const data = new FormData();
+    data.append('category_id', form.category_id)
+    data.append('name', form.name);
+    data.append('description', form.description);
+    data.append('price', form.price as unknown as string);
+    data.append('stock', form.stock as unknown as string);
+    data.append('thumbnail', form.files[0]);
 
+    const { data: results, error } = await useFetchAPI('/admin/products/create', {
+      method: "POST",
+      body: data,
+      headers: {
+        ContentType: 'multipart/form-data'
+      }
+    })
+
+    if (results.value) {
+      console.log(results.value)
+    }
+
+    if (error.value) {
+      console.log(error.value)
+    }
   }
 </script>
 
@@ -140,7 +163,7 @@
           <div class="card-body">
             <h5 class="mb-4">Category</h5>
 
-            <select class="form-select" required>
+            <select v-model="form.category_id" class="form-select" required>
               <option selected disabled>Choose a category</option>
               <option v-for="category in categories" :value="category.category_id">
                 {{ category.name }}
