@@ -11,8 +11,8 @@
       case "admin-products":
         return "Dashboard / Products";
       case "admin-products-create":
-        return "Dashboard / Products / New";
-      case "admin-products-edit":
+        return "Dashboard / Products / New Product";
+      case "admin-products-slug-edit":
         return "Dashboard / Products / Edit"; // Should be product name
       case "admin-orders":
         return "Dashboard / Orders";
