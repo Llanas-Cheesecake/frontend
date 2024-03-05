@@ -17,8 +17,8 @@
       <table class="table table-striped w-100 mb-0" style="table-layout: fixed;">
         <colgroup>
           <col span="1" style="width: 15%;">
-          <col span="1" style="width: 20%;">
-          <col span="1" style="width: 35%;">
+          <col span="1" style="width: 25%;">
+          <col span="1" style="width: 30%;">
           <col span="1" style="width: 15%;">
           <col span="1" style="width: 15%;">
         </colgroup>
@@ -96,5 +96,7 @@
 </template>
 
 <style scoped lang="scss">
-
+  .table tbody tr {
+    cursor: pointer;
+  }
 </style>
