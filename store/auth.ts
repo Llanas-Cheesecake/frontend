@@ -14,6 +14,9 @@ export const useAuthStore = defineStore('auth', () => {
     const _isAuthenticated = computed(() => isAuthenticated.value)
     const _customer = computed(() => customer.value)
 
+    const _isAdminAuthenticated = computed(() => isAdminAuthenticated.value)
+    const _administrator = computed(() => administrator.value)
+
     // Actions
     const loginAsCustomer = async (credentials: { email: string, password: string }) => {
         const config = useRuntimeConfig()
@@ -54,8 +57,8 @@ export const useAuthStore = defineStore('auth', () => {
             body: credentials,
             credentials: 'include'
         }).then((res) => {
-            isAdminAuthenticated.value = true
-            administrator.value = res.data
+            isAdminAuthenticated.value = true;
+            administrator.value = res.data;
         })
     }
 
@@ -97,5 +100,30 @@ export const useAuthStore = defineStore('auth', () => {
             })
     }
 
-    return { isAuthenticated, customer, _isAuthenticated, _customer, loginAsCustomer, loginAsAdministrator, register, logout }
+    const logoutAsAdministrator = async () => {
+        return await useFetchAPI('/admin/logout', { method: 'POST' })
+            .then(() => {
+                isAdminAuthenticated.value = false
+                administrator.value = undefined
+            })
+            .catch((err) => {
+                throw new Error("There was a problem while logging out:" + err)
+            })
+    }
+
+    return {
+        isAuthenticated,
+        customer,
+        _isAuthenticated,
+        _customer,
+        isAdminAuthenticated,
+        administrator,
+        _isAdminAuthenticated,
+        _administrator,
+        loginAsCustomer,
+        loginAsAdministrator,
+        register,
+        logout,
+        logoutAsAdministrator
+    }
 }, { persist: true })

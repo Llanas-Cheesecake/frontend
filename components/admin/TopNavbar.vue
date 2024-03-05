@@ -1,4 +1,7 @@
 <script setup lang="ts">
+  import {useAuthStore} from "~/store/auth";
+
+  const auth = useAuthStore();
   const route = useRoute();
 
   const currentPage = computed(() => {
@@ -17,6 +20,12 @@
         return "Dashboard / Customers";
     }
   })
+
+  const handleLogout = () => {
+    auth.logout().then(() => {
+      location.href = '/admin/login'
+    })
+  }
 </script>
 
 <template>
@@ -28,12 +37,15 @@
       <div class="user-actions">
         <div class="dropdown">
           <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Account Name
+            {{ auth._administrator.full_name }}
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li>
+              <button type="button" class="dropdown-item d-flex align-items-center" @click="handleLogout">
+                <img src="/icons/log-out.svg" alt="Logout" />
+                <span class="ms-2">Logout</span>
+              </button>
+            </li>
           </ul>
         </div>
       </div>
