@@ -1,13 +1,27 @@
 <script setup lang="ts">
-const route = useRoute();
+  const route = useRoute();
 
-useHead({
-  titleTemplate: (title) => {
-    return title
-        ? `${title} - Admin Panel - Llana's Cheesecake`
-        : 'Admin Panel - Llana\'s Cheesecake'
-  }
-})
+  useHead({
+    titleTemplate: (title) => {
+      return title
+          ? `${title} - Admin Panel - Llana's Cheesecake`
+          : 'Admin Panel - Llana\'s Cheesecake'
+    }
+  })
+
+  const { $bootstrap } = useNuxtApp()
+
+  // Apply tooltips
+  onMounted(() => {
+    if (process.client) {
+      window.onload = () => {
+        const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        // @ts-ignore
+        [...tooltips].map(tooltipTriggerEl => new $bootstrap.Tooltip(tooltipTriggerEl))
+      };
+    }
+  })
+
 </script>
 
 <template>
@@ -85,7 +99,7 @@ useHead({
       }
     }
     &.btn-outline-primary {
-      border: 2px solid var(--bg-tertiary);
+      border: 2px solid var(--bg-tertiary)!important;
       color: var(--bg-tertiary);
       &:hover, &:focus, &.show {
         background-color: var(--bg-tertiary);
@@ -137,7 +151,6 @@ useHead({
       tr {
         &:hover {
           border: 1px solid rgba(0,0,0,0.2);
-          cursor: pointer;
         }
         td {
           vertical-align: middle;
@@ -153,7 +166,7 @@ useHead({
     }
   }
 
-  .form-control {
+  .form-control, .form-select {
     background-color: var(--bg-secondary);
     border: 2px solid rgba(0,0,0,0.1);
     &:focus {
@@ -172,7 +185,7 @@ useHead({
 
   @media (min-width: 1400px) {
     .admin-content {
-      width: 1280px;
+      width: 1400px;
       margin: 0 auto;
     }
   }
