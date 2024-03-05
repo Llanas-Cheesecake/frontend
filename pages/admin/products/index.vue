@@ -1,12 +1,27 @@
 <script setup lang="ts">
+  import type { ApiResponse } from "~/types/ApiResponse";
+  import type { Product } from "~/types/Product";
+
   definePageMeta({
     layout: 'admin'
   })
+
+  const products = ref<Product[]>([])
+
+  const { data: results, pending, error } = await useFetchAPI<ApiResponse>('/admin/products', {
+    method: "GET"
+  })
+
+  if (results.value) {
+    const payload = results.value.data
+    products.value = { ...payload };
+  }
 </script>
 
 <template>
   <section class="dashboard">
-    <div class="card p-2">
+
+    <div class="card p-2 mb-4">
       <div class="card-body">
         <div class="d-flex align-items-center gap-3">
           <h5 class="fw-bold mb-0 flex-fill">
@@ -24,6 +39,70 @@
         </div>
       </div>
     </div>
+
+    <div class="card p-2">
+      <div class="card-body">
+        <table class="table table-striped w-100 mb-0" style="table-layout: fixed;">
+          <colgroup>
+            <col span="1" style="width: 10%;">
+            <col span="1" style="width: 25%;">
+            <col span="1" style="width: 25%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 15%;">
+          </colgroup>
+
+          <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="product in products">
+            <td class="text-truncate overflow-hidden">
+              <img class="product-image" :src="product.thumbnail" :alt="product.name" />
+            </td>
+            <td class="text-truncate overflow-hidden">
+              {{ product.name }}
+            </td>
+            <td class="text-truncate overflow-hidden">{{ product.category }}</td>
+            <td>{{ formatPrice(product.price) }}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <nuxt-link :to="`/admin/products/${ product.slug }`"
+                           class="btn-action"
+                           data-bs-toggle="tooltip"
+                           data-bs-placement="top"
+                           data-bs-title="View"
+                >
+                  <img src="/icons/eye-black.svg" alt="view icon" width="20" />
+                </nuxt-link>
+                <nuxt-link :to="`/admin/products/${ product.slug }/edit`"
+                           class="btn-action"
+                           data-bs-toggle="tooltip"
+                           data-bs-placement="top"
+                           data-bs-title="Edit">
+                  <img src="/icons/edit-black.svg" alt="edit icon" width="20" />
+                </nuxt-link>
+                <button type="button"
+                        class="btn-action"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        data-bs-title="Delete">
+                  <img src="/icons/trash-black.svg" alt="trash icon" width="20" />
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </section>
 </template>
 
@@ -40,6 +119,26 @@
       border-left: 0;
       border-radius: 8px;
       padding-left: 0;
+    }
+  }
+
+  .product-image {
+    border-radius: 6px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .btn-action {
+    background-color: transparent;
+    border: 0;
+    border-radius: 6px;
+    padding: 0.5rem 0.6rem;
+    img {
+      position: relative;
+      top: -2px;
+    }
+    &:hover {
+      background-color: rgba(0,0,0,0.1);
     }
   }
 </style>
