@@ -15,31 +15,31 @@
 
     <ul class="nav flex-column">
       <li class="nav-item">
-        <nuxt-link to="/admin/dashboard" class="nav-link" href="#">
+        <nuxt-link to="/admin/dashboard" class="nav-link">
           <img src="/icons/home-black.svg" alt="Dashboard Icon" />
           <span class="ms-3">Dashboard</span>
         </nuxt-link>
       </li>
       <li class="nav-item">
-        <nuxt-link to="/admin/products/" class="nav-link" href="#">
+        <nuxt-link to="/admin/products/" class="nav-link">
           <img src="/icons/box-black.svg" alt="Menu Icon" />
           <span class="ms-3">Products</span>
         </nuxt-link>
       </li>
       <li class="nav-item">
-        <nuxt-link to="/admin/orders" class="nav-link" href="#">
+        <nuxt-link to="/admin/orders" class="nav-link">
           <img src="/icons/shopping-bag-black.svg" alt="Orders Icon" />
           <span class="ms-3">Orders</span>
         </nuxt-link>
       </li>
       <li class="nav-item">
-        <nuxt-link to="/admin/customers" class="nav-link" href="#">
+        <nuxt-link to="/admin/customers" class="nav-link">
           <img src="/icons/user-black.svg" alt="Customers Icon" />
           <span class="ms-3">Customers</span>
         </nuxt-link>
       </li>
       <li class="nav-item">
-        <nuxt-link to="/admin/settings" class="nav-link" href="#">
+        <nuxt-link to="/admin/settings" class="nav-link">
           <img src="/icons/settings-black.svg" alt="Settings Icon" />
           <span class="ms-3">Settings</span>
         </nuxt-link>
