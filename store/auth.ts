@@ -1,14 +1,18 @@
-import type { ApiResponse } from "../types/ApiResponse";
-import type { Customer } from "../types/Customer";
+import type { ApiResponse } from "~/types/ApiResponse";
+import type { Customer } from "~/types/Customer";
+import type { Administrator } from "~/types/Administrator";
 
 export const useAuthStore = defineStore('auth', () => {
     // States
-    const authenticated = ref(false)
-    const user = ref<Customer>()
+    const isAuthenticated = ref(false)
+    const isAdminAuthenticated = ref(false)
+
+    const customer = ref<Customer>()
+    const administrator = ref<Administrator>()
 
     // Getters
-    const _authenticated = computed(() => authenticated.value)
-    const _user = computed(() => user.value)
+    const _isAuthenticated = computed(() => isAuthenticated.value)
+    const _customer = computed(() => customer.value)
 
     // Actions
     const loginAsCustomer = async (credentials: { email: string, password: string }) => {
@@ -28,8 +32,30 @@ export const useAuthStore = defineStore('auth', () => {
             body: credentials,
             credentials: 'include'
         }).then((res) => {
-            authenticated.value = true
-            user.value = res.data
+            isAuthenticated.value = true
+            customer.value = res.data
+        })
+    }
+
+    const loginAsAdministrator = async (credentials: { email: string, password: string }) => {
+        const config = useRuntimeConfig()
+        const baseUrl = config.public.apiBaseUrl
+
+        await $fetch(baseUrl + '/sanctum/csrf-cookie', { credentials: 'include' })
+
+        const xsrfToken = useCookie('XSRF-TOKEN')
+
+        return await $fetch<ApiResponse>(baseUrl + '/admin/login', {
+            // @ts-ignore
+            headers: {
+                "X-XSRF-TOKEN": xsrfToken.value
+            },
+            method: 'POST',
+            body: credentials,
+            credentials: 'include'
+        }).then((res) => {
+            isAdminAuthenticated.value = true
+            administrator.value = res.data
         })
     }
 
@@ -63,13 +89,13 @@ export const useAuthStore = defineStore('auth', () => {
     const logout = async () => {
         return await useFetchAPI('/logout', { method: 'POST' })
             .then(() => {
-                authenticated.value = false
-                user.value = undefined
+                isAuthenticated.value = false
+                customer.value = undefined
             })
             .catch((err) => {
                 throw new Error("There was a problem while logging out:" + err)
             })
     }
 
-    return { authenticated, user, _authenticated, _user, loginAsCustomer, register, logout }
+    return { isAuthenticated, customer, _isAuthenticated, _customer, loginAsCustomer, loginAsAdministrator, register, logout }
 }, { persist: true })

@@ -8,7 +8,7 @@
   const isSidebarOpen = ref(false)
 
   const currentUserName = computed(() => {
-    return `${auth.user?.first_name} ${auth.user?.last_name}`
+    return `${auth._customer?.first_name} ${auth._customer?.last_name}`
   })
 
   const toggleSidebar = () => {

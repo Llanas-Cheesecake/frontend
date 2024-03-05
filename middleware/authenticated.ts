@@ -2,7 +2,7 @@ import { useAuthStore } from "~/store/auth";
 import type { ApiResponse } from "~/types/ApiResponse";
 
 export default defineNuxtRouteMiddleware(async (to) => {
-    const { authenticated, user } = storeToRefs(useAuthStore());
+    const { isAuthenticated, customer } = storeToRefs(useAuthStore());
 
     const result = await useFetchAPI<ApiResponse>('/account/check', {
         method: "GET"
@@ -10,12 +10,12 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
     // "Logout" user when the server returns an error
     if (result.status.value === 'error') {
-        authenticated.value = false;
-        user.value = undefined;
+        isAuthenticated.value = false;
+        customer.value = undefined;
 
         return navigateTo('/')
     }
 
     // Update user info
-    user.value = result.data.value?.data
+    customer.value = result.data.value?.data
 })
