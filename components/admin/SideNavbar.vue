@@ -21,9 +21,9 @@
         </nuxt-link>
       </li>
       <li class="nav-item">
-        <nuxt-link to="/admin/menu" class="nav-link" href="#">
+        <nuxt-link to="/admin/products/" class="nav-link" href="#">
           <img src="/icons/box-black.svg" alt="Menu Icon" />
-          <span class="ms-3">Menu</span>
+          <span class="ms-3">Products</span>
         </nuxt-link>
       </li>
       <li class="nav-item">

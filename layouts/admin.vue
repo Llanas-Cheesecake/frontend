@@ -5,13 +5,19 @@ useHead({
   titleTemplate: (title) => {
     return title
         ? `${title} - Admin Panel - Llana's Cheesecake`
-        : 'Llana\'s Cheesecake'
+        : 'Admin Panel - Llana\'s Cheesecake'
   }
 })
 </script>
 
 <template>
-  <div class="admin-panel">
+  <div v-if="route.name === 'admin-login'" class="auth-container">
+    <div class="box">
+      <slot />
+    </div>
+  </div>
+
+  <div v-else class="admin-panel">
 
     <div class="admin-content d-flex gap-4">
       <AdminSideNavbar />
@@ -24,7 +30,6 @@ useHead({
         </div>
       </section>
     </div>
-
 
   </div>
 </template>
@@ -45,6 +50,17 @@ useHead({
     //--btn-bg-secondary: #f2ffda;
   }
 
+  .auth-container {
+    position: relative;
+    height: 100vh;
+    .box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
   .bg-primary {
     background-color: var(--bg-primary)!important;
   }
@@ -58,7 +74,16 @@ useHead({
   }
 
   .btn {
-    border-radius: 12px;
+    border-radius: 8px;
+    &.btn-primary {
+      background-color: var(--bg-tertiary);
+      border: 2px solid var(--bg-tertiary);
+      color: var(--color-text-secondary);
+      &:active {
+        background-color: color-mix(in srgb, var(--bg-tertiary), #000 15%);
+        border-color: color-mix(in srgb, var(--bg-tertiary), #000 15%);
+      }
+    }
     &.btn-outline-primary {
       border: 2px solid var(--bg-tertiary);
       color: var(--bg-tertiary);
@@ -74,7 +99,69 @@ useHead({
   }
 
   .card {
+    border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.10), 0 4px 6px rgba(0,0,0,0.03);
+  }
+
+  .table {
+    thead {
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      tr {
+        border: 0;
+        th {
+          &:first-child {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+            padding-left: 1rem;
+          }
+          &:last-child {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            padding-right: 1rem;
+          }
+          background: var(--bg-tertiary);
+          color: var(--color-text-secondary);
+          padding: 1rem 0.5rem;
+        }
+      }
+    }
+    tbody {
+      &:before {
+        content:"@";
+        display:block;
+        line-height:10px;
+        text-indent:-99999px;
+      }
+
+      tr {
+        &:hover {
+          border: 1px solid rgba(0,0,0,0.2);
+          cursor: pointer;
+        }
+        td {
+          vertical-align: middle;
+          padding: 1rem 0.5rem;
+          &:first-child {
+            padding-left: 1rem;
+          }
+          &:last-child {
+            padding-right: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .form-control {
+    background-color: var(--bg-secondary);
+    border: 2px solid rgba(0,0,0,0.1);
+    &:focus {
+      border-width: 2px;
+      background-color: var(--bg-secondary);
+      box-shadow: none;
+      border-color: rgba(0,0,0,0.1);
+    }
   }
 
   .admin-panel {

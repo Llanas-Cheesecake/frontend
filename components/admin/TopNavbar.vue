@@ -5,12 +5,16 @@
     switch (route.name) {
       case "admin-dashboard":
         return "Dashboard";
-      case "admin-menu":
-        return "Menu";
+      case "admin-products":
+        return "Dashboard / Products";
+      case "admin-products-create":
+        return "Dashboard / Products / New";
+      case "admin-products-edit":
+        return "Dashboard / Products / Edit"; // Should be product name
       case "admin-orders":
-        return "Orders";
+        return "Dashboard / Orders";
       case "admin-customers":
-        return "Customers";
+        return "Dashboard / Customers";
     }
   })
 </script>
