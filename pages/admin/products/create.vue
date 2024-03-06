@@ -1,10 +1,19 @@
 <script setup lang="ts">
+  // @ts-ignore
+  import * as Toast from "vue-toastification/dist/index.mjs";
+
   import type { ApiResponse } from "~/types/ApiResponse";
   import type { Category } from "~/types/Category";
 
+  const { useToast } = Toast;
+  const toast = useToast();
+
   definePageMeta({
+    middleware: ['authenticated-admin'],
     layout: 'admin'
   })
+
+  const route = useRoute();
 
   const categories = reactive<Category[]>([])
 
@@ -25,6 +34,8 @@
   const setHoverState = (state: boolean) => {
     isHoveringBackButton.value = state
   }
+
+  const isSubmittingForm = ref(false);
 
   const form = reactive({
     category_id: '',
@@ -68,10 +79,16 @@
     })
 
     if (results.value) {
-      console.log(results.value)
+      isSubmittingForm.value = false; // Redundant
+
+      navigateTo(`/admin/products/${route.params.slug}`);
+      // console.log(results.value)
     }
 
     if (error.value) {
+      isSubmittingForm.value = false;
+      toast.error("Something went wrong while handling your request");
+
       console.log(error.value)
     }
   }
@@ -89,8 +106,9 @@
           <h5 class="fw-bold mb-0 flex-fill">
             New Product
           </h5>
-          <button type="button" class="btn btn-primary" @click="handleFormSubmit">
-            Create Product
+          <button type="button" class="btn btn-primary" :disabled="isSubmittingForm" @click="handleFormSubmit">
+            <span>Create Product</span>
+            <LoadingIcon v-if="isSubmittingForm" color="white" class="ms-2 position-relative" style="top: -1px" />
           </button>
         </div>
       </div>
