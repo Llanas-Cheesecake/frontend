@@ -11,6 +11,8 @@
 
   const { $bootstrap } = useNuxtApp()
 
+  const routeProductName = useState('routeProductName');
+
   // Apply tooltips
   onMounted(() => {
     if (process.client) {
@@ -20,7 +22,7 @@
         [...tooltips].map(tooltipTriggerEl => new $bootstrap.Tooltip(tooltipTriggerEl))
       };
     }
-  })
+  });
 
 </script>
 

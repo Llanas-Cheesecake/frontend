@@ -15,6 +15,7 @@
   });
 
   const route = useRoute();
+  const routeProductName = useState('routeProductName');
 
   const isSubmittingForm = ref(false);
 
@@ -37,7 +38,9 @@
   })
 
   if (result.value) {
-    const payload = result.value.data
+    const payload = result.value.data;
+
+    routeProductName.value = payload.name;
 
     form.name = payload.name;
     form.description = payload.description;

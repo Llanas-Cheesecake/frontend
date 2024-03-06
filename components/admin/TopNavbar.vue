@@ -4,6 +4,8 @@
   const auth = useAuthStore();
   const route = useRoute();
 
+  const routeProductName = useState('routeProductName');
+
   const currentPage = computed(() => {
     switch (route.name) {
       case "admin-dashboard":
@@ -13,9 +15,9 @@
       case "admin-products-create":
         return "Dashboard / Products / New";
       case "admin-products-slug":
-        return "Dashboard / Products / View"
+        return `Dashboard / Products / ${routeProductName.value}`
       case "admin-products-slug-edit":
-        return "Dashboard / Products / Edit"; // Should be product name
+        return `Dashboard / Products / ${routeProductName.value} / Edit`;
       case "admin-orders":
         return "Dashboard / Orders";
       case "admin-customers":
