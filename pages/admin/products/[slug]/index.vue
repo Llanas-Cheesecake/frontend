@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import type { ApiResponse } from "~/types/ApiResponse";
+  import type { ProductRating } from "~/types/Product";
 
   definePageMeta({
     layout: 'admin'
@@ -14,17 +15,9 @@
     thumbnail: '',
     price: '',
     stock: '',
+    ratings: [] as ProductRating[],
+    orders: [] as any
   });
-
-  const ratings = [
-    {
-      reviewer_name: "",
-      rating: 4,
-      headline: "Test Headline",
-      review: "Ur mother",
-      published_at: Date.now()
-    }
-  ]
 
   // Fetch product
   const { data: result } = await useFetchAPI<ApiResponse>(`/admin/products/${route.params.slug}`, {
@@ -39,6 +32,8 @@
     product.thumbnail = payload.thumbnail;
     product.price = payload.price;
     product.stock = payload.stock;
+    product.ratings = payload.ratings;
+    product.orders = payload.orders;
 
     routeProductName.value = product.name
   }
@@ -102,7 +97,44 @@
           <div class="card-body">
             <h5 class="fw-bold mb-4">Recent orders</h5>
 
-            <p class="mb-0">A table of recent orders with this product will be displayed here</p>
+            <table v-if="product.orders.length > 0" class="table table-striped w-100 mb-0" style="table-layout: fixed;">
+              <colgroup>
+                <col span="1" style="width: 12%;">
+                <col span="1" style="width: 18%;">
+                <col span="1" style="width: 12%;">
+                <col span="1" style="width: 15%;">
+                <col span="1" style="width: 15%;">
+              </colgroup>
+
+              <thead>
+              <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Status</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr v-for="order in product.orders">
+                  <td class="text-truncate overflow-hidden">#{{ order.order_id }}</td>
+                  <td class="text-truncate overflow-hidden">
+                    {{ order.customer ? order.customer.first_name + " " + order.customer.last_name : 'Guest' }}
+                  </td>
+                  <td class="text-truncate overflow-hidden">
+                    {{ order.items[0].quantity }}
+                  </td>
+                  <td>{{ formatPrice(order.total_price) }}</td>
+                  <td>
+                    <div class="alert alert-success text-center p-1 mb-0">
+                      {{ order.status }}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p v-else class="mb-0">No orders were found for this product.</p>
           </div>
         </div>
 
@@ -112,9 +144,13 @@
               Recent reviews
             </h5>
 
-            <div v-for="rating in ratings">
-              <ProductRating :rating="rating" />
-            </div>
+            <section v-if="product.ratings.length > 0">
+              <div v-for="rating in product.ratings">
+                <AdminProductRating :rating="rating" class="mb-4" />
+              </div>
+            </section>
+
+            <p v-else class="mb-0">No reviews were found for this product.</p>
           </div>
         </div>
 
