@@ -3,9 +3,12 @@
   import type { Product } from "~/types/Product";
   import { useCartStore } from "~/store/cart";
 
-  const props = defineProps<{
-    product: Product
-  }>()
+  const props = withDefaults(defineProps<{
+    product: Product,
+    showActions?: boolean
+  }>(), {
+    showActions: true
+  })
 
   const cart = useCartStore();
 
@@ -43,7 +46,7 @@
       <div class="price">
         &#8369;<span>{{ product.price }}</span>
       </div>
-      <button class="btn btn-primary" :disabled="isAddingToCart" @click="addToCart">
+      <button v-if="showActions" class="btn btn-primary" :disabled="isAddingToCart" @click="addToCart">
         <span>Add</span>
         <LoadingIcon v-if="isAddingToCart" color="black" class="ms-2" />
       </button>
