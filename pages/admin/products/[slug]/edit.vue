@@ -1,25 +1,120 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'admin'
-})
+  // @ts-ignore
+  import * as Toast from "vue-toastification/dist/index.mjs";
 
-// Stupid hack for changing icon color
-const isHoveringBackButton = ref(false);
+  import type { ApiResponse } from "~/types/ApiResponse";
+  import type { Category } from "~/types/Category";
 
-const setHoverState = (state: boolean) => {
-  isHoveringBackButton.value = state
-}
+  const { useToast } = Toast;
+  const toast = useToast();
 
-const form = reactive({
-  name: '',
-  description: '',
-  price: 1,
-  stock: 1
-})
+  definePageMeta({
+    middleware: ['authenticated-admin'],
+    layout: 'admin'
+  });
 
-const handleFormSubmit = () => {
+  const route = useRoute();
 
-}
+  const isSubmittingForm = ref(false);
+
+  const form = reactive({
+    category_id: '',
+    name: '',
+    description: '',
+    price: 1,
+    stock: 1,
+    files: [] as File[]
+  });
+
+  const imageUrl = ref('');
+
+  const categories = reactive<Category[]>([])
+
+  // Fetch product
+  const { data: result } = await useFetchAPI<ApiResponse>(`/admin/products/${route.params.slug}`, {
+    method: "GET"
+  })
+
+  if (result.value) {
+    const payload = result.value.data
+
+    form.name = payload.name;
+    form.description = payload.description;
+    form.price = payload.price;
+    form.stock = payload.stock;
+    form.category_id = payload.category_id;
+
+    imageUrl.value = payload.thumbnail;
+  }
+
+  // Fetch categories
+  const { data } = await useFetchAPI<ApiResponse>('/categories', {
+    method: "GET"
+  })
+
+  if (data.value) {
+    const payload = data.value.data
+
+    payload.map((item: Category) => categories.push(item))
+  }
+
+  // Stupid hack for changing icon color
+  const isHoveringBackButton = ref(false);
+
+  const setHoverState = (state: boolean) => {
+    isHoveringBackButton.value = state
+  }
+
+  const handleImageUpload = (files: FileList) => {
+    // Create fake url for image preview
+    imageUrl.value = URL.createObjectURL(files[0]);
+
+    // Push the file into the form
+    form.files = [files[0]];
+  }
+
+  const handleResetPreview = () => {
+    imageUrl.value = '';
+    form.files = []
+  }
+
+  const handleFormSubmit = async () => {
+    const data = new FormData();
+    data.append('_method', 'PATCH'); // See https://stackoverflow.com/a/50691997
+    data.append('category_id', form.category_id);
+    data.append('name', form.name);
+    data.append('description', form.description);
+    data.append('price', form.price as unknown as string);
+    data.append('stock', form.stock as unknown as string);
+
+    if (form.files.length > 0) {
+      data.append('thumbnail', form.files[0]);
+    }
+
+    isSubmittingForm.value = true;
+
+    const { data: results, error } = await useFetchAPI(`/admin/products/${route.params.slug}/edit`, {
+      method: "POST",
+      body: data,
+      headers: {
+        ContentType: 'multipart/form-data'
+      }
+    })
+
+    if (results.value) {
+      isSubmittingForm.value = false; // Redundant
+
+      navigateTo(`/admin/products/${route.params.slug}`);
+      // console.log(results.value)
+    }
+
+    if (error.value) {
+      isSubmittingForm.value = false;
+      toast.error("Something went wrong while handling your request");
+
+      console.log(error.value)
+    }
+  }
 </script>
 
 <template>
@@ -31,11 +126,14 @@ const handleFormSubmit = () => {
           <nuxt-link to="/admin/products" class="btn btn-outline-primary" role="button" @mouseover="setHoverState(true)" @mouseout="setHoverState(false)">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" :stroke="isHoveringBackButton ? 'white' : 'black'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
           </nuxt-link>
+
           <h5 class="fw-bold mb-0 flex-fill">
             Edit Product
           </h5>
-          <button type="button" class="btn btn-primary" @click="handleFormSubmit">
-            Submit Changes
+
+          <button type="button" class="btn btn-primary" :disabled="isSubmittingForm" @click="handleFormSubmit">
+            <span>Submit changes</span>
+            <LoadingIcon v-if="isSubmittingForm" color="white" class="ms-2 position-relative" style="top: -1px" />
           </button>
         </div>
       </div>
@@ -91,27 +189,28 @@ const handleFormSubmit = () => {
           <div class="card-body">
             <h5 class="mb-4">Media</h5>
 
-            <div class="upload-box">
-              <div class="text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline>
-                </svg>
-                <p class="mt-2 mb-0">Drag & drop your image here</p>
-              </div>
+            <AdminUploadBox v-if="!imageUrl" @image-uploaded="handleImageUpload" />
+
+            <div v-else class="upload-preview">
+              <img :src="imageUrl" alt="uploaded image" />
+
+              <button class="btn btn-primary mt-4" @click="handleResetPreview">
+                Choose a different image
+              </button>
             </div>
 
           </div>
         </div>
 
-        <div class="card p-2 mb-4">
+        <div class="card p-2">
           <div class="card-body">
             <h5 class="mb-4">Category</h5>
 
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select v-model="form.category_id" class="form-select" required>
+              <option selected disabled>Choose a category</option>
+              <option v-for="category in categories" :value="category.category_id">
+                {{ category.name }}
+              </option>
             </select>
 
           </div>
@@ -140,16 +239,8 @@ const handleFormSubmit = () => {
   }
 }
 
-.upload-box {
-  background-color: rgba(0,0,0,0.04);
-  border: 2px dashed var(--bg-tertiary);
-  border-radius: 8px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  min-height: 12rem;
-  padding: 1rem;
+.upload-preview img {
+  border-radius: 12px;
+  width: 100%;
 }
 </style>
