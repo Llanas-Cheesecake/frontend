@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import type { ApiResponse } from "~/types/ApiResponse";
-  import type { Product } from "~/types/Product";
 
   definePageMeta({
     layout: 'admin'
@@ -9,7 +8,13 @@
   const route = useRoute();
   const routeProductName = useState('routeProductName');
 
-  const product = ref<Product>();
+  const product = reactive({
+    name: '',
+    description: '',
+    thumbnail: '',
+    price: '',
+    stock: '',
+  });
 
   const ratings = [
     {
@@ -28,9 +33,14 @@
 
   if (result.value) {
     const payload = result.value.data
-    product.value = { ...payload }
 
-    routeProductName.value = product.value?.name
+    product.name = payload.name;
+    product.description = payload.description;
+    product.thumbnail = payload.thumbnail;
+    product.price = payload.price;
+    product.stock = payload.stock;
+
+    routeProductName.value = product.name
   }
 </script>
 
