@@ -112,6 +112,9 @@
         border-color: var(--bg-tertiary);
       }
     }
+    &.btn-danger {
+      border: 2px solid #dc3545;
+    }
   }
 
   .card {
