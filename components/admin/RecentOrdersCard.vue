@@ -1,5 +1,7 @@
 <script setup lang="ts">
-
+  const props = defineProps<{
+    orders: any
+  }>()
 </script>
 
 <template>
@@ -14,7 +16,7 @@
         </small>
       </div>
 
-      <table class="table table-striped w-100 mb-0" style="table-layout: fixed;">
+      <table v-if="props.orders.length > 0" class="table table-striped w-100 mb-0" style="table-layout: fixed;">
         <colgroup>
           <col span="1" style="width: 15%;">
           <col span="1" style="width: 25%;">
@@ -33,58 +35,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="text-truncate overflow-hidden">#fd396e306f7ab52f29919c3eff54740c</td>
-            <td class="text-truncate overflow-hidden">Vincent Tampos</td>
-            <td class="text-truncate overflow-hidden">Blueberry Cheesecake</td>
-            <td>$1000</td>
+          <tr v-for="order in props.orders">
+            <td class="text-truncate overflow-hidden">
+              #{{ order.order_id }}
+            </td>
+            <td class="text-truncate overflow-hidden">
+              {{ order.customer ? order.customer.first_name + " " + order.customer.last_name : 'Guest' }}
+            </td>
+            <td class="text-truncate overflow-hidden d-flex align-items-center justify-content-between">
+              <div>
+                <p class="mb-0">{{ order.items[0].product.name }}</p>
+                <small class="mb-0">{{ order.items[0].product.category.name }}</small>
+              </div>
+              <div v-if="order.items.length > 1">
+                <small>+{{ (order.items.length) - 1 }}</small>
+              </div>
+            </td>
+            <td>{{ formatPrice(order.total_price) }}</td>
             <td>
               <div class="alert alert-success text-center p-1 mb-0">
                 Paid
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-truncate overflow-hidden">#fd396e306f7ab52f29919c3eff54740c</td>
-            <td class="text-truncate overflow-hidden">Vincent Tampos</td>
-            <td class="text-truncate overflow-hidden">Blueberry Cheesecake</td>
-            <td>$1000</td>
-            <td>
-              <div class="alert alert-info text-center p-1 mb-0">
-                Pending
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-truncate overflow-hidden">#fd396e306f7ab52f29919c3eff54740c</td>
-            <td class="text-truncate overflow-hidden">Vincent Tampos</td>
-            <td class="text-truncate overflow-hidden">Blueberry Cheesecake</td>
-            <td>$1000</td>
-            <td>
-              <div class="alert alert-danger text-center p-1 mb-0">
-                Unpaid
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-truncate overflow-hidden">#fd396e306f7ab52f29919c3eff54740c</td>
-            <td class="text-truncate overflow-hidden">Vincent Tampos</td>
-            <td class="text-truncate overflow-hidden">Blueberry Cheesecake</td>
-            <td>$1000</td>
-            <td>
-              <div class="alert alert-danger text-center p-1 mb-0">
-                Unpaid
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-truncate overflow-hidden">#fd396e306f7ab52f29919c3eff54740c</td>
-            <td class="text-truncate overflow-hidden">Vincent Tampos</td>
-            <td class="text-truncate overflow-hidden">Blueberry Cheesecake</td>
-            <td>$1000</td>
-            <td>
-              <div class="alert alert-danger text-center p-1 mb-0">
-                Unpaid
               </div>
             </td>
           </tr>

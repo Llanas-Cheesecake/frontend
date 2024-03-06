@@ -1,8 +1,32 @@
 <script setup lang="ts">
+  import type {ApiResponse} from "~/types/ApiResponse";
+  import type {Category} from "~/types/Category";
+
   definePageMeta({
     middleware: ['authenticated-admin'],
     layout: 'admin'
   })
+
+  const overview = reactive({
+    customers_count: 0,
+    orders_count: 0,
+    revenue: 0,
+    orders: []
+  })
+
+  const { data: result } = await useFetchAPI<ApiResponse>('/admin/overview', {
+    method: "GET"
+  })
+
+  if (result.value) {
+    const payload = result.value.data
+
+    overview.customers_count = payload.customers_count;
+    overview.orders_count = payload.orders_count;
+    overview.revenue = payload.revenue;
+    overview.orders = payload.orders;
+  }
+
 </script>
 
 <template>
@@ -17,7 +41,9 @@
             <p class="mb-0">New Users</p>
           </div>
 
-          <h4 class="fw-bold mb-0">500</h4>
+          <h4 class="fw-bold mb-0">
+            {{ overview.customers_count }}
+          </h4>
         </div>
       </div>
       <div class="card p-2">
@@ -27,7 +53,9 @@
             <p class="mb-0">New Orders</p>
           </div>
 
-          <h4 class="fw-bold mb-0">8</h4>
+          <h4 class="fw-bold mb-0">
+            {{ overview.orders_count }}
+          </h4>
         </div>
       </div>
       <div class="card p-2">
@@ -37,7 +65,9 @@
             <p class="mb-0">Today's Revenue</p>
           </div>
 
-          <h4 class="fw-bold mb-0">8</h4>
+          <h4 class="fw-bold mb-0">
+            {{ formatPrice(overview.revenue) }}
+          </h4>
         </div>
       </div>
     </div>
@@ -48,7 +78,7 @@
     <!-- END Weekly Revenue Chart -->
 
     <!-- Recent Orders -->
-    <AdminRecentOrdersCard />
+    <AdminRecentOrdersCard :orders="overview.orders" />
     <!-- END Recent Orders -->
 
   </section>
