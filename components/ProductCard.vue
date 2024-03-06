@@ -28,7 +28,7 @@
 <template>
   <div class="card">
     <nuxt-link :to="`/products/${product.slug}`" class="card-body">
-      <img class="product-image rounded shadow-sm mb-3" :src="product.thumbnail" :alt="product.name" />
+      <div class="product-image rounded shadow-sm mb-3" :style="{ 'background-image': `url(${product.thumbnail})` }" />
       <section>
         <h5 class="card-title">{{ product.name }}</h5>
 
@@ -61,14 +61,16 @@
     .card-body {
       text-decoration: none;
       .product-image {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        height: 100%;
         width: 100%;
-        //max-width: 240px;
       }
     }
     .card-bottom {
-      //bottom: 0;
       width: 100%;
-      //margin-left: -1rem;
       padding: 1rem;
     }
   }
@@ -80,10 +82,29 @@
         display: flex;
         gap: 1rem;
         .product-image {
-          max-width: 135px!important;
-          max-height: 135px;
+          width: 135px!important;
+          min-height: 135px;
         }
       }
     }
   }
+  
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .product-image {
+      min-height: 182px!important;
+    }
+  }
+
+  @media (min-width: 1200px) and (max-width: 1399px) {
+    .product-image {
+      min-height: 227px!important;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .product-image {
+      min-height: 272px!important;
+    }
+  }
+
 </style>
