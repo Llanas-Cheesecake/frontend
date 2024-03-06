@@ -4,6 +4,7 @@
 
   import type { ApiResponse } from "~/types/ApiResponse";
   import type { Category } from "~/types/Category";
+  import BackButton from "~/components/BackButton.vue";
 
   const { useToast } = Toast;
   const toast = useToast();
@@ -26,13 +27,6 @@
     const payload = result.value.data
 
     payload.map((item: Category) => categories.push(item))
-  }
-
-  // Stupid hack for changing icon color
-  const isHoveringBackButton = ref(false);
-
-  const setHoverState = (state: boolean) => {
-    isHoveringBackButton.value = state
   }
 
   const isSubmittingForm = ref(false);
@@ -100,16 +94,18 @@
     <div class="card p-2 mb-4">
       <div class="card-body">
         <div class="d-flex align-items-center gap-3">
-          <nuxt-link to="/admin/products" class="btn btn-outline-primary" role="button" @mouseover="setHoverState(true)" @mouseout="setHoverState(false)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" :stroke="isHoveringBackButton ? 'white' : 'black'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-          </nuxt-link>
+
+          <BackButton link="/admin/products"></BackButton>
+
           <h5 class="fw-bold mb-0 flex-fill">
             New Product
           </h5>
+
           <button type="button" class="btn btn-primary" :disabled="isSubmittingForm" @click="handleFormSubmit">
             <span>Create Product</span>
             <LoadingIcon v-if="isSubmittingForm" color="white" class="ms-2 position-relative" style="top: -1px" />
           </button>
+
         </div>
       </div>
     </div>
