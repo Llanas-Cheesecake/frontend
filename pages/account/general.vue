@@ -5,7 +5,7 @@
   const customer = reactive<Customer>({
     first_name: '',
     last_name: '',
-    email: ''
+    email: '',
   });
 
   const newEmail = ref('');

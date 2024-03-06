@@ -33,7 +33,7 @@
         </nuxt-link>
       </li>
       <li class="nav-item">
-        <nuxt-link to="/admin/customers" class="nav-link">
+        <nuxt-link to="/admin/customers/customers" class="nav-link">
           <img src="/icons/user-black.svg" alt="Customers Icon" />
           <span class="ms-3">Customers</span>
         </nuxt-link>

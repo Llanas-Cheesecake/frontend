@@ -20,7 +20,9 @@
         return `Dashboard / Products / ${routeProductName.value} / Edit`;
       case "admin-orders":
         return "Dashboard / Orders";
-      case "admin-customers":
+      case "admin-customers-customers":
+        return "Dashboard / Customers";
+      case "admin-customers-grug":
         return "Dashboard / Customers";
     }
   })
