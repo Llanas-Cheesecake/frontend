@@ -56,6 +56,8 @@
   }
 
   const handleFormSubmit = async () => {
+    isSubmittingForm.value = true;
+
     const data = new FormData();
     data.append('category_id', form.category_id)
     data.append('name', form.name);
@@ -64,7 +66,7 @@
     data.append('stock', form.stock as unknown as string);
     data.append('thumbnail', form.files[0]);
 
-    const { data: results, error } = await useFetchAPI('/admin/products/create', {
+    const { data: result, error } = await useFetchAPI<ApiResponse>('/admin/products/create', {
       method: "POST",
       body: data,
       headers: {
@@ -72,11 +74,11 @@
       }
     })
 
-    if (results.value) {
-      isSubmittingForm.value = false; // Redundant
+    if (result.value) {
+      const payload = result.value.data
 
-      navigateTo(`/admin/products/${route.params.slug}`);
-      // console.log(results.value)
+      navigateTo(`/admin/products/${payload.slug}`);
+      // console.log(result.value)
     }
 
     if (error.value) {
