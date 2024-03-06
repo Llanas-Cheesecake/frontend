@@ -1,21 +1,38 @@
 <script setup lang="ts">
+  // @ts-ignore
+  import { Bootstrap5Pagination } from 'laravel-vue-pagination';
   import type { ApiResponse } from "~/types/ApiResponse";
   import type { Product } from "~/types/Product";
 
   definePageMeta({
+    middleware: ['authenticated-admin'],
     layout: 'admin'
   })
 
-  const products = ref<Product[]>([])
+  const products = ref<Product[]>([]);
+  const pagination = ref<any>({})
 
-  const { data: results, pending, error } = await useFetchAPI<ApiResponse>('/admin/products', {
-    method: "GET"
+  const fetchProducts = async (page = 1) => {
+    const { data: results, error } = await useFetchAPI<ApiResponse>(`/admin/products?page=${page}`, {
+      method: "GET"
+    });
+
+    if (results.value) {
+      const payload = results.value.data
+
+      // Store them in variables
+      products.value = { ...payload.data };
+      pagination.value = payload
+
+      // Delete unnecessary data from pagination
+      delete pagination.value.data;
+    }
+  }
+
+  onBeforeMount(() => {
+    fetchProducts()
   })
 
-  if (results.value) {
-    const payload = results.value.data
-    products.value = { ...payload };
-  }
 </script>
 
 <template>
@@ -61,7 +78,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="product in products">
+          <tr v-for="product in products" :key="product.slug">
             <td class="text-truncate overflow-hidden">
               <img class="product-image" :src="product.thumbnail" :alt="product.name" />
             </td>
@@ -100,6 +117,13 @@
 
           </tbody>
         </table>
+
+        <Bootstrap5Pagination
+            class="mt-4 mb-0"
+            :data="pagination"
+            @pagination-change-page="fetchProducts"
+        />
+
       </div>
     </div>
 
