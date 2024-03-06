@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import {useAuthStore} from "~/store/auth";
+  import { useAuthStore } from "~/store/auth";
 
   const auth = useAuthStore();
   const route = useRoute();
@@ -11,7 +11,9 @@
       case "admin-products":
         return "Dashboard / Products";
       case "admin-products-create":
-        return "Dashboard / Products / New Product";
+        return "Dashboard / Products / New";
+      case "admin-products-slug":
+        return "Dashboard / Products / View"
       case "admin-products-slug-edit":
         return "Dashboard / Products / Edit"; // Should be product name
       case "admin-orders":
