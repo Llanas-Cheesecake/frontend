@@ -9,6 +9,9 @@
     layout: 'admin'
   })
 
+  const isLoading = ref(true);
+  const isFailed = ref(false);
+
   const products = ref<Product[]>([]);
   const pagination = ref<any>({})
 
@@ -26,6 +29,14 @@
 
       // Delete unnecessary data from pagination
       delete pagination.value.data;
+
+      isLoading.value = false;
+    }
+
+    // Handle errors
+    if (error.value) {
+      isFailed.value = true;
+      isLoading.value = false;
     }
   }
 
@@ -59,7 +70,13 @@
 
     <div class="card p-2">
       <div class="card-body">
-        <table class="table table-striped w-100 mb-0" style="table-layout: fixed;">
+
+        <p v-if="isLoading" class="mb-0">
+          <LoadingIcon color="black" class="me-2 position-relative" style="top: -1px" />
+          <span>Loading...</span>
+        </p>
+
+        <table v-if="!isLoading && !isFailed" class="table table-striped w-100 mb-0" style="table-layout: fixed;">
           <colgroup>
             <col span="1" style="width: 10%;">
             <col span="1" style="width: 25%;">
