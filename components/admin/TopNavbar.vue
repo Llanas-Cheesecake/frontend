@@ -34,7 +34,7 @@
 
 <template>
   <div class="card px-2">
-    <div class="card-body d-flex align-items-center">
+    <div class="card-body d-flex align-items-center gap-3">
       <p class="mb-0 flex-fill">
         {{ currentPage }}
       </p>
