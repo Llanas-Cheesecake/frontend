@@ -33,7 +33,7 @@
   const categories = reactive<Category[]>([])
 
   // Fetch product
-  const { data: result } = await useFetchAPI<ApiResponse>(`/admin/products/${route.params.slug}`, {
+  const { data: result, error } = await useFetchAPI<ApiResponse>(`/admin/products/${route.params.slug}`, {
     method: "GET"
   })
 
@@ -49,6 +49,12 @@
     form.category_id = payload.category_id;
 
     imageUrl.value = payload.thumbnail;
+  }
+
+  if (error.value) {
+    // TODO: Handle errors by status codes
+    // switch ()
+    navigateTo('/admin/products');
   }
 
   // Fetch categories
@@ -90,7 +96,7 @@
 
     isSubmittingForm.value = true;
 
-    const { data: results, error } = await useFetchAPI(`/admin/products/${route.params.slug}/edit`, {
+    const { data: results, error } = await useFetchAPI<ApiResponse>(`/admin/products/${route.params.slug}/edit`, {
       method: "POST",
       body: data,
       headers: {
@@ -101,7 +107,9 @@
     if (results.value) {
       isSubmittingForm.value = false; // Redundant
 
-      navigateTo(`/admin/products/${route.params.slug}`);
+      const payload = results.value.data;
+      navigateTo(`/admin/products/${payload.slug}`);
+
       // console.log(results.value)
     }
 
