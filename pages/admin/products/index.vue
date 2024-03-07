@@ -1,10 +1,13 @@
 <script setup lang="ts">
-  // @ts-ignore
-  import { Bootstrap5Pagination } from 'laravel-vue-pagination';
-  import type { ApiResponse } from "~/types/ApiResponse";
-  import type { Product } from "~/types/Product";
+// @ts-ignore
+import {Bootstrap5Pagination} from 'laravel-vue-pagination';
+import {useModal} from "vue-final-modal";
+import {ModalDeleteProduct} from "#components";
 
-  definePageMeta({
+import type {ApiResponse} from "~/types/ApiResponse";
+import type {Product} from "~/types/Product";
+
+definePageMeta({
     middleware: ['authenticated-admin'],
     layout: 'admin'
   })
@@ -24,7 +27,7 @@
       const payload = results.value.data
 
       // Store them in variables
-      products.value = { ...payload.data };
+      products.value = [ ...payload.data ];
       pagination.value = payload
 
       // Delete unnecessary data from pagination
@@ -42,6 +45,34 @@
 
   onBeforeMount(() => {
     fetchProducts()
+  });
+
+  const handleProductDelete = (product_id: number) => {
+    products.value = products.value.filter((item) => {
+      return item.product_id !== product_id;
+    });
+  }
+
+  // Delete Modal
+  const selectedProduct = ref();
+
+  const openDeleteModal = (product: any) => {
+    selectedProduct.value = product
+    deleteModal.open()
+  }
+
+  const deleteModal = useModal({
+    component: ModalDeleteProduct,
+    attrs: {
+      product: selectedProduct,
+      onCancel() {
+        deleteModal.close()
+      },
+      onConfirm(product_id: number) {
+        handleProductDelete(product_id);
+        deleteModal.close();
+      }
+    }
   })
 
 </script>
@@ -125,7 +156,8 @@
                         class="btn-action"
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
-                        data-bs-title="Delete">
+                        data-bs-title="Delete"
+                        @click="openDeleteModal(product)">
                   <img src="/icons/trash-black.svg" alt="trash icon" width="20" />
                 </button>
               </div>

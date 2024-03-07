@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: [
       '~/assets/styles/main.scss',
-      'vue-toastification/dist/index.css'
+      'vue-toastification/dist/index.css',
+      'vue-final-modal/style.css'
   ],
   modules: [
       '@nuxtjs/google-fonts',

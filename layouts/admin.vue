@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { ModalsContainer } from 'vue-final-modal'
+
   const route = useRoute();
 
   useHead({
@@ -11,7 +13,7 @@
 
   const { $bootstrap } = useNuxtApp()
 
-  const routeProductName = useState('routeProductName');
+  // const routeProductName = useState('routeProductName');
 
   // Apply tooltips
   onMounted(() => {
@@ -47,6 +49,7 @@
       </section>
     </div>
 
+    <ModalsContainer />
   </div>
 </template>
 
@@ -179,6 +182,12 @@
       background-color: var(--bg-secondary);
       box-shadow: none;
       border-color: rgba(0,0,0,0.1);
+    }
+  }
+
+  .modal {
+    .modal-body {
+      padding: 1.5rem;
     }
   }
 

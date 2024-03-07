@@ -10,6 +10,7 @@
   const routeProductName = useState('routeProductName');
 
   const product = reactive({
+    product_id: '',
     name: '',
     description: '',
     thumbnail: '',
@@ -19,6 +20,8 @@
     orders: [] as any
   });
 
+  const isDeleting = ref(false);
+
   // Fetch product
   const { data: result } = await useFetchAPI<ApiResponse>(`/admin/products/${route.params.slug}`, {
     method: "GET"
@@ -27,6 +30,7 @@
   if (result.value) {
     const payload = result.value.data
 
+    product.product_id = payload.product_id;
     product.name = payload.name;
     product.description = payload.description;
     product.thumbnail = payload.thumbnail;
@@ -36,6 +40,26 @@
     product.orders = payload.orders;
 
     routeProductName.value = product.name
+  }
+
+  const handleDeleteProduct = async () => {
+    isDeleting.value = true;
+
+    const { data: result, error } = await useFetchAPI(`/admin/products/${product.product_id}/delete`, {
+      method: "DELETE"
+    })
+
+    if (result.value) {
+      isDeleting.value = false;
+
+      navigateTo('/admin/products')
+    }
+
+    if (error.value) {
+      isDeleting.value = false;
+
+      // TODO: Handle errors
+    }
   }
 </script>
 
@@ -54,12 +78,17 @@
 
           <nuxt-link :to="`/admin/products/${route.params.slug}/edit`" class="btn btn-primary" role="button">
             <img class="position-relative" style="top: -1px;" src="/icons/edit-white.svg" alt="edit icon" width="20" />
-            <span class="d-sm-inline d-none ms-2">Edit</span>
+            <span class="d-sm-inline d-none ms-2">
+              Edit
+            </span>
           </nuxt-link>
 
-          <button type="button" class="btn btn-danger">
+          <button type="button" class="btn btn-danger" :disabled="isDeleting" @click="handleDeleteProduct">
             <img class="position-relative" style="top: -1px;" src="/icons/trash-white.svg" alt="delete icon" width="20" />
-            <span class="d-sm-inline d-none ms-2">Delete</span>
+            <span class="d-sm-inline d-none ms-2">
+              Delete
+            </span>
+            <LoadingIcon v-if="isDeleting" color="white" class="ms-2 position-relative" style="top: -1px" />
           </button>
 
         </div>
