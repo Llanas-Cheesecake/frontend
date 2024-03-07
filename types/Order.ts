@@ -21,6 +21,7 @@ export interface DetailedOrder {
     order_id: string
     customer: Customer
     items: OrderItem[]
+    payment: OrderPayment
     total_price: number
     status: string
 }

@@ -14,17 +14,17 @@
           Recent Orders
         </h5>
         <small class="text-subtle">
-          Only 5 recent successful orders are displayed. Clicking an order will show more details.
+          Only 5 recent paid orders are displayed. Clicking an order will show more details.
         </small>
       </div>
 
       <table v-if="props.orders.length > 0" class="table table-striped w-100 mb-0" style="table-layout: fixed;">
         <colgroup>
-          <col span="1" style="width: 15%;">
-          <col span="1" style="width: 25%;">
+          <col span="1" style="width: 12%;">
+          <col span="1" style="width: 20%;">
           <col span="1" style="width: 30%;">
           <col span="1" style="width: 15%;">
-          <col span="1" style="width: 15%;">
+          <col span="1" style="width: 23%;">
         </colgroup>
 
         <thead>
@@ -33,7 +33,7 @@
             <th scope="col">Customer Name</th>
             <th scope="col">Products</th>
             <th scope="col">Amount</th>
-            <th scope="col">Status</th>
+            <th scope="col">Paid at</th>
           </tr>
         </thead>
         <tbody>
@@ -54,14 +54,18 @@
                 </small>
               </div>
               <div v-if="order.items.length > 1">
-                <small>+{{ (order.items.length) - 1 }}</small>
+                <small class="mini-badge">+{{ (order.items.length) - 1 }}</small>
               </div>
             </td>
             <td>{{ formatPrice(order.total_price) }}</td>
             <td>
-              <div class="alert alert-success text-center p-1 mb-0">
-                Paid
-              </div>
+              <NuxtTime :datetime="order.payment.paid_at"
+                        month="short"
+                        day="numeric"
+                        year="numeric"
+                        hour="2-digit"
+                        minute="2-digit"
+              />
             </td>
           </tr>
         </tbody>
@@ -74,5 +78,10 @@
 <style scoped lang="scss">
   .table tbody tr {
     cursor: pointer;
+  }
+  .mini-badge {
+    padding: 6px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 50%;
   }
 </style>
