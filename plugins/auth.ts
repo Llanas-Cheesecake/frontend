@@ -6,8 +6,8 @@ export default defineNuxtPlugin(() => {
     return {
         provide: {
             auth: {
-                isLoggedIn: () => { return auth._authenticated },
-                user: () => { return auth._user }
+                isLoggedIn: () => { return auth._isAuthenticated },
+                user: () => { return auth._customer }
             }
         }
     }
