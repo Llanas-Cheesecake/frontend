@@ -127,11 +127,9 @@
 
 <template>
   <div>
-    <div class="product-wrapper d-flex mt-5 justify-content-center">
+    <div class="product-wrapper d-flex mt-5 justify-content-center gap-3">
 
-      <div class="product-images">
-        <img :src="product.thumbnail" :alt="product.name" />
-      </div>
+      <div class="product-images" :style="{ 'background-image': `url(${product.thumbnail})` }" />
 
       <div class="product-info bg-primary position-relative">
         <div class="d-flex align-items-center justify-content-between mb-1">
@@ -236,18 +234,20 @@
 </template>
 
 <style scoped lang="scss">
-.product-images img {
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-
 .product-wrapper {
+  .product-images {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 8px;
+    width: 600px;
+    height: 400px;
+  }
   .product-info {
     padding: 2rem;
     color: var(--color-text-primary);
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    max-width: 550px;
+    border-radius: 8px;
+    width: 100%;
 
     .product-name {
       margin-bottom: 0;

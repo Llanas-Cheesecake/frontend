@@ -1,13 +1,13 @@
 <script setup lang="ts">
-// @ts-ignore
-import {Bootstrap5Pagination} from 'laravel-vue-pagination';
-import {useModal} from "vue-final-modal";
-import {ModalDeleteProduct} from "#components";
+  // @ts-ignore
+  import { Bootstrap5Pagination } from 'laravel-vue-pagination';
+  import { useModal } from "vue-final-modal";
+  import { ModalDeleteProduct } from "#components";
 
-import type {ApiResponse} from "~/types/ApiResponse";
-import type {Product} from "~/types/Product";
+  import type { ApiResponse } from "~/types/ApiResponse";
+  import type { Product } from "~/types/Product";
 
-definePageMeta({
+  definePageMeta({
     middleware: ['authenticated-admin'],
     layout: 'admin'
   })
@@ -27,38 +27,36 @@ definePageMeta({
       endpoint = `/admin/products?page=${page}&keyword=${encodeURIComponent(searchKeyword.value)}`
     }
 
-    const { data: results, error } = await useFetchAPI<ApiResponse>(endpoint, {
-      method: "GET"
+    await useFetchAPI<ApiResponse>(endpoint, {
+      method: "GET",
+      server: false,
+      onResponse({ response }) {
+        if (response.ok) {
+          const payload = response._data.data
+
+          // Store them in variables
+          products.value = [ ...payload.data ];
+          pagination.value = payload;
+
+          // Delete unnecessary data from pagination
+          delete pagination.value.data;
+
+          isLoading.value = false;
+        }
+      },
+      onResponseError({ response }) {
+        isFailed.value = true;
+        isLoading.value = false;
+
+        // TODO: Handle errors
+      }
     });
-
-    if (results.value) {
-      const payload = results.value.data
-
-      // Store them in variables
-      products.value = [ ...payload.data ];
-      pagination.value = payload
-
-      // Delete unnecessary data from pagination
-      delete pagination.value.data;
-
-      isLoading.value = false;
-    }
-
-    // Handle errors
-    if (error.value) {
-      isFailed.value = true;
-      isLoading.value = false;
-
-      // TODO: Handle errors
-    }
   }
 
-  onBeforeMount(() => {
-    fetchProducts()
-  });
+  fetchProducts();
 
-  const handleSubmitSearch = () => {
-    fetchProducts();
+  const handleSubmitSearch = async () => {
+    await fetchProducts();
   }
 
   const handleProductDelete = (product_id: number) => {
@@ -190,11 +188,13 @@ definePageMeta({
           </tbody>
         </table>
 
-        <Bootstrap5Pagination
-            class="mt-4 mb-0"
-            :data="pagination"
-            @pagination-change-page="fetchProducts"
-        />
+        <client-only>
+          <Bootstrap5Pagination
+              class="mt-4 mb-0"
+              :data="pagination"
+              @pagination-change-page="fetchProducts"
+          />
+        </client-only>
 
       </div>
     </div>
@@ -213,8 +213,9 @@ definePageMeta({
     }
     .form-control {
       border-left: 0;
-      border-radius: 8px;
       padding-left: 0;
+      border-top-right-radius: 8px!important;
+      border-bottom-right-radius: 8px!important;
     }
   }
 

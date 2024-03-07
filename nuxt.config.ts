@@ -50,10 +50,10 @@ export default defineNuxtConfig({
     }
   },
 
-  routeRules: {
-      '/': { prerender: true },
-      '/products': { swr: true },
-      '/products/**': { swr: 3600 }, // Generate on-demand and cached for 1 hour
-      '/admin/**': { ssr: false } // Do not render admin pages on server. Doing so will risk of cached data appearing on CDN
-  }
+  // routeRules: {
+  //     '/': { prerender: true },
+  //     '/products': { swr: true },
+  //     '/products/**': { swr: 3600 }, // Generate on-demand and cached for 1 hour
+  //     '/admin/**': { ssr: false } // Do not render admin pages on server. Doing so will risk of cached data appearing on CDN
+  // }
 })
