@@ -1,6 +1,8 @@
 <script setup lang="ts">
+  import type {DetailedOrder} from "~/types/Order";
+
   const props = defineProps<{
-    orders: any
+    orders: DetailedOrder[]
   }>()
 </script>
 
@@ -44,8 +46,12 @@
             </td>
             <td class="text-truncate overflow-hidden d-flex align-items-center justify-content-between">
               <div>
-                <p class="mb-0">{{ order.items[0].product.name }}</p>
-                <small class="mb-0">{{ order.items[0].product.category.name }}</small>
+                <p class="mb-0">
+                  {{ order.items[0].product.name }}
+                </p>
+                <small class="mb-0">
+                  {{ order.items[0].product.category.name }} <!-- Typescript error expected -->
+                </small>
               </div>
               <div v-if="order.items.length > 1">
                 <small>+{{ (order.items.length) - 1 }}</small>

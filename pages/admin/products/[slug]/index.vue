@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import type { ApiResponse } from "~/types/ApiResponse";
   import type { ProductRating } from "~/types/Product";
+  import type { DetailedOrder } from "~/types/Order";
 
   definePageMeta({
     layout: 'admin'
@@ -17,7 +18,7 @@
     price: '',
     stock: '',
     ratings: [] as ProductRating[],
-    orders: [] as any
+    orders: [] as DetailedOrder[]
   });
 
   const isDeleting = ref(false);
@@ -174,12 +175,14 @@
             </h5>
 
             <section v-if="product.ratings.length > 0">
-              <div v-for="rating in product.ratings">
-                <AdminProductRating :rating="rating" class="mb-4" />
+              <div class="product-reviews" v-for="rating in product.ratings">
+                <AdminProductRating :rating="rating" />
               </div>
             </section>
 
-            <p v-else class="mb-0">No reviews were found for this product.</p>
+            <p v-else class="mb-0">
+              No reviews were found for this product.
+            </p>
           </div>
         </div>
 
@@ -197,5 +200,9 @@
     background-repeat: no-repeat;
     width: 100%;
     height: 250px;
+  }
+
+  .product-reviews:not(:last-child) {
+    margin-bottom: 1rem;
   }
 </style>

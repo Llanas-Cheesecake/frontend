@@ -1,4 +1,5 @@
 import type { Product } from "~/types/Product";
+import type {Customer} from "~/types/Customer";
 
 export interface Order {
     order_id: string
@@ -14,6 +15,14 @@ export interface Order {
 
     amountPaid?: number,
     paidUsing?: string
+}
+
+export interface DetailedOrder {
+    order_id: string
+    customer: Customer
+    items: OrderItem[]
+    total_price: number
+    status: string
 }
 
 export interface OrderItem {
