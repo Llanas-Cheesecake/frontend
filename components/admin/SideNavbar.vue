@@ -60,6 +60,10 @@
     padding: 1rem;
     top: 1rem;
 
+    &.sticky-top {
+      z-index: 999;
+    }
+
     .header {
       display: flex;
       align-items: center;
