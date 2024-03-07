@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import type {ApiResponse} from "~/types/ApiResponse";
-  import type {Category} from "~/types/Category";
   import type {DetailedOrder} from "~/types/Order";
 
   definePageMeta({
