@@ -15,11 +15,19 @@ definePageMeta({
   const isLoading = ref(true);
   const isFailed = ref(false);
 
+  const searchKeyword = ref('');
+
   const products = ref<Product[]>([]);
   const pagination = ref<any>({})
 
   const fetchProducts = async (page = 1) => {
-    const { data: results, error } = await useFetchAPI<ApiResponse>(`/admin/products?page=${page}`, {
+    let endpoint = `/admin/products?page=${page}`;
+
+    if (searchKeyword.value.length > 0) {
+      endpoint = `/admin/products?page=${page}&keyword=${encodeURIComponent(searchKeyword.value)}`
+    }
+
+    const { data: results, error } = await useFetchAPI<ApiResponse>(endpoint, {
       method: "GET"
     });
 
@@ -40,12 +48,18 @@ definePageMeta({
     if (error.value) {
       isFailed.value = true;
       isLoading.value = false;
+
+      // TODO: Handle errors
     }
   }
 
   onBeforeMount(() => {
     fetchProducts()
   });
+
+  const handleSubmitSearch = () => {
+    fetchProducts();
+  }
 
   const handleProductDelete = (product_id: number) => {
     products.value = products.value.filter((item) => {
@@ -73,7 +87,7 @@ definePageMeta({
         deleteModal.close();
       }
     }
-  })
+  });
 
 </script>
 
@@ -86,12 +100,17 @@ definePageMeta({
           <h5 class="fw-bold mb-0 flex-fill">
             Products
           </h5>
-          <div class="input-group">
-            <span class="input-group-text">
-              <img src="/icons/search-black.svg" width="18" alt="Search Icon" />
-            </span>
-            <input type="text" class="form-control" placeholder="Search Products..." aria-label="Search products">
-          </div>
+          <form @submit.prevent="handleSubmitSearch">
+            <div class="input-group">
+              <span class="input-group-text">
+                <img src="/icons/search-black.svg" width="18" alt="Search Icon" />
+              </span>
+              <input v-model="searchKeyword" type="text" class="form-control" placeholder="Search Products..." aria-label="Search products">
+              <button type="submit" class="d-none">
+                Submit
+              </button>
+            </div>
+          </form>
           <nuxt-link to="/admin/products/create" class="btn btn-primary">
             New Product
           </nuxt-link>
@@ -107,7 +126,11 @@ definePageMeta({
           <span>Loading...</span>
         </p>
 
-        <table v-if="!isLoading && !isFailed" class="table table-striped w-100 mb-0" style="table-layout: fixed;">
+        <p v-if="products.length === 0" class="mb-0">
+          No products were found.
+        </p>
+
+        <table v-if="!isLoading && !isFailed && products.length > 0" class="table table-striped w-100 mb-0" style="table-layout: fixed;">
           <colgroup>
             <col span="1" style="width: 10%;">
             <col span="1" style="width: 25%;">
