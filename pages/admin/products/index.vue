@@ -126,7 +126,7 @@ definePageMeta({
           <span>Loading...</span>
         </p>
 
-        <p v-if="products.length === 0" class="mb-0">
+        <p v-if="!isLoading && products.length === 0" class="mb-0">
           No products were found.
         </p>
 
