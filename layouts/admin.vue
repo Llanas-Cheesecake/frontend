@@ -11,20 +11,7 @@
     }
   })
 
-  const { $bootstrap } = useNuxtApp()
-
   // const routeProductName = useState('routeProductName');
-
-  // Apply tooltips
-  onMounted(() => {
-    if (process.client) {
-      window.onload = () => {
-        const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-        // @ts-ignore
-        [...tooltips].map(tooltipTriggerEl => new $bootstrap.Tooltip(tooltipTriggerEl))
-      };
-    }
-  });
 
 </script>
 

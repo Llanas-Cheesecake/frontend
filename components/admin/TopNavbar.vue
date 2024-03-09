@@ -35,9 +35,9 @@
 <template>
   <div class="card px-2">
     <div class="card-body d-flex align-items-center gap-3">
-      <p class="mb-0 flex-fill">
-        {{ currentPage }}
-      </p>
+      <client-only>
+        <p class="mb-0 flex-fill">{{ currentPage }}</p>
+      </client-only>
       <div class="user-actions">
         <div class="dropdown">
           <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

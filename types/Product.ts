@@ -12,6 +12,7 @@ export interface Product {
     average_ratings: number
     total_ratings: number
     is_wishlisted: boolean
+    is_deleted?: boolean
 }
 
 interface ProductImage {
@@ -19,9 +20,10 @@ interface ProductImage {
 }
 
 export interface ProductRating {
-    reviewer_name: string,
-    rating: number,
-    headline: string,
-    review: string,
+    rating_id?: number
+    reviewer_name: string
+    rating: number
+    headline: string
+    review: string
     published_at: string
 }

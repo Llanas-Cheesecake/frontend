@@ -1,27 +1,30 @@
 <script setup lang="ts">
   import { VueFinalModal } from 'vue-final-modal'
+  import type { ProductRating } from "~/types/Product";
 
   const props = defineProps<{
-    product: any
+    rating: ProductRating
   }>();
 
   const emit = defineEmits<{
     (e: 'cancel'): void,
-    (e: 'confirm', product_id: number): void
+    (e: 'confirm', rating_id: number): void
   }>();
+
+  console.log(props.rating)
 
   const isDeleting = ref(false);
 
   const confirmDelete = async () => {
     isDeleting.value = true;
 
-    const { data: result, error } = await useFetchAPI(`/admin/products/${props.product.product_id}/delete`, {
+    const { data: result, error } = await useFetchAPI(`/admin/reviews/${props.rating.rating_id}/delete`, {
       method: "DELETE"
     })
 
     if (result.value) {
       isDeleting.value = false;
-      emit('confirm', props.product.product_id)
+      emit('confirm', props.rating.rating_id as number)
     }
 
     if (error.value) {
@@ -46,7 +49,7 @@
             </div>
 
             <h5 class="fw-bold mb-2">
-              Delete {{ props.product.name }}
+              Delete review?
             </h5>
             <p>Are you sure you want to delete this product? This action is irreversible.</p>
 
@@ -56,7 +59,7 @@
               </button>
               <button type="button" class="btn btn-danger" :disabled="isDeleting" @click="confirmDelete">
                 <span>Confirm</span>
-                <LoadingIcon v-if="isDeleting" color="white" width="20" height="20" class="ms-2 position-relative" style="top: -1px" />
+                <LoadingIcon v-if="isDeleting" color="white" class="ms-2 position-relative" style="top: -1px" />
               </button>
             </div>
 

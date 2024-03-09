@@ -10,6 +10,8 @@
   const route = useRoute();
   const routeProductName = useState('routeProductName');
 
+  const currentComponent = ref('overview');
+
   const product = reactive({
     product_id: '',
     name: '',
@@ -62,6 +64,12 @@
       // TODO: Handle errors
     }
   }
+
+  const handleRemoveRating = (rating_id: number) => {
+    product.ratings = product.ratings.filter((item) => {
+      return item.rating_id !== rating_id;
+    });
+  }
 </script>
 
 <template>
@@ -99,8 +107,9 @@
     <div class="row">
 
       <div class="col-md-12 col-lg-4">
-        <div class="card p-2">
+        <div class="card p-2 mb-4">
           <div class="card-body">
+
             <div class="product-image rounded shadow-sm mb-4" :style="{ 'background-image': `url(${product.thumbnail})` }" />
 
             <div class="mb-4">
@@ -120,72 +129,26 @@
 
           </div>
         </div>
-      </div>
-
-      <div class="col-md-12 col-lg-8">
-        <div class="card p-2 mb-4">
-          <div class="card-body">
-            <h5 class="fw-bold mb-4">Recent orders</h5>
-
-            <table v-if="product.orders.length > 0" class="table table-striped w-100 mb-0" style="table-layout: fixed;">
-              <colgroup>
-                <col span="1" style="width: 12%;">
-                <col span="1" style="width: 18%;">
-                <col span="1" style="width: 12%;">
-                <col span="1" style="width: 15%;">
-                <col span="1" style="width: 15%;">
-              </colgroup>
-
-              <thead>
-              <tr>
-                <th scope="col">Order ID</th>
-                <th scope="col">Customer Name</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Status</th>
-              </tr>
-              </thead>
-              <tbody>
-                <tr v-for="order in product.orders">
-                  <td class="text-truncate overflow-hidden">#{{ order.order_id }}</td>
-                  <td class="text-truncate overflow-hidden">
-                    {{ order.customer ? order.customer.first_name + " " + order.customer.last_name : 'Guest' }}
-                  </td>
-                  <td class="text-truncate overflow-hidden">
-                    {{ order.items[0].quantity }}
-                  </td>
-                  <td>{{ formatPrice(order.total_price) }}</td>
-                  <td>
-                    <div class="alert alert-success text-center p-1 mb-0">
-                      {{ order.status }}
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-            <p v-else class="mb-0">No orders were found for this product.</p>
-          </div>
-        </div>
 
         <div class="card p-2">
           <div class="card-body">
-            <h5 class="fw-bold mb-4">
-              Recent reviews
-            </h5>
-
-            <section v-if="product.ratings.length > 0">
-              <div class="product-reviews" v-for="rating in product.ratings">
-                <AdminProductRating :rating="rating" />
-              </div>
-            </section>
-
-            <p v-else class="mb-0">
-              No reviews were found for this product.
-            </p>
+            <button class="btn btn-primary d-block w-100" @click="currentComponent = 'ratings'">
+              View all reviews
+            </button>
           </div>
         </div>
+      </div>
 
+      <div class="col-md-12 col-lg-8">
+        <AdminProductOverviewPage v-if="currentComponent === 'overview'"
+                                  :orders="product.orders"
+                                  :ratings="product.ratings"
+        />
+        <LazyAdminProductRatingsPage v-if="currentComponent === 'ratings'"
+                                     :product_id="product.product_id"
+                                     @back="currentComponent = 'overview'"
+                                     @remove-rating="handleRemoveRating($event)"
+        />
       </div>
 
     </div>
@@ -200,9 +163,5 @@
     background-repeat: no-repeat;
     width: 100%;
     height: 250px;
-  }
-
-  .product-reviews:not(:last-child) {
-    margin-bottom: 1rem;
   }
 </style>

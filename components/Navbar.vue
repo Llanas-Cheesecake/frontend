@@ -154,7 +154,7 @@
           </nuxt-link>
 
           <nuxt-link class="nav-link" to="/about">
-            <img src="/icons/info.svg" width="20" height="20" alt="Home Icon"/>
+            <img src="/icons/info-white.svg" width="20" height="20" alt="Home Icon"/>
             <span>About</span>
           </nuxt-link>
         </div>

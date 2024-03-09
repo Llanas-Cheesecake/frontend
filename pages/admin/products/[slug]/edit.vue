@@ -19,6 +19,8 @@
 
   const isSubmittingForm = ref(false);
 
+  const productId = ref(null);
+
   const form = reactive({
     category_id: '',
     name: '',
@@ -41,6 +43,8 @@
     const payload = result.value.data;
 
     routeProductName.value = payload.name;
+
+    productId.value = payload.product_id;
 
     form.name = payload.name;
     form.description = payload.description;
@@ -96,7 +100,7 @@
 
     isSubmittingForm.value = true;
 
-    const { data: results, error } = await useFetchAPI<ApiResponse>(`/admin/products/${route.params.slug}/edit`, {
+    const { data: results, error } = await useFetchAPI<ApiResponse>(`/admin/products/${productId.value}/edit`, {
       method: "POST",
       body: data,
       headers: {

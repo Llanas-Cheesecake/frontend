@@ -45,12 +45,25 @@
               {{ order.customer ? order.customer.first_name + " " + order.customer.last_name : 'Guest' }}
             </td>
             <td class="text-truncate overflow-hidden d-flex align-items-center justify-content-between">
-              <div>
-                <p class="mb-0">
-                  {{ order.items[0].product.name }}
+              <div v-if="order.items.length === 0">
+                <span>Missing items</span>
+
+                <span class="ms-2">
+                  <img src="/icons/info-black.svg" alt="info icon" width="16" v-tooltip="'The items might have been forced deleted.'" />
+                </span>
+
+              </div>
+              <div v-if="order.items.length > 0">
+                <p class="mb-0" :class="{ 'text-decoration-line-through': order.items[0].product.is_deleted }">
+                  <span>
+                    {{ order.items[0].product.name }}
+                  </span>
+                  <span v-if="order.items[0].product.is_deleted" class="ms-2" v-tooltip="'This item has been deleted.'">
+                    <img src="/icons/info-black.svg" alt="info icon" width="16" />
+                  </span>
                 </p>
                 <small class="mb-0">
-                  {{ order.items[0].product.category.name }} <!-- Typescript error expected -->
+                  {{ order.items[0].product.category }} <!-- Typescript error expected -->
                 </small>
               </div>
               <div v-if="order.items.length > 1">
@@ -78,6 +91,9 @@
 <style scoped lang="scss">
   .table tbody tr {
     cursor: pointer;
+  }
+  .table .v-popper {
+    display: inline;
   }
   .mini-badge {
     padding: 6px;

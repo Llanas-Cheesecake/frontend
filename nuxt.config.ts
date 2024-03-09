@@ -10,7 +10,8 @@ export default defineNuxtConfig({
       '@nuxtjs/google-fonts',
       '@pinia/nuxt',
       '@pinia-plugin-persistedstate/nuxt',
-      'nuxt-time'
+      'nuxt-time',
+      'floating-vue/nuxt'
   ],
 
   // Components
@@ -23,11 +24,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1',
-      link: [
-        { rel: "preload", as: "image", type: "image/svg+xml", href: "/icons/loader-white.svg" },
-        { rel: "preload", as: "image", type: "image/svg+xml", href: "/icons/loader-black.svg" }
-      ]
+      viewport: 'width=device-width, initial-scale=1'
     }
   },
 

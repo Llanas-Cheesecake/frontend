@@ -1,10 +1,35 @@
 <script setup lang="ts">
   import vue3StarRatings from "vue3-star-ratings";
+  import { useModal } from "vue-final-modal";
+  import { ModalDeleteProductRating } from "#components";
+
   import type { ProductRating } from "~/types/Product";
 
-  const props = defineProps<{
-    rating: ProductRating
+  const props = withDefaults(defineProps<{
+    rating: ProductRating,
+    showActions?: boolean
+  }>(), {
+    showActions: false
+  })
+
+  const emit = defineEmits<{
+    (e: 'removeRating', rating_id: number): void
   }>()
+
+  const deleteModal = useModal({
+    component: ModalDeleteProductRating,
+    attrs: {
+      rating: props.rating,
+      onCancel() {
+        deleteModal.close()
+      },
+      onConfirm(rating_id: number) {
+        emit('removeRating', rating_id)
+        deleteModal.close();
+      }
+    }
+  });
+
 </script>
 
 <template>
@@ -27,8 +52,25 @@
         </div>
       </div>
 
-      <h5 class="fw-bold mt-4">{{ props.rating.headline }}</h5>
-      <p class="mb-0">{{ props.rating.review }}</p>
+      <h5 class="fw-bold mt-4">
+        {{ props.rating.headline }}
+      </h5>
+      <p class="mb-0">
+        {{ props.rating.review }}
+      </p>
+
+      <div v-if="showActions">
+
+        <hr />
+
+        <button class="btn btn-danger" @click="deleteModal.open()">
+          <img class="position-relative" style="top: -1px;" src="/icons/trash-white.svg" alt="delete icon" width="20" />
+          <span class="d-sm-inline d-none ms-2">
+            Delete
+          </span>
+        </button>
+
+      </div>
     </div>
   </section>
 </template>

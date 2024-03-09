@@ -56,6 +56,10 @@
             </div>
 
             <div class="card-body">
+              <p v-if="order.items.length === 0" class="my-4">
+                No items were found. <br /> The items might have been deleted by the owner.
+              </p>
+
               <div v-for="item in order.items" class="product-item">
                 <img :src="item.product.thumbnail" class="img-thumbnail" :alt="item.product.name" />
                 <div class="product-info">
