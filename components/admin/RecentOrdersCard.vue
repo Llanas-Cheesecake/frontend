@@ -1,9 +1,33 @@
 <script setup lang="ts">
-  import type {DetailedOrder} from "~/types/Order";
+  import { useModal } from "vue-final-modal";
+  import { ModalViewOrderedItems } from "#components";
+  import type { DetailedOrder } from "~/types/Order";
 
   const props = defineProps<{
     orders: DetailedOrder[]
-  }>()
+  }>();
+
+
+  // View Ordered Items Modal
+  const selectedOrderId = ref('');
+  const selectedOrderItems = ref();
+
+  const openDetailsModal = (order: DetailedOrder) => {
+    selectedOrderId.value = order.order_id;
+    selectedOrderItems.value = order.items;
+    detailsModal.open();
+  }
+
+  const detailsModal = useModal({
+    component: ModalViewOrderedItems,
+    attrs: {
+      order_id: selectedOrderId,
+      items: selectedOrderItems,
+      onCancel() {
+        detailsModal.close();
+      }
+    }
+  });
 </script>
 
 <template>
@@ -30,14 +54,14 @@
         <thead>
           <tr>
             <th scope="col">Order ID</th>
-            <th scope="col">Customer Name</th>
+            <th scope="col">Customer</th>
             <th scope="col">Products</th>
             <th scope="col">Amount</th>
             <th scope="col">Paid at</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="order in props.orders">
+          <tr v-for="order in props.orders" @click="openDetailsModal(order)">
             <td class="text-truncate overflow-hidden">
               #{{ order.order_id }}
             </td>
@@ -46,7 +70,7 @@
             </td>
             <td class="text-truncate overflow-hidden d-flex align-items-center justify-content-between">
               <div v-if="order.items.length === 0">
-                <span>Missing items</span>
+                <span class="text-danger">Missing items</span>
 
                 <span class="ms-2">
                   <img src="/icons/info-black.svg" alt="info icon" width="16" v-tooltip="'The items might have been forced deleted.'" />
@@ -55,7 +79,7 @@
               </div>
               <div v-if="order.items.length > 0">
                 <p class="mb-0" :class="{ 'text-decoration-line-through': order.items[0].product.is_deleted }">
-                  <span>
+                  <span :class="{ 'text-danger': order.items[0].product.is_deleted }">
                     {{ order.items[0].product.name }}
                   </span>
                   <span v-if="order.items[0].product.is_deleted" class="ms-2" v-tooltip="'This item has been deleted.'">

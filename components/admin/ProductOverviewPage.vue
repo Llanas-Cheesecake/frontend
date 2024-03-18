@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { capitalizeText } from "~/utils";
   import type { DetailedOrder } from "~/types/Order";
   import type { ProductRating } from "~/types/Product";
 
@@ -45,7 +46,7 @@
           <td>{{ formatPrice(order.total_price) }}</td>
           <td>
             <div class="alert alert-success text-center p-1 mb-0">
-              {{ order.status }}
+              {{ capitalizeText(order.status) }}
             </div>
           </td>
         </tr>

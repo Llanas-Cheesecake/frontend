@@ -172,6 +172,17 @@
     }
   }
 
+  .nav.nav-pills {
+    .nav-item .nav-link {
+      color: var(--color-text-primary);
+      cursor: pointer;
+      &.active {
+        background-color: var(--bg-tertiary);
+        color: var(--color-text-secondary);
+      }
+    }
+  }
+
   .modal {
     .modal-body {
       padding: 1.5rem;

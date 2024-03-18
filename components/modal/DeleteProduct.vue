@@ -76,6 +76,7 @@
     display: inline-block;
     margin-bottom: 1rem;
     padding: 0.6rem;
+
     svg {
       position: relative;
       top: -1px;

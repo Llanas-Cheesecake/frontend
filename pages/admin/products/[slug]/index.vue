@@ -130,29 +130,40 @@
           </div>
         </div>
 
-        <div class="card p-2">
-          <div class="card-body">
-            <button class="btn btn-primary d-block w-100" @click="currentComponent = 'ratings'">
-              View all reviews
-            </button>
-          </div>
-        </div>
       </div>
 
       <div class="col-md-12 col-lg-8">
+
+        <div class="card px-2 mb-4">
+          <div class="card-body">
+
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link" :class="{ 'active': currentComponent === 'overview' }" @click.prevent="currentComponent = 'overview'">
+                  Overview
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{ 'active': currentComponent === 'ratings' }" @click.prevent="currentComponent = 'ratings'">
+                  Ratings
+                </a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
         <AdminProductOverviewPage v-if="currentComponent === 'overview'"
                                   :orders="product.orders"
                                   :ratings="product.ratings"
         />
         <LazyAdminProductRatingsPage v-if="currentComponent === 'ratings'"
                                      :product_id="product.product_id"
-                                     @back="currentComponent = 'overview'"
                                      @remove-rating="handleRemoveRating($event)"
         />
       </div>
 
     </div>
-
   </section>
 </template>
 

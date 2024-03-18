@@ -9,15 +9,8 @@
   }>()
 
   const emit = defineEmits<{
-    (e: 'back'): void,
     (e: 'removeRating', rating_id: number): void
   }>()
-
-  const isHoveringBackButton = ref(false);
-
-  const setHoverState = (state: boolean) => {
-    isHoveringBackButton.value = state
-  }
 
   const isLoading = ref(true);
   const isFailed = ref(false);
@@ -79,20 +72,10 @@
   <div class="card p-2">
     <div class="card-body">
 
-      <div class="d-flex align-items-center gap-3 mb-4">
-        <button class="btn btn-outline-primary"
-                role="button"
-                @mouseover="setHoverState(true)"
-                @mouseout="setHoverState(false)"
-                @click="emit('back')"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" :stroke="isHoveringBackButton ? 'white' : 'black'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        </button>
+      <h5 class="fw-bold mb-4">
+        Ratings
+      </h5>
 
-        <h5 class="fw-bold mb-0">
-          Ratings
-        </h5>
-      </div>
       <section v-if="ratings.length > 0">
         <div class="product-reviews" v-for="rating in ratings">
           <AdminProductRating :rating="rating" :show-actions="true" @remove-rating="handleRemove($event)" />
