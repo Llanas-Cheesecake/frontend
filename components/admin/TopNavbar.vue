@@ -5,6 +5,7 @@
   const route = useRoute();
 
   const routeProductName = useState('routeProductName');
+  const routeOrderId = useState('routeOrderId');
 
   const currentPage = computed(() => {
     switch (route.name) {
@@ -20,6 +21,8 @@
         return `Dashboard / Products / ${routeProductName.value} / Edit`;
       case "admin-orders":
         return "Dashboard / Orders";
+      case "admin-orders-slug":
+        return `Dashboard / Orders / #${routeOrderId.value}`
       case "admin-customers":
         return "Dashboard / Customers";
     }
