@@ -80,65 +80,59 @@
   <div class="card p-2">
     <div class="card-body">
 
-      <table class="table table-striped w-100 mb-0" style="table-layout: fixed;">
-        <colgroup>
-          <col span="1" style="width: 10%;">
-          <col span="1" style="width: 25%;">
-          <col span="1" style="width: 25%;">
-          <col span="1" style="width: 20%;">
-          <col span="1" style="width: 15%;">
-        </colgroup>
+      <div class="table-responsive">
+        <table class="table table-striped w-100 mb-0">
+          <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="product in products" :key="product.slug">
+            <td class="text-truncate overflow-hidden">
+              <img class="product-image" :src="product.thumbnail" :alt="product.name" />
+            </td>
+            <td class="text-truncate overflow-hidden">
+              {{ product.name }}
+            </td>
+            <td class="text-truncate overflow-hidden">{{ product.category }}</td>
+            <td>{{ formatPrice(product.price) }}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <nuxt-link :to="`/admin/products/${ product.slug }`"
+                           class="btn-action"
+                           data-bs-toggle="tooltip"
+                           data-bs-placement="top"
+                           data-bs-title="View"
+                >
+                  <img src="/icons/eye-black.svg" alt="view icon" width="20" />
+                </nuxt-link>
+                <nuxt-link :to="`/admin/products/${ product.slug }/edit`"
+                           class="btn-action"
+                           data-bs-toggle="tooltip"
+                           data-bs-placement="top"
+                           data-bs-title="Edit">
+                  <img src="/icons/edit-black.svg" alt="edit icon" width="20" />
+                </nuxt-link>
+                <button type="button"
+                        class="btn-action"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        data-bs-title="Delete"
+                        @click="openDeleteModal(product)">
+                  <img src="/icons/trash-black.svg" alt="trash icon" width="20" />
+                </button>
+              </div>
+            </td>
+          </tr>
 
-        <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">Name</th>
-          <th scope="col">Category</th>
-          <th scope="col">Price</th>
-          <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="product in products" :key="product.slug">
-          <td class="text-truncate overflow-hidden">
-            <img class="product-image" :src="product.thumbnail" :alt="product.name" />
-          </td>
-          <td class="text-truncate overflow-hidden">
-            {{ product.name }}
-          </td>
-          <td class="text-truncate overflow-hidden">{{ product.category }}</td>
-          <td>{{ formatPrice(product.price) }}</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <nuxt-link :to="`/admin/products/${ product.slug }`"
-                         class="btn-action"
-                         data-bs-toggle="tooltip"
-                         data-bs-placement="top"
-                         data-bs-title="View"
-              >
-                <img src="/icons/eye-black.svg" alt="view icon" width="20" />
-              </nuxt-link>
-              <nuxt-link :to="`/admin/products/${ product.slug }/edit`"
-                         class="btn-action"
-                         data-bs-toggle="tooltip"
-                         data-bs-placement="top"
-                         data-bs-title="Edit">
-                <img src="/icons/edit-black.svg" alt="edit icon" width="20" />
-              </nuxt-link>
-              <button type="button"
-                      class="btn-action"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      data-bs-title="Delete"
-                      @click="openDeleteModal(product)">
-                <img src="/icons/trash-black.svg" alt="trash icon" width="20" />
-              </button>
-            </div>
-          </td>
-        </tr>
-
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
 
       <div class="d-flex justify-content-between align-items-center mt-4">
         <small class="text-subtle">

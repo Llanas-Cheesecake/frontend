@@ -27,7 +27,7 @@
     <div class="admin-content d-flex gap-4">
       <AdminSideNavbar />
 
-      <section class="content flex-fill">
+      <section class="container-fluid">
         <div class="d-flex flex-column gap-4">
           <AdminTopNavbar />
 
