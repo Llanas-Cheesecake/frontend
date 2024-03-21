@@ -6,6 +6,7 @@ export interface Product {
     category: string
     thumbnail: string
     price: number
+    stock: number
     images: ProductImage[]
 
     ratings?: ProductRating[]

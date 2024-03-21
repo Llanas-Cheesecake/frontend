@@ -88,6 +88,7 @@
             <th scope="col">Name</th>
             <th scope="col">Category</th>
             <th scope="col">Price</th>
+            <th scope="col">Stock</th>
             <th scope="col">Actions</th>
           </tr>
           </thead>
@@ -101,6 +102,7 @@
             </td>
             <td class="text-truncate overflow-hidden">{{ product.category }}</td>
             <td>{{ formatPrice(product.price) }}</td>
+            <td>{{ product.stock }}</td>
             <td>
               <div class="d-flex align-items-center">
                 <nuxt-link :to="`/admin/products/${ product.slug }`"
