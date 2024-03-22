@@ -36,10 +36,10 @@
 </script>
 
 <template>
-  <div class="card px-2">
+  <div class="card px-2 d-print-none">
     <div class="card-body d-flex align-items-center gap-3">
       <client-only>
-        <p class="mb-0 flex-fill">{{ currentPage }}</p>
+        <p class="mb-0 flex-fill d-none d-md-block">{{ currentPage }}</p>
       </client-only>
       <div class="user-actions">
         <div class="dropdown">

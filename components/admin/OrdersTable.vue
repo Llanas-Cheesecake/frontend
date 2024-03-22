@@ -1,10 +1,16 @@
 <script setup lang="ts">
   // @ts-ignore
   import { Bootstrap5Pagination } from 'laravel-vue-pagination';
+  // @ts-ignore
+  import * as Toast from "vue-toastification/dist/index.mjs";
+
   import { useModal } from "vue-final-modal";
-  import { ModalViewOrderedItems } from "#components";
+  import { ModalChangeDeliveryStatus, ModalViewOrderedItems } from "#components";
   import type { ApiResponse } from "~/types/ApiResponse";
   import type { OrderItem } from "~/types/Order";
+
+  const { useToast } = Toast;
+  const toast = useToast();
 
   const props = defineProps<{
     searchKeyword: string
@@ -77,9 +83,11 @@
     }
   });
 
+  const selectedOrderId = ref('')
+  const selectedOrderItems = ref<OrderItem[]>([]);
+  const selectedOrderDeliveryStatus = ref('');
+
   // View Ordered Items Modal
-  const selectedOrderId = ref('');
-  const selectedOrderItems = ref();
 
   const openDetailsModal = (order: Order) => {
     selectedOrderId.value = order.order_id;
@@ -97,6 +105,34 @@
       }
     }
   });
+
+
+  // Change Delivery Status Modal
+  const openChangeDeliveryStatusModal = (order: Order) => {
+    selectedOrderId.value = order.order_id;
+    selectedOrderDeliveryStatus.value = order.delivery_status;
+
+    changeDeliveryStatusModal.open();
+  }
+
+  const changeDeliveryStatusModal = useModal({
+    component: ModalChangeDeliveryStatus,
+    attrs: {
+      order_id: selectedOrderId,
+      currentStatus: selectedOrderDeliveryStatus,
+      onCancel() {
+        changeDeliveryStatusModal.close()
+      },
+      onChange(newDeliveryStatus: string) {
+        toast.success("Delivery status changed")
+
+        const orderIndex = orders.value.findIndex((order) => { return order.order_id === selectedOrderId.value });
+        orders.value[orderIndex].delivery_status = newDeliveryStatus;
+
+        changeDeliveryStatusModal.close();
+      }
+    }
+  })
 
   const convertDeliveryStatus = (status: string) => {
     switch (status) {
@@ -127,7 +163,7 @@
 
           <thead>
           <tr>
-            <th scope="col">
+            <th scope="col" class="d-print-none">
               <div class="form-check">
                 <input v-model="checkAllItems" class="form-check-input" type="checkbox">
               </div>
@@ -144,7 +180,7 @@
           </thead>
           <tbody>
           <tr v-for="order in orders" :key="order.order_id">
-            <td>
+            <td class="d-print-none">
               <div class="form-check">
                 <input v-model="checkedItems" class="form-check-input" type="checkbox" :value="order.order_id">
               </div>
@@ -176,12 +212,12 @@
               </small>
               <div v-if="order.items.length > 0">
                 <small class="mb-0" :class="{ 'text-decoration-line-through': order.items[0].product.is_deleted }">
-                <span :class="{ 'text-danger': order.items[0].product.is_deleted }">
-                  {{ order.items[0].product.name }}
-                </span>
+                  <span :class="{ 'text-danger': order.items[0].product.is_deleted }">
+                    {{ order.items[0].product.name }}
+                  </span>
                   <span v-if="order.items[0].product.is_deleted" class="ms-2" v-tooltip="'This item has been deleted.'">
-                  <img src="/icons/info-black.svg" alt="info icon" width="16" />
-                </span>
+                    <img src="/icons/info-black.svg" alt="info icon" width="16" />
+                  </span>
                 </small>
                 <br>
                 <small class="mb-0">
@@ -224,8 +260,24 @@
                   </svg>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">View</a></li>
-                  <li><a class="dropdown-item" href="#">Change delivery status</a></li>
+                  <li>
+                    <nuxt-link class="dropdown-item" :to="`/admin/orders/${order.order_id}`">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                      <span class="ms-1">
+                        View
+                      </span>
+                    </nuxt-link>
+                  </li>
+                  <li v-if="order.delivery_status !== 'PROCESSING'" @click="openChangeDeliveryStatusModal(order)">
+                    <button type="button" class="dropdown-item">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck">
+                        <rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle>
+                      </svg>
+                      <span class="ms-2">Change delivery status</span>
+                    </button>
+                  </li>
                 </ul>
               </div>
             </td>
@@ -277,19 +329,6 @@
       padding: 6px;
       background: rgba(0,0,0,0.08);
       border-radius: 50%;
-    }
-  }
-  .btn-action {
-    background-color: transparent;
-    border: 0;
-    border-radius: 6px;
-    padding: 0.5rem 0.6rem;
-    img {
-      position: relative;
-      top: -2px;
-    }
-    &:hover {
-      background-color: rgba(0,0,0,0.1);
     }
   }
 </style>

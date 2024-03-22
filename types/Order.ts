@@ -22,8 +22,10 @@ export interface DetailedOrder {
     customer: Customer
     items: OrderItem[]
     payment: OrderPayment
+    delivery_information: OrderDelivery
     total_price: number
     status: string
+    created_at: string
 }
 
 export interface OrderItem {
@@ -33,8 +35,24 @@ export interface OrderItem {
 }
 
 export interface OrderPayment {
+    paymongo_id: string
     amount_paid: number
+    net_amount: number
+    fee: number
     paid_using: string
     status: string
     paid_at: string
+}
+
+interface OrderDelivery {
+    customer_name: string
+    email: string
+    phone_number: string
+    address_1: string
+    address_2: string
+    city: string
+    region: string
+    zip_code: string
+    additional_info: string
+    status: string
 }

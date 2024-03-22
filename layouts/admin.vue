@@ -102,8 +102,25 @@
         border-color: var(--bg-tertiary);
       }
     }
+    &.btn-secondary {
+      background-color: color-mix(in srgb, var(--bg-secondary), #000 15%);
+      color: var(--color-text-primary);
+    }
     &.btn-danger {
       border: 2px solid #dc3545;
+    }
+    &.btn-action {
+      background-color: transparent;
+      border: 0;
+      border-radius: 6px;
+      padding: 0.5rem 0.6rem;
+      img {
+        position: relative;
+        top: -2px;
+      }
+      &:hover {
+        background-color: rgba(0,0,0,0.1);
+      }
     }
   }
 
@@ -172,11 +189,16 @@
     }
   }
 
+  .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-select ~ label::after {
+    background-color: var(--bg-secondary);
+  }
+
   .dropdown-menu {
     border-radius: 0.5rem;
     padding: 0.5rem;
     .dropdown-item {
       border-radius: 8px;
+      cursor: pointer;
       padding: 0.3rem 0.5rem;
       img {
         width: 20px;
