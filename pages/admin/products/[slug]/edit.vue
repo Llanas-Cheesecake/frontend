@@ -19,6 +19,8 @@
 
   const isSubmittingForm = ref(false);
 
+  const productId = ref(null);
+
   const form = reactive({
     category_id: '',
     name: '',
@@ -41,6 +43,8 @@
     const payload = result.value.data;
 
     routeProductName.value = payload.name;
+
+    productId.value = payload.product_id;
 
     form.name = payload.name;
     form.description = payload.description;
@@ -96,7 +100,7 @@
 
     isSubmittingForm.value = true;
 
-    const { data: results, error } = await useFetchAPI<ApiResponse>(`/admin/products/${route.params.slug}/edit`, {
+    const { data: results, error } = await useFetchAPI<ApiResponse>(`/admin/products/${productId.value}/edit`, {
       method: "POST",
       body: data,
       headers: {
@@ -192,9 +196,12 @@
 
         <div class="card p-2 mb-4">
           <div class="card-body">
-            <h5 class="mb-4">Media</h5>
 
-            <AdminUploadBox v-if="!imageUrl" @image-uploaded="handleImageUpload" />
+            <h5 class="mb-4">
+              Media
+            </h5>
+
+            <LazyAdminUploadBox v-if="!imageUrl" @image-uploaded="handleImageUpload" />
 
             <div v-else class="upload-preview">
               <img :src="imageUrl" alt="uploaded image" />

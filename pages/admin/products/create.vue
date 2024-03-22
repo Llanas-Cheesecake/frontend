@@ -160,9 +160,12 @@
 
         <div class="card p-2 mb-4">
           <div class="card-body">
-            <h5 class="mb-4">Media</h5>
 
-            <AdminUploadBox v-if="!imageUrl" @image-uploaded="handleImageUpload" />
+            <h5 class="mb-4">
+              Media
+            </h5>
+
+            <LazyAdminUploadBox v-if="!imageUrl" @image-uploaded="handleImageUpload" />
 
             <div v-else class="upload-preview">
               <img :src="imageUrl" alt="uploaded image" />

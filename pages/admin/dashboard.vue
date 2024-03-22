@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import type {ApiResponse} from "~/types/ApiResponse";
-  import type {Category} from "~/types/Category";
+  import type {DetailedOrder} from "~/types/Order";
 
   definePageMeta({
     middleware: ['authenticated-admin'],
@@ -11,7 +11,7 @@
     customers_count: 0,
     orders_count: 0,
     revenue: 0,
-    orders: []
+    orders: [] as DetailedOrder[]
   })
 
   const { data: result } = await useFetchAPI<ApiResponse>('/admin/overview', {

@@ -5,6 +5,7 @@
   const route = useRoute();
 
   const routeProductName = useState('routeProductName');
+  const routeOrderId = useState('routeOrderId');
 
   const currentPage = computed(() => {
     switch (route.name) {
@@ -20,6 +21,8 @@
         return `Dashboard / Products / ${routeProductName.value} / Edit`;
       case "admin-orders":
         return "Dashboard / Orders";
+      case "admin-orders-slug":
+        return `Dashboard / Orders / #${routeOrderId.value}`
       case "admin-customers":
         return "Dashboard / Customers";
     }
@@ -33,11 +36,11 @@
 </script>
 
 <template>
-  <div class="card px-2">
+  <div class="card px-2 d-print-none">
     <div class="card-body d-flex align-items-center gap-3">
-      <p class="mb-0 flex-fill">
-        {{ currentPage }}
-      </p>
+      <client-only>
+        <p class="mb-0 flex-fill d-none d-md-block">{{ currentPage }}</p>
+      </client-only>
       <div class="user-actions">
         <div class="dropdown">
           <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

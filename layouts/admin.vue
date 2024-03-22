@@ -11,20 +11,7 @@
     }
   })
 
-  const { $bootstrap } = useNuxtApp()
-
   // const routeProductName = useState('routeProductName');
-
-  // Apply tooltips
-  onMounted(() => {
-    if (process.client) {
-      window.onload = () => {
-        const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-        // @ts-ignore
-        [...tooltips].map(tooltipTriggerEl => new $bootstrap.Tooltip(tooltipTriggerEl))
-      };
-    }
-  });
 
 </script>
 
@@ -40,7 +27,7 @@
     <div class="admin-content d-flex gap-4">
       <AdminSideNavbar />
 
-      <section class="content flex-fill">
+      <section class="container-fluid">
         <div class="d-flex flex-column gap-4">
           <AdminTopNavbar />
 
@@ -115,8 +102,25 @@
         border-color: var(--bg-tertiary);
       }
     }
+    &.btn-secondary {
+      background-color: color-mix(in srgb, var(--bg-secondary), #000 15%);
+      color: var(--color-text-primary);
+    }
     &.btn-danger {
       border: 2px solid #dc3545;
+    }
+    &.btn-action {
+      background-color: transparent;
+      border: 0;
+      border-radius: 6px;
+      padding: 0.5rem 0.6rem;
+      img {
+        position: relative;
+        top: -2px;
+      }
+      &:hover {
+        background-color: rgba(0,0,0,0.1);
+      }
     }
   }
 
@@ -185,6 +189,35 @@
     }
   }
 
+  .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-select ~ label::after {
+    background-color: var(--bg-secondary);
+  }
+
+  .dropdown-menu {
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    .dropdown-item {
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 0.3rem 0.5rem;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .nav.nav-pills {
+    .nav-item .nav-link {
+      color: var(--color-text-primary);
+      cursor: pointer;
+      &.active {
+        background-color: var(--bg-tertiary);
+        color: var(--color-text-secondary);
+      }
+    }
+  }
+
   .modal {
     .modal-body {
       padding: 1.5rem;
@@ -195,6 +228,10 @@
     background-color: #b5c2ca;
     min-height: 100vh;
     padding: 1rem;
+  }
+
+  .text-subtle {
+    color: color-mix(in srgb,var(--color-text-primary), #fff 40%);
   }
 
   @media (min-width: 1400px) {
