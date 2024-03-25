@@ -3,7 +3,7 @@
   import * as Toast from "vue-toastification/dist/index.mjs";
 
   import { useModal } from "vue-final-modal";
-  import { ModalChangeDeliveryStatus, ModalRefundOrder } from "#components";
+  import { ModalChangeDeliveryStatus } from "#components";
   import type { ApiResponse } from "~/types/ApiResponse";
   import type { DetailedOrder } from "~/types/Order";
 
