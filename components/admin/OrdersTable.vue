@@ -159,14 +159,6 @@
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-striped mb-0">
-          <!--    <colgroup>-->
-          <!--      <col span="1" style="width: 10%;">-->
-          <!--      <col span="1" style="width: 25%;">-->
-          <!--      <col span="1" style="width: 25%;">-->
-          <!--      <col span="1" style="width: 20%;">-->
-          <!--      <col span="1" style="width: 15%;">-->
-          <!--    </colgroup>-->
-
           <thead>
           <tr>
             <th scope="col" class="d-print-none">
