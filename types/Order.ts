@@ -44,7 +44,7 @@ export interface OrderPayment {
     paid_at: string
 }
 
-interface OrderDelivery {
+export interface OrderDelivery {
     customer_name: string
     email: string
     phone_number: string

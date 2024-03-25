@@ -146,6 +146,12 @@
         return "Delivered";
     }
   }
+
+  const convertPaymentStatus = (status: string) => {
+    if (status === 'processing_refund') return 'Processing Refund';
+
+    return capitalizeText(status);
+  }
 </script>
 
 <template>
@@ -201,7 +207,7 @@
                 {{ order.customer_name }}
               </small>
             </td>
-            <td class="text-truncate overflow-hidden d-flex align-items-center justify-content-between" style="cursor: pointer;"  @click="openDetailsModal(order)">
+            <td class="text-truncate overflow-hidden d-flex align-items-center justify-content-between gap-2" style="cursor: pointer;"  @click="openDetailsModal(order)">
               <small v-if="order.items.length === 0">
                 <span class="text-danger">Missing items</span>
 
@@ -234,9 +240,11 @@
             <td class="text-truncate overflow-hidden">
               <small class="order-price alert text-center p-1 mb-0" :class="{
               'alert-success': order.payment_status === 'paid',
+              'alert-warning': order.payment_status === 'processing_refund',
+              'alert-info': order.payment_status === 'refunded',
               'alert-danger': order.payment_status === 'unpaid'
             }">
-                &#8369; {{ capitalizeText(order.payment_status) }}
+                &#8369; {{ convertPaymentStatus(order.payment_status) }}
               </small>
             </td>
             <td class="text-truncate overflow-hidden">

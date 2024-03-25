@@ -25,9 +25,11 @@
   <div v-else class="admin-panel">
 
     <div class="admin-content d-flex gap-4">
-      <AdminSideNavbar />
+      <ClientOnly>
+        <AdminSideNavbar />
+      </ClientOnly>
 
-      <section class="container-fluid">
+      <section style="min-width: 0; width: 100%">
         <div class="d-flex flex-column gap-4">
           <AdminTopNavbar />
 

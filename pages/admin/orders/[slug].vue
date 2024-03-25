@@ -90,19 +90,6 @@
     }
   })
 
-  const refundModal = useModal({
-    component: ModalRefundOrder,
-    attrs: {
-      order: toRef(order),
-      onCancel() {
-        refundModal.close()
-      },
-      onConfirm() {
-        // Handle refund confirmation
-      }
-    }
-  });
-
   const getItemTotalPrice = (product_id: number) => {
     const item = order.items.find(i => i.product.product_id === product_id);
 
@@ -111,8 +98,8 @@
     return formatPrice(item.quantity * item.product.price);
   }
 
-  const convertDeliveryStatus = (status: string) => {
-    switch (status) {
+  const deliveryStatus = computed(() => {
+    switch (order.delivery_information.status) {
       case "ON_GOING":
         return "On the way";
       case "UNFULFILLED":
@@ -122,7 +109,31 @@
       case "DELIVERED":
         return "Delivered";
     }
+  });
+
+  const paymentStatus = computed(() => {
+    if (!order.payment) return;
+
+    if (order.payment.status === 'processing_refund') return 'Processing Refund';
+
+    return capitalizeText(order.payment.status);
+  });
+
+  const handlePaymentStatusUpdate = () => {
+    order.payment.status = 'processing_refund';
   }
+
+  const showDeliveryStatus = computed(() => {
+    if (!order.payment) return true;
+
+    return !['processing_refund', 'refunded'].some(el => order.payment.status.includes(el))
+  })
+
+  const showRefundStatus = computed(() => {
+    if (!order.payment) return false;
+
+    return ['processing_refund', 'refunded'].some(el => order.payment.status.includes(el))
+  })
 
   const printPage = () => {
     if (process.client) {
@@ -144,7 +155,9 @@
             <h5 class="fw-bold mb-2 flex-fill text-truncate">
               Order ID #{{ order.order_id }}
             </h5>
-            <div class="delivery-status alert text-center p-1 mb-0 me-2 d-inline-block" :class="{
+            <!-- Delivery Status -->
+            <div v-if="showDeliveryStatus"
+                 class="delivery-status alert text-center p-1 mb-0 me-2 d-inline-block" :class="{
                 'alert-danger': order.delivery_information.status === 'PROCESSING',
                 'alert-warning': order.delivery_information.status === 'UNFULFILLED',
                 'alert-info': order.delivery_information.status === 'ON_GOING',
@@ -153,8 +166,21 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck">
                 <rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle>
               </svg>
-              <small class="ms-2">{{ convertDeliveryStatus(order.delivery_information.status) }}</small>
+              <small class="ms-2">{{ deliveryStatus }}</small>
             </div>
+            <!-- END Delivery Status -->
+
+            <!-- Refunded Status -->
+            <small v-if="showRefundStatus"
+                 class="delivery-status alert text-center p-1 mb-0 me-2 d-inline-block" :class="{
+                'alert-warning': order.payment.status === 'processing_refund',
+                'alert-info': order.payment.status === 'refunded',
+              }">
+              &#8369;
+              <span>{{ paymentStatus }}</span>
+            </small>
+            <!-- END Refunded Status -->
+
             <small class="text-subtle">
               <nuxt-time class="d-block d-md-inline mt-2 mt-md-0" :datetime="order.created_at" month="short" day="2-digit" year="numeric" hour="numeric" minute="numeric" />
             </small>
@@ -234,70 +260,18 @@
     <!-- Customer and Payment Details -->
     <div class="row">
       <div class="col-sm-12 col-md-6">
-        <div class="card mb-4 p-2">
-          <div class="card-body">
-            <h5 class="fw-bold mb-4">
-              Customer Details
-            </h5>
-
-            <dl class="mb-3">
-              <dt>Name</dt>
-              <dd>{{ order.delivery_information.customer_name }}</dd>
-              <dt>Email</dt>
-              <dd>{{ order.delivery_information.email }}</dd>
-              <dt>Phone Number</dt>
-              <dd>+63{{ order.delivery_information.phone_number }}</dd>
-              <dt>Address 1</dt>
-              <dd>{{ order.delivery_information.address_1 }}</dd>
-              <dt>Address 2</dt>
-              <dd>{{ order.delivery_information.address_2 }}</dd>
-              <dt>City</dt>
-              <dd>{{ order.delivery_information.city }}</dd>
-              <dt>Region</dt>
-              <dd>{{ order.delivery_information.region }}</dd>
-              <dt>Zip Code</dt>
-              <dd>{{ order.delivery_information.zip_code }}</dd>
-            </dl>
-
-            <p class="fw-bold fs-5 mb-2">Notes</p>
-            <p class="mb-0">{{ order.delivery_information.additional_info }}</p>
-
-          </div>
-        </div>
+        <AdminOrderCustomerDetails :delivery-information="order.delivery_information" />
       </div>
       <div class="col-sm-12 col-md-6">
-        <div class="card p-2">
+        <AdminOrderPaymentDetails v-if="order.payment" :payment="order.payment" @update-payment-status="handlePaymentStatusUpdate" />
+
+        <div v-else class="card p-2">
           <div class="card-body">
             <h5 class="fw-bold mb-4">
               Payment Details
             </h5>
 
-            <p v-if="!order.payment" class="mb-0">
-              This order is not yet <span class="fw-bold">paid</span>. It might be abandoned by the customer.
-            </p>
-
-            <dl v-else class="mb-4">
-              <dt>Paymongo ID</dt>
-              <dd>{{ order.payment.paymongo_id }}</dd>
-              <dt>Amount paid</dt>
-              <dd>{{ formatPrice(order.payment.amount_paid) }}</dd>
-              <dt>Net amount</dt>
-              <dd>{{ formatPrice(order.payment.net_amount) }}</dd>
-              <dt>Fee</dt>
-              <dd>{{ formatPrice(order.payment.fee) }}</dd>
-            </dl>
-
-            <div v-if="order.payment" class="d-flex d-print-none gap-3">
-              <a class="btn btn-secondary" :href="`https://dashboard.paymongo.com/payments/${order.payment.paymongo_id}`" target="_blank">
-                <span class="me-1">View on PayMongo</span>
-                <svg xmlns="http://www.w3.org/2000/svg" style="top: -2px" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link position-relative">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
-              </a>
-              <button class="btn btn-danger" @click="refundModal.open">Refund</button>
-            </div>
-
-
+            <p class="mb-0">This order is <span class="fw-bold">unpaid</span>. Likely abandoned by the customer.</p>
           </div>
         </div>
       </div>
@@ -307,21 +281,6 @@
 </template>
 
 <style scoped lang="scss">
-  dl {
-    display: grid;
-    grid-template-columns: max-content auto;
-    grid-gap: 0.3rem 2rem;
-  }
-
-  dt {
-    grid-column-start: 1;
-    color: color-mix(in srgb,var(--color-text-primary), #fff 40%);
-  }
-
-  dd {
-    grid-column-start: 2;
-  }
-
   .delivery-status {
     border-radius: 8px;
     padding: 5px 15px!important;
