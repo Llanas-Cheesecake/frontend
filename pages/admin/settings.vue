@@ -68,7 +68,7 @@
 
         <div class="row">
           <div class="d-none d-md-block col-md-4 col-lg-3">
-            <ul class="nav nav-pills desktop flex-column">
+            <ul class="nav nav-pills desktop flex-column h-100">
               <li class="nav-item">
                 <nuxt-link to="/admin/settings/site-settings" class="nav-link">
                   <svg xmlns="http://www.w3.org/2000/svg" style="top: -2px;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tablet position-relative">
