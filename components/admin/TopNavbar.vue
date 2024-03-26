@@ -25,6 +25,12 @@
         return `Dashboard / Orders / #${routeOrderId.value}`
       case "admin-customers":
         return "Dashboard / Customers";
+      case "admin-settings":
+        return "Dashboard / Settings";
+      case "admin-settings-site-settings":
+        return "Dashboard / Settings / Site Settings";
+      case "admin-settings-promotions":
+        return "Dashboard / Settings / Promotions";
     }
   })
 
