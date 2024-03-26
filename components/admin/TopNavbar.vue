@@ -1,8 +1,11 @@
 <script setup lang="ts">
   import { useAuthStore } from "~/store/auth";
+  import SideNavbarMobile from "~/components/admin/SideNavbarMobile.vue";
 
   const auth = useAuthStore();
   const route = useRoute();
+
+  const isSidebarOpen = ref(false);
 
   const routeProductName = useState('routeProductName');
   const routeOrderId = useState('routeOrderId');
@@ -39,13 +42,24 @@
       location.href = '/admin/login'
     })
   }
+
+  const toggleMobileNav = () => {
+    isSidebarOpen.value = !isSidebarOpen.value
+  }
 </script>
 
 <template>
   <div class="card px-2 d-print-none">
     <div class="card-body d-flex align-items-center gap-3">
+      <div class="cursor-pointer d-block d-md-none" @click="toggleMobileNav">
+        <svg xmlns="http://www.w3.org/2000/svg" style="top: -1px;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu position-relative">
+          <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </div>
       <client-only>
-        <p class="mb-0 flex-fill d-none d-md-block">{{ currentPage }}</p>
+        <p class="mb-0 flex-fill text-truncate">
+          {{ currentPage }}
+        </p>
       </client-only>
       <div class="user-actions">
         <div class="dropdown">
@@ -64,6 +78,8 @@
       </div>
     </div>
   </div>
+
+  <SideNavbarMobile :is-open="isSidebarOpen" @close-sidebar="toggleMobileNav" />
 </template>
 
 <style scoped lang="scss">
