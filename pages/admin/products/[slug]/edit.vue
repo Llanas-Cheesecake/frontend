@@ -311,9 +311,9 @@
   width: auto;
   .input-group-text {
     background-color: var(--bg-secondary);
-    border-right: 0;
-    border-radius: 8px;
     border-width: 2px;
+    border-right-width: 0;
+    border-radius: 8px;
   }
   .form-control {
     border-left: 0;
