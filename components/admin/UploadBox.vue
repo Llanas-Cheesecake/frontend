@@ -1,5 +1,18 @@
 <script setup lang="ts">
-  const emit = defineEmits(['imageUploaded'])
+  const props = defineProps<{
+    errors: []
+  }>()
+
+  const emit = defineEmits<{
+    (e: 'inputChanged'): void
+    (e: 'imageUploaded', files: FileList): void
+  }>();
+
+  watch(props.errors, (newValue) => {
+    if (newValue.length > 0) {
+      errorMessage.value = '';
+    }
+  })
 
   const fileInput = ref<HTMLInputElement>();
   const isDraggingOver = ref(false);
@@ -18,6 +31,7 @@
     isDraggingOver.value = false;
 
     if (e.dataTransfer) {
+      emit('inputChanged');
       handleFileTransfer(e.dataTransfer.files);
     }
   }
@@ -30,6 +44,7 @@
     const files = (e.target as HTMLInputElement).files
 
     if (files) {
+      emit('inputChanged');
       handleFileTransfer(files)
     }
   }
@@ -49,7 +64,7 @@
 
     // Check if the file uploaded is an image
     if (!isFileTypeAllowed(file)) {
-      errorMessage.value = "The file uploaded is not an image. Only allowed file extensions are: jpg, png, webp";
+      errorMessage.value = "The file uploaded is not an image. Only allowed file extensions are: jpeg, jpg, png, webp";
 
       // Remove any files from the <input type="file" />
       fileInput.value!!.value = '';
@@ -82,7 +97,13 @@
 <template>
   <div>
     <div v-if="errorMessage.length > 0" class="alert alert-danger" role="alert">
-      {{ errorMessage }}
+      <small>{{ errorMessage }}</small>
+    </div>
+
+    <div v-if="props.errors.length > 0" class="alert alert-danger" role="alert">
+      <small v-for="error in props.errors">
+        {{ error }}
+      </small>
     </div>
 
     <div class="upload-box"

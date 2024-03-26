@@ -30,6 +30,15 @@
     files: [] as File[]
   });
 
+  const validation = reactive({
+    category_id: [],
+    name: [],
+    description: [],
+    price: [],
+    stock: [],
+    thumbnail: []
+  });
+
   const imageUrl = ref('');
 
   const categories = reactive<Category[]>([])
@@ -86,6 +95,8 @@
   }
 
   const handleFormSubmit = async () => {
+    resetValidation();
+
     const data = new FormData();
     data.append('_method', 'PATCH'); // See https://stackoverflow.com/a/50691997
     data.append('category_id', form.category_id);
@@ -113,16 +124,34 @@
 
       const payload = results.value.data;
       navigateTo(`/admin/products/${payload.slug}`);
-
-      // console.log(results.value)
     }
 
     if (error.value) {
       isSubmittingForm.value = false;
-      toast.error("Something went wrong while handling your request");
+      const payload = error.value.data.errors;
 
-      console.log(error.value)
+      switch (error.value.statusCode) {
+        case 422:
+          validation.category_id = payload.category_id || [];
+          validation.name = payload.name || [];
+          validation.description = payload.description || [];
+          validation.price = payload.price || [];
+          validation.stock = payload.stock || [];
+          validation.thumbnail = payload.thumbnail || [];
+          break;
+        default:
+          toast.error("Something went wrong while handling your request");
+      }
     }
+  }
+
+  const resetValidation = () => {
+    validation.category_id = [];
+    validation.name = [];
+    validation.description = [];
+    validation.price = [];
+    validation.stock = [];
+    validation.thumbnail = [];
   }
 </script>
 
@@ -157,14 +186,31 @@
 
             <h5 class="mb-4">General Information</h5>
 
-            <div class="mb-3">
+            <div class="form-floating mb-4">
+              <input v-model="form.name"
+                     type="text"
+                     class="form-control"
+                     :class="{ 'is-invalid': validation.name.length > 0 }"
+                     placeholder="e.g: Blueberry Cheesecake">
               <label class="form-label">Name</label>
-              <input v-model="form.name" type="text" class="form-control" placeholder="e.g: Blueberry Cheesecake">
+
+              <small v-for="error in validation.name" class="invalid-feedback">
+                {{ error }}
+              </small>
             </div>
 
-            <div>
+            <div class="form-floating">
+              <textarea v-model="form.description"
+                        class="form-control"
+                        :class="{ 'is-invalid': validation.description.length > 0 }"
+                        placeholder="Description"
+                        style="height: 150px;">
+              </textarea>
               <label class="form-label">Description</label>
-              <textarea v-model="form.description" class="form-control" rows="4"></textarea>
+
+              <small v-for="error in validation.description" class="invalid-feedback">
+                {{ error }}
+              </small>
             </div>
 
           </div>
@@ -177,13 +223,35 @@
 
             <div class="row">
               <div class="col-auto">
-                <label class="form-label">Price</label>
-                <input v-model="form.price" type="number" class="form-control" step=".01">
+                <div class="form-floating">
+                  <input v-model="form.price"
+                         type="number"
+                         inputmode="decimal"
+                         placeholder="Price"
+                         class="form-control"
+                         :class="{ 'is-invalid': validation.price.length > 0 }"
+                         step=".01" min="50">
+                  <label class="form-label">Price</label>
+
+                  <small v-for="error in validation.price" class="invalid-feedback">
+                    {{ error }}
+                  </small>
+                </div>
               </div>
 
               <div class="col-auto">
-                <label class="form-label">Stock</label>
-                <input v-model="form.stock" type="number" class="form-control" placeholder="e.g: 20" min="0">
+                <div class="form-floating">
+                  <input v-model="form.stock"
+                         type="number"
+                         inputmode="numeric"
+                         class="form-control" :class="{ 'is-invalid': validation.stock.length > 0 }"
+                         placeholder="e.g: 20" min="0">
+                  <label class="form-label">Stock</label>
+
+                  <small v-for="error in validation.stock" class="invalid-feedback">
+                    {{ error }}
+                  </small>
+                </div>
               </div>
             </div>
 
@@ -201,7 +269,7 @@
               Media
             </h5>
 
-            <LazyAdminUploadBox v-if="!imageUrl" @image-uploaded="handleImageUpload" />
+            <LazyAdminUploadBox v-if="!imageUrl" :errors="validation.thumbnail" @input-changed="validation.thumbnail = []" @image-uploaded="handleImageUpload" />
 
             <div v-else class="upload-preview">
               <img :src="imageUrl" alt="uploaded image" />
@@ -214,17 +282,20 @@
           </div>
         </div>
 
-        <div class="card p-2">
+        <div class="card p-2 mb-4">
           <div class="card-body">
             <h5 class="mb-4">Category</h5>
 
-            <select v-model="form.category_id" class="form-select" required>
+            <select v-model="form.category_id" class="form-select" :class="{ 'is-invalid': validation.category_id.length > 0 }" required>
               <option selected disabled>Choose a category</option>
               <option v-for="category in categories" :value="category.category_id">
                 {{ category.name }}
               </option>
             </select>
 
+            <small v-for="error in validation.category_id" class="invalid-feedback">
+              {{ error }}
+            </small>
           </div>
         </div>
 
