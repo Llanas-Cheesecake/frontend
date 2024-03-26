@@ -3,6 +3,7 @@ import { VueFinalModal } from 'vue-final-modal';
 
 const props = defineProps<{
   payment_id: string
+  delivery_status: string
 }>();
 
 const emit = defineEmits<{
@@ -61,7 +62,16 @@ const confirmRefund = async () => {
             <h5 class="fw-bold mb-2">
               Refund this order?
             </h5>
+
             <p class="mb-4">This action is irreversible. PayMongo will handle the refund request</p>
+
+            <div v-if="delivery_status === 'ON_GOING'" class="alert alert-warning mb-4" role="alert">
+              This order has already been sent out to the carrier!
+            </div>
+
+            <div v-if="delivery_status === 'DELIVERED'" class="alert alert-warning mb-4" role="alert">
+              This order has already been delivered to the buyer!
+            </div>
 
             <div v-if="errorMessage.length > 0" class="alert alert-danger mb-4" role="alert">
               {{ errorMessage }}

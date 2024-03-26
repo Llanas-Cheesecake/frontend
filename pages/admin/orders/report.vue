@@ -36,6 +36,8 @@
         return "To be delivered"
       case "PROCESSING":
         return "Awaiting payment";
+      case "CANCELED":
+        return "Canceled";
       case "DELIVERED":
         return "Delivered";
     }
@@ -134,7 +136,7 @@
         </td>
         <td class="text-truncate overflow-hidden">
           <small class="order-delivery alert text-center p-1 mb-0" :class="{
-              'alert-danger': order.delivery_status === 'PROCESSING',
+              'alert-danger': order.delivery_status === 'PROCESSING' || order.delivery_status === 'CANCELED',
               'alert-warning': order.delivery_status === 'UNFULFILLED',
               'alert-info': order.delivery_status === 'ON_GOING',
               'alert-success': order.delivery_status === 'DELIVERED',

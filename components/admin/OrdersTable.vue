@@ -142,6 +142,8 @@
         return "To be delivered"
       case "PROCESSING":
         return "Awaiting payment";
+      case "CANCELED":
+        return "Canceled";
       case "DELIVERED":
         return "Delivered";
     }
@@ -151,6 +153,13 @@
     if (status === 'processing_refund') return 'Processing Refund';
 
     return capitalizeText(status);
+  }
+
+  const canChangeDeliveryStatus = (order: Order) => {
+    // Do not allow when the order is in refund state
+    if (['processing_refund', 'refunded'].some(el => order.payment_status.includes(el))) return false;
+
+    return order.delivery_status !== 'PROCESSING';
   }
 </script>
 
@@ -241,7 +250,7 @@
             </td>
             <td class="text-truncate overflow-hidden">
               <small class="order-delivery alert text-center p-1 mb-0" :class="{
-              'alert-danger': order.delivery_status === 'PROCESSING',
+              'alert-danger': order.delivery_status === 'PROCESSING' || order.delivery_status === 'CANCELED',
               'alert-warning': order.delivery_status === 'UNFULFILLED',
               'alert-info': order.delivery_status === 'ON_GOING',
               'alert-success': order.delivery_status === 'DELIVERED',
@@ -270,7 +279,7 @@
                       </span>
                     </nuxt-link>
                   </li>
-                  <li v-if="order.delivery_status !== 'PROCESSING'" @click="openChangeDeliveryStatusModal(order)">
+                  <li v-if="canChangeDeliveryStatus(order)" @click="openChangeDeliveryStatusModal(order)">
                     <button type="button" class="dropdown-item">
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck">
                         <rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle>

@@ -106,6 +106,8 @@
         return "To be delivered"
       case "PROCESSING":
         return "Awaiting payment";
+      case "CANCELED":
+        return "Canceled";
       case "DELIVERED":
         return "Delivered";
     }
@@ -119,8 +121,8 @@
     return capitalizeText(order.payment.status);
   });
 
-  const handlePaymentStatusUpdate = () => {
-    order.payment.status = 'processing_refund';
+  const handlePaymentStatusUpdate = (status: string) => {
+    order.payment.status = status;
   }
 
   const showDeliveryStatus = computed(() => {
@@ -269,7 +271,10 @@
         <AdminOrderCustomerDetails :delivery-information="order.delivery_information" />
       </div>
       <div class="col-sm-12 col-md-6">
-        <AdminOrderPaymentDetails v-if="order.payment" :payment="order.payment" @update-payment-status="handlePaymentStatusUpdate" />
+        <AdminOrderPaymentDetails v-if="order.payment"
+                                  :payment="order.payment"
+                                  :delivery-status="order.delivery_information.status"
+                                  @update-payment-status="handlePaymentStatusUpdate" />
 
         <div v-else class="card p-2">
           <div class="card-body">

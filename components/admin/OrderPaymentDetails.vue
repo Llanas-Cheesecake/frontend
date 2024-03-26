@@ -2,24 +2,29 @@
   import type { OrderPayment } from "~/types/Order";
   import { useModal } from "vue-final-modal";
   import { ModalRefundOrder } from "#components";
+  import type { ApiResponse } from "~/types/ApiResponse";
 
   const props = defineProps<{
     payment: OrderPayment
+    deliveryStatus: string
   }>();
 
   const emit = defineEmits<{
-    (e: 'updatePaymentStatus'): void
+    (e: 'updatePaymentStatus', status: string): void
   }>()
+
+  const isCheckingForUpdates = ref(false);
 
   const refundModal = useModal({
     component: ModalRefundOrder,
     attrs: {
       payment_id: props.payment.paymongo_id,
+      delivery_status: props.deliveryStatus,
       onCancel() {
         refundModal.close();
       },
       onConfirm() {
-        emit('updatePaymentStatus');
+        emit('updatePaymentStatus', 'processing_refund');
         refundModal.close();
       }
     }
@@ -34,6 +39,31 @@
   const showRefundButton = computed(() => {
     return !['processing_refund', 'refunded', 'failed_refund'].some(el => props.payment.status.includes(el));
   });
+
+  const canCheckForRefundUpdates = computed(() => {
+    return props.payment.status === 'processing_refund';
+  });
+
+  const checkForRefundUpdates = async () => {
+    isCheckingForUpdates.value = true;
+
+    const { data: result, error } = await useFetchAPI<ApiResponse>(`/admin/payment/${props.payment.paymongo_id}/refund-status`, {
+      method: "GET"
+    });
+
+    if (result.value) {
+      isCheckingForUpdates.value = false;
+
+      const payload = result.value.data;
+      emit("updatePaymentStatus", payload.status);
+    }
+
+    if (error.value) {
+      isCheckingForUpdates.value = false;
+
+      // TODO: Handle errors
+    }
+  }
 </script>
 
 <template>
@@ -74,6 +104,10 @@
         </a>
         <button v-if="showRefundButton" class="btn btn-danger" @click="refundModal.open()">
           Refund
+        </button>
+        <button v-if="canCheckForRefundUpdates" class="btn btn-success" :disabled="isCheckingForUpdates" @click="checkForRefundUpdates">
+          <LoadingIcon v-if="isCheckingForUpdates" color="white" width="20" height="20" class="me-1 position-relative" style="top: -1px" />
+          <span>Check for updates</span>
         </button>
       </div>
 
