@@ -127,12 +127,18 @@
     if (!order.payment) return true;
 
     return !['processing_refund', 'refunded'].some(el => order.payment.status.includes(el))
-  })
+  });
 
   const showRefundStatus = computed(() => {
     if (!order.payment) return false;
 
     return ['processing_refund', 'refunded'].some(el => order.payment.status.includes(el))
+  });
+
+  const canChangeDeliveryStatus = computed(() => {
+    if (showRefundStatus.value) return false;
+
+    return order.delivery_information.status !== 'PROCESSING';
   })
 
   const printPage = () => {
@@ -201,7 +207,7 @@
                     <span class="ms-2">Print</span>
                   </button>
                 </li>
-                <li v-if="order.delivery_information.status !== 'PROCESSING'" @click="changeDeliveryStatusModal.open()">
+                <li v-if="canChangeDeliveryStatus" @click="changeDeliveryStatusModal.open()">
                   <button type="button" class="dropdown-item">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck">
                       <rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle>
