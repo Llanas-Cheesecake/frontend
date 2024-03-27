@@ -10,7 +10,7 @@ export interface Order {
     items: OrderItem[]
     payment?: OrderPayment
 
-    deliveryAddress?: string
+    courier_name?: string
     additionalInfo?: string
 
     amountPaid?: number,
@@ -48,11 +48,7 @@ export interface OrderDelivery {
     customer_name: string
     email: string
     phone_number: string
-    address_1: string
-    address_2: string
-    city: string
-    region: string
-    zip_code: string
+    courier_name: string
     additional_info: string
     status: string
 }

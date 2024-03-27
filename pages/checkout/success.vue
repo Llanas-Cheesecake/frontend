@@ -23,7 +23,7 @@
 
     items: [],
 
-    deliveryAddress: '',
+    courier_name: '',
     additionalInfo: '',
 
     amountPaid: 0,
@@ -58,11 +58,7 @@
     order.customerEmail = data.delivery.email;
     order.customerPhoneNumber = "+63" + data.delivery.phone_number;
 
-    if (data.delivery.address_2) {
-      order.deliveryAddress = data.delivery.address_1 + "<br/> " + data.delivery.address_2 + ", " + data.delivery.city + ", " + data.delivery.region + ", " + data.delivery.zip_code;
-    } else {
-      order.deliveryAddress = data.delivery.address_1 + ", " + data.delivery.city + ", " + data.delivery.region + ", " + data.delivery.zip_code;
-    }
+    order.courier_name = data.delivery.courier_name;
 
     order.paidUsing = data.payment.paid_using
     order.amountPaid = data.total_price;
@@ -120,8 +116,8 @@
                 <h5 class="mb-4">
                   Order Details
                 </h5>
-                <p class="mb-1 fw-bold">Delivery Address:</p>
-                <p class="mb-3" v-html="order.deliveryAddress"></p>
+                <p class="mb-1 fw-bold">Choosen Courier:</p>
+                <p class="mb-3">{{ order.courier_name }}</p>
 
                 <p class="mb-1 fw-bold">Paid using:</p>
                 <p class="mb-3">{{ order.paidUsing }}</p>

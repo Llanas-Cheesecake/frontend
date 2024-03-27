@@ -39,11 +39,6 @@
       customer_name: '',
       email: '',
       phone_number: '',
-      address_1: '',
-      address_2: '',
-      city: '',
-      region: '',
-      zip_code: '',
       additional_info: '',
       status: ''
     },

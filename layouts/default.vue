@@ -186,6 +186,10 @@
     color: var(--color-text-primary);
   }
 
+  .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-select ~ label::after {
+    background-color: color-mix(in srgb, var(--bg-primary), #000 15%);
+  }
+
   .input-group-text {
     background-color: color-mix(in srgb, var(--bg-primary), #000 25%);
     border: 1px solid color-mix(in srgb, var(--bg-primary), #000 40%);

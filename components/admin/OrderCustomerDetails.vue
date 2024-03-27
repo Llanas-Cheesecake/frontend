@@ -20,16 +20,8 @@
         <dd>{{ deliveryInformation.email }}</dd>
         <dt>Phone Number</dt>
         <dd>+63{{ deliveryInformation.phone_number }}</dd>
-        <dt>Address 1</dt>
-        <dd>{{ deliveryInformation.address_1 }}</dd>
-        <dt>Address 2</dt>
-        <dd>{{ deliveryInformation.address_2 }}</dd>
-        <dt>City</dt>
-        <dd>{{ deliveryInformation.city }}</dd>
-        <dt>Region</dt>
-        <dd>{{ deliveryInformation.region }}</dd>
-        <dt>Zip Code</dt>
-        <dd>{{ deliveryInformation.zip_code }}</dd>
+        <dt>Chosen Courier</dt>
+        <dd>{{ deliveryInformation.courier_name }}</dd>
       </dl>
 
       <p class="fw-bold fs-5 mb-2">Notes</p>
