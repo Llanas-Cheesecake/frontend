@@ -16,7 +16,7 @@
   <!-- TODO: Implements props here for banner promotions -->
   <Flicking
       class="flicking"
-      :firstPanelSize="'1000px'"
+      :firstPanelSize="'1300px'"
       :options="{ circular: true, duration: 500 }"
       :plugins="FlickPlugins"
   >
@@ -52,11 +52,11 @@
 
 <style scoped lang="scss">
   .panel {
-    border-radius: 0.5rem;
+    border-radius: 12px;
     margin: 0 2rem;
     position: relative;
-    width: 1000px;
-    height: 350px;
+    width: 1300px;
+    height: 400px;
     background-size: cover!important;
     background: no-repeat center;
 

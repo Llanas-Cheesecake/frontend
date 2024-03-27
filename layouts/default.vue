@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import type {ApiResponse} from "~/types/ApiResponse";
+
   const route = useRoute();
 
   useHead({
@@ -13,11 +15,59 @@
 
   const { $bootstrap } = useNuxtApp()
   const cart = useCartStore();
-  // TODO: Apply user-defined CSS here (customization feature)
+
+  const colorBgPrimary = ref('#77A042');
+  const colorBgSecondary = ref('#f2ffda');
+  const colorText = ref('');
+  const colorTextLink = ref('');
+  const colorButtonPrimary = ref('');
+  const colorButtonSecondary = ref('');
+
+  const { data: result, error } = await useFetchAPI<ApiResponse>('/theme', {
+    method: "GET"
+  });
+
+  if (result.value) {
+    const payload = result.value.data;
+
+    colorBgPrimary.value = payload['color-bg-primary'];
+    colorBgSecondary.value = payload['color-bg-secondary'];
+    colorText.value = payload['color-text'];
+    colorTextLink.value = payload['color-text-link'];
+    colorButtonPrimary.value = payload['color-btn-primary'];
+    colorButtonSecondary.value = payload['color-btn-secondary'];
+  }
+
+  const changeRootColor = (BgPrimary: string, BgSecondary: string, colorText: string, colorLink: string, buttonPrimary: string, buttonSecondary: string) => {
+    document.documentElement.style.setProperty('--bg-primary', BgPrimary);
+    document.documentElement.style.setProperty('--bg-secondary', BgSecondary);
+
+    document.documentElement.style.setProperty('--color-text-primary', colorText);
+    document.documentElement.style.setProperty('--color-link', colorLink);
+
+    document.documentElement.style.setProperty('--btn-bg-primary', buttonPrimary);
+    document.documentElement.style.setProperty('--btn-bg-secondary', buttonSecondary);
+
+    // setBGPrimaryColor();
+    // setBGSecondaryColor();
+    // setColorText();
+    // setColorLink();
+    // setButtonPrimary();
+    // setButtonSecondary();
+  }
+  // const setBGPrimaryColor = () => colorBgPrimary.value = getComputedStyle(document.documentElement).getPropertyValue('--bg-primary');
+  // const setBGSecondaryColor = () => colorBgSecondary.value = getComputedStyle(document.documentElement).getPropertyValue('--bg-primary');
+  // const setColorText = () => colorBgPrimary.value = getComputedStyle(document.documentElement).getPropertyValue('--color-text-primary');
+  // const setColorLink = () => colorBgSecondary.value = getComputedStyle(document.documentElement).getPropertyValue('--color-link');
+  // const setButtonPrimary = () => colorBgPrimary.value = getComputedStyle(document.documentElement).getPropertyValue('--btn-bg-primary');
+  // const setButtonSecondary = () => colorBgSecondary.value = getComputedStyle(document.documentElement).getPropertyValue('--btn-bg-secondary');
+
 
   // Apply tooltips
   onMounted(() => {
     if (process.client) {
+      changeRootColor(colorBgPrimary.value, colorBgSecondary.value, colorText.value, colorTextLink.value, colorButtonPrimary.value, colorButtonSecondary.value);
+
       window.onload = () => {
         const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         // @ts-ignore
@@ -53,11 +103,11 @@
   // https://colors.muz.li/palette/77A042/59702e/f2ffda/e5ffb4/ffffff
 
   :root {
-    --bg-primary: #77A042;
-    --bg-secondary: #f2ffda;
+    --bg-primary: #FFF;
+    --bg-secondary: #FFF;
 
     --color-text-primary: #FFFFFF;
-    --color-text-disabled: color-mix(in srgb,var(--navbar-text), #000 15%);
+    --color-text-disabled: color-mix(in srgb,var(--color-text-primary), #000 15%);
 
     --color-link: #e5ffb4;
 
@@ -66,7 +116,7 @@
   }
 
   .main-layout {
-    background-color: #ffd47e; // Should be programmable
+    background-color: var(--bg-secondary);
   }
 
   .flicking-pagination-bullet {
@@ -113,7 +163,7 @@
     }
     &.btn-secondary {
       background-color: var(--btn-bg-secondary);
-      color: color-mix(in srgb,var(--btn-bg-secondary), #000 65%);
+      color: white;
       &:active {
         background-color: color-mix(in srgb,var(--btn-bg-secondary), #000 60%);
       }
@@ -134,6 +184,10 @@
       color: color-mix(in srgb, var(--color-text-primary), #000 20%);
     }
     color: var(--color-text-primary);
+  }
+
+  .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-select ~ label::after {
+    background-color: color-mix(in srgb, var(--bg-primary), #000 15%);
   }
 
   .input-group-text {

@@ -3,36 +3,46 @@ import { VueFinalModal } from 'vue-final-modal';
 
 const props = defineProps<{
   payment_id: string
+  delivery_status: string
 }>();
 
 const emit = defineEmits<{
   (e: 'cancel'): void,
-  (e: 'confirm', order_id: number): void
+  (e: 'confirm'): void
 }>();
 
 const isProcessing = ref(false);
 const form = reactive({
   reason: 'requested_by_customer',
   notes: ''
-})
+});
+const errorMessage = ref('');
 
 const confirmRefund = async () => {
   isProcessing.value = true;
+  errorMessage.value = '';
 
-  // const { data: result, error } = await useFetchAPI(`/admin/products/${props.product.product_id}/delete`, {
-  //   method: "DELETE"
-  // })
-  //
-  // if (result.value) {
-  //   isDeleting.value = false;
-  //   emit('confirm', props.product.product_id)
-  // }
-  //
-  // if (error.value) {
-  //   isDeleting.value = false;
-  //
-  //   // TODO: Handle errors
-  // }
+  const { data: result, error } = await useFetchAPI(`/admin/orders/refund`, {
+    method: "POST",
+    body: {
+      payment_id: props.payment_id,
+      reason: form.reason,
+      notes: form.notes
+    }
+  })
+
+  if (result.value) {
+    isProcessing.value = false;
+    emit('confirm')
+  }
+
+  if (error.value) {
+    isProcessing.value = false;
+
+    errorMessage.value = error.value.data.message
+
+    // TODO: Handle errors
+  }
 }
 </script>
 
@@ -52,7 +62,20 @@ const confirmRefund = async () => {
             <h5 class="fw-bold mb-2">
               Refund this order?
             </h5>
-            <p>This action is irreversible. PayMongo will handle the refund request</p>
+
+            <p class="mb-4">This action is irreversible. PayMongo will handle the refund request</p>
+
+            <div v-if="delivery_status === 'ON_GOING'" class="alert alert-warning mb-4" role="alert">
+              This order has already been sent out to the carrier!
+            </div>
+
+            <div v-if="delivery_status === 'DELIVERED'" class="alert alert-warning mb-4" role="alert">
+              This order has already been delivered to the buyer!
+            </div>
+
+            <div v-if="errorMessage.length > 0" class="alert alert-danger mb-4" role="alert">
+              {{ errorMessage }}
+            </div>
 
             <div class="form-floating mb-4">
               <select v-model="form.reason" id="refund-reason" class="form-select" aria-label="Refund reason">
@@ -76,7 +99,6 @@ const confirmRefund = async () => {
               <textarea class="form-control" placeholder="Describe this refund..." id="refund-notes" style="height: 100px;"></textarea>
               <label for="refund-notes">Notes (optional)</label>
             </div>
-
 
             <div class="d-flex gap-2 mt-5">
               <button type="button" class="btn btn-outline-primary" :disabled="isProcessing" @click="emit('cancel')">

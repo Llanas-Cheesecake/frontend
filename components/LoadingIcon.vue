@@ -4,7 +4,8 @@
       type: String,
       validator(value: string, props) {
         return ['white', 'black'].includes(value)
-      }
+      },
+      default: 'white'
     },
     width: {
       type: String,
