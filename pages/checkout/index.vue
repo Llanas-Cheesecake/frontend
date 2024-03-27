@@ -64,6 +64,13 @@
 
   const isCheckingOut = ref(false);
 
+  const validation = reactive({
+    first_name: [],
+    last_name: [],
+    email: [],
+    phone_number: []
+  });
+
   const handleCheckout = async () => {
     await fetchXSRFCookie();
 
@@ -131,6 +138,7 @@
       // }
     }
 
+
     const { data: result, error } = await useFetchAPI<ApiResponse>('/checkout', {
       method: "POST",
       body: {
@@ -155,10 +163,15 @@
     // Handle errors
     if (error.value) {
       isCheckingOut.value = false;
+      const payload = error.value.data.errors;
 
       switch (error.value.statusCode) {
         case 422:
           // Handle form validations;
+          validation.first_name = payload.delivery_first_name || [];
+          validation.last_name = payload.delivery_last_name || [];
+          validation.email = payload.delivery_email || [];
+          validation.phone_number = payload.delivery_phone_number || [];
           break;
         default:
           console.log(error.value.data);
@@ -194,14 +207,20 @@
                   <div class="row mb-4">
                     <div class="col">
                       <div class="form-floating">
-                        <input v-model="deliveryFirstName" type="text" class="form-control" placeholder="e.g. John" aria-label="First Name">
+                        <input v-model="deliveryFirstName" type="text" class="form-control" :class="{ 'is-invalid': validation.first_name.length > 0 }" placeholder="e.g. John" aria-label="First Name">
                         <label class="form-label">First Name</label>
+                        <small v-for="error in validation.first_name" class="invalid-feedback">
+                          {{ error }}
+                        </small>
                       </div>
                     </div>
                     <div class="col">
                       <div class="form-floating">
-                        <input v-model="deliveryLastName" type="text" class="form-control" placeholder="e.g. Doe" aria-label="Last Name">
+                        <input v-model="deliveryLastName" type="text" class="form-control" :class="{ 'is-invalid': validation.last_name.length > 0 }" placeholder="e.g. Doe" aria-label="Last Name">
                         <label class="form-label">Last Name</label>
+                        <small v-for="error in validation.last_name" class="invalid-feedback">
+                          {{ error }}
+                        </small>
                       </div>
                     </div>
                   </div>
@@ -209,16 +228,22 @@
                   <div class="row">
                     <div class="col">
                       <div class="form-floating">
-                        <input v-model="email" type="email" class="form-control" placeholder="e.g. johndoe@gmail.com" aria-label="Email">
+                        <input v-model="email" type="email" class="form-control" :class="{ 'is-invalid': validation.email.length > 0 }" placeholder="e.g. johndoe@gmail.com" aria-label="Email">
                         <label class="form-label">Email</label>
+                        <small v-for="error in validation.email" class="invalid-feedback">
+                          {{ error }}
+                        </small>
                       </div>
                     </div>
                     <div class="col">
                       <div class="input-group">
                         <div class="input-group-text">+63</div>
                         <div class="form-floating">
-                          <input v-model="deliveryPhoneNumber" type="text" class="form-control" placeholder="e.g. 9123456789">
+                          <input v-model="deliveryPhoneNumber" type="text" class="form-control" :class="{ 'is-invalid': validation.phone_number.length > 0 }" placeholder="e.g. 9123456789">
                           <label class="form-label">Phone Number</label>
+                          <small v-for="error in validation.phone_number" class="invalid-feedback">
+                            {{ error }}
+                          </small>
                         </div>
                       </div>
                     </div>
@@ -234,6 +259,7 @@
                   <div class="form-floating mb-4">
                     <input v-model="courier_name" type="text" class="form-control" placeholder="Grab, Lalamove" aria-label="Email">
                     <label class="form-label">Courier</label>
+
                   </div>
 
                   <div class="form-floating">
