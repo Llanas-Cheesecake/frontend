@@ -39,6 +39,7 @@
             New Product
           </nuxt-link>
         </div>
+
         <form class="d-block d-sm-none mt-4" @submit.prevent="handleSubmitSearch">
           <div class="input-group mobile">
               <span class="input-group-text">
@@ -50,6 +51,7 @@
             </button>
           </div>
         </form>
+
       </div>
     </div>
 
