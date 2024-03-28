@@ -132,7 +132,7 @@
   }
 
   .main-content {
-    min-height: calc(100vh - 76px - 219px);
+    min-height: calc(100vh - 76px - 219px + 4rem);
   }
 
   .bg-primary {
@@ -256,9 +256,9 @@
     z-index: 99;
   }
 
-  @media (max-height: 775px) {
-    .main-content {
-      min-height: initial;
-    }
-  }
+  //@media (max-height: 775px) {
+  //  .main-content {
+  //    min-height: initial;
+  //  }
+  //}
 </style>

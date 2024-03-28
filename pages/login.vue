@@ -105,11 +105,12 @@
     border-radius: 8px;
     color: var(--color-text-primary);
 
-    width: 500px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 4rem auto;
+    max-width: 500px;
+    //position: absolute;
+    //top: 50%;
+    //left: 50%;
+    //transform: translate(-50%, -50%);
   }
 
   .logo {
@@ -117,13 +118,13 @@
     height: 60px;
   }
 
-  @media (max-height: 775px) {
-    .card {
-      position: initial;
-      top: initial;
-      left: initial;
-      transform: initial;
-      margin: 2rem auto;
-    }
-  }
+  //@media (max-height: 775px) {
+  //  .card {
+  //    position: initial;
+  //    top: initial;
+  //    left: initial;
+  //    transform: initial;
+  //    margin: 2rem auto;
+  //  }
+  //}
 </style>

@@ -100,8 +100,8 @@
 
       <form class="mt-4" @submit.prevent="handleForm">
 
-        <div class="row gap-3 mb-4">
-          <div class="col">
+        <div class="row mb-4">
+          <div class="col-12 col-md-6 mb-3 mb-md-0">
             <label class="form-label">First Name</label>
             <input v-model="form.first_name" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.first_name.length > 0 }">
 
@@ -111,7 +111,7 @@
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-6">
             <label class="form-label">Last Name</label>
             <input v-model="form.last_name" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.last_name.length > 0 }">
 
@@ -154,7 +154,7 @@
 <!--          </div>-->
         </div>
 
-        <div class="row gap-3 mb-5">
+        <div class="row mb-5">
           <div class="col">
             <label class="form-label">Password</label>
             <input v-model="form.password" type="password" class="form-control" :class="{ 'is-invalid': validationErrors.password.length > 0 }">
@@ -187,10 +187,8 @@
     border-radius: 8px;
     color: var(--color-text-primary);
 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 4rem auto;
+    max-width: 600px;
   }
 
   .logo {

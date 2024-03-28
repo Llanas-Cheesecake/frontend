@@ -119,7 +119,9 @@
     border-radius: 8px;
     color: var(--color-text-primary);
 
-    width: 500px;
+    //margin: 4rem auto;
+    width: 100%;
+    max-width: 500px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -131,12 +133,12 @@
     height: 60px;
   }
 
-  @media (max-height: 775px) {
+  @media (max-width: 576px) {
     .card {
-      position: initial;
-      top: initial;
-      left: initial;
-      transform: initial;
+      position: initial!important;
+      top: initial!important;
+      left: initial!important;
+      transform: initial!important;
       margin: 4rem auto;
     }
   }
