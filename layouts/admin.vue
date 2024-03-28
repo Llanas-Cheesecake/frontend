@@ -30,7 +30,7 @@
       </ClientOnly>
 
       <section style="min-width: 0; width: 100%">
-        <div class="d-flex flex-column gap-4">
+        <div class="d-flex flex-column gap-4 main-content">
           <AdminTopNavbar />
 
           <slot />
@@ -103,6 +103,9 @@
       &:active {
         border-color: var(--bg-tertiary);
       }
+    }
+    &.btn-outline-danger {
+      border: 2px solid #dc3545!important;
     }
     &.btn-secondary {
       background-color: color-mix(in srgb, var(--bg-secondary), #000 15%);
@@ -234,6 +237,12 @@
 
   .text-subtle {
     color: color-mix(in srgb,var(--color-text-primary), #fff 40%);
+  }
+
+  @media (min-width: 992px) {
+    .admin-content .main-content {
+      min-height: calc(100vh - 2rem);
+    }
   }
 
   @media (min-width: 1400px) {
