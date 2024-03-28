@@ -22,6 +22,7 @@
     thumbnail: '',
     price: 0,
     images: [],
+    stock: 0,
     average_ratings: 0,
     total_ratings: 0,
     is_wishlisted: false
@@ -50,6 +51,8 @@
   }
 
   // TODO: Handle errors
+
+  const isOutOfStock = computed(() => product.value.stock <= 0)
 
   const incrementQuantity = () => {
     quantity.value++
@@ -140,7 +143,10 @@
         </div>
         <small class="product-category">{{ product.category }}</small>
 
-        <p class="mt-4">{{ product.description }}</p>
+        <p class="mt-4">
+          {{ product.description }}
+        </p>
+
         <div class="d-flex align-items-center mt-3">
           <client-only>
             <vue3-star-ratings v-model="product.average_ratings" star-size="20" disable-click />
@@ -150,15 +156,18 @@
 
         <div class="product-actions d-flex align-items-center justify-content-between w-100">
           <div class="product-quantity-controls">
-            <button class="btn btn-primary quantity-btn" @click="decrementQuantity">
+            <button class="btn btn-primary quantity-btn" :disabled="isOutOfStock" @click="decrementQuantity">
               <img src="/icons/minus-white.svg" alt="decrement quantity" />
             </button>
             <div class="quantity-count">
               {{ quantity }}
             </div>
-            <button class="btn btn-primary quantity-btn" @click="incrementQuantity">
+            <button class="btn btn-primary quantity-btn" :disabled="isOutOfStock" @click="incrementQuantity">
               <img src="/icons/plus-white.svg" alt="increment quantity" />
             </button>
+            <small v-if="isOutOfStock" class="badge text-bg-danger">
+              Out of stock
+            </small>
           </div>
           <div class="controls">
             <button class="btn btn-secondary" :disabled="isAddingToCart" @click="addToCart">
@@ -279,9 +288,18 @@
         display: flex;
         align-items: center;
         gap: 1rem;
+        .quantity-count {
+          background: rgba(0,0,0,0.2);
+          border-radius: 8px;
+          align-self: stretch;
+          padding: 0.5rem 1rem;
+        }
         .quantity-btn {
           border-radius: 8px;
           padding: 5px;
+        }
+        .quantity-count, .quantity-btn {
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         }
       }
 

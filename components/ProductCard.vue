@@ -14,6 +14,8 @@
 
   const isAddingToCart = ref(false);
 
+  const isOutOfStock = computed(() => props.product.stock <= 0);
+
   const addToCart = async () => {
     isAddingToCart.value = true
 
@@ -33,7 +35,19 @@
     <nuxt-link :to="`/products/${product.slug}`" class="card-body">
       <div class="product-image rounded shadow-sm mb-3" :style="{ 'background-image': `url(${product.thumbnail})` }" />
       <section>
-        <h5 class="card-title">{{ product.name }}</h5>
+        <h5 class="card-title mb-1">
+          {{ product.name }}
+        </h5>
+
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <p class="fw-bold mb-0">
+            {{ product.category }}
+          </p>
+
+          <span v-if="isOutOfStock" class="badge text-bg-danger">
+            Out of stock
+          </span>
+        </div>
 
         <client-only>
           <vue-3-star-ratings v-model="product.average_ratings" inactive-color="#8a8a8a" star-size="16" disable-click />
@@ -46,7 +60,7 @@
       <div class="price">
         &#8369;<span>{{ product.price }}</span>
       </div>
-      <button v-if="showActions" class="btn btn-primary" :disabled="isAddingToCart" @click="addToCart">
+      <button v-if="showActions && !isOutOfStock" class="btn btn-primary" :disabled="isAddingToCart" @click="addToCart">
         <span>Add</span>
         <LoadingIcon v-if="isAddingToCart" color="black" class="ms-2" />
       </button>
