@@ -92,4 +92,11 @@
     }
   }
 }
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .cart-item .item-image {
+    width: 50px!important;
+    height: 50px!important;
+  }
+}
 </style>
