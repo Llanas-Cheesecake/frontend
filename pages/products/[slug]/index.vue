@@ -154,7 +154,7 @@
           <span class="ms-2">({{ product.total_ratings }})</span>
         </div>
 
-        <div class="product-actions d-flex align-items-center justify-content-between w-100">
+        <div class="product-actions d-flex flex-wrap align-items-center justify-content-between w-100">
           <div class="product-quantity-controls">
             <button class="btn btn-primary quantity-btn" :disabled="isOutOfStock" @click="decrementQuantity">
               <img src="/icons/minus-white.svg" alt="decrement quantity" />
@@ -331,7 +331,6 @@
       width: 100%;
       max-width: 100%;
       min-height: 18rem;
-      border-top-right-radius: 0;
       border-top: 1px solid color-mix(in srgb,var(--bg-primary), #000 10%);;
     }
   }
@@ -341,110 +340,17 @@
   .product-info {
     min-height: 20rem!important;
   }
-}
 
-.productInfoDiv {
-  text-align: center;
-}
+  .product-actions {
+    position: relative!important;
+    bottom: initial!important;
+    margin-top: 1.5rem;
+    margin-left: 0!important;
+    padding: 0!important;
 
-.topProd {
-  display: flex;
-}
-
-.prodIcons {
-  margin-left: auto;
-  margin-right: 0;
-}
-
-.prodIcon {
-  height: 40px;
-  margin-left: 20px;
-}
-
-.qtyDiv {
-  display: flex;
-}
-
-.qtyIcon {
-  height: 35px;
-}
-
-#output-area {
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 30px;
-}
-
-.btnProd {
-  display: inline-block;
-  border: transparent;
-  color: black;
-  background-color: #ffffff;
-  padding: 20px;
-  margin: 5px 80px;
-  font-size: 12px;
-  width: 140px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.btnProd:hover {
-  background-color: #d7d7d7;
-}
-
-[star-status="true"] {
-  color: #ffd47e;
-}
-[star-status="false"] {
-  color: #ffffff;
-}
-
-.star {
-  font-size: 34px;
-}
-
-//review
-.reviewTab {
-  background-color: #77a042;
-  color: #ffffff;
-  flex-wrap: wrap;
-  margin-top: 30px;
-  padding: 10px 160px;
-  text-align: center;
-  display: inline-block;
-  border-radius: 50px;
-}
-
-.reviewArea {
-  list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  color: #ffffff;
-  margin: 20px 0;
-}
-
-.reviewItem {
-  background-color: #77a042;
-  padding: 20px;
-  border-radius: 20px;
-}
-
-.reviewInfo {
-  display: flex;
-}
-
-.reviewRating {
-  margin-left: auto;
-  margin-right: 0;
-}
-
-.reviewImg {
-  width: 70px;
-  height: 70px;
-  border-radius: 100px;
-  margin-right: 0.5rem;
+    .product-quantity-controls, .controls {
+      margin-top: 1.5rem;
+    }
+  }
 }
 </style>
