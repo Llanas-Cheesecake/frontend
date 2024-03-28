@@ -33,11 +33,32 @@
             <h4 class="fw-bolder">3. Delivery Details</h4>
             <div class="col">
               <div class="form-floating">
-                <input class="form-control" placeholder="e.g. johndoe@gmail.com" aria-label="Email">
+                <input class="form-control mb-2" placeholder="John Doe" aria-label="Name">
+                <label class="form-label">Name</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-text">+63</div>
+                  <div class="form-floating">
+                    <input type="text" class="form-control" placeholder="e.g. 9123456789">
+                    <label class="form-label">Phone Number</label>
+                  </div>
+                </div>
+                <select class="form-select">
+                  <option selected disabled>Select your city</option>
+                  <option>Tagik</option>
+                </select>
               </div>
             </div>
           </div>
 
+          <div class="row mb-4">
+            <h4 class="fw-bolder">4. Delivery Date and Time</h4>
+            <div class="col">
+              <div class="form-floating">
+                <input class="form-control mb-2" type="datetime-local" aria-label="DateTime">
+                <label class="form-label"></label>
+              </div>
+            </div>
+          </div>
           <div class="row d-flex justify-content-center">
             <button id="custOrdSubmit" type="submit">Submit</button>
           </div>
