@@ -22,7 +22,8 @@
           <h5 class="fw-bold mb-0 flex-fill">
             Products
           </h5>
-          <form @submit.prevent="handleSubmitSearch">
+
+          <form class="d-none d-sm-block" @submit.prevent="handleSubmitSearch">
             <div class="input-group">
               <span class="input-group-text">
                 <img src="/icons/search-black.svg" width="18" alt="Search Icon" />
@@ -33,10 +34,22 @@
               </button>
             </div>
           </form>
+
           <nuxt-link to="/admin/products/create" class="btn btn-primary">
             New Product
           </nuxt-link>
         </div>
+        <form class="d-block d-sm-none mt-4" @submit.prevent="handleSubmitSearch">
+          <div class="input-group mobile">
+              <span class="input-group-text">
+                <img src="/icons/search-black.svg" width="18" alt="Search Icon" />
+              </span>
+            <input v-model="searchKeyword" type="text" class="form-control" placeholder="Search Products..." aria-label="Search products">
+            <button type="submit" class="btn btn-outline-primary">
+              Search
+            </button>
+          </div>
+        </form>
       </div>
     </div>
 
@@ -56,6 +69,10 @@
 <style scoped lang="scss">
   .input-group {
     width: auto;
+    &.mobile .form-control {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
     .input-group-text {
       background-color: var(--bg-secondary);
       border-width: 2px;
