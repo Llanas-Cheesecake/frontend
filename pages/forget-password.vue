@@ -1,11 +1,26 @@
 <script setup lang="ts">
   import Swal from "sweetalert2";
+  import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
+
+  const config = useRuntimeConfig();
+  const hCaptchaSiteKey = config.public.hCaptchaSiteKey;
 
   const isLoading = ref(false)
+
   const email = ref("")
+  const captchaToken = ref("");
+
+  // Generic error message
+  const error = ref("");
+
+  // Form validation errors
   const validationErrors = reactive({
     email: []
   })
+
+  const handleCaptchaVerify = (token: string, eKey: string) => {
+    captchaToken.value = token;
+  }
 
   const resetErrors = () => {
     validationErrors.email = []
@@ -31,51 +46,38 @@
     await $fetch(baseUrl + '/sanctum/csrf-cookie', { credentials: 'include' })
 
     // Validate token
-    const { data, pending, status } = await useFetchAPI('/forget-password', {
+    await useFetchAPI('/forget-password', {
       lazy: true,
       server: false,
       method: "POST",
       body: {
         email: email.value,
-        accountType: "customer"
+        accountType: "customer",
+        captcha_token: captchaToken.value
       },
-      onResponse() {
-        isLoading.value = false
+      onResponse({ response }) {
+        if (response.ok) {
+          isLoading.value = false
 
-        Swal.fire({
-          title: "Check your inbox",
-          text: "If you have an account with us, we will send an email to your inbox containing the link for resetting your password",
-          icon: "info"
-        })
+          Swal.fire({
+            title: "Check your inbox",
+            text: "If you have an account with us, we will send an email to your inbox containing the link for resetting your password",
+            icon: "info"
+          })
+        }
       },
       onResponseError({ response }) {
-        // errorMessage.value = response._data.message
-        console.log(response)
-        // TODO: Handle errors
-      }
-    })
+        isLoading.value = false;
 
-    // auth.register(form)
-    //     .then(() => {
-    //       Swal.fire({
-    //         title: "Email Verification",
-    //         text: "An email confirmation request has been sent to your inbox. Please accomplish it to finish your account creation",
-    //         icon: "info"
-    //       })
-    //     })
-    //     .catch((err) => {
-    //       if (err.response.status === 422) {
-    //         // Validation error handler
-    //         setValidationErrors(err.data.errors)
-    //       } else {
-    //         // Generic error handler
-    //         error.value = err.data.message
-    //       }
-    //     })
-    //     .finally(() => {
-    //       // Disable loading indicator
-    //       isLoading.value = false
-    //     })
+        switch (response.status) {
+          case 422:
+            setValidationErrors(response._data.errors);
+            break;
+          default:
+            error.value = response._data.message;
+        }
+      }
+    });
   }
 </script>
 
@@ -89,9 +91,12 @@
         Forget Password
       </h3>
 
-      <form class="mt-4" @submit.prevent="handleForm">
-        <div class="mb-5">
+      <div v-if="error.length > 0" class="alert alert-danger my-4" role="alert">
+        {{ error }}
+      </div>
 
+      <form class="mt-4" @submit.prevent="handleForm">
+        <div class="mb-4">
           <label class="form-label">Email address</label>
           <input v-model="email" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.email.length > 0 }">
 
@@ -100,10 +105,11 @@
               {{ email }}
             </div>
           </div>
-
         </div>
 
-        <button type="submit" class="btn btn-primary d-block w-100" :disabled="isLoading">
+        <vue-hcaptcha :sitekey="hCaptchaSiteKey" @verify="handleCaptchaVerify"></vue-hcaptcha>
+
+        <button type="submit" class="btn btn-primary d-block w-100 mt-3" :disabled="isLoading">
           <span>Submit</span>
           <LoadingIcon v-if="isLoading" class="ms-2" />
         </button>
