@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  import type {ApiResponse} from "~/types/ApiResponse";
+  import { useCartStore } from "~/store/cart";
+  import { ModalsContainer } from "vue-final-modal";
+  import type { ApiResponse } from "~/types/ApiResponse";
 
   const route = useRoute();
 
@@ -10,8 +12,6 @@
           : 'Llana\'s Cheesecake'
     }
   })
-
-  import { useCartStore } from "~/store/cart";
 
   const { $bootstrap } = useNuxtApp()
   const cart = useCartStore();
@@ -93,6 +93,8 @@
     <section class="main-content container position-relative">
       <slot />
     </section>
+
+    <ModalsContainer />
 
     <Footer />
   </div>
