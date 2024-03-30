@@ -172,7 +172,7 @@
     }
   }
 
-  .form-control {
+  .form-control, .form-select {
     background-color: color-mix(in srgb, var(--bg-primary), #000 15%);
     border: 1px solid color-mix(in srgb, var(--bg-primary), #000 40%);
     &:focus {

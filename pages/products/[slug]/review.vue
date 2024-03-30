@@ -29,15 +29,20 @@
 
   const isSubmittingForm = ref(false);
 
-  const rating = ref(0);
+  const rating = ref('');
   const headline = ref('');
   const review = ref('');
   const isNameHidden = ref(false);
 
   // Errors
   const errorMessage = ref('');
+  const validation = reactive({
+    headline: [],
+    rating: [],
+    review: []
+  })
 
-  const setRating = (value: number) => {
+  const setRating = (value: string) => {
     rating.value = value
   }
 
@@ -65,6 +70,13 @@
       switch (error.value.statusCode) {
         case 403:
           errorMessage.value = "It seems that you don't own this product.";
+          break;
+        case 422:
+          const errors = error.value.data.errors;
+
+          validation.headline = errors.headline || [];
+          validation.rating = errors.rating || [];
+          validation.review = errors.review || [];
           break;
         default:
           errorMessage.value = "Something went wrong. Please try again later!";
@@ -107,30 +119,50 @@
             <span class="fw-bold">Error:</span> {{ errorMessage }}
           </div>
 
+          <div v-if="validation.rating.length > 0" class="alert alert-danger d-none d-md-block" role="alert">
+            <div v-for="error in validation.rating">
+              {{ error }}
+            </div>
+          </div>
 
-          <div class="d-flex align-items-center gap-3">
-            <div class="star-rating" :class="{ selected: rating === 1 }" @click="setRating(1)">
-              <img v-if="rating === 1" src="/icons/star-black.svg" alt="star icon" />
+          <div class="form-floating d-block d-md-none">
+            <select v-model="rating" class="form-select" :class="{ 'is-invalid': validation.rating.length > 0 }" id="ratingSelect" aria-label="Choose rating">
+              <option value="1">1 ⭐</option>
+              <option value="2">2 ⭐⭐</option>
+              <option value="3">3 ⭐⭐⭐</option>
+              <option value="3">4 ⭐⭐⭐⭐</option>
+              <option value="3">5 ⭐⭐⭐⭐⭐</option>
+            </select>
+            <label for="ratingSelect">Choose rating</label>
+
+            <small v-for="error in validation.rating" class="invalid-feedback">
+              {{ error }}
+            </small>
+          </div>
+
+          <div class="d-none d-md-flex align-items-center gap-3">
+            <div class="star-rating" :class="{ selected: rating === '1' }" @click="setRating('1')">
+              <img v-if="rating === '1'" src="/icons/star-black.svg" alt="star icon" />
               <img v-else src="/icons/star-white.svg" alt="star icon" />
               <p class="mb-0 mt-2">1</p>
             </div>
-            <div class="star-rating" :class="{ selected: rating === 2 }" @click="setRating(2)">
-              <img v-if="rating === 2" src="/icons/star-black.svg" alt="star icon" />
+            <div class="star-rating" :class="{ selected: rating === '2' }" @click="setRating('2')">
+              <img v-if="rating === '2'" src="/icons/star-black.svg" alt="star icon" />
               <img v-else src="/icons/star-white.svg" alt="star icon" />
               <p class="mb-0 mt-2">2</p>
             </div>
-            <div class="star-rating" :class="{ selected: rating === 3 }" @click="setRating(3)">
-              <img v-if="rating === 3" src="/icons/star-black.svg" alt="star icon" />
+            <div class="star-rating" :class="{ selected: rating === '3' }" @click="setRating('3')">
+              <img v-if="rating === '3'" src="/icons/star-black.svg" alt="star icon" />
               <img v-else src="/icons/star-white.svg" alt="star icon" />
               <p class="mb-0 mt-2">3</p>
             </div>
-            <div class="star-rating" :class="{ selected: rating === 4 }" @click="setRating(4)">
-              <img v-if="rating === 4" src="/icons/star-black.svg" alt="star icon" />
+            <div class="star-rating" :class="{ selected: rating === '4' }" @click="setRating('4')">
+              <img v-if="rating === '4'" src="/icons/star-black.svg" alt="star icon" />
               <img v-else src="/icons/star-white.svg" alt="star icon" />
               <p class="mb-0 mt-2">4</p>
             </div>
-            <div class="star-rating" :class="{ selected: rating === 5 }" @click="setRating(5)">
-              <img v-if="rating === 5" src="/icons/star-black.svg" alt="star icon" />
+            <div class="star-rating" :class="{ selected: rating === '5' }" @click="setRating('5')">
+              <img v-if="rating === '5'" src="/icons/star-black.svg" alt="star icon" />
               <img v-else src="/icons/star-white.svg" alt="star icon" />
               <p class="mb-0 mt-2">5</p>
             </div>
@@ -139,13 +171,21 @@
           <form @submit.prevent="handleSubmitReview">
 
             <div class="form-floating my-4">
-              <input v-model="headline" type="text" class="form-control" placeholder="Brief title of your review" aria-label="Headline">
+              <input v-model="headline" type="text" class="form-control" :class="{ 'is-invalid': validation.headline.length > 0 }" placeholder="Brief title of your review" aria-label="Headline">
               <label>Headline</label>
+
+              <small v-for="error in validation.headline" class="invalid-feedback">
+                {{ error }}
+              </small>
             </div>
 
             <div class="form-floating mb-4">
-              <textarea v-model="review" class="form-control" placeholder="Leave your review here" id="floatingTextarea2" style="height: 100px"></textarea>
+              <textarea v-model="review" class="form-control" :class="{ 'is-invalid': validation.review.length > 0 }" placeholder="Leave your review here" id="floatingTextarea2" style="height: 100px"></textarea>
               <label for="floatingTextarea2">Review</label>
+
+              <small v-for="error in validation.review" class="invalid-feedback">
+                {{ error }}
+              </small>
             </div>
 
             <div class="form-check mb-4">
