@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type {ApiResponse} from "~/types/ApiResponse";
+  import type { ApiResponse } from "~/types/ApiResponse";
   import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
 
   const config = useRuntimeConfig();
@@ -241,6 +241,5 @@
   color: white;
   width: 100%;
   max-width: 640px;
-  //padding: 20px 40px 20px 40px;
 }
 </style>
