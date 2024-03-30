@@ -14,7 +14,10 @@
     colorText: '',
     colorTextLink: '',
     buttonPrimary: '',
-    buttonSecondary: ''
+    buttonSecondary: '',
+    buttonTextPrimary: '',
+    buttonTextSecondary: '',
+    email: ''
   });
 
   // Validation messages
@@ -24,7 +27,10 @@
     colorText: [],
     colorTextLink: [],
     buttonPrimary: [],
-    buttonSecondary: []
+    buttonSecondary: [],
+    buttonTextPrimary: [],
+    buttonTextSecondary: [],
+    email: []
   })
 
   const { data: result, error } = await useFetchAPI<ApiResponse>('/admin/settings/site', {
@@ -42,6 +48,9 @@
 
     settings.buttonPrimary = payload['color-btn-primary'];
     settings.buttonSecondary = payload['color-btn-secondary'];
+    settings.buttonTextPrimary = payload['color-btn-text-primary'];
+    settings.buttonTextSecondary = payload['color-btn-text-secondary'];
+    settings.email = payload['email'] || '';
   }
 
   // Handle form
@@ -56,7 +65,10 @@
         colorText: settings.colorText,
         colorTextLink: settings.colorTextLink,
         colorBtnPrimary: settings.buttonPrimary,
-        colorBtnSecondary: settings.buttonSecondary
+        colorBtnSecondary: settings.buttonSecondary,
+        colorBtnTextPrimary: settings.buttonTextPrimary,
+        colorBtnTextSecondary: settings.buttonTextSecondary,
+        email: settings.email
       }
     });
 
@@ -77,6 +89,9 @@
           validation.colorTextLink = payload.colorTextLink || [];
           validation.buttonPrimary = payload.colorBtnPrimary || [];
           validation.buttonSecondary = payload.colorBtnSecondary || [];
+          validation.buttonTextPrimary = payload.colorBtnTextPrimary || [];
+          validation.buttonTextSecondary = payload.colorBtnTextSecondary || [];
+          validation.email = payload.email || []
           break;
         default:
           toast.error("Something went wrong while handling your request");
@@ -98,7 +113,7 @@
       </button>
     </div>
 
-    <div class="d-flex flex-column flex-lg-row gap-0 gap-lg-5">
+    <div class="d-flex flex-column flex-lg-row gap-0 flex-50 gap-lg-5">
       <div class="mb-5">
         <h5 class="fw-bold">
           Color Settings
@@ -112,7 +127,7 @@
       <div>
         <h5 class="mb-4">Background colors</h5>
 
-        <div class="d-flex flex-column flex-sm-row gap-3 mb-4">
+        <div class="d-flex flex-column flex-sm-row flex-50 gap-3 mb-4">
           <div class="form-floating position-relative">
             <input v-model="settings.colorBgPrimary"
                    type="text"
@@ -149,7 +164,7 @@
 
         <h5 class="mb-4">Text colors</h5>
 
-        <div class="d-flex flex-column flex-sm-row gap-3 mb-4">
+        <div class="d-flex flex-column flex-sm-row flex-50 gap-3 mb-4">
           <div class="form-floating position-relative">
             <input v-model="settings.colorText"
                    type="text"
@@ -187,7 +202,7 @@
 
         <h5 class="mb-4">Button Colors</h5>
 
-        <div class="d-flex flex-column flex-sm-row gap-3 mb-4">
+        <div class="d-flex flex-column flex-sm-row flex-wrap flex-50 gap-3 mb-4">
           <div class="form-floating position-relative">
             <input v-model="settings.buttonPrimary"
                    type="text"
@@ -221,9 +236,75 @@
                  class="color-preview"
                  :style="{ backgroundColor: settings.buttonSecondary }" />
           </div>
+
+          <div class="form-floating position-relative">
+            <input v-model="settings.buttonTextPrimary"
+                   type="text"
+                   class="form-control"
+                   placeholder="#fffff"
+                   :class="{ 'is-invalid': validation.buttonTextPrimary.length > 0 }"
+                   @change="validation.buttonTextPrimary.length = 0">
+            <label>Primary Text Color</label>
+            <small v-for="error in validation.buttonTextPrimary" class="invalid-feedback">
+              {{ error }}
+            </small>
+
+            <div v-if="settings.buttonTextPrimary.length > 0"
+                 class="color-preview"
+                 :style="{ backgroundColor: settings.buttonTextPrimary }" />
+          </div>
+
+          <div class="form-floating position-relative">
+            <input v-model="settings.buttonTextSecondary"
+                   type="text"
+                   class="form-control"
+                   placeholder="#fffff"
+                   :class="{ 'is-invalid': validation.buttonTextSecondary.length > 0 }"
+                   @change="validation.buttonTextSecondary.length = 0">
+            <label>Secondary Text Color</label>
+            <small v-for="error in validation.buttonTextSecondary" class="invalid-feedback">
+              {{ error }}
+            </small>
+
+            <div v-if="settings.buttonTextSecondary.length > 0"
+                 class="color-preview"
+                 :style="{ backgroundColor: settings.buttonTextSecondary }" />
+          </div>
         </div>
 
       </div>
+    </div>
+
+    <div class="d-flex flex-column flex-lg-row gap-0 gap-lg-5 flex-50 mt-5">
+
+      <div class="mb-5">
+        <h5 class="fw-bold">
+          Email Notifications
+        </h5>
+        <p class="mb-3">
+          Provide which email should the system send important notifications
+        </p>
+      </div>
+
+      <div>
+        <div class="form-floating">
+          <div class="form-floating mb-3">
+            <input v-model="settings.email"
+                   type="text"
+                   class="form-control mb-2"
+                   :class="{ 'is-invalid': validation.email.length > 0 }"
+                   :disabled="isSubmitting"
+                   placeholder=""
+            >
+            <label class="form-label">Email</label>
+
+            <small v-for="error in validation.email" class="invalid-feedback">
+              {{ error }}
+            </small>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 </template>
@@ -237,5 +318,8 @@
     right: 1rem;
     width: 40px;
     height: 30px;
+  }
+  .flex-50 > div {
+    flex: 1 1 calc(50% - 1rem);
   }
 </style>

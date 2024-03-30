@@ -22,6 +22,8 @@
   const colorTextLink = ref('');
   const colorButtonPrimary = ref('');
   const colorButtonSecondary = ref('');
+  const colorButtonTextPrimary = ref('');
+  const colorButtonTextSecondary = ref('');
 
   const { data: result, error } = await useFetchAPI<ApiResponse>('/theme', {
     method: "GET"
@@ -36,11 +38,22 @@
     colorTextLink.value = payload['color-text-link'];
     colorButtonPrimary.value = payload['color-btn-primary'];
     colorButtonSecondary.value = payload['color-btn-secondary'];
+    colorButtonTextPrimary.value = payload['color-btn-text-primary'];
+    colorButtonTextSecondary.value = payload['color-btn-text-secondary'];
   }
 
-  const changeRootColor = (BgPrimary: string, BgSecondary: string, colorText: string, colorLink: string, buttonPrimary: string, buttonSecondary: string) => {
-    document.documentElement.style.setProperty('--bg-primary', BgPrimary);
-    document.documentElement.style.setProperty('--bg-secondary', BgSecondary);
+  const changeRootColor = (
+      bgPrimary: string,
+      bgSecondary: string,
+      colorText: string,
+      colorLink: string,
+      buttonPrimary: string,
+      buttonSecondary: string,
+      buttonTextPrimary: string,
+      buttonTextSecondary: string
+  ) => {
+    document.documentElement.style.setProperty('--bg-primary', bgPrimary);
+    document.documentElement.style.setProperty('--bg-secondary', bgSecondary);
 
     document.documentElement.style.setProperty('--color-text-primary', colorText);
     document.documentElement.style.setProperty('--color-link', colorLink);
@@ -48,25 +61,24 @@
     document.documentElement.style.setProperty('--btn-bg-primary', buttonPrimary);
     document.documentElement.style.setProperty('--btn-bg-secondary', buttonSecondary);
 
-    // setBGPrimaryColor();
-    // setBGSecondaryColor();
-    // setColorText();
-    // setColorLink();
-    // setButtonPrimary();
-    // setButtonSecondary();
+    document.documentElement.style.setProperty('--btn-text-primary', buttonTextPrimary);
+    document.documentElement.style.setProperty('--btn-text-secondary', buttonTextSecondary);
   }
-  // const setBGPrimaryColor = () => colorBgPrimary.value = getComputedStyle(document.documentElement).getPropertyValue('--bg-primary');
-  // const setBGSecondaryColor = () => colorBgSecondary.value = getComputedStyle(document.documentElement).getPropertyValue('--bg-primary');
-  // const setColorText = () => colorBgPrimary.value = getComputedStyle(document.documentElement).getPropertyValue('--color-text-primary');
-  // const setColorLink = () => colorBgSecondary.value = getComputedStyle(document.documentElement).getPropertyValue('--color-link');
-  // const setButtonPrimary = () => colorBgPrimary.value = getComputedStyle(document.documentElement).getPropertyValue('--btn-bg-primary');
-  // const setButtonSecondary = () => colorBgSecondary.value = getComputedStyle(document.documentElement).getPropertyValue('--btn-bg-secondary');
 
 
   // Apply tooltips
   onMounted(() => {
     if (process.client) {
-      changeRootColor(colorBgPrimary.value, colorBgSecondary.value, colorText.value, colorTextLink.value, colorButtonPrimary.value, colorButtonSecondary.value);
+      changeRootColor(
+          colorBgPrimary.value,
+          colorBgSecondary.value,
+          colorText.value,
+          colorTextLink.value,
+          colorButtonPrimary.value,
+          colorButtonSecondary.value,
+          colorButtonTextPrimary.value,
+          colorButtonTextSecondary.value
+      );
 
       window.onload = () => {
         const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -115,6 +127,9 @@
 
     --btn-bg-primary: #59702e;
     --btn-bg-secondary: #f2ffda;
+
+    --btn-text-primary: #ffffff;
+    --btn-text-secondary: #ffffff;
   }
 
   .main-layout {
@@ -158,14 +173,14 @@
     border-radius: 20px;
     &.btn-primary {
       background-color: var(--btn-bg-primary);
-      color: white;
+      color: var(--btn-text-primary);
       &:active {
         background-color: color-mix(in srgb,var(--btn-bg-primary), #000 15%);
       }
     }
     &.btn-secondary {
       background-color: var(--btn-bg-secondary);
-      color: white;
+      color: var(--btn-text-secondary);
       &:active {
         background-color: color-mix(in srgb,var(--btn-bg-secondary), #000 60%);
       }
