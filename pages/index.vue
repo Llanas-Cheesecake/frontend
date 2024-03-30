@@ -28,7 +28,7 @@
         </nuxt-link>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <nuxt-link to="/menu/all" class="card shortcut custom-order p-2">
+        <nuxt-link to="/custom-order" class="card shortcut custom-order p-2">
           <div class="overlay"></div>
           <div class="card-body">
             <h4 class="fw-bold">
@@ -43,7 +43,7 @@
         </nuxt-link>
       </div>
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <nuxt-link to="/menu/all" class="card shortcut contact p-2">
+        <nuxt-link to="/contact" class="card shortcut contact p-2">
           <div class="overlay"></div>
           <div class="card-body">
             <h4 class="fw-bold">
