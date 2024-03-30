@@ -74,6 +74,15 @@ onMounted(() => {
             </ul>
           </div>
 
+          <div class="card custom-order-card p-2 mt-4">
+            <div class="card-body">
+              <p>Need a custom cake? You may contact us using this form!</p>
+              <nuxt-link to="/custom-order" class="btn btn-secondary">
+                Click here
+              </nuxt-link>
+            </div>
+          </div>
+
         </div>
         <div class="col-sm-12 col-md-8 col-lg-9">
           <NuxtPage />
@@ -82,3 +91,11 @@ onMounted(() => {
     </div>
   </section>
 </template>
+
+<style scoped lang="scss">
+.custom-order-card {
+  background-color: var(--bg-primary);
+  border-radius: 8px;
+  color: white;
+}
+</style>
