@@ -16,7 +16,10 @@
 
   const order = reactive<Order>({
     order_id: '',
-    items: []
+    items: [],
+    total_price: 0,
+    status: '',
+    created_at: ''
   })
 
   const { data: response, status, error } = await useFetchAPI<ApiResponse>(`/order/${route.query.token}/cancelled`, {

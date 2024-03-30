@@ -3,18 +3,12 @@ import type {Customer} from "~/types/Customer";
 
 export interface Order {
     order_id: string
-    customerName?: string
-    customerEmail?: string
-    customerPhoneNumber?: string
-
     items: OrderItem[]
     payment?: OrderPayment
-
-    courier_name?: string
-    additionalInfo?: string
-
-    amountPaid?: number,
-    paidUsing?: string
+    delivery_information?: OrderDelivery
+    total_price: number
+    status: string
+    created_at: string
 }
 
 export interface DetailedOrder {
