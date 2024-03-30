@@ -23,6 +23,7 @@
   "dependencies": {
     "@egjs/flicking-plugins": "^4.7.1",
     "@egjs/vue3-flicking": "^4.11.2",
+    "@hcaptcha/vue3-hcaptcha": "^1.3.0",
     "@pinia/nuxt": "^0.5.1",
     "@popperjs/core": "^2.11.8",
     "@vueuse/core": "^10.7.2",

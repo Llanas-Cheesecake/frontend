@@ -30,7 +30,7 @@
         </section>
 
         <section v-else class="row">
-          <div v-for="item in wishlist" class="col-sm-12 col-md-3">
+          <div v-for="item in wishlist" class="col-12 col-lg-4">
             <ProductCard :product="item.product" />
           </div>
 

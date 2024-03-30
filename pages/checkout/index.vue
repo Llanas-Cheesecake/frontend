@@ -179,7 +179,7 @@
 
       <div class="row">
 
-        <div class="col-sm-12 col-md-8">
+        <div class="col-md-12 col-lg-8">
 
           <div class="card bg-primary text-white p-2">
             <div class="card-body">
@@ -349,12 +349,12 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-md-12 col-lg-4">
 
           <div ref="intersection" />
 
           <section class="sticky-top" :style="{ 'top': isSticking ? '1.5rem' : '0' }">
-            <div class="card p-2 mb-3">
+            <div class="card p-2 mt-4 mt-lg-0 mb-3">
               <div class="card-body">
                 <h5 class="card-title">Order Summary</h5>
 

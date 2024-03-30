@@ -157,7 +157,7 @@
                                   :orders="product.orders"
                                   :ratings="product.ratings"
         />
-        <LazyAdminProductRatingsPage v-if="currentComponent === 'ratings'"
+        <AdminProductRatingsPage v-if="currentComponent === 'ratings'"
                                      :product_id="product.product_id"
                                      @remove-rating="handleRemoveRating($event)"
         />

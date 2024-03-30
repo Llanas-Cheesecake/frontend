@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import type { ApiResponse } from "~/types/ApiResponse";
-  import type { Order } from "~/types/Order";
+  import type { DetailedOrder } from "~/types/Order";
 
-  const orders = reactive<Order[]>([])
+  const orders = reactive<DetailedOrder[]>([])
 
   const { data: result, error, pending } = await useFetchAPI<ApiResponse>('/account/order-history', {
     method: "GET",
@@ -10,13 +10,13 @@
     onResponse({ response }): Promise<void> | void {
       const fetchedOrders = response._data.data.orders;
 
-      fetchedOrders.map((order: Order) => {
+      fetchedOrders.map((order: DetailedOrder) => {
         orders.push(order)
       })
     }
   })
 
-  const getItemTotalPrice = (order: Order, product_id: number) => {
+  const getItemTotalPrice = (order: DetailedOrder, product_id: number) => {
     const item = order.items.find(i => i.product.product_id === product_id);
 
     if (!item) return 0;
@@ -41,16 +41,15 @@
                   <p class="title">Receipt ID</p>
                   <p class="subtitle">{{ order.order_id }}</p>
                 </div>
-                <div class="flex-fill">
+                <div>
                   <p class="title">Total Amount</p>
                   <p class="subtitle">
                     &#8369;{{ order.payment?.amount_paid }}
                   </p>
                 </div>
                 <div>
-                  <button class="btn btn-primary">
-                    View Details
-                  </button>
+                  <p class="title">Courier</p>
+                  <p class="subtitle">{{ order.delivery_information.courier_name }}</p>
                 </div>
               </div>
             </div>
@@ -223,67 +222,13 @@
   }
 }
 
-.menuHeaderContents {
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 0;
-  justify-content: space-between;
-  display: flex; /* Use flexbox */
-  align-items: center;
-  flex: 1;
-}
-
-.menuHeaderContents h3 {
-  color: white;
-  font-weight: bold;
-  padding-top: 10px;
-  cursor: default;
-}
-
-#homeAndName {
-  display: inline-flex;
-  padding-bottom: 10px;
-  justify-content: space-between;
-  vertical-align: middle;
-}
-
-#homeButton {
-  //background-image: url("../icons/homeBtn.png");
-  background-size: 50px;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  height: 52px;
-  width: 52px;
-  border: none;
-  outline: none;
-  margin-right: 12px;
-}
-
-#addMenuButton {
-  //background-image: url("../icons/addMenu.png");
-  background-size: 50px;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  height: 52px;
-  width: 52px;
-  border: none;
-  outline: none;
-}
-
-#sortDropDown {
-  color: white;
-  background-color: #77a042;
-  border: none;
-  outline: none;
-  font-weight: bold;
-  padding: 0 20px 0 20px;
-  border-radius: 5px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-#sortDropDown option {
-  font-weight: bold;
-  align-self: center;
+@media (max-width: 991px) {
+  .order-info {
+    flex-direction: column;
+    gap: 0.8rem;
+    > div {
+      width: 100%;
+    }
+  }
 }
 </style>

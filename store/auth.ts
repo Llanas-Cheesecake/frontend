@@ -63,7 +63,12 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     const register = async (form: {
-        first_name: string, last_name: string, email: string, password: string, c_password: string
+        first_name: string,
+        last_name: string,
+        email: string,
+        password: string,
+        c_password: string,
+        captcha_token: string
     }) => {
         const config = useRuntimeConfig()
         const baseUrl = config.public.apiBaseUrl
@@ -83,7 +88,8 @@ export const useAuthStore = defineStore('auth', () => {
                 last_name: form.last_name,
                 email: form.email,
                 password: form.password,
-                password_confirmation: form.c_password
+                password_confirmation: form.c_password,
+                captcha_token: form.captcha_token
             },
             credentials: 'include'
         })

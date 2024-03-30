@@ -203,4 +203,25 @@
       }
     }
   }
+
+  @media (max-width: 576px) {
+    .cart-items {
+      .cart-item {
+        .item-image {
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 365px) {
+    .cart-items {
+      .cart-item {
+        .item-image {
+          display: none;
+        }
+      }
+    }
+  }
 </style>

@@ -32,7 +32,8 @@ export default defineNuxtConfig({
     public: {
       appUrl: process.env.APP_URL,
       apiBaseUrl: process.env.API_BASEURL,
-      apiVersion: process.env.API_VERSION
+      apiVersion: process.env.API_VERSION,
+      hCaptchaSiteKey: process.env.HCAPTCHA_SITE_KEY
     }
   },
 

@@ -1,8 +1,12 @@
 <script setup lang="ts">
   import Swal from "sweetalert2";
-  import { useAuthStore } from "../store/auth";
+  import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
+  import { useAuthStore } from "~/store/auth";
 
-  const auth = useAuthStore()
+  const auth = useAuthStore();
+  const config = useRuntimeConfig();
+
+  const hCaptchaSiteKey = config.public.hCaptchaSiteKey;
 
   const isLoading = ref(false)
 
@@ -12,7 +16,8 @@
     email: "",
     phone: "",
     password: "",
-    c_password: ""
+    c_password: "",
+    captcha_token: ""
   })
 
   // Generic error
@@ -82,6 +87,11 @@
           isLoading.value = false
         })
   }
+
+  const handleCaptchaVerify = (token: string, eKey: string) => {
+    form.captcha_token = token;
+    // form.captchaEKey = eKey;
+  }
 </script>
 
 <template>
@@ -100,8 +110,8 @@
 
       <form class="mt-4" @submit.prevent="handleForm">
 
-        <div class="row gap-3 mb-4">
-          <div class="col">
+        <div class="row mb-4">
+          <div class="col-12 col-md-6 mb-3 mb-md-0">
             <label class="form-label">First Name</label>
             <input v-model="form.first_name" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.first_name.length > 0 }">
 
@@ -111,7 +121,7 @@
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-6">
             <label class="form-label">Last Name</label>
             <input v-model="form.last_name" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.last_name.length > 0 }">
 
@@ -122,17 +132,6 @@
             </div>
           </div>
         </div>
-
-<!--        <div class="col mb-4">-->
-<!--          <label class="form-label">Email address</label>-->
-<!--          <input v-model="form.email" type="email" class="form-control" :class="{ 'is-invalid': validationErrors.email.length > 0 }">-->
-
-<!--          <div v-if="validationErrors.email" class="invalid-feedback">-->
-<!--            <div v-for="email in validationErrors.email">-->
-<!--              {{ email }}-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
 
         <div class="row gap-3 mb-4">
           <div class="col">
@@ -145,16 +144,9 @@
               </div>
             </div>
           </div>
-<!--          <div class="col">-->
-<!--            <label class="form-label">Phone number</label>-->
-<!--            <input v-model="form.phone" type="text" class="form-control">-->
-<!--            <div class="form-text">-->
-<!--              Leave empty for now.-->
-<!--            </div>-->
-<!--          </div>-->
         </div>
 
-        <div class="row gap-3 mb-5">
+        <div class="row mb-4">
           <div class="col">
             <label class="form-label">Password</label>
             <input v-model="form.password" type="password" class="form-control" :class="{ 'is-invalid': validationErrors.password.length > 0 }">
@@ -171,7 +163,9 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary d-block w-100" :disabled="isLoading">
+        <vue-hcaptcha :sitekey="hCaptchaSiteKey" @verify="handleCaptchaVerify"></vue-hcaptcha>
+
+        <button type="submit" class="btn btn-primary d-block w-100 mt-4" :disabled="isLoading">
           <span>Sign Up</span>
           <LoadingIcon v-if="isLoading" class="ms-2" />
         </button>
@@ -187,10 +181,8 @@
     border-radius: 8px;
     color: var(--color-text-primary);
 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 4rem auto;
+    max-width: 600px;
   }
 
   .logo {

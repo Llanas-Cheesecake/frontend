@@ -1,19 +1,30 @@
 <script setup lang="ts">
-  import { useAuthStore } from "../store/auth";
+  import { useAuthStore } from "~/store/auth";
+  import { useModal } from "vue-final-modal";
+  import { ModalResendEmailVerification } from "#components";
 
   const auth = useAuthStore()
 
   const isLoading = ref(false);
 
-  const form = reactive({
-    email: "",
-    password: ""
-  })
+  const email = ref('');
+  const password = ref('');
 
   // Generic error
   const error = ref("");
   // Validation error
-  const validationErrors = reactive<any>({})
+  const validationErrors = reactive<any>({});
+
+  // Resend Email Verification Modal
+  const resendEmailModal = useModal({
+    component: ModalResendEmailVerification,
+    attrs: {
+      email: email,
+      onCloseModal() {
+        resendEmailModal.close()
+      }
+    }
+  })
 
   const handleForm = () => {
     // Enable loading indicator
@@ -22,17 +33,20 @@
     // Reset errors
     resetErrors()
 
-    auth.loginAsCustomer({ email: form.email, password: form.password })
+    auth.loginAsCustomer({ email: email.value, password: password.value })
         .then(() => {
           location.href = '/'
         })
         .catch((err) => {
-          if (err.response.status === 422) {
-            // Validation error handler
-            Object.assign(validationErrors, err.data.errors)
-          } else {
-            // Generic error handler
-            error.value = err.data.message
+          switch (err.response.status) {
+            case 403:
+              resendEmailModal.open();
+              break;
+            case 422:
+              Object.assign(validationErrors, err.data.errors);
+              break;
+            default:
+              error.value = err.data.message;
           }
         })
         .finally(() => {
@@ -67,7 +81,7 @@
       <form class="mt-4" @submit.prevent="handleForm">
         <div class="mb-4">
           <label class="form-label">Email address</label>
-          <input v-model="form.email" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.email }">
+          <input v-model="email" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.email }">
 
           <div v-if="validationErrors.email" class="invalid-feedback">
             <div v-for="email in validationErrors.email">
@@ -77,7 +91,7 @@
         </div>
         <div class="mb-5">
           <label class="form-label">Password</label>
-          <input v-model="form.password" type="password" class="form-control" :class="{ 'is-invalid': validationErrors.password }">
+          <input v-model="password" type="password" class="form-control" :class="{ 'is-invalid': validationErrors.password }">
 
           <div v-if="validationErrors.password" class="invalid-feedback">
             <div v-for="password in validationErrors.password">
@@ -105,11 +119,12 @@
     border-radius: 8px;
     color: var(--color-text-primary);
 
-    width: 500px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 4rem auto;
+    max-width: 500px;
+    //position: absolute;
+    //top: 50%;
+    //left: 50%;
+    //transform: translate(-50%, -50%);
   }
 
   .logo {
@@ -117,13 +132,13 @@
     height: 60px;
   }
 
-  @media (max-height: 775px) {
-    .card {
-      position: initial;
-      top: initial;
-      left: initial;
-      transform: initial;
-      margin: 2rem auto;
-    }
-  }
+  //@media (max-height: 775px) {
+  //  .card {
+  //    position: initial;
+  //    top: initial;
+  //    left: initial;
+  //    transform: initial;
+  //    margin: 2rem auto;
+  //  }
+  //}
 </style>

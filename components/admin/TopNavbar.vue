@@ -51,7 +51,7 @@
 <template>
   <div class="card px-2 d-print-none">
     <div class="card-body d-flex align-items-center gap-3">
-      <div class="cursor-pointer d-block d-md-none" @click="toggleMobileNav">
+      <div class="cursor-pointer d-block d-lg-none" @click="toggleMobileNav">
         <svg xmlns="http://www.w3.org/2000/svg" style="top: -1px;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu position-relative">
           <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>

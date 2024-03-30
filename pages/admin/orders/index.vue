@@ -29,15 +29,19 @@
     <!-- Header -->
     <div class="header card p-2 mb-4">
       <div class="card-body">
+        <h5 class="d-block d-sm-none fw-bold mb-3">
+          Orders
+        </h5>
+
         <div class="d-flex align-items-center gap-3">
-          <h5 class="fw-bold mb-0 flex-fill">
+          <h5 class="d-none d-sm-block fw-bold mb-0 flex-fill">
             Orders
           </h5>
 
           <!-- Actions -->
 
           <!-- Search -->
-          <form @submit.prevent="refreshComponent">
+          <form class="d-none d-sm-block" @submit.prevent="refreshComponent">
             <div class="input-group">
               <span class="input-group-text">
                 <img src="/icons/search-black.svg" width="18" alt="Search Icon" />
@@ -103,6 +107,21 @@
 
           <!-- END Actions -->
         </div>
+
+        <!-- Search Mobile -->
+        <form class="d-block d-sm-none mt-4" @submit.prevent="refreshComponent">
+          <div class="input-group mobile">
+              <span class="input-group-text">
+                <img src="/icons/search-black.svg" width="18" alt="Search Icon" />
+              </span>
+            <input v-model="searchKeyword" type="text" class="form-control" placeholder="Search Orders..." aria-label="Search products">
+            <button type="submit" class="btn btn-outline-primary">
+              Search
+            </button>
+          </div>
+        </form>
+        <!-- END Search -->
+
       </div>
     </div>
     <!-- END Header -->
@@ -130,6 +149,10 @@
 
   .input-group {
     width: auto;
+    &.mobile .form-control {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
     .input-group-text {
       background-color: var(--bg-secondary);
       border-width: 2px;

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  import type {ApiResponse} from "~/types/ApiResponse";
+  import { useCartStore } from "~/store/cart";
+  import { ModalsContainer } from "vue-final-modal";
+  import type { ApiResponse } from "~/types/ApiResponse";
 
   const route = useRoute();
 
@@ -10,8 +12,6 @@
           : 'Llana\'s Cheesecake'
     }
   })
-
-  import { useCartStore } from "~/store/cart";
 
   const { $bootstrap } = useNuxtApp()
   const cart = useCartStore();
@@ -94,6 +94,8 @@
       <slot />
     </section>
 
+    <ModalsContainer />
+
     <Footer />
   </div>
 </template>
@@ -132,7 +134,7 @@
   }
 
   .main-content {
-    min-height: calc(100vh - 76px - 219px);
+    min-height: calc(100vh - 76px - 219px + 4rem);
   }
 
   .bg-primary {
@@ -170,7 +172,7 @@
     }
   }
 
-  .form-control {
+  .form-control, .form-select {
     background-color: color-mix(in srgb, var(--bg-primary), #000 15%);
     border: 1px solid color-mix(in srgb, var(--bg-primary), #000 40%);
     &:focus {
@@ -256,9 +258,9 @@
     z-index: 99;
   }
 
-  @media (max-height: 775px) {
-    .main-content {
-      min-height: initial;
-    }
-  }
+  //@media (max-height: 775px) {
+  //  .main-content {
+  //    min-height: initial;
+  //  }
+  //}
 </style>

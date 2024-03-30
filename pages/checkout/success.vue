@@ -14,20 +14,29 @@
     title: "Payment Success"
   })
 
-  const order = reactive<Order>({
+  const order = ref<Order>({
     order_id: '',
-
-    customerName: '',
-    customerEmail: '',
-    customerPhoneNumber: '',
-
     items: [],
-
-    courier_name: '',
-    additionalInfo: '',
-
-    amountPaid: 0,
-    paidUsing: '',
+    payment: {
+      paymongo_id: '',
+      amount_paid: 0,
+      net_amount: 0,
+      fee: 0,
+      paid_using: '',
+      status: '',
+      paid_at: ''
+    },
+    delivery_information: {
+      customer_name: '',
+      email: '',
+      phone_number: '',
+      courier_name: '',
+      additional_info: '',
+      status: ''
+    },
+    total_price: 0,
+    status: '',
+    created_at: ''
   })
 
   const { data: response, status, error } = await useFetchAPI<ApiResponse>(`/order/${route.query.token}`, {
@@ -48,25 +57,13 @@
 
   if (response.value) {
     const result = response.value.data
-    const data = result.order;
 
     // Set data
-    order.order_id = data.order_id
-    order.items = data.items
-
-    order.customerName = data.delivery.first_name + " " + data.delivery.last_name;
-    order.customerEmail = data.delivery.email;
-    order.customerPhoneNumber = "+63" + data.delivery.phone_number;
-
-    order.courier_name = data.delivery.courier_name;
-
-    order.paidUsing = data.payment.paid_using
-    order.amountPaid = data.total_price;
-    order.additionalInfo = data.delivery.additional_info
+    order.value = { ...result.order }
   }
 
   const getItemTotalPrice = (product_id: number) => {
-    const item = order.items.find(i => i.product.product_id === product_id);
+    const item = order.value.items.find(i => i.product.product_id === product_id);
 
     if (!item) return 0;
 
@@ -102,13 +99,13 @@
                 </h5>
 
                 <p class="mb-1 fw-bold">Name:</p>
-                <p class="mb-3">{{ order.customerName }}</p>
+                <p class="mb-3">{{ order.delivery_information?.customer_name }}</p>
 
                 <p class="mb-1 fw-bold">Email:</p>
-                <p class="mb-3">{{ order.customerEmail }}</p>
+                <p class="mb-3">{{ order.delivery_information?.email }}</p>
 
                 <p class="mb-1 fw-bold">Phone Number:</p>
-                <p class="mb-0">{{ order.customerPhoneNumber }}</p>
+                <p class="mb-0">{{ order.delivery_information?.phone_number }}</p>
 
               </div>
 
@@ -116,20 +113,20 @@
                 <h5 class="mb-4">
                   Order Details
                 </h5>
-                <p class="mb-1 fw-bold">Choosen Courier:</p>
-                <p class="mb-3">{{ order.courier_name }}</p>
+                <p class="mb-1 fw-bold">Chosen Courier:</p>
+                <p class="mb-3">{{ order.delivery_information?.courier_name }}</p>
 
                 <p class="mb-1 fw-bold">Paid using:</p>
-                <p class="mb-3">{{ order.paidUsing }}</p>
+                <p class="mb-3">{{ order.payment?.paid_using }}</p>
 
                 <p class="mb-1 fw-bold">Amount paid:</p>
                 <p class="mb-3">
-                  &#8369;<span>{{ order.amountPaid }}</span>
+                  &#8369;<span>{{ order.payment?.amount_paid }}</span>
                 </p>
 
                 <p class="mb-1 fw-bold">Additional info:</p>
                 <p class="mb-0">
-                  {{ order.additionalInfo ? order.additionalInfo : "N/A" }}
+                  {{ order.delivery_information?.additional_info ? order.delivery_information?.additional_info : "N/A" }}
                 </p>
               </div>
             </div>
@@ -175,7 +172,7 @@
             <section>
               <div class="d-flex justify-content-between">
                 <div>Subtotal:</div>
-                <div>{{ formatPrice(order.amountPaid) }}</div>
+                <div>{{ formatPrice(order.payment?.amount_paid) }}</div>
               </div>
             </section>
           </div>
@@ -246,6 +243,13 @@
           }
         }
       }
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .cart-item .item-image {
+      width: 50px!important;
+      height: 50px!important;
     }
   }
 </style>
