@@ -207,6 +207,11 @@
     background-color: color-mix(in srgb, var(--bg-primary), #000 15%);
   }
 
+  .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
   .input-group-text {
     background-color: color-mix(in srgb, var(--bg-primary), #000 25%);
     border: 1px solid color-mix(in srgb, var(--bg-primary), #000 40%);
