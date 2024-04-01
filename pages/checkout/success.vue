@@ -56,7 +56,7 @@
   }
 
   if (response.value) {
-    const result = response.value.data
+    const result = response.value.data;
 
     // Set data
     order.value = { ...result.order }
@@ -132,7 +132,7 @@
             </div>
 
             <p class="mb-1">Need help with this order?</p>
-            <nuxt-link to="/" class="form-text">Contact Us</nuxt-link>
+            <nuxt-link to="/contact" class="form-text">Contact Us</nuxt-link>
 
           </div>
         </div>
