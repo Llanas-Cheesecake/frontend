@@ -1,3 +1,8 @@
+<script setup lang="ts">
+  const date = new Date();
+  const currentYear = date.getFullYear();
+</script>
+
 <template>
   <footer class="d-flex align-items-center flex-column container-fluid py-3">
     <div class="d-flex justify-content-evenly">
@@ -13,11 +18,10 @@
     </div>
 
     <div class="d-flex justify-content-evenly gap-3 my-3">
-      <nuxt-link to="/">Terms of Use</nuxt-link>
-      <nuxt-link to="/">Privacy Policy</nuxt-link>
+      <nuxt-link to="/termsandconditions">Terms and Conditions</nuxt-link>
     </div>
 
-    <p class="font_white my-3">&copy; 2023 Copyright: Llana's Cheesecake</p>
+    <p class="font_white my-3">&copy; {{ currentYear }} Copyright: Llana's Cheesecake</p>
   </footer>
 </template>
 
