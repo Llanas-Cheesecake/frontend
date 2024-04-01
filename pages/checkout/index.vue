@@ -6,6 +6,7 @@
   import { useCartStore } from "~/store/cart";
 
   import type { ApiResponse } from "~/types/ApiResponse";
+  import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
 
   const { useToast } = Toast;
   const toast = useToast();
@@ -13,6 +14,10 @@
   const { $auth } = useNuxtApp()
   const auth = useAuthStore();
   const cart = useCartStore();
+
+  const config = useRuntimeConfig();
+
+  const hCaptchaSiteKey = config.public.hCaptchaSiteKey;
 
   useHead({
     title: "Checkout"
@@ -25,6 +30,8 @@
   const deliveryFirstName = ref( auth._customer?.first_name ? auth._customer.first_name : '' );
   const deliveryLastName = ref( auth._customer?.last_name ? auth._customer.last_name : '' );
   const deliveryPhoneNumber = ref('');
+
+  const captcha_token = ref('');
 
   // Intersection observer
   const intersection = ref();
@@ -65,6 +72,7 @@
         'delivery_phone_number': deliveryPhoneNumber.value,
         'courier_name': courier_name.value,
         'additional_info': additionalInfo.value,
+        'captcha_token': captcha_token.value
       }
     })
 
@@ -91,9 +99,14 @@
           break;
         default:
           console.log(error.value.data);
-          toast.error('Something went wrong while processing your request. Please try again later.');
+          toast.error(error.value.data.message);
       }
     }
+  }
+
+  const handleCaptchaVerify = (token: string, eKey: string) => {
+    captcha_token.value = token;
+    // form.captchaEKey = eKey;
   }
 
 </script>
@@ -154,19 +167,19 @@
                     <div class="col">
                       <div class="input-group">
                         <div class="input-group-text">+63</div>
-                        <div class="form-floating">
+                        <div class="form-floating" :class="{ 'is-invalid': validation.phone_number.length > 0 }">
                           <input v-model="deliveryPhoneNumber" type="text" class="form-control" :class="{ 'is-invalid': validation.phone_number.length > 0 }" placeholder="e.g. 9123456789">
                           <label class="form-label">Phone Number</label>
-                          <small v-for="error in validation.phone_number" class="invalid-feedback">
-                            {{ error }}
-                          </small>
                         </div>
+                        <small v-for="error in validation.phone_number" class="invalid-feedback">
+                          {{ error }}
+                        </small>
                       </div>
                     </div>
                   </div>
                 </section>
 
-                <section>
+                <section class="mb-5">
                   <h5 class="fw-bold">Delivery Information</h5>
                   <p class="mb-4">
                     We only accept pick-up service. Please choose your desired pickup courier so we are aware.
@@ -182,6 +195,11 @@
                     <textarea v-model="additionalInfo" class="form-control" placeholder="Additional information about your delivery" style="height: 100px"></textarea>
                     <label class="form-label">Additional information</label>
                   </div>
+                </section>
+
+                <section v-if="!$auth.isLoggedIn()">
+                  <h5 class="fw-bold mb-4">Captcha</h5>
+                  <vue-hcaptcha :sitekey="hCaptchaSiteKey" @verify="handleCaptchaVerify"></vue-hcaptcha>
                 </section>
               </form>
             </div>
