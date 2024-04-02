@@ -56,26 +56,26 @@
           </div>
         </section>
 
-        <section class="card bg-primary text-white p-2 mt-5">
-          <div class="card-body">
-            <h5 class="fw-bold mb-4">Change Email</h5>
+<!--        <section class="card bg-primary text-white p-2 mt-5">-->
+<!--          <div class="card-body">-->
+<!--            <h5 class="fw-bold mb-4">Change Email</h5>-->
 
-            <form>
-              <div class="mb-4">
-                <label class="form-label">Current email</label>
-                <input v-model="customer.email" type="text" class="form-control" placeholder="Current email" disabled>
-              </div>
-              <div class="mb-4">
-                <label class="form-label">New email</label>
-                <input v-model="newEmail" type="text" class="form-control" placeholder="New email">
-              </div>
+<!--            <form>-->
+<!--              <div class="mb-4">-->
+<!--                <label class="form-label">Current email</label>-->
+<!--                <input v-model="customer.email" type="text" class="form-control" placeholder="Current email" disabled>-->
+<!--              </div>-->
+<!--              <div class="mb-4">-->
+<!--                <label class="form-label">New email</label>-->
+<!--                <input v-model="newEmail" type="text" class="form-control" placeholder="New email">-->
+<!--              </div>-->
 
-              <button type="submit" class="btn btn-secondary">
-                Change email
-              </button>
-            </form>
-          </div>
-        </section>
+<!--              <button type="submit" class="btn btn-secondary">-->
+<!--                Change email-->
+<!--              </button>-->
+<!--            </form>-->
+<!--          </div>-->
+<!--        </section>-->
 
         <ChangePassword />
 
