@@ -57,7 +57,7 @@ const changeDeliveryStatus = async () => {
             <p class="mb-4">Select updated status for this order</p>
 
             <select v-model="selectedStatus" class="form-select" aria-label="Delivery Status">
-              <option value="UNFULFILLED">To be delivered</option>
+              <option value="UNFULFILLED">Ready for pickup</option>
               <option value="ON_GOING">On the way</option>
               <option value="DELIVERED">Delivered</option>
             </select>

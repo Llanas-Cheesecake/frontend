@@ -139,7 +139,7 @@
       case "ON_GOING":
         return "On the way";
       case "UNFULFILLED":
-        return "To be delivered"
+        return "Ready for pickup"
       case "PROCESSING":
         return "Awaiting payment";
       case "CANCELED":
