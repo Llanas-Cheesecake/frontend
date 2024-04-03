@@ -1,4 +1,4 @@
 export interface ApiResponse {
     data: any
-    metadata: string
+    metadata: any
 }
