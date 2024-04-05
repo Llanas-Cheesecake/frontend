@@ -1,6 +1,6 @@
 <script setup lang="ts">
   const props = defineProps<{
-    errors: []
+    errors: string[]
   }>()
 
   const emit = defineEmits<{
