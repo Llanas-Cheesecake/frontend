@@ -1,6 +1,12 @@
 <script setup lang="ts">
+  // @ts-ignore
+  import * as Toast from "vue-toastification/dist/index.mjs";
+
   import type { ApiResponse } from "~/types/ApiResponse";
   import type { Product } from "~/types/Product";
+
+  const { useToast } = Toast;
+  const toast = useToast();
 
   import vue3StarRatings from "vue3-star-ratings";
   import { useCartStore } from "~/store/cart";
@@ -99,7 +105,13 @@
       product.value.is_wishlisted = payload.is_wishlisted
     }
     if (error.value) {
-      // TODO: Handle errors
+      switch (error.value.statusCode) {
+        case 401:
+          toast.error('You must be logged-in to wishlist this product')
+          break;
+        default:
+          // TODO: Handle more errors
+      }
     }
 
     isHandlingWishlist.value = false;
