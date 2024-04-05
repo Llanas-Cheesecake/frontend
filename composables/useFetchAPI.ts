@@ -11,6 +11,8 @@ export const useFetchAPI = async <T>(url: string, options: UseFetchOptions<T> = 
 
     if (!apiEndpoint) throw new Error("API Base URL not set!")
 
+    const loadingIndicator = useLoadingIndicator();
+
     const defaults: UseFetchOptions<T> = {
         baseURL: apiEndpoint,
         key: url,
@@ -21,7 +23,16 @@ export const useFetchAPI = async <T>(url: string, options: UseFetchOptions<T> = 
             Cookie: cookieHeaders.cookie,
             "X-XSRF-TOKEN": xsrfToken.value || null
         },
-        credentials: "include"
+        credentials: "include",
+        onRequest() {
+            loadingIndicator.start()
+        },
+        onRequestError() {
+            loadingIndicator.finish()
+        },
+        onResponse() {
+            loadingIndicator.finish()
+        }
     }
 
     const params = defu(options, defaults)
