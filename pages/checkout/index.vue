@@ -134,7 +134,7 @@
                   <h5 class="fw-bold mb-4">Customer Details</h5>
 
                   <div class="row mb-4">
-                    <div class="col">
+                    <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
                       <div class="form-floating">
                         <input v-model="deliveryFirstName" type="text" class="form-control" :class="{ 'is-invalid': validation.first_name.length > 0 }" placeholder="e.g. John" aria-label="First Name">
                         <label class="form-label">First Name</label>
@@ -143,7 +143,7 @@
                         </small>
                       </div>
                     </div>
-                    <div class="col">
+                    <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
                       <div class="form-floating">
                         <input v-model="deliveryLastName" type="text" class="form-control" :class="{ 'is-invalid': validation.last_name.length > 0 }" placeholder="e.g. Doe" aria-label="Last Name">
                         <label class="form-label">Last Name</label>
@@ -155,7 +155,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col">
+                    <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
                       <div class="form-floating">
                         <input v-model="email" type="email" class="form-control" :class="{ 'is-invalid': validation.email.length > 0 }" placeholder="e.g. johndoe@gmail.com" aria-label="Email">
                         <label class="form-label">Email</label>
@@ -164,7 +164,7 @@
                         </small>
                       </div>
                     </div>
-                    <div class="col">
+                    <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
                       <div class="input-group">
                         <div class="input-group-text">+63</div>
                         <div class="form-floating" :class="{ 'is-invalid': validation.phone_number.length > 0 }">
