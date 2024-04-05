@@ -81,6 +81,9 @@
           return item.id !== promotion_id
         })
         deleteModal.close();
+      },
+      onCancel() {
+        deleteModal.close();
       }
     }
   })
