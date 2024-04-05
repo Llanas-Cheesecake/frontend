@@ -54,7 +54,8 @@
     first_name: [],
     last_name: [],
     email: [],
-    phone_number: []
+    phone_number: [],
+    courier_name: []
   });
 
   const handleCheckout = async () => {
@@ -100,6 +101,7 @@
           validation.last_name = payload.delivery_last_name || [];
           validation.email = payload.delivery_email || [];
           validation.phone_number = payload.delivery_phone_number || [];
+          validation.courier_name = payload.courier_name || [];
           break;
         default:
           console.log(error.value.data);
@@ -189,10 +191,18 @@
                     We only accept pick-up service. Please choose your desired pickup courier so we are aware.
                   </p>
 
-                  <div class="form-floating mb-4">
-                    <input v-model="courier_name" type="text" class="form-control" placeholder="Grab, Lalamove" aria-label="Email">
+                  <div class="form-floating mb-4" :class="{ 'is-invalid': validation.courier_name.length > 0 }">
+                    <input v-model="courier_name"
+                           type="text"
+                           class="form-control"
+                           :class="{ 'is-invalid': validation.courier_name.length > 0 }"
+                           placeholder="Grab, Lalamove"
+                           aria-label="Email">
                     <label class="form-label">Courier</label>
 
+                    <small v-for="error in validation.courier_name" class="invalid-feedback">
+                      {{ error }}
+                    </small>
                   </div>
 
                   <div class="form-floating">
