@@ -33,7 +33,9 @@ export default defineNuxtConfig({
       appUrl: process.env.APP_URL,
       apiBaseUrl: process.env.API_BASEURL,
       apiVersion: process.env.API_VERSION,
-      hCaptchaSiteKey: process.env.HCAPTCHA_SITE_KEY
+      hCaptchaSiteKey: process.env.HCAPTCHA_SITE_KEY,
+      tawkPropertyId: process.env.TAWK_PROPERTY_ID,
+      tawkWidgetId: process.env.TAWK_WIDGET_ID,
     }
   },
 
