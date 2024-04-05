@@ -28,6 +28,10 @@
   const removeAllItems = async () => {
     await cart.removeAllItems()
   }
+
+  const hasItems = computed(() => {
+    return cart._items && cart._items.length > 0;
+  })
 </script>
 
 <template>
@@ -42,7 +46,7 @@
               <h5 class="fw-bold mb-0">
                 Cart
               </h5>
-              <button class="btn btn-primary" @click="removeAllItems">Remove all</button>
+              <button v-if="hasItems" class="btn btn-primary" @click="removeAllItems">Remove all</button>
             </div>
 
             <hr />
@@ -53,7 +57,7 @@
             </div>
 
             <section v-if="!cart._is_loading">
-              <ul v-if="cart._items && cart._items.length > 0" class="cart-items mt-4">
+              <ul v-if="hasItems" class="cart-items mt-4">
 
                 <li v-for="item in cart._items" class="cart-item">
                   <img class="item-image" :src="item.product.thumbnail" alt="cart item" />
@@ -119,9 +123,13 @@
               <div>{{ formatPrice(cart._totalPrice) }}</div>
             </div>
 
-            <nuxt-link to="/checkout" class="btn btn-secondary d-block mt-4 w-100">
+            <nuxt-link v-if="hasItems" to="/checkout" class="btn btn-secondary d-block mt-4 w-100">
               Proceed to checkout
             </nuxt-link>
+
+            <button v-else class="btn btn-secondary d-block mt-4 w-100" disabled>
+              Proceed to checkout
+            </button>
           </div>
         </div>
       </div>

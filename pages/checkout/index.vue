@@ -90,6 +90,10 @@
       const payload = error.value.data.errors;
 
       switch (error.value.statusCode) {
+        case 406:
+          // Handle "empty cart
+          toast.error(error.value.data.message);
+          break;
         case 422:
           // Handle form validations;
           validation.first_name = payload.delivery_first_name || [];
