@@ -8,6 +8,11 @@
   import type { ApiResponse } from "~/types/ApiResponse";
   import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
 
+  // Ensure that the user is authenticated when they're "logged in"
+  definePageMeta({
+    middleware: ['authenticated']
+  })
+
   const { useToast } = Toast;
   const toast = useToast();
 

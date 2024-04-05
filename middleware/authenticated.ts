@@ -13,7 +13,9 @@ export default defineNuxtRouteMiddleware(async (to) => {
         isAuthenticated.value = false;
         customer.value = undefined;
 
-        return navigateTo('/')
+        if (to.name != 'checkout') {
+            return navigateTo('/')
+        }
     }
 
     // Update user info
