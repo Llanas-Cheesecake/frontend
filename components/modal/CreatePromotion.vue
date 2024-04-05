@@ -205,8 +205,14 @@
                   </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">
-                  Save changes
+                <button type="submit" :disabled="isSubmitting" class="btn btn-primary">
+                  <LoadingIcon v-if="isSubmitting" width="20" height="20" class="position-relative" style="top: -1px;" />
+                  <span v-if="!isSubmitting">
+                    Save changes
+                  </span>
+                  <span v-else>
+                    Saving...
+                  </span>
                 </button>
               </form>
             </div>
