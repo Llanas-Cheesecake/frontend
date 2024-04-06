@@ -33,7 +33,7 @@
   <section class="dashboard">
 
     <!-- Overview Cards -->
-    <div class="overview d-flex flex-wrap gap-4">
+    <div class="overview d-flex flex-wrap gap-4 mb-4">
       <div class="card p-2">
         <div class="card-body">
           <div class="d-flex align-items-center gap-3 mb-4">
