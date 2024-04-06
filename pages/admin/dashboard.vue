@@ -74,7 +74,7 @@
     <!-- END Overview Cards -->
 
     <!-- Weekly Revenue Chart -->
-    <AdminWeeklyRevenueChart class="my-4" />
+<!--    <AdminWeeklyRevenueChart class="my-4" />-->
     <!-- END Weekly Revenue Chart -->
 
     <!-- Recent Orders -->
