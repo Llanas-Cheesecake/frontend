@@ -58,7 +58,8 @@
     <div class="container">
 
       <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-        <img src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />
+        <LazyLogo />
+<!--        <img src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />-->
         <span class="text-white fw-bold">Llana's Cheesecake</span>
       </a>
 

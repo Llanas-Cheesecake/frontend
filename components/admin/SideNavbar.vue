@@ -11,7 +11,8 @@
 <template>
   <nav class="sidebar sticky-top d-print-none" :class="{ show: isSidebarOpen }">
     <div class="header">
-      <img class="logo" src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />
+      <LazyLogo></LazyLogo>
+<!--      <img class="logo" src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />-->
       <h5 class="fw-bold mb-0 d-none d-xl-block flex-fill" :class="{ 'd-xl-none': !isSidebarOpen }">
         Llana's Cheesecake
       </h5>

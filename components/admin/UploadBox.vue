@@ -1,7 +1,14 @@
 <script setup lang="ts">
-  const props = defineProps<{
-    errors: string[]
-  }>()
+  const props = withDefaults(defineProps<{
+    errors: string[],
+    allowedFileTypes?: any
+  }>(), {
+    allowedFileTypes: [
+      'image/jpeg',
+      'image/png',
+      'image/webp'
+    ],
+  })
 
   const emit = defineEmits<{
     (e: 'inputChanged'): void
@@ -64,7 +71,7 @@
 
     // Check if the file uploaded is an image
     if (!isFileTypeAllowed(file)) {
-      errorMessage.value = "The file uploaded is not an image. Only allowed file extensions are: jpeg, jpg, png, webp";
+      errorMessage.value = "The file uploaded is not allowed. Only allowed file extensions are: " + props.allowedFileTypes.join(', ');
 
       // Remove any files from the <input type="file" />
       fileInput.value!!.value = '';
@@ -84,13 +91,8 @@
   }
 
   const isFileTypeAllowed = (file: File): boolean => {
-    const allowedFileTypes = [
-      'image/jpeg',
-      'image/png',
-      'image/webp'
-    ];
 
-    return allowedFileTypes.includes(file.type);
+    return props.allowedFileTypes.includes(file.type);
   }
 </script>
 
