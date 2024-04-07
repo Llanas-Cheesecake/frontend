@@ -251,4 +251,11 @@
       margin: 0 auto;
     }
   }
+
+  @media (max-width: 575px) {
+    .auth-container .box {
+      padding: 0 1rem;
+      width: 100%;
+    }
+  }
 </style>

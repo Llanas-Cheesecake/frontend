@@ -107,7 +107,7 @@
 
   @media (max-width: 575px) {
     .card {
-      width: 100%;
+      width: auto;
     }
   }
 </style>
