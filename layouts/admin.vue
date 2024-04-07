@@ -20,6 +20,8 @@
     <div class="box">
       <slot />
     </div>
+
+    <ModalsContainer />
   </div>
 
   <div v-else class="admin-panel">

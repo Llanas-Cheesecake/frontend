@@ -1,5 +1,7 @@
 <script setup lang="ts">
   import { useAuthStore } from "~/store/auth";
+  import {ModalAdminForgetPassword} from "#components";
+  import {useModal} from "vue-final-modal";
 
   definePageMeta({
     layout: 'admin'
@@ -53,6 +55,15 @@
           isSubmitting.value = false
         })
   }
+
+  const forgetPasswordModal = useModal({
+    component: ModalAdminForgetPassword,
+    attrs: {
+      onCancel() {
+        forgetPasswordModal.close()
+      }
+    }
+  })
 </script>
 
 <template>
@@ -73,12 +84,16 @@
           <input v-model="form.email" type="email" class="form-control">
         </div>
 
-        <div class="mb-5">
+        <div class="mb-3">
           <label class="form-label">Password</label>
           <input v-model="form.password" type="password" class="form-control">
         </div>
 
-        <button type="submit" class="btn btn-primary d-block w-100" :disabled="isSubmitting">
+        <div class="helper" @click="forgetPasswordModal.open()">
+          Forgot password?
+        </div>
+
+        <button type="submit" class="btn btn-primary d-block w-100 mt-4" :disabled="isSubmitting">
           <span>Login</span>
           <LoadingIcon v-if="isSubmitting" class="ms-2" />
         </button>
@@ -102,6 +117,18 @@
       .logo {
         width: 50px;
       }
+    }
+
+    a {
+      color: rgba(0,0,0,0.8);
+    }
+  }
+
+  .helper {
+    display: inline-block;
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
     }
   }
 
