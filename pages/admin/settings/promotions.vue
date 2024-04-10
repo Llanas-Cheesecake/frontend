@@ -6,6 +6,7 @@
   import type { ApiResponse } from "~/types/ApiResponse";
 
   const promotions = ref<Promotion[]>([]);
+  const carouselKey = ref(1);
 
   // Fetch promotions
   const { data: result, error } = await useFetchAPI<ApiResponse>('/admin/settings/promotions', {
@@ -55,6 +56,10 @@
         });
 
         promotions.value[index] = promotion;
+
+        // Refresh Carousel component
+        // Fix for image not updating after edit
+        carouselKey.value += 1;
 
         editModal.close()
       },
@@ -109,7 +114,8 @@
 
     <div class="promotions" v-else>
       <div v-for="promotion in promotions" class="mb-5">
-        <LazyCarouselPanel :image="promotion.image"
+        <LazyCarouselPanel :key="carouselKey"
+                           :image="promotion.image"
                            :text="promotion.text"
                            :button_text="promotion.button_text"
                            :button_link="promotion.button_link"
