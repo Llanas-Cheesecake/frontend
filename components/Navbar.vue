@@ -57,11 +57,11 @@
     <!-- Logo and Action Links -->
     <div class="container">
 
-      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <nuxt-link to="/" class="navbar-brand d-flex align-items-center gap-2">
         <LazyLogo />
 <!--        <img src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />-->
         <span class="text-white fw-bold">Llana's Cheesecake</span>
-      </a>
+      </nuxt-link>
 
       <div class="ms-auto cursor-pointer d-block d-md-none" @click="toggleSidebar">
         <img v-show="!isSidebarOpen" src="/icons/menu.svg" alt="Menu Icon" />
