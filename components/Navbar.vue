@@ -266,8 +266,11 @@
       min-width: 15rem;
     }
 
-    .navbar-brand img {
-      width: 50px;
+    .navbar-brand {
+      z-index: 999;
+      img {
+        width: 50px;
+      }
     }
 
     .ms-auto .nav-item:last-child {
