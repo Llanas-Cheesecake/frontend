@@ -85,6 +85,11 @@
         promotions.value = promotions.value.filter((item) => {
           return item.id !== promotion_id
         })
+
+        // Refresh Carousel component
+        // Fix for image not updating after deletion
+        carouselKey.value += 1;
+
         deleteModal.close();
       },
       onCancel() {

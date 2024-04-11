@@ -51,9 +51,9 @@ const handleFormSubmit = async () => {
 
   const data = new FormData();
   data.append('_method', 'PATCH');
-  data.append('text', form.text);
-  data.append('button_text', form.buttonText);
-  data.append('button_link', form.buttonLink);
+  data.append('text', form.text || "");
+  data.append('button_text', form.buttonText || "");
+  data.append('button_link', form.buttonLink || "");
 
   if (form.image) {
     data.append('image', form.image as File);
