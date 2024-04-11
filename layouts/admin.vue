@@ -16,7 +16,7 @@
 </script>
 
 <template>
-  <div v-if="route.name === 'admin-login'" class="auth-container">
+  <div v-if="route.name === 'admin-login' || route.name ==='admin-reset-password'" class="auth-container">
     <div class="box">
       <slot />
     </div>
