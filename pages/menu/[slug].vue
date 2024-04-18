@@ -20,7 +20,7 @@
 
     <!-- Products -->
     <Suspense timeout="0">
-      <LazyProductList :sorted-by="sortedBy" />
+      <LazyProductList :key="sortedBy" :sorted-by="sortedBy" />
 
       <template #fallback>
         <SkeletonProductList />

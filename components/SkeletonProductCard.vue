@@ -26,7 +26,8 @@
     animation: pulse-bg 1s infinite;
     background-color: #ddd;
     border-radius: 8px;
-    height: 200px;
+    height: 100%;
+    min-height: 227px;
     width: 100%;
   }
   .skeleton--text {
