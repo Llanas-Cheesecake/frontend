@@ -7,6 +7,8 @@
 
   import type { ApiResponse } from "~/types/ApiResponse";
   import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
+  import {useModal} from "vue-final-modal";
+  import {ModalUnavailablePaymentMethod} from "#components";
 
   // Ensure that the user is authenticated when they're "logged in"
   definePageMeta({
@@ -16,7 +18,6 @@
   const { useToast } = Toast;
   const toast = useToast();
 
-  const { $auth } = useNuxtApp()
   const auth = useAuthStore();
   const cart = useCartStore();
 
@@ -26,6 +27,17 @@
 
   useHead({
     title: "Checkout"
+  })
+
+  const isEligiblePWD = ref(false);
+
+  const unavailablePaymentMethodModal = useModal({
+    component: ModalUnavailablePaymentMethod,
+    attrs: {
+      onCancel() {
+        unavailablePaymentMethodModal.close()
+      }
+    }
   })
 
   const email = ref( auth._customer?.email ? auth._customer.email : '' );
@@ -134,7 +146,7 @@
 
         <div class="col-md-12 col-lg-8">
 
-          <div class="card bg-primary p-2">
+          <div class="card p-2">
             <div class="card-body">
               <h5 class="fw-bold">Checkout</h5>
 
@@ -216,7 +228,39 @@
                   </div>
                 </section>
 
-                <section v-if="!$auth.isLoggedIn()">
+                <section class="mb-5">
+                  <h5 class="fw-bold">PWD/Senior Citizen</h5>
+                  <p class="mb-2">
+                    Under RA No. 9994 & RA No. 10754, you may be eligible for a 20% discount if you are a Person with Disability (PWD) or a Senior Citizen.
+                  </p>
+                  <p class="mb-3">
+                    To redeem this discount, you must submit documents verifying your eligibility. Any uploaded documents will be deleted right after verifying them
+                    in accordance with our <nuxt-link to="/privacy-policy">Privacy Policy</nuxt-link>.
+                  </p>
+
+                  <div class="alert alert-warning">
+                    <span class="fw-bold">Note:</span>
+                    The discount won't be applied immediately upon checkout.
+                    The discounted price will only be applied after we verified your documents and after that, we will refund the 20% to your chosen payment method
+                    within 3-5 business days.
+                  </div>
+
+                  <div class="form-check mb-4">
+                    <input v-model="isEligiblePWD" class="form-check-input" type="checkbox">
+                    <label class="form-check-label">
+                      I am a PWD / Senior Citizen
+                    </label>
+                  </div>
+
+                  <div v-if="isEligiblePWD">
+                    <label class="form-label">Upload documents here...</label>
+                    <input class="form-control" type="file" multiple>
+                  </div>
+
+
+                </section>
+
+                <section v-if="!auth._isAuthenticated">
                   <h5 class="fw-bold mb-4">Captcha</h5>
                   <vue-hcaptcha :sitekey="hCaptchaSiteKey" @verify="handleCaptchaVerify"></vue-hcaptcha>
                 </section>
@@ -246,6 +290,10 @@
                   </div>
                 </section>
 
+                <div v-if="isEligiblePWD" class="alert alert-warning my-3">
+                  PayMaya & GrabPay won't be available for this checkout. <span class="clickable" @click="unavailablePaymentMethodModal.open()">Learn more</span>
+                </div>
+
                 <button class="btn btn-primary d-block w-100 mt-4 mb-3" :disabled="isCheckingOut" @click="handleCheckout">
                   <LoadingIcon v-if="isCheckingOut" width="20" height="20" class="position-relative me-1" style="top: -1px;" />
                   <span>Checkout</span>
@@ -256,7 +304,7 @@
               </div>
             </div>
 
-            <div v-if="!$auth.isLoggedIn()" class="alert alert-info" role="alert">
+            <div v-if="!auth._isAuthenticated" class="alert alert-info" role="alert">
               You can easily access your order history when you have an account with us!
             </div>
           </section>
@@ -273,5 +321,42 @@
       position: relative;
       top: -1px;
     }
+  }
+
+  // Reset into default because of white background
+  .form-control, .form-select {
+    background-color: var(--bs-body-bg);
+    border: 1px solid color-mix(in srgb, var(--bg-secondary), #000 20%);
+    &:focus {
+      background-color: var(--bs-body-bg);
+      border: 1px solid color-mix(in srgb, var(--bg-primary), #000 60%);
+      box-shadow: none;
+      color: var(--bs-body-color);
+    }
+    &:disabled {
+      background-color: var(--bs-secondary-bg);
+      color: rgba(var(--bs-body-color-rgb), 0.65);
+
+      &~ label::after {
+        background: var(--bs-secondary-bg)!important;
+        color: #6c757d
+      }
+    }
+    color: var(--color-text-primary);
+  }
+
+  .input-group-text {
+    background: var(--bs-tertiary-bg);
+    border-color: color-mix(in srgb, var(--bg-secondary), #000 20%);
+  }
+
+  .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-select ~ label::after {
+    background-color: var(--bs-body-bg);
+  }
+
+  .clickable {
+    color: var(--color-link);
+    text-decoration: underline;
+    cursor: pointer;
   }
 </style>
