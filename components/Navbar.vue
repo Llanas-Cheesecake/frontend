@@ -90,8 +90,10 @@
           <!-- END Cart Dropdown -->
 
           <div v-if="$auth.isLoggedIn()" class="nav-item dropdown d-inline-block px-3">
-            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
-              <img src="/icons/user-white.svg" alt="User" />
+            <a class="btn btn-secondary" href="#" role="button" data-bs-toggle="dropdown">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="top: -2px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user position-relative">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+              </svg>
             </a>
             <ul class="dropdown-menu dropdown-menu-end mt-2">
               <li>
