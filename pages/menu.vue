@@ -7,7 +7,8 @@ definePageMeta({
   title: 'Menu',
   meta: [
     { name: 'description', content: `Llana's Cheesecake offers a wide variety of pastry` } // TODO: SEO Management
-  ]
+  ],
+  middleware: ['menu-redirect']
 });
 
 const route = useRoute();
