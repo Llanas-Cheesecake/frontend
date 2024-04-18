@@ -134,7 +134,7 @@
 
         <div class="col-md-12 col-lg-8">
 
-          <div class="card bg-primary text-white p-2">
+          <div class="card bg-primary p-2">
             <div class="card-body">
               <h5 class="fw-bold">Checkout</h5>
 

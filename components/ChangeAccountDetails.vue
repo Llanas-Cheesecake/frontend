@@ -82,44 +82,75 @@
 </script>
 
 <template>
-  <section class="card bg-primary text-white p-2 mt-4">
-    <div class="card-body">
-      <h5 class="fw-bold mb-4">Change Personal Information</h5>
+  <section class="p-2 mt-4">
+    <h5 class="fw-bold mb-4">Change Personal Information</h5>
 
-      <form @submit.prevent="handleFormSubmit()">
-        <div class="row">
-          <div class="col-md-12 col-lg mb-4">
-            <label class="form-label">First name</label>
-            <input v-model="first_name" 
-                   type="text" 
-                   class="form-control" 
+    <form @submit.prevent="handleFormSubmit()">
+      <div class="row">
+        <div class="col-md-12 col-lg mb-4">
+          <div class="form-floating">
+            <input v-model="first_name"
+                   type="text"
+                   class="form-control"
                    :class="{ 'is-invalid': validationErrors.first_name.length > 0 }"
-                   placeholder="First name" 
+                   placeholder="First name"
                    :disabled="isSubmitting">
+            <label class="form-label">First name</label>
+
 
             <small v-for="error in validationErrors.first_name" class="invalid-feedback">
               {{ error }}
             </small>
           </div>
-          <div class="col-md-12 col-lg mb-4">
-            <label class="form-label">Last name</label>
-            <input v-model="last_name" 
-                   type="text" 
-                   class="form-control" 
+        </div>
+        <div class="col-md-12 col-lg mb-4">
+          <div class="form-floating">
+            <input v-model="last_name"
+                   type="text"
+                   class="form-control"
                    :class="{ 'is-invalid': validationErrors.last_name.length > 0 }"
-                   placeholder="Last name" 
+                   placeholder="Last name"
                    :disabled="isSubmitting">
-            
+            <label class="form-label">Last name</label>
+
             <small v-for="error in validationErrors.last_name" class="invalid-feedback">
               {{ error }}
             </small>
           </div>
         </div>
+      </div>
 
-        <button type="submit" class="btn btn-secondary">
-          Submit changes
-        </button>
-      </form>
-    </div>
+      <button type="submit" class="btn btn-secondary">
+        Submit changes
+      </button>
+    </form>
   </section>
 </template>
+
+<style scoped lang="scss">
+// Reset into default because of white background
+.form-control, .form-select {
+  background-color: var(--bs-body-bg);
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  &:focus {
+    background-color: var(--bs-body-bg);
+    border: 1px solid color-mix(in srgb, var(--bg-primary), #000 60%);
+    box-shadow: none;
+    color: var(--bs-body-color);
+  }
+  &:disabled {
+    background-color: var(--bs-secondary-bg);
+    color: rgba(var(--bs-body-color-rgb), 0.65);
+
+    &~ label::after {
+      background: var(--bs-secondary-bg)!important;
+      color: #6c757d
+    }
+  }
+  color: var(--color-text-primary);
+}
+
+.form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-select ~ label::after {
+  background-color: var(--bs-body-bg);
+}
+</style>

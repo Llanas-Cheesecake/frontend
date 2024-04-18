@@ -28,7 +28,7 @@
 
 <template>
   <section>
-    <div class="card bg-primary text-white p-2">
+    <div class="card p-2">
       <div class="card-body">
         <h4 class="card-title fw-bold">Account Settings</h4>
         <hr />

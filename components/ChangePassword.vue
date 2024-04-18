@@ -71,64 +71,85 @@
 </script>
 
 <template>
-  <section class="card bg-primary text-white p-2 mt-5">
-    <div class="card-body">
-      <h5 class="fw-bold mb-4">Change Password</h5>
+  <section class="p-2 mt-5">
+    <h5 class="fw-bold mb-4">Change Password</h5>
 
-      <form @submit.prevent="changePassword">
-        <div class="mb-4">
-          <label class="form-label">Current password</label>
-          <input v-model="password.current"
-                 type="password"
-                 class="form-control"
-                 :class="{ 'is-invalid': validationErrors.current_password.length > 0 }"
-                 placeholder="Password"
-                 :disabled="isChangingPassword">
+    <form @submit.prevent="changePassword">
+      <div class="form-floating mb-4">
+        <input v-model="password.current"
+               type="password"
+               class="form-control"
+               :class="{ 'is-invalid': validationErrors.current_password.length > 0 }"
+               placeholder="Password"
+               :disabled="isChangingPassword">
+        <label class="form-label">Current password</label>
 
-          <div v-if="validationErrors.current_password.length > 0" class="invalid-feedback">
-            <div v-for="password in validationErrors.current_password">
-              {{ password }}
-            </div>
+        <div v-if="validationErrors.current_password.length > 0" class="invalid-feedback">
+          <div v-for="password in validationErrors.current_password">
+            {{ password }}
           </div>
-
         </div>
-        <div class="mb-4">
-          <label class="form-label">New password</label>
-          <input v-model="password.new_password"
-                 type="password"
-                 class="form-control"
-                 :class="{ 'is-invalid': validationErrors.new_password.length > 0 }"
-                 placeholder="New password"
-                 :disabled="isChangingPassword">
 
-          <div v-if="validationErrors.new_password.length > 0" class="invalid-feedback">
-            <div v-for="error in validationErrors.new_password">
-              {{ error }}
-            </div>
+      </div>
+      <div class="form-floating mb-4">
+        <input v-model="password.new_password"
+               type="password"
+               class="form-control"
+               :class="{ 'is-invalid': validationErrors.new_password.length > 0 }"
+               placeholder="New password"
+               :disabled="isChangingPassword">
+        <label class="form-label">New password</label>
+
+        <div v-if="validationErrors.new_password.length > 0" class="invalid-feedback">
+          <div v-for="error in validationErrors.new_password">
+            {{ error }}
           </div>
-
-        </div>
-        <div class="mb-4">
-          <label class="form-label">Confirm password</label>
-          <input v-model="password.confirm_password"
-                 type="password"
-                 class="form-control"
-                 :class="{ 'is-invalid': validationErrors.new_password.length > 0 }"
-                 placeholder="Confirm password"
-                 :disabled="isChangingPassword">
         </div>
 
-        <button type="submit" class="btn btn-secondary" :disabled="isChangingPassword">
-          <span>Change password</span>
-          <LoadingIcon v-if="isChangingPassword" class="ms-2" />
-        </button>
-      </form>
-    </div>
+      </div>
+      <div class="form-floating mb-4">
+        <input v-model="password.confirm_password"
+               type="password"
+               class="form-control"
+               :class="{ 'is-invalid': validationErrors.new_password.length > 0 }"
+               placeholder="Confirm password"
+               :disabled="isChangingPassword">
+        <label class="form-label">Confirm password</label>
+
+      </div>
+
+      <button type="submit" class="btn btn-secondary" :disabled="isChangingPassword">
+        <span>Change password</span>
+        <LoadingIcon v-if="isChangingPassword" class="ms-2" />
+      </button>
+    </form>
   </section>
 </template>
 
 <style scoped lang="scss">
-  .btn {
-    border-radius: 8px;
+// Reset into default because of white background
+.form-control, .form-select {
+  background-color: var(--bs-body-bg);
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  &:focus {
+    background-color: var(--bs-body-bg);
+    border: 1px solid color-mix(in srgb, var(--bg-primary), #000 60%);
+    box-shadow: none;
+    color: var(--bs-body-color);
   }
+  &:disabled {
+    background-color: var(--bs-secondary-bg);
+    color: rgba(var(--bs-body-color-rgb), 0.65);
+
+    &~ label::after {
+      background: var(--bs-secondary-bg)!important;
+      color: #6c757d
+    }
+  }
+  color: var(--color-text-primary);
+}
+
+.form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-select ~ label::after {
+  background-color: var(--bs-body-bg);
+}
 </style>

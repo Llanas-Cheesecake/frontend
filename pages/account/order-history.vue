@@ -27,13 +27,13 @@
 
 <template>
   <section>
-    <div class="card bg-primary text-white p-2">
+    <div class="card p-2">
       <div class="card-body">
         <h4 class="card-title">Order History</h4>
         <hr />
 
         <section v-if="!pending">
-          <div v-for="order in orders" class="order-item card bg-primary text-white">
+          <div v-for="order in orders" class="order-item card bg-primary">
 
             <div class="card-header p-3">
               <div class="order-info">

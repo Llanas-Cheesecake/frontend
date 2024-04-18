@@ -46,7 +46,7 @@ export default defineNuxtConfig({
     preload: true,
 
     families: {
-      Inter: [300, 400, 500, 600, 700]
+      Lato: [300, 400, 500, 600, 700]
     }
   },
 

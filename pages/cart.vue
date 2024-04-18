@@ -46,7 +46,7 @@
               <h5 class="fw-bold mb-0">
                 Cart
               </h5>
-              <button v-if="hasItems" class="btn btn-primary" @click="removeAllItems">Remove all</button>
+              <button v-if="hasItems" class="btn btn-secondary" @click="removeAllItems">Remove all</button>
             </div>
 
             <hr />
@@ -110,7 +110,7 @@
       </div>
 
       <div class="col-md-12 col-lg-3">
-        <div class="card bg-primary text-white p-2">
+        <div class="card bg-primary p-2">
           <div class="card-body">
             <h5 class="card-title">
               Summary
