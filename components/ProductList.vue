@@ -44,6 +44,10 @@
     <div v-for="product in products" class="col-sm-12 col-lg-4 mb-4">
       <ProductCard :product="product" />
     </div>
+
+    <h5 v-if="products.length === 0">
+      This category has no items listed yet. Check back later!
+    </h5>
   </div>
 </template>
 
