@@ -33,7 +33,7 @@
         <hr />
 
         <section v-if="!pending">
-          <div v-for="order in orders" class="order-item card bg-primary">
+          <div v-for="order in orders" class="order-item card">
 
             <div class="card-header p-3">
               <div class="order-info">
@@ -72,7 +72,9 @@
                   </div>
                   <div class="product-actions">
                     <nuxt-link :to="`/products/${item.product.slug}/review`" class="action" role="button" >
-                      <img src="/icons/edit-white.svg" alt="Remove item from cart"/>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="top: -1px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit position-relative">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                      </svg>
                       <span class="action-text ms-2 w-100 no-wrap">Write Review</span>
                     </nuxt-link>
                   </div>

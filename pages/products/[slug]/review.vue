@@ -92,125 +92,127 @@
 </script>
 
 <template>
-  <section class="card bg-primary text-white p-2 mx-auto my-5">
-    <div class="card-body">
+  <section class="d-flex justify-content-center align-items-center">
+    <div>
+      <nuxt-link to="/account/order-history" class="btn btn-primary mt-4 mt-md-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="top: -1px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left position-relative">
+          <line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span class="ms-2">Go back</span>
+      </nuxt-link>
 
-      <h5 class="fw-bold mb-4">Give Review</h5>
-
-      <!-- Product Card -->
-      <section class="card bg-primary text-white mb-4">
+      <div class="card bg-primary p-2 mx-auto mt-3 mb-4">
         <div class="card-body">
-          <div class="d-flex align-items-center gap-3">
-            <img class="product-image" :src="product.thumbnail" alt="product name" />
-            <div>
-              <h5 class="fw-bold mb-1">{{ product.name }}</h5>
-              <p class="mb-0">{{ product.description }}</p>
+          <h5 class="fw-bold mb-4">Give Review</h5>
+
+          <!-- Product Card -->
+          <section class="card mb-4">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3">
+                <img class="product-image" :src="product.thumbnail" alt="product name" />
+                <div>
+                  <h5 class="fw-bold mb-1">{{ product.name }}</h5>
+                  <p class="mb-0">{{ product.description }}</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <!-- END Product Card -->
+          </section>
+          <!-- END Product Card -->
 
-      <!-- Review Form -->
-      <section class="card bg-primary text-white">
-        <div class="card-body">
-
-          <div v-if="errorMessage.length > 0" class="alert alert-danger" role="alert">
-            <span class="fw-bold">Error:</span> {{ errorMessage }}
-          </div>
-
-          <div v-if="validation.rating.length > 0" class="alert alert-danger d-none d-md-block" role="alert">
-            <div v-for="error in validation.rating">
-              {{ error }}
+          <!-- Review Form -->
+          <section class="bg-primary">
+            <div v-if="errorMessage.length > 0" class="alert alert-danger" role="alert">
+              <span class="fw-bold">Error:</span> {{ errorMessage }}
             </div>
-          </div>
 
-          <div class="form-floating d-block d-md-none">
-            <select v-model="rating" class="form-select" :class="{ 'is-invalid': validation.rating.length > 0 }" id="ratingSelect" aria-label="Choose rating">
-              <option value="1">1 ⭐</option>
-              <option value="2">2 ⭐⭐</option>
-              <option value="3">3 ⭐⭐⭐</option>
-              <option value="3">4 ⭐⭐⭐⭐</option>
-              <option value="3">5 ⭐⭐⭐⭐⭐</option>
-            </select>
-            <label for="ratingSelect">Choose rating</label>
-
-            <small v-for="error in validation.rating" class="invalid-feedback">
-              {{ error }}
-            </small>
-          </div>
-
-          <div class="d-none d-md-flex align-items-center gap-3">
-            <div class="star-rating" :class="{ selected: rating === '1' }" @click="setRating('1')">
-              <img v-if="rating === '1'" src="/icons/star-black.svg" alt="star icon" />
-              <img v-else src="/icons/star-white.svg" alt="star icon" />
-              <p class="mb-0 mt-2">1</p>
+            <div v-if="validation.rating.length > 0" class="alert alert-danger d-none d-md-block" role="alert">
+              <div v-for="error in validation.rating">
+                {{ error }}
+              </div>
             </div>
-            <div class="star-rating" :class="{ selected: rating === '2' }" @click="setRating('2')">
-              <img v-if="rating === '2'" src="/icons/star-black.svg" alt="star icon" />
-              <img v-else src="/icons/star-white.svg" alt="star icon" />
-              <p class="mb-0 mt-2">2</p>
-            </div>
-            <div class="star-rating" :class="{ selected: rating === '3' }" @click="setRating('3')">
-              <img v-if="rating === '3'" src="/icons/star-black.svg" alt="star icon" />
-              <img v-else src="/icons/star-white.svg" alt="star icon" />
-              <p class="mb-0 mt-2">3</p>
-            </div>
-            <div class="star-rating" :class="{ selected: rating === '4' }" @click="setRating('4')">
-              <img v-if="rating === '4'" src="/icons/star-black.svg" alt="star icon" />
-              <img v-else src="/icons/star-white.svg" alt="star icon" />
-              <p class="mb-0 mt-2">4</p>
-            </div>
-            <div class="star-rating" :class="{ selected: rating === '5' }" @click="setRating('5')">
-              <img v-if="rating === '5'" src="/icons/star-black.svg" alt="star icon" />
-              <img v-else src="/icons/star-white.svg" alt="star icon" />
-              <p class="mb-0 mt-2">5</p>
-            </div>
-          </div>
 
-          <form @submit.prevent="handleSubmitReview">
+            <div class="form-floating d-block d-md-none">
+              <select v-model="rating" class="form-select" :class="{ 'is-invalid': validation.rating.length > 0 }" id="ratingSelect" aria-label="Choose rating">
+                <option value="1">1 ⭐</option>
+                <option value="2">2 ⭐⭐</option>
+                <option value="3">3 ⭐⭐⭐</option>
+                <option value="3">4 ⭐⭐⭐⭐</option>
+                <option value="3">5 ⭐⭐⭐⭐⭐</option>
+              </select>
+              <label for="ratingSelect">Choose rating</label>
 
-            <div class="form-floating my-4">
-              <input v-model="headline" type="text" class="form-control" :class="{ 'is-invalid': validation.headline.length > 0 }" placeholder="Brief title of your review" aria-label="Headline">
-              <label>Headline</label>
-
-              <small v-for="error in validation.headline" class="invalid-feedback">
+              <small v-for="error in validation.rating" class="invalid-feedback">
                 {{ error }}
               </small>
             </div>
 
-            <div class="form-floating mb-4">
-              <textarea v-model="review" class="form-control" :class="{ 'is-invalid': validation.review.length > 0 }" placeholder="Leave your review here" id="floatingTextarea2" style="height: 100px"></textarea>
-              <label for="floatingTextarea2">Review</label>
-
-              <small v-for="error in validation.review" class="invalid-feedback">
-                {{ error }}
-              </small>
+            <div class="d-none d-md-flex align-items-center gap-3">
+              <div class="star-rating" :class="{ selected: rating === '1' }" @click="setRating('1')">
+                <img v-if="rating === '1'" src="/icons/star-black.svg" alt="star icon" />
+                <img v-else src="/icons/star-white.svg" alt="star icon" />
+                <p class="mb-0 mt-2">1</p>
+              </div>
+              <div class="star-rating" :class="{ selected: rating === '2' }" @click="setRating('2')">
+                <img v-if="rating === '2'" src="/icons/star-black.svg" alt="star icon" />
+                <img v-else src="/icons/star-white.svg" alt="star icon" />
+                <p class="mb-0 mt-2">2</p>
+              </div>
+              <div class="star-rating" :class="{ selected: rating === '3' }" @click="setRating('3')">
+                <img v-if="rating === '3'" src="/icons/star-black.svg" alt="star icon" />
+                <img v-else src="/icons/star-white.svg" alt="star icon" />
+                <p class="mb-0 mt-2">3</p>
+              </div>
+              <div class="star-rating" :class="{ selected: rating === '4' }" @click="setRating('4')">
+                <img v-if="rating === '4'" src="/icons/star-black.svg" alt="star icon" />
+                <img v-else src="/icons/star-white.svg" alt="star icon" />
+                <p class="mb-0 mt-2">4</p>
+              </div>
+              <div class="star-rating" :class="{ selected: rating === '5' }" @click="setRating('5')">
+                <img v-if="rating === '5'" src="/icons/star-black.svg" alt="star icon" />
+                <img v-else src="/icons/star-white.svg" alt="star icon" />
+                <p class="mb-0 mt-2">5</p>
+              </div>
             </div>
 
-            <div class="form-check mb-4">
-              <input v-model="isNameHidden" class="form-check-input" type="checkbox" value="" id="hideName">
-              <label class="form-check-label" for="hideName">
-                Do not show my full name (e.g J**n D*e)
-              </label>
-            </div>
+            <form @submit.prevent="handleSubmitReview">
 
-            <div class="d-flex gap-3">
-              <nuxt-link :to="`/products/${slug}`" class="btn btn-primary d-block w-50" role="button">
-                Cancel
-              </nuxt-link>
-              <button type="submit" class="btn btn-secondary d-block w-50" :disabled="isSubmittingForm">
+              <div class="form-floating my-4">
+                <input v-model="headline" type="text" class="form-control" :class="{ 'is-invalid': validation.headline.length > 0 }" placeholder="Brief title of your review" aria-label="Headline">
+                <label>Headline</label>
+
+                <small v-for="error in validation.headline" class="invalid-feedback">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div class="form-floating mb-4">
+                <textarea v-model="review" class="form-control" :class="{ 'is-invalid': validation.review.length > 0 }" placeholder="Leave your review here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Review</label>
+
+                <small v-for="error in validation.review" class="invalid-feedback">
+                  {{ error }}
+                </small>
+              </div>
+
+              <div class="form-check mb-4">
+                <input v-model="isNameHidden" class="form-check-input" type="checkbox" value="" id="hideName">
+                <label class="form-check-label" for="hideName">
+                  Do not show my full name (e.g J**n D*e)
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-secondary d-block w-100" :disabled="isSubmittingForm">
                 <span>Submit review</span>
                 <LoadingIcon v-if="isSubmittingForm" color="white" class="ms-2 position-relative" style="top: -1px" />
               </button>
-            </div>
 
-          </form>
+            </form>
+
+          </section>
+          <!-- END Review Form -->
 
         </div>
-      </section>
-      <!-- END Review Form -->
-
+      </div>
     </div>
   </section>
 </template>

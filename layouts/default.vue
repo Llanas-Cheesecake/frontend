@@ -263,6 +263,7 @@
           background-color: color-mix(in srgb,var(--bg-primary), #000 10%);
           color: var(--color-text-primary);
           border-radius: 8px;
+          padding: 0.8rem !important;
           &.router-link-exact-active {
             background-color: color-mix(in srgb,var(--bg-primary), #000 20%);
             color: var(--color-text-secondary);
