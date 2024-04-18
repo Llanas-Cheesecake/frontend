@@ -19,8 +19,8 @@
 
 <style scoped lang="scss">
   section {
-    background-color: color-mix(in srgb,var(--bg-primary), #000 15%);
-    color: var(--color-text-primary);
+    background-color: color-mix(in srgb,var(--bg-primary), #000 10%);
+    color: var(--color-text-secondary);
     padding: 0.5rem 0;
   }
 

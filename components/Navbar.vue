@@ -44,7 +44,7 @@
           <nuxt-link to="/" class="nav-link">Home</nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link to="/menu/all" class="nav-link">Menu</nuxt-link>
+          <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
         </li>
         <li class="nav-item">
           <nuxt-link to="/about" class="nav-link">About</nuxt-link>
@@ -60,7 +60,7 @@
       <nuxt-link to="/" class="navbar-brand d-flex align-items-center gap-2">
         <LazyLogo />
 <!--        <img src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />-->
-        <span class="text-white fw-bold">Llana's Cheesecake</span>
+        <span>Llana's Cheesecake</span>
       </nuxt-link>
 
       <div class="ms-auto cursor-pointer d-block d-md-none" @click="toggleSidebar">
@@ -74,7 +74,7 @@
             <nuxt-link to="/" class="nav-link">Home</nuxt-link>
           </div>
           <div class="nav-item">
-            <nuxt-link to="/menu/all" class="nav-link">Menu</nuxt-link>
+            <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
           </div>
           <div class="nav-item">
             <nuxt-link to="/about" class="nav-link">About</nuxt-link>
@@ -131,7 +131,7 @@
           </div>
 
           <div v-else class="d-flex gap-2" style="z-index: 100;">
-            <nuxt-link to="/login" class="btn btn-primary ms-3">
+            <nuxt-link to="/login" class="btn btn-secondary ms-3">
               Login
             </nuxt-link>
             <nuxt-link to="/register" class="btn btn-secondary">
@@ -234,7 +234,7 @@
             <span>Home</span>
           </nuxt-link>
 
-          <nuxt-link class="nav-link" to="/menu/all">
+          <nuxt-link class="nav-link" to="/menu">
             <img src="/icons/tag.svg" width="20" height="20" alt="Home Icon"/>
             <span>Menu</span>
           </nuxt-link>
@@ -252,7 +252,7 @@
 
 <style scoped lang="scss">
   .navbar {
-    background-color: var(--bg-primary)!important;
+    background-color: var(--bg-secondary)!important;
     min-height: 76px;
 
     &.fixed {
@@ -295,13 +295,13 @@
       //}
       .nav-link {
         color: var(--color-text-primary)!important;
-        padding-left: 10px;
-        padding-right: 10px;
-        border-radius: 4px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-radius: 20px;
 
         &.router-link-active {
-          background-color: var(--color-text-primary);
-          color: var(--bg-primary)!important;
+          background-color: var(--btn-bg-primary);
+          color: var(--color-text-secondary)!important;
           font-weight: bold;
         }
 
@@ -374,6 +374,16 @@
       transform: translateX(-50%);
     }
 
+  }
+
+  @media (max-width: 767px) {
+    .navbar {
+      background-color: var(--bg-primary) !important;
+      .navbar-brand span {
+        color: var(--color-text-primary) !important;
+        font-weight: bold;
+      }
+    }
   }
 
   @media print, screen and (min-width: 768px) and (max-width: 991px) {

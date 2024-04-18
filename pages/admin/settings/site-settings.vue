@@ -15,7 +15,8 @@
   const settings = reactive({
     colorBgPrimary: '',
     colorBgSecondary: '',
-    colorText: '',
+    colorTextPrimary: '',
+    colorTextSecondary: '',
     colorTextLink: '',
     buttonPrimary: '',
     buttonSecondary: '',
@@ -31,7 +32,8 @@
   const validation = reactive({
     colorBgPrimary: [],
     colorBgSecondary: [],
-    colorText: [],
+    colorTextPrimary: [],
+    colorTextSecondary: [],
     colorTextLink: [],
     buttonPrimary: [],
     buttonSecondary: [],
@@ -51,7 +53,8 @@
     settings.colorBgPrimary = payload['color-bg-primary'];
     settings.colorBgSecondary = payload['color-bg-secondary'];
 
-    settings.colorText = payload['color-text'];
+    settings.colorTextPrimary = payload['color-text-primary'];
+    settings.colorTextSecondary = payload['color-text-secondary'];
     settings.colorTextLink = payload['color-text-link'];
 
     settings.buttonPrimary = payload['color-btn-primary'];
@@ -72,7 +75,8 @@
     form.append('_method', 'PATCH');
     form.append('colorBgPrimary', settings.colorBgPrimary);
     form.append('colorBgSecondary', settings.colorBgSecondary);
-    form.append('colorText', settings.colorText);
+    form.append('colorTextPrimary', settings.colorTextPrimary);
+    form.append('colorTextSecondary', settings.colorTextSecondary);
     form.append('colorTextLink', settings.colorTextLink);
     form.append('colorBtnPrimary', settings.buttonPrimary);
     form.append('colorBtnSecondary', settings.buttonSecondary);
@@ -105,7 +109,8 @@
         case 422:
           validation.colorBgPrimary = payload.colorBgPrimary || [];
           validation.colorBgSecondary = payload.colorBgSecondary || [];
-          validation.colorText = payload.colorText || [];
+          validation.colorTextPrimary = payload.colorTextPrimary || [];
+          validation.colorTextSecondary = payload.colorTextSecondary || [];
           validation.colorTextLink = payload.colorTextLink || [];
           validation.buttonPrimary = payload.colorBtnPrimary || [];
           validation.buttonSecondary = payload.colorBtnSecondary || [];
@@ -236,22 +241,39 @@
 
         <h5 class="mb-4">Text colors</h5>
 
-        <div class="d-flex flex-column flex-sm-row flex-50 gap-3 mb-4">
+        <div class="d-flex flex-column flex-sm-row flex-wrap flex-50 gap-3 mb-4">
           <div class="form-floating position-relative">
-            <input v-model="settings.colorText"
+            <input v-model="settings.colorTextPrimary"
                    type="text"
                    class="form-control"
                    placeholder="#fffff"
-                   :class="{ 'is-invalid': validation.colorText.length > 0 }"
-                   @change="validation.colorText.length = 0">
-            <label>Color</label>
-            <small v-for="error in validation.colorText" class="invalid-feedback">
+                   :class="{ 'is-invalid': validation.colorTextPrimary.length > 0 }"
+                   @change="validation.colorTextPrimary.length = 0">
+            <label>Primary Color</label>
+            <small v-for="error in validation.colorTextPrimary" class="invalid-feedback">
               {{ error }}
             </small>
 
-            <div v-if="settings.colorText.length > 0"
+            <div v-if="settings.colorTextPrimary.length > 0"
                  class="color-preview"
-                 :style="{ backgroundColor: settings.colorText }" />
+                 :style="{ backgroundColor: settings.colorTextPrimary }" />
+          </div>
+
+          <div class="form-floating position-relative">
+            <input v-model="settings.colorTextSecondary"
+                   type="text"
+                   class="form-control"
+                   placeholder="#fffff"
+                   :class="{ 'is-invalid': validation.colorTextSecondary.length > 0 }"
+                   @change="validation.colorTextSecondary.length = 0">
+            <label>Secondary Color</label>
+            <small v-for="error in validation.colorTextSecondary" class="invalid-feedback">
+              {{ error }}
+            </small>
+
+            <div v-if="settings.colorTextSecondary.length > 0"
+                 class="color-preview"
+                 :style="{ backgroundColor: settings.colorTextSecondary }" />
           </div>
 
           <div class="form-floating position-relative">

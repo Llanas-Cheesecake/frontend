@@ -60,7 +60,7 @@
       <div class="price">
         &#8369;<span>{{ product.price }}</span>
       </div>
-      <button v-if="showActions" class="btn btn-primary" :disabled="isAddingToCart || isOutOfStock" @click="addToCart">
+      <button v-if="showActions" class="btn btn-secondary" :disabled="isAddingToCart || isOutOfStock" @click="addToCart">
         <span>Add</span>
         <LoadingIcon v-if="isAddingToCart" color="black" class="ms-2" />
       </button>

@@ -43,7 +43,7 @@ onMounted(() => {
     <Teleport to="#offcanvas-section">
       <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-body">
-          <div class="sidebar bg-primary">
+          <div class="sidebar">
             <ul class="nav flex-column">
               <li class="nav-item" data-bs-dismiss="offcanvas">
                 <nuxt-link to="/menu/all" class="nav-link">All items</nuxt-link>
@@ -63,7 +63,7 @@ onMounted(() => {
       <div class="row">
         <div class="d-none d-md-block col-md-4 col-lg-3">
 
-          <div class="sidebar bg-primary p-3">
+          <div class="sidebar p-3">
             <h5>Categories</h5>
             <ul class="nav flex-column">
               <li class="nav-item">
@@ -97,6 +97,6 @@ onMounted(() => {
 .custom-order-card {
   background-color: var(--bg-primary);
   border-radius: 8px;
-  color: white;
+  color: var(--color-text-primary);
 }
 </style>

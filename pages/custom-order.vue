@@ -238,7 +238,6 @@
 <style scoped lang="scss">
 .card{
   background-color: var(--bg-primary);
-  color: white;
   width: 100%;
   max-width: 640px;
 }

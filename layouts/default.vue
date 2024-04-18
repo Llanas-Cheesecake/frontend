@@ -18,7 +18,8 @@
 
   const colorBgPrimary = ref('#77A042');
   const colorBgSecondary = ref('#f2ffda');
-  const colorText = ref('');
+  const colorTextPrimary = ref('');
+  const colorTextSecondary = ref('');
   const colorTextLink = ref('');
   const colorButtonPrimary = ref('');
   const colorButtonSecondary = ref('');
@@ -34,7 +35,8 @@
 
     colorBgPrimary.value = payload['color-bg-primary'];
     colorBgSecondary.value = payload['color-bg-secondary'];
-    colorText.value = payload['color-text'];
+    colorTextPrimary.value = payload['color-text-primary'];
+    colorTextSecondary.value = payload['color-text-secondary'];
     colorTextLink.value = payload['color-text-link'];
     colorButtonPrimary.value = payload['color-btn-primary'];
     colorButtonSecondary.value = payload['color-btn-secondary'];
@@ -45,7 +47,8 @@
   const changeRootColor = (
       bgPrimary: string,
       bgSecondary: string,
-      colorText: string,
+      colorTextPrimary: string,
+      colorTextSecondary: string,
       colorLink: string,
       buttonPrimary: string,
       buttonSecondary: string,
@@ -55,7 +58,8 @@
     document.documentElement.style.setProperty('--bg-primary', bgPrimary);
     document.documentElement.style.setProperty('--bg-secondary', bgSecondary);
 
-    document.documentElement.style.setProperty('--color-text-primary', colorText);
+    document.documentElement.style.setProperty('--color-text-primary', colorTextPrimary);
+    document.documentElement.style.setProperty('--color-text-secondary', colorTextSecondary);
     document.documentElement.style.setProperty('--color-link', colorLink);
 
     document.documentElement.style.setProperty('--btn-bg-primary', buttonPrimary);
@@ -72,7 +76,8 @@
       changeRootColor(
           colorBgPrimary.value,
           colorBgSecondary.value,
-          colorText.value,
+          colorTextPrimary.value,
+          colorTextSecondary.value,
           colorTextLink.value,
           colorButtonPrimary.value,
           colorButtonSecondary.value,
@@ -121,6 +126,7 @@
     --bg-secondary: #FFF;
 
     --color-text-primary: #FFFFFF;
+    --color-text-secondary: #FFFFFF;
     --color-text-disabled: color-mix(in srgb,var(--color-text-primary), #000 15%);
 
     --color-link: #e5ffb4;
@@ -185,6 +191,10 @@
         background-color: color-mix(in srgb,var(--btn-bg-secondary), #000 60%);
       }
     }
+    &:disabled {
+      cursor: not-allowed;
+      pointer-events: all!important;
+    }
   }
 
   .form-control, .form-select {
@@ -240,6 +250,7 @@
   }
 
   .sidebar {
+    background-color: var(--btn-bg-primary);
     border-radius: 8px;
     h5 {
       color: var(--color-text-primary);
@@ -249,11 +260,12 @@
     .nav {
       .nav-item {
         .nav-link {
-          background-color: color-mix(in srgb,var(--bg-primary), #000 15%);
+          background-color: color-mix(in srgb,var(--bg-primary), #000 10%);
           color: var(--color-text-primary);
           border-radius: 8px;
           &.router-link-exact-active {
-            background-color: color-mix(in srgb,var(--bg-primary), #000 25%);
+            background-color: color-mix(in srgb,var(--bg-primary), #000 20%);
+            color: var(--color-text-secondary);
           }
         }
         margin-bottom: 1rem;

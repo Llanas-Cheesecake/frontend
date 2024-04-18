@@ -168,13 +168,13 @@
 
         <div class="product-actions d-flex flex-wrap align-items-center justify-content-between w-100">
           <div class="product-quantity-controls">
-            <button class="btn btn-primary quantity-btn" :disabled="isOutOfStock" @click="decrementQuantity">
+            <button class="btn btn-secondary quantity-btn" :disabled="isOutOfStock" @click="decrementQuantity">
               <img src="/icons/minus-white.svg" alt="decrement quantity" />
             </button>
             <div class="quantity-count">
               {{ quantity }}
             </div>
-            <button class="btn btn-primary quantity-btn" :disabled="isOutOfStock" @click="incrementQuantity">
+            <button class="btn btn-secondary quantity-btn" :disabled="isOutOfStock" @click="incrementQuantity">
               <img src="/icons/plus-white.svg" alt="increment quantity" />
             </button>
             <small v-if="isOutOfStock" class="badge text-bg-danger">
@@ -191,7 +191,7 @@
 
             <!-- Add to wishlist button -->
             <button v-show="!product.is_wishlisted"
-                    class="btn btn-primary"
+                    class="btn btn-secondary"
                     :disabled="isHandlingWishlist"
                     @click="addToWishlist">
 
@@ -208,7 +208,7 @@
 
             <!-- Remove from wishlist button -->
             <button v-show="product.is_wishlisted"
-                    class="btn btn-primary"
+                    class="btn btn-secondary"
                     :disabled="isHandlingWishlist"
                     @click="removeFromWishlist">
 
@@ -223,7 +223,7 @@
             </button>
             <!-- Remove from wishlist button -->
 
-<!--            <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Share product">-->
+<!--            <button class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Share product">-->
 <!--              <img src="/icons/share.svg" alt="Share product" />-->
 <!--              <span class="visually-hidden">Share product</span>-->
 <!--            </button>-->
@@ -240,7 +240,7 @@
       </div>
 
       <div v-if="product.ratings?.length === 0" class="col-md-12 col-lg-6">
-        <div class="card bg-primary text-white">
+        <div class="card">
           <div class="card-body">
             No reviews found for this product.
           </div>

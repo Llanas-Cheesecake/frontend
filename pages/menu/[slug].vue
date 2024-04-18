@@ -32,5 +32,12 @@
 </template>
 
 <style scoped lang="scss">
-
+  .form-select {
+    background: white;
+    border: 1px solid var(--bs-border-color-translucent);
+    color: var(--color-text-primary);
+    &:focus, &:active {
+      background: white;
+    }
+  }
 </style>

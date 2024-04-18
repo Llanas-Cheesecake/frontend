@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <section class="card bg-primary text-white p-2">
+  <section class="card p-2">
     <div class="card-body">
 
       <div class="d-flex align-items-center gap-3">
@@ -22,7 +22,7 @@
         </div>
         <div>
           <client-only>
-            <vue3-star-ratings v-model="props.rating.rating" star-size="24" disable-click />
+            <vue3-star-ratings v-model="props.rating.rating" :star-size="24" disable-click />
           </client-only>
         </div>
       </div>
