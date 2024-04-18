@@ -82,39 +82,41 @@
 </script>
 
 <template>
-  <div class="card p-3 shadow">
-    <div class="card-body">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="card shadow p-3 my-4">
+      <div class="card-body">
 
-      <img class="logo d-block mx-auto mb-3" src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo">
+        <img class="logo d-block mb-3" src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo">
 
-      <h3 class="card-title text-center fw-bold mb-4">
-        Forget Password
-      </h3>
+        <h3 class="card-title fw-bold mb-5">
+          Forget Password
+        </h3>
 
-      <div v-if="error.length > 0" class="alert alert-danger my-4" role="alert">
-        {{ error }}
-      </div>
-
-      <form class="mt-4" @submit.prevent="handleForm">
-        <div class="mb-4">
-          <label class="form-label">Email address</label>
-          <input v-model="email" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.email.length > 0 }">
-
-          <div v-if="validationErrors.email" class="invalid-feedback">
-            <div v-for="email in validationErrors.email">
-              {{ email }}
-            </div>
-          </div>
+        <div v-if="error.length > 0" class="alert alert-danger my-4" role="alert">
+          {{ error }}
         </div>
 
-        <vue-hcaptcha :sitekey="hCaptchaSiteKey" @verify="handleCaptchaVerify"></vue-hcaptcha>
+        <form class="mt-4" @submit.prevent="handleForm">
+          <div class="form-floating mb-4">
+            <input v-model="email" type="text" class="form-control" placeholder="Email address" :class="{ 'is-invalid': validationErrors.email.length > 0 }">
+            <label class="form-label">Email address</label>
 
-        <button type="submit" class="btn btn-primary d-block w-100 mt-3" :disabled="isLoading">
-          <span>Submit</span>
-          <LoadingIcon v-if="isLoading" class="ms-2" />
-        </button>
-      </form>
+            <div v-if="validationErrors.email" class="invalid-feedback">
+              <div v-for="email in validationErrors.email">
+                {{ email }}
+              </div>
+            </div>
+          </div>
 
+          <vue-hcaptcha :sitekey="hCaptchaSiteKey" @verify="handleCaptchaVerify"></vue-hcaptcha>
+
+          <button type="submit" class="btn btn-secondary d-block w-100 mt-3" :disabled="isLoading">
+            <span>Submit</span>
+            <LoadingIcon v-if="isLoading" class="ms-2" />
+          </button>
+        </form>
+
+      </div>
     </div>
   </div>
 </template>

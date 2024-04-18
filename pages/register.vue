@@ -95,82 +95,94 @@
 </script>
 
 <template>
-  <div class="card p-3 shadow">
-    <div class="card-body">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="card shadow my-4 p-3">
+      <div class="card-body">
 
-      <img class="logo d-block mx-auto mb-3" src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo">
+        <img class="logo d-block mb-3" src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo">
 
-      <h3 class="card-title text-center fw-bold mb-4">
-        Sign Up
-      </h3>
+        <h3 class="card-title fw-bold mb-5">
+          Sign Up
+        </h3>
 
-      <div v-if="error.length > 0" class="alert alert-danger my-4" role="alert">
-        {{ error }}
+        <div v-if="error.length > 0" class="alert alert-danger my-4" role="alert">
+          {{ error }}
+        </div>
+
+        <form class="mt-4" @submit.prevent="handleForm">
+
+          <div class="row mb-4">
+            <div class="col-12 col-md-6 mb-3 mb-md-0">
+              <div class="form-floating">
+                <input v-model="form.first_name" type="text" class="form-control" placeholder="First name" :class="{ 'is-invalid': validationErrors.first_name.length > 0 }">
+                <label class="form-label">First Name</label>
+
+                <div v-if="validationErrors.first_name" class="invalid-feedback">
+                  <div v-for="firstName in validationErrors.first_name">
+                    {{ firstName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-floating">
+                <input v-model="form.last_name" type="text" class="form-control" placeholder="Last name" :class="{ 'is-invalid': validationErrors.last_name.length > 0 }">
+                <label class="form-label">Last Name</label>
+
+                <div v-if="validationErrors.last_name" class="invalid-feedback">
+                  <div v-for="lastName in validationErrors.last_name">
+                    {{ lastName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row gap-3 mb-4">
+            <div class="col">
+              <div class="form-floating">
+                <input v-model="form.email" type="email" class="form-control" placeholder="Email address" :class="{ 'is-invalid': validationErrors.email.length > 0 }">
+                <label class="form-label">Email address</label>
+
+                <div v-if="validationErrors.email" class="invalid-feedback">
+                  <div v-for="email in validationErrors.email">
+                    {{ email }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-floating">
+                <input v-model="form.password" type="password" class="form-control" placeholder="Password" :class="{ 'is-invalid': validationErrors.password.length > 0 }">
+                <label class="form-label">Password</label>
+
+                <div v-if="validationErrors.password" class="invalid-feedback">
+                  <div v-for="password in validationErrors.password">
+                    {{ password }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-floating">
+                <input v-model="form.c_password" type="password" class="form-control" placeholder="Confirm Password" :class="{ 'is-invalid': validationErrors.password.length > 0 }">
+                <label class="form-label">Confirm Password</label>
+              </div>
+            </div>
+          </div>
+
+          <vue-hcaptcha :sitekey="hCaptchaSiteKey" @verify="handleCaptchaVerify"></vue-hcaptcha>
+
+          <button type="submit" class="btn btn-secondary d-block w-100 mt-4" :disabled="isLoading">
+            <span>Sign Up</span>
+            <LoadingIcon v-if="isLoading" class="ms-2" />
+          </button>
+        </form>
+
       </div>
-
-      <form class="mt-4" @submit.prevent="handleForm">
-
-        <div class="row mb-4">
-          <div class="col-12 col-md-6 mb-3 mb-md-0">
-            <label class="form-label">First Name</label>
-            <input v-model="form.first_name" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.first_name.length > 0 }">
-
-            <div v-if="validationErrors.first_name" class="invalid-feedback">
-              <div v-for="firstName in validationErrors.first_name">
-                {{ firstName }}
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <label class="form-label">Last Name</label>
-            <input v-model="form.last_name" type="text" class="form-control" :class="{ 'is-invalid': validationErrors.last_name.length > 0 }">
-
-            <div v-if="validationErrors.last_name" class="invalid-feedback">
-              <div v-for="lastName in validationErrors.last_name">
-                {{ lastName }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row gap-3 mb-4">
-          <div class="col">
-            <label class="form-label">Email address</label>
-            <input v-model="form.email" type="email" class="form-control" :class="{ 'is-invalid': validationErrors.email.length > 0 }">
-
-            <div v-if="validationErrors.email" class="invalid-feedback">
-              <div v-for="email in validationErrors.email">
-                {{ email }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row mb-4">
-          <div class="col">
-            <label class="form-label">Password</label>
-            <input v-model="form.password" type="password" class="form-control" :class="{ 'is-invalid': validationErrors.password.length > 0 }">
-
-            <div v-if="validationErrors.password" class="invalid-feedback">
-              <div v-for="password in validationErrors.password">
-                {{ password }}
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <label class="form-label">Confirm Password</label>
-            <input v-model="form.c_password" type="password" class="form-control" :class="{ 'is-invalid': validationErrors.password.length > 0 }">
-          </div>
-        </div>
-
-        <vue-hcaptcha :sitekey="hCaptchaSiteKey" @verify="handleCaptchaVerify"></vue-hcaptcha>
-
-        <button type="submit" class="btn btn-primary d-block w-100 mt-4" :disabled="isLoading">
-          <span>Sign Up</span>
-          <LoadingIcon v-if="isLoading" class="ms-2" />
-        </button>
-      </form>
-
     </div>
   </div>
 </template>
@@ -181,23 +193,12 @@
     border-radius: 8px;
     color: var(--color-text-primary);
 
-    margin: 4rem auto;
+    width: 100%;
     max-width: 600px;
   }
 
   .logo {
-    width: 60px;
-    height: 60px;
-  }
-
-  @media (max-height: 775px) {
-    .card {
-      max-width: 600px;
-      position: initial;
-      top: initial;
-      left: initial;
-      transform: initial;
-      margin: 2rem auto;
-    }
+    width: 50px;
+    height: 50px;
   }
 </style>

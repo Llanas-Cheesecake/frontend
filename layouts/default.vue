@@ -107,7 +107,7 @@
     <section id="offcanvas-section"></section>
     <!-- END Alt navbar -->
 
-    <section class="main-content container position-relative">
+    <section class="d-grid main-content container position-relative">
       <slot />
     </section>
 

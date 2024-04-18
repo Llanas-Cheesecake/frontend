@@ -28,48 +28,50 @@
 </script>
 
 <template>
-  <div class="card p-3 shadow">
-    <div class="card-body position-relative">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="card p-3 shadow">
+      <div class="card-body position-relative">
 
-      <section v-if="pending" class="centered both w-auto">
-        <div class="d-flex align-items-center">
-          <LoadingIcon />
+        <section v-if="pending" class="centered both w-auto">
+          <div class="d-flex align-items-center">
+            <LoadingIcon />
 
-          <span class="ms-2">Validating</span>
-        </div>
-      </section>
+            <span class="ms-2">Validating</span>
+          </div>
+        </section>
 
-      <section v-if="status === 'success'" class="centered">
-        <img class="logo d-block mx-auto mb-3" src="/icons/check-circle.svg" alt="Circled checked icon">
+        <section v-if="status === 'success'" class="centered">
+          <img class="logo d-block mx-auto mb-3" src="/icons/check-circle.svg" alt="Circled checked icon">
 
-        <h3 class="card-title text-center fw-bold mb-4">
-          Account Verified
-        </h3>
+          <h3 class="card-title text-center fw-bold mb-4">
+            Account Verified
+          </h3>
 
-        <p class="text-center mb-5">You may now login to your account</p>
+          <p class="text-center mb-5">You may now login to your account</p>
 
-        <nuxt-link to="/login" class="btn btn-primary d-block mx-auto">
-          Login
-        </nuxt-link>
-      </section>
+          <nuxt-link to="/login" class="btn btn-primary d-block mx-auto">
+            Login
+          </nuxt-link>
+        </section>
 
-      <section v-if="status === 'error'" class="centered">
-        <img class="logo d-block mx-auto mb-3" src="/icons/x-circle.svg" alt="Circled checked icon">
+        <section v-if="status === 'error'" class="centered">
+          <img class="logo d-block mx-auto mb-3" src="/icons/x-circle.svg" alt="Circled checked icon">
 
-        <h3 class="card-title text-center fw-bold mb-4">
-          {{ errorMessage }}
-        </h3>
+          <h3 class="card-title text-center fw-bold mb-4">
+            {{ errorMessage }}
+          </h3>
 
-        <p class="text-center mb-5">
-          Your link might be invalid or expired. Try requesting for a new one by logging in
-        </p>
+          <p class="text-center mb-5">
+            Your link might be invalid or expired. Try requesting for a new one by logging in
+          </p>
 
-        <nuxt-link to="/" class="btn btn-primary d-block mx-auto">
-          Go Home
-        </nuxt-link>
-      </section>
+          <nuxt-link to="/" class="btn btn-secondary d-block mx-auto">
+            Go Home
+          </nuxt-link>
+        </section>
 
 
+      </div>
     </div>
   </div>
 </template>
@@ -84,11 +86,6 @@
     width: 100%;
     max-width: 500px;
     min-height: 400px;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
     //margin: 4rem auto;
 
@@ -110,15 +107,5 @@
   .logo {
     width: 60px;
     height: 60px;
-  }
-
-  @media (max-width: 576px) {
-    .card {
-      position: initial!important;
-      top: initial!important;
-      left: initial!important;
-      transform: initial!important;
-      margin: 4rem auto;
-    }
   }
 </style>
