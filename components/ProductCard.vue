@@ -35,9 +35,9 @@
     <nuxt-link :to="`/products/${product.slug}`" class="card-body">
       <div class="product-image rounded shadow-sm mb-3" :style="{ 'background-image': `url(${product.thumbnail})` }" />
       <section>
-        <h5 class="card-title mb-1">
+        <h4 class="card-title text-heading fw-bold mb-1">
           {{ product.name }}
-        </h5>
+        </h4>
 
         <div class="d-flex align-items-center gap-2 mb-3">
           <p class="fw-bold mb-0">

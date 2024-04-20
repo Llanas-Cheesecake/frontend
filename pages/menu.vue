@@ -64,7 +64,7 @@ onMounted(() => {
         <div class="d-none d-md-block col-md-4 col-lg-3">
 
           <div class="sidebar p-3">
-            <h5>Categories</h5>
+            <h3 class="text-heading">Categories</h3>
             <ul class="nav flex-column">
               <li class="nav-item">
                 <nuxt-link to="/menu/all" class="nav-link">All items</nuxt-link>

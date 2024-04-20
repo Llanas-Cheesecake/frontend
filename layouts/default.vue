@@ -186,12 +186,22 @@
     background-color: var(--bg-secondary)!important;
   }
 
+  .text-heading {
+    font-family: "Cormorant", serif;
+  }
+
   .text-primary {
     color: var(--color-text-primary)!important;
   }
 
   .text-subtle {
     color: color-mix(in srgb,var(--color-text-primary), #000 10%);
+  }
+
+  .card {
+    .card-title {
+      font-family: "Cormorant", serif;
+    }
   }
 
   .btn {
@@ -272,7 +282,7 @@
   .sidebar {
     background-color: var(--btn-bg-primary);
     border-radius: 8px;
-    h5 {
+    .text-heading {
       color: var(--color-text-primary);
       margin-bottom: 1rem;
       font-weight: bold;

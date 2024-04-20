@@ -148,7 +148,7 @@
 
       <div class="product-info bg-primary position-relative">
         <div class="d-flex align-items-center justify-content-between mb-1">
-          <h3 class="product-name">{{ product.name }}</h3>
+          <h2 class="product-name text-heading">{{ product.name }}</h2>
           <div class="product-price">
             &#8369;<span>{{ product.price }}</span>
           </div>
@@ -232,7 +232,7 @@
       </div>
     </div>
 
-    <h3 class="mt-5 mb-4">Reviews</h3>
+    <h2 class="text-heading fw-bold mt-5 mb-4">Reviews</h2>
 
     <section class="product-reviews mb-5 row">
       <div v-for="rating in product.ratings" class="col-md-12 col-lg-6">
@@ -283,8 +283,9 @@
     }
 
     .product-price {
-      background-color: var(--btn-bg-primary);
+      background-color: var(--btn-bg-secondary);
       border-radius: 8px;
+      color: var(--color-text-secondary);
       font-weight: bold;
       font-size: 1.2em;
       padding: 0.3rem 0.5rem;

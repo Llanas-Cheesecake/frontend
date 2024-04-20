@@ -101,9 +101,9 @@
 
         <img class="logo d-block mb-3" src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo">
 
-        <h3 class="card-title fw-bold mb-5">
+        <h2 class="card-title fw-bold mb-5">
           Sign Up
-        </h3>
+        </h2>
 
         <div v-if="error.length > 0" class="alert alert-danger my-4" role="alert">
           {{ error }}

@@ -268,10 +268,6 @@
 
       background-color: var(--bg-primary) !important;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.03);
-      .navbar-brand span {
-        color: var(--color-text-primary) !important;
-        font-weight: bold;
-      }
 
       .nav-item .nav-link.router-link-active {
         background-color: var(--btn-bg-secondary)!important;
@@ -286,6 +282,13 @@
       z-index: 999;
       img {
         width: 50px;
+      }
+      span {
+        color: var(--color-text-primary) !important;
+        font-family: "Cormorant", serif;
+        font-weight: bold;
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
       }
     }
 
