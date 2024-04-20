@@ -56,6 +56,14 @@
             <span class="ms-2">Promotions</span>
           </nuxt-link>
         </li>
+        <li class="nav-item">
+          <nuxt-link to="/admin/settings/account" class="nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" style="top: -2px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user position-relative">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span class="ms-2">Account Settings</span>
+          </nuxt-link>
+        </li>
       </ul>
 
     </div>
@@ -81,6 +89,14 @@
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline>
                 </svg>
                 <span class="ms-2">Promotions</span>
+              </nuxt-link>
+            </li>
+            <li class="nav-item">
+              <nuxt-link to="/admin/settings/account" class="nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" style="top: -2px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user position-relative">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="ms-2">Account Settings</span>
               </nuxt-link>
             </li>
           </ul>

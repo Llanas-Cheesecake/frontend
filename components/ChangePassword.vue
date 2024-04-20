@@ -7,6 +7,13 @@
   const { useToast } = Toast;
   const toast = useToast();
 
+  const props = withDefaults(defineProps<{
+    endpoint: string
+    resetStyle?: boolean
+  }>(), {
+    resetStyle: true
+  })
+
   const isChangingPassword = ref(false);
 
   const password = reactive({
@@ -38,7 +45,7 @@
     // Reset validation errors
     resetErrors()
 
-    await useFetchAPI<ApiResponse>('/account/change-password', {
+    await useFetchAPI<ApiResponse>(props.endpoint, {
       method: "PUT",
       server: false,
       body: {
@@ -71,9 +78,7 @@
 </script>
 
 <template>
-  <section class="p-2 mt-5">
-    <h5 class="fw-bold mb-4">Change Password</h5>
-
+  <section class="reset">
     <form @submit.prevent="changePassword">
       <div class="form-floating mb-4">
         <input v-model="password.current"

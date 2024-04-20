@@ -314,21 +314,19 @@
       </div>
 
       <div>
-        <div class="form-floating">
-          <div class="form-floating mb-3">
-            <input v-model="settings.email"
-                   type="text"
-                   class="form-control mb-2"
-                   :class="{ 'is-invalid': validation.email.length > 0 }"
-                   :disabled="isSubmitting"
-                   placeholder=""
-            >
-            <label class="form-label">Email</label>
+        <div class="form-floating mb-3">
+          <input v-model="settings.email"
+                 type="text"
+                 class="form-control mb-2"
+                 :class="{ 'is-invalid': validation.email.length > 0 }"
+                 :disabled="isSubmitting"
+                 placeholder=""
+          >
+          <label class="form-label">Email</label>
 
-            <small v-for="error in validation.email" class="invalid-feedback">
-              {{ error }}
-            </small>
-          </div>
+          <small v-for="error in validation.email" class="invalid-feedback">
+            {{ error }}
+          </small>
         </div>
       </div>
 

@@ -35,7 +35,11 @@
 
         <ChangeAccountDetails :first_name="customer.first_name" :last_name="customer.last_name" />
 
-        <ChangePassword />
+        <div class="p-2 mt-4">
+          <h5 class="fw-bold mb-4">Change Password</h5>
+
+          <ChangePassword endpoint="/account/change-password" />
+        </div>
 
       </div>
     </div>
