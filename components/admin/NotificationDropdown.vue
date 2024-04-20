@@ -1,8 +1,14 @@
 <script setup lang="ts">
-  import {useEventSource} from "@vueuse/core";
+  // @ts-ignore
+  import * as Toast from "vue-toastification/dist/index.mjs";
+  import { useEventSource } from "@vueuse/core";
 
-  import type {Notification} from "~/types/Notification";
-  import type {ApiResponse} from "~/types/ApiResponse";
+
+  import type { Notification } from "~/types/Notification";
+  import type { ApiResponse } from "~/types/ApiResponse";
+
+  const { useToast } = Toast;
+  const toast = useToast();
 
   const config = useRuntimeConfig();
   const apiBaseUrl = config.public.apiBaseUrl;
@@ -19,7 +25,32 @@
   }
 
   if (error.value) {
-    // Handle errors
+    console.error("Something went wrong while fetching notifications");
+    console.debug(error.value);
+
+    toast.error("Something went wrong while fetching notifications");
+  }
+
+  const unreadNotifications = computed(() => {
+    return notifications.value.filter((i) => i.is_unread).length
+  });
+
+  const markNotificationAsRead = async (id: number) => {
+    const { data: results, error } = await useFetchAPI<ApiResponse>(`/admin/notifications/${id}/read`, {
+      method: "PATCH"
+    });
+
+    if (results.value) {
+      const notification = notifications.value.find((i) => i.id === id);
+
+      if (notification) {
+        notification.is_unread = false;
+      }
+    }
+
+    if (error.value) {
+      console.error("Failed to mark notification as read.");
+    }
   }
 
   onMounted(async () => {
@@ -31,11 +62,12 @@
         if (message) {
           const parsedMessage: Notification = JSON.parse(message);
           notifications.value.push(parsedMessage);
+
+          // Toast notification
+          toast.info(parsedMessage.content);
         }
       });
     }
-
-
   })
 </script>
 
@@ -45,8 +77,8 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="top: -1px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell position-relative">
         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
       </svg>
-      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-        1
+      <span v-if="unreadNotifications > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{ unreadNotifications }}
         <span class="visually-hidden">unread messages</span>
       </span>
     </button>
@@ -62,10 +94,12 @@
       <li><hr class="dropdown-divider m-0"></li>
       <li v-for="notification in notifications" class="w-100">
         <section class="d-flex align-items-center position-relative">
-          <div class="w-100 px-3 py-3">
-            <p class="fw-bold mb-0">{{ notification.content }}</p>
+          <nuxt-link :to="notification.link" class="notification" @click="markNotificationAsRead(notification.id)">
+            <p class="mb-0" :class="{ 'fw-bold': notification.is_unread }">
+              {{ notification.content }}
+            </p>
             <nuxt-time class="text-subtle" :datetime="notification.created_at" month="short" day="2-digit" year="numeric" hour="numeric" minute="numeric"></nuxt-time>
-          </div>
+          </nuxt-link>
           <span v-if="notification.is_unread" class="unread"></span>
         </section>
       </li>
@@ -86,6 +120,15 @@
         border-radius: 100%;
         right: 1rem;
         top: 1.5rem;
+      }
+      .notification {
+        width: 100%;
+        padding: 1rem;
+        color: inherit;
+        text-decoration: none;
+        &:hover {
+          background-color: rgba(0,0,0,0.03);
+        }
       }
     }
   }

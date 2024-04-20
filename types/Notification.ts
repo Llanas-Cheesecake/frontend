@@ -1,5 +1,5 @@
 export interface Notification {
-  id: string
+  id: number
   content: string
   link?: string
   is_unread: boolean
