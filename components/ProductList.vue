@@ -1,6 +1,8 @@
 <script setup lang="ts">
-  import type {Product} from "~/types/Product";
-  import type {ApiResponse} from "~/types/ApiResponse";
+  // @ts-ignore
+  import { Bootstrap5Pagination } from 'laravel-vue-pagination';
+  import type { Product } from "~/types/Product";
+  import type { ApiResponse } from "~/types/ApiResponse";
 
   const props = defineProps<{
     sortedBy: string
@@ -9,29 +11,35 @@
   const route = useRoute();
   const selectedCategory = route.params.slug;
 
-  const products = reactive<Product[]>([]);
+  const products = ref<Product[]>([]);
+  const pagination = ref<any>({});
 
   watch(() => props.sortedBy, async () => {
-    products.length = 0;
+    products.value.length = 0;
     await fetchMenu();
   });
 
-  const fetchMenu = async () => {
+  const fetchMenu = async (page = 1) => {
     // Default endpoint when there is no selected category
-    let fullApiRoute = `/products${ props.sortedBy ? `?sortedBy=${ props.sortedBy }` : '' }`;
+    let fullApiRoute = `/products?page=${page}${ props.sortedBy ? `&sortedBy=${ props.sortedBy }` : '' }`;
 
     // If a category is selected, encode the selected category
     if (selectedCategory !== "all") {
-      const encodedURI = encodeURI(`/products?category=${selectedCategory}`)
+      const encodedURI = encodeURI(`/products?page=${page}&category=${selectedCategory}`)
       fullApiRoute = props.sortedBy ? `${ encodedURI }&sortedBy=${ props.sortedBy }` : encodedURI;
     }
 
     const { data: result } = await useFetchAPI<ApiResponse>(fullApiRoute, { method: "GET" })
 
     if (result.value) {
-      result.value.data.map((item: Product) => {
-        products.push(item)
-      })
+      const payload = result.value.data
+
+      // Store them in variables
+      products.value = [ ...payload.data ];
+      pagination.value = payload;
+
+      // Delete unnecessary data from pagination
+      delete pagination.value.data;
     }
   }
 
@@ -49,6 +57,14 @@
       This category has no items listed yet. Check back later!
     </h5>
   </div>
+
+  <client-only>
+    <Bootstrap5Pagination
+        class="mt-4 mb-0"
+        :data="pagination"
+        @pagination-change-page="fetchMenu"
+    />
+  </client-only>
 </template>
 
 <style scoped lang="scss">
