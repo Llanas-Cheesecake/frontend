@@ -7,10 +7,6 @@
   const toast = useToast();
 
   const isSubmitting = ref(false);
-  const isChangingLogo = ref(false);
-
-  // Used for resetting upload preview
-  const originalLogoUrl = ref('');
 
   const settings = reactive({
     colorBgPrimary: '',
@@ -23,9 +19,6 @@
     buttonTextPrimary: '',
     buttonTextSecondary: '',
     email: '',
-    logo: '', // Logo returned from the backend
-
-    uploadedLogo: [] as File[] // Logo uploaded to frontend for submission
   });
 
   // Validation messages
@@ -40,7 +33,6 @@
     buttonTextPrimary: [],
     buttonTextSecondary: [],
     email: [],
-    logo: []
   })
 
   const { data: result, error } = await useFetchAPI<ApiResponse>('/admin/settings/site', {
@@ -62,9 +54,6 @@
     settings.buttonTextPrimary = payload['color-btn-text-primary'];
     settings.buttonTextSecondary = payload['color-btn-text-secondary'];
     settings.email = payload['email'] || '';
-
-    settings.logo = payload['logo'] || '';
-    originalLogoUrl.value = payload['logo'] || '';
   }
 
   // Handle form
@@ -83,10 +72,6 @@
     form.append('colorBtnTextPrimary', settings.buttonTextPrimary);
     form.append('colorBtnTextSecondary', settings.buttonTextSecondary);
     form.append('email', settings.email);
-
-    if (settings.uploadedLogo.length > 0) {
-      form.append('logo', settings.uploadedLogo[0]);
-    }
 
     const { data: result, error } = await useFetchAPI<ApiResponse>('/admin/settings/site', {
       method: "POST",
@@ -117,29 +102,11 @@
           validation.buttonTextPrimary = payload.colorBtnTextPrimary || [];
           validation.buttonTextSecondary = payload.colorBtnTextSecondary || [];
           validation.email = payload.email || [];
-          validation.logo = payload.logo || [];
           break;
         default:
           toast.error("Something went wrong while handling your request");
       }
     }
-  }
-
-  const handleImageUpload = (files: FileList) => {
-    // Create fake url for image preview
-    settings.logo = URL.createObjectURL(files[0]);
-
-    // Push the file into the form
-    settings.uploadedLogo = [files[0]];
-
-    isChangingLogo.value = false;
-  }
-
-  const handleResetPreview = () => {
-    settings.logo = originalLogoUrl.value;
-    settings.uploadedLogo = []
-
-    isChangingLogo.value = false;
   }
 </script>
 
@@ -154,40 +121,6 @@
         <LoadingIcon v-if="isSubmitting" color="white" width="20" height="20" class="position-relative me-2" style="top: -1px" />
         <span>Save Changes</span>
       </button>
-    </div>
-
-    <div class="d-flex flex-column flex-lg-row gap-0 gap-lg-5 flex-50 mb-5">
-
-      <div>
-        <h5 class="fw-bold">
-          Site Logo
-        </h5>
-        <p class="mb-3">
-          Your website's image and branding
-        </p>
-      </div>
-
-      <div>
-        <div v-if="!isChangingLogo">
-          <img :src="settings.logo" class="img-thumbnail d-block mb-4" alt="Site logo" width="100" height="100" />
-
-          <button type="button" class="btn btn-secondary" @click="isChangingLogo = !isChangingLogo">
-            Change logo
-          </button>
-        </div>
-
-        <div v-else>
-          <LazyAdminUploadBox :errors="validation.logo"
-                              :allowed-file-types="['image/png']"
-                              @input-changed="validation.logo = []"
-                              @image-uploaded="handleImageUpload" />
-
-          <button class="btn btn-secondary mt-4" @click="handleResetPreview">
-            Cancel
-          </button>
-        </div>
-      </div>
-
     </div>
 
     <div class="d-flex flex-column flex-lg-row gap-0 flex-50 gap-lg-5">
