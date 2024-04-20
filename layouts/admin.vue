@@ -249,7 +249,8 @@
 
   @media (min-width: 1400px) {
     .admin-content {
-      width: 1400px;
+      width: 100%;
+      max-width: 1400px;
       margin: 0 auto;
     }
   }
