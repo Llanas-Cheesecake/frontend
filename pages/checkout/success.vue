@@ -80,7 +80,7 @@
     </nuxt-link>
 
     <div class="row">
-      <div class="col-md-12 col-lg-8">
+      <div class="col-md-12 col-lg-8 order-2 order-md-1">
         <div class="card bg-primary text-primary p-2 mb-4">
           <div class="card-body">
 
@@ -92,8 +92,8 @@
               </div>
             </div>
 
-            <div class="d-flex gap-3 mb-4">
-              <div class="panel w-50">
+            <div class="d-flex flex-column flex-md-row gap-3 mb-4">
+              <div class="panel w-100 w-md-50">
                 <h5 class="mb-4">
                   Contact Information
                 </h5>
@@ -109,7 +109,7 @@
 
               </div>
 
-              <div class="panel w-50">
+              <div class="panel w-100 w-md-50">
                 <h5 class="mb-4">
                   Order Details
                 </h5>
@@ -137,7 +137,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12 col-lg-4">
+      <div class="col-md-12 col-lg-4 order-1 order-md-2">
 
         <div class="card p-2 mb-3">
           <div class="card-body">
