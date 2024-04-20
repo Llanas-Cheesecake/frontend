@@ -32,14 +32,11 @@
     const { data: result } = await useFetchAPI<ApiResponse>(fullApiRoute, { method: "GET" })
 
     if (result.value) {
-      const payload = result.value.data
+      const payload = result.value.data;
 
       // Store them in variables
       products.value = [ ...payload.data ];
       pagination.value = payload;
-
-      // Delete unnecessary data from pagination
-      delete pagination.value.data;
     }
   }
 
