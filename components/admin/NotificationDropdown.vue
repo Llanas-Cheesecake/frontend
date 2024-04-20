@@ -55,7 +55,7 @@
 
   onMounted(async () => {
     if (process.client) {
-      const { data, error } = useEventSource(`${apiBaseUrl}/notifications/live`, []);
+      const { data, error, close } = useEventSource(`${apiBaseUrl}/notifications/live`, []);
 
       // Listen for events
       watch(data, (message) => {
@@ -66,6 +66,20 @@
           // Toast notification
           toast.info(parsedMessage.content);
         }
+      });
+
+      // Handle errors
+      watch(error, (newError) => {
+        if (newError) {
+          console.error("An error occurred while listening for notifications", newError);
+          toast.error("An error occurred while listening for notifications. Try reloading the page.");
+
+          close(); // Close the connection to prevent memory leaks
+        }
+      })
+
+      window.addEventListener("beforeunload", () => {
+        close();
       });
     }
   })
