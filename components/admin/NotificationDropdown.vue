@@ -4,6 +4,9 @@
   import type {Notification} from "~/types/Notification";
   import type {ApiResponse} from "~/types/ApiResponse";
 
+  const config = useRuntimeConfig();
+  const apiBaseUrl = config.public.apiBaseUrl;
+
   // Fetch recent notifications
   const notifications = ref<Notification[]>([]);
 
@@ -21,7 +24,7 @@
 
   onMounted(async () => {
     if (process.client) {
-      const { data, error } = useEventSource('http://localhost:8000/notifications/live', []);
+      const { data, error } = useEventSource(`${apiBaseUrl}/notifications/live`, []);
 
       // Listen for events
       watch(data, (message) => {
