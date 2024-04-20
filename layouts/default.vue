@@ -16,6 +16,10 @@
   const { $bootstrap } = useNuxtApp()
   const cart = useCartStore();
 
+  // Intersection observer
+  const intersection = ref();
+  const isNavbarSticking = ref(false)
+
   const colorBgPrimary = ref('#77A042');
   const colorBgSecondary = ref('#f2ffda');
   const colorTextPrimary = ref('');
@@ -73,6 +77,7 @@
   // Apply tooltips
   onMounted(() => {
     if (process.client) {
+      // Theme System
       changeRootColor(
           colorBgPrimary.value,
           colorBgSecondary.value,
@@ -85,6 +90,17 @@
           colorButtonTextSecondary.value
       );
 
+      // Detect scroll to stick the navbar
+      const observer = new IntersectionObserver(
+          ([entry]) => {
+            isNavbarSticking.value = !entry.isIntersecting;
+          },
+          { threshold: 0.0 }
+      )
+
+      observer.observe(intersection.value)
+
+      // Initialize bootstrap tooltips
       window.onload = () => {
         const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         // @ts-ignore
@@ -100,14 +116,18 @@
 
 <template>
   <div class="main-layout">
-    <Navbar />
+    <Navbar :is-sticking="isNavbarSticking" />
 
     <!-- Alt navbar -->
-    <section id="alt-nav"></section>
+    <section id="alt-nav" :class="{ 'sticky': isNavbarSticking }"></section>
     <section id="offcanvas-section"></section>
     <!-- END Alt navbar -->
 
-    <section class="d-grid main-content container position-relative">
+    <!-- Detect if user has scrolled -->
+    <div ref="intersection" />
+    <!-- END -->
+
+    <section class="d-grid main-content container position-relative" :style="{ 'margin-top': isNavbarSticking ? '76px' : 0 }">
       <slot />
     </section>
 
@@ -285,6 +305,13 @@
 
   #offcanvas-section .offcanvas-backdrop.show {
     opacity: 0!important;
+  }
+
+  .sticky {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    top: 76px;
   }
 
   .sticky-top {

@@ -1,6 +1,10 @@
 <script setup lang="ts">
   import { useAuthStore } from "~/store/auth";
 
+  const props = defineProps<{
+    isSticking: boolean
+  }>()
+
   const auth = useAuthStore();
   const route = useRoute();
 
@@ -33,7 +37,7 @@
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" :class="{ 'fixed': isSidebarOpen }">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" :class="{ 'fixed': isSidebarOpen || props.isSticking }">
 
     <!-- Centered Links -->
     <div class="nav-links d-none d-md-block">
@@ -261,6 +265,17 @@
       width: 100%;
       z-index: 999;
       top: 0;
+
+      background-color: var(--bg-primary) !important;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.03);
+      .navbar-brand span {
+        color: var(--color-text-primary) !important;
+        font-weight: bold;
+      }
+
+      .nav-item .nav-link.router-link-active {
+        background-color: var(--btn-bg-secondary)!important;
+      }
     }
 
     .dropdown-menu {
@@ -318,7 +333,7 @@
       width: 100%;
       height: calc(100vh - 76px);
       background-color: var(--bg-primary);
-      z-index: 99;
+      z-index: 1000;
       right: 100%;
       transition: 0.2s;
       touch-action: none;
