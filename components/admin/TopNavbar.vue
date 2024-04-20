@@ -56,12 +56,15 @@
           <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </div>
-      <client-only>
+      <ClientOnly>
         <p class="mb-0 flex-fill text-truncate">
           {{ currentPage }}
         </p>
-      </client-only>
+      </ClientOnly>
       <div class="user-actions">
+        <ClientOnly>
+          <LazyAdminNotificationDropdown />
+        </ClientOnly>
         <div class="dropdown">
           <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{ auth._administrator.full_name }}
@@ -85,5 +88,10 @@
 <style scoped lang="scss">
   .card {
     border-radius: 12px;
+  }
+  .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
   }
 </style>
