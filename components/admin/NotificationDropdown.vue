@@ -31,6 +31,10 @@
     toast.error("Something went wrong while fetching notifications");
   }
 
+  const sortedNotifications = computed(() => {
+    return notifications.value.sort((a, b) => -a.created_at.localeCompare(b.created_at))
+  })
+
   const unreadNotifications = computed(() => {
     return notifications.value.filter((i) => i.is_unread).length
   });
@@ -106,7 +110,7 @@
         </div>
       </li>
       <li><hr class="dropdown-divider m-0"></li>
-      <li v-for="notification in notifications" class="w-100">
+      <li v-for="notification in sortedNotifications" class="w-100">
         <section class="d-flex align-items-center position-relative">
           <nuxt-link :to="notification.link" class="notification" @click="markNotificationAsRead(notification.id)">
             <p class="mb-0" :class="{ 'fw-bold': notification.is_unread }">
