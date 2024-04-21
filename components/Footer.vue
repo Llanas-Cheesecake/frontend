@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <footer>
+  <footer class="mt-5">
     <div class="container">
       <div class="row g-5">
         <div class="col-sm-12 col-md-4">
@@ -88,7 +88,7 @@
 
       <hr class="mt-5" />
 
-      <div class="p-3">
+      <div class="py-3">
         <p class="font_white">&copy; {{ currentYear }} Copyright; Llana's Cheesecake</p>
       </div>
     </div>
