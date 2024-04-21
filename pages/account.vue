@@ -71,7 +71,9 @@
         <div class="d-none d-md-block col-md-4 col-lg-3">
 
           <div class="sidebar bg-primary p-3">
-            <h5>Settings</h5>
+            <h3 class="text-heading fw-bold">
+              Settings
+            </h3>
             <ul class="nav flex-column">
               <li class="nav-item">
                 <nuxt-link to="/account/general" class="nav-link d-flex align-items-center gap-2">
