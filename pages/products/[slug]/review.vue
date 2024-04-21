@@ -69,7 +69,7 @@
     if (error.value) {
       switch (error.value.statusCode) {
         case 403:
-          errorMessage.value = "It seems that you don't own this product.";
+          errorMessage.value = "You're not authorized to do this. Either you haven't bought this item or made a review already";
           break;
         case 422:
           const errors = error.value.data.errors;
