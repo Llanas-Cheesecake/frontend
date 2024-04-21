@@ -235,7 +235,7 @@
     <h2 class="text-heading fw-bold mt-5 mb-4">Reviews</h2>
 
     <section class="product-reviews mb-5 row">
-      <div v-for="rating in product.ratings" class="col-md-12 col-lg-6">
+      <div v-for="rating in product.ratings" class="col-md-12 col-lg-6 mb-4">
         <ProductRating :rating="rating" />
       </div>
 
