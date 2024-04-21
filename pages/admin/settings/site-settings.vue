@@ -130,17 +130,17 @@
         </h5>
         <p class="mb-3">Personalize your store with your selected colors</p>
         <div class="alert alert-info">
-          Hex code is required. You may get colors through <a href="https://colors.muz.li/" target="_blank">here</a>
+          Click the tabs to change the colors of your site.
         </div>
       </div>
 
       <div>
-        <h5 class="mb-4">Background colors</h5>
+        <h5 class="mb-4">Background Colors</h5>
 
         <div class="d-flex flex-column flex-sm-row flex-50 gap-3 mb-4">
           <div class="form-floating position-relative">
             <input v-model="settings.colorBgPrimary"
-                   type="text"
+                   type="color"
                    class="form-control"
                    :class="{ 'is-invalid': validation.colorBgPrimary.length > 0 }"
                    placeholder="#fffff" @change="validation.colorBgPrimary.length = 0">
@@ -149,14 +149,11 @@
               {{ error }}
             </small>
 
-            <div v-if="settings.colorBgPrimary.length > 0"
-                 class="color-preview"
-                 :style="{ backgroundColor: settings.colorBgPrimary }" />
           </div>
 
           <div class="form-floating position-relative">
             <input v-model="settings.colorBgSecondary"
-                   type="text"
+                   type="color"
                    class="form-control"
                    placeholder="#fffff"
                    :class="{ 'is-invalid': validation.colorBgSecondary.length > 0 }"
@@ -166,9 +163,6 @@
               {{ error }}
             </small>
 
-            <div v-if="settings.colorBgSecondary.length > 0"
-                 class="color-preview"
-                 :style="{ backgroundColor: settings.colorBgSecondary }" />
           </div>
         </div>
 
@@ -177,8 +171,8 @@
         <div class="d-flex flex-column flex-sm-row flex-wrap flex-50 gap-3 mb-4">
           <div class="form-floating position-relative">
             <input v-model="settings.colorTextPrimary"
-                   type="text"
-                   class="form-control"
+                   type="color"
+                   class="form-control mt-1"
                    placeholder="#fffff"
                    :class="{ 'is-invalid': validation.colorTextPrimary.length > 0 }"
                    @change="validation.colorTextPrimary.length = 0">
@@ -187,15 +181,12 @@
               {{ error }}
             </small>
 
-            <div v-if="settings.colorTextPrimary.length > 0"
-                 class="color-preview"
-                 :style="{ backgroundColor: settings.colorTextPrimary }" />
           </div>
 
           <div class="form-floating position-relative">
             <input v-model="settings.colorTextSecondary"
-                   type="text"
-                   class="form-control"
+                   type="color"
+                   class="form-control mt-1"
                    placeholder="#fffff"
                    :class="{ 'is-invalid': validation.colorTextSecondary.length > 0 }"
                    @change="validation.colorTextSecondary.length = 0">
@@ -204,14 +195,11 @@
               {{ error }}
             </small>
 
-            <div v-if="settings.colorTextSecondary.length > 0"
-                 class="color-preview"
-                 :style="{ backgroundColor: settings.colorTextSecondary }" />
           </div>
 
           <div class="form-floating position-relative">
             <input v-model="settings.colorTextLink"
-                   type="text"
+                   type="color"
                    class="form-control"
                    placeholder="#fffff"
                    :class="{ 'is-invalid': validation.colorTextLink.length > 0 }"
@@ -221,9 +209,7 @@
               {{ error }}
             </small>
 
-            <div v-if="settings.colorTextLink.length > 0"
-                 class="color-preview"
-                 :style="{ backgroundColor: settings.colorTextLink }" />
+
           </div>
         </div>
 
@@ -232,8 +218,8 @@
         <div class="d-flex flex-column flex-sm-row flex-wrap flex-50 gap-3 mb-4">
           <div class="form-floating position-relative">
             <input v-model="settings.buttonPrimary"
-                   type="text"
-                   class="form-control"
+                   type="color"
+                   class="form-control mt-1"
                    placeholder="#fffff"
                    :class="{ 'is-invalid': validation.buttonPrimary.length > 0 }"
                    @change="validation.buttonPrimary.length = 0">
@@ -242,15 +228,12 @@
               {{ error }}
             </small>
 
-            <div v-if="settings.buttonPrimary.length > 0"
-                 class="color-preview"
-                 :style="{ backgroundColor: settings.buttonPrimary }" />
           </div>
 
           <div class="form-floating position-relative">
             <input v-model="settings.buttonSecondary"
-                   type="text"
-                   class="form-control"
+                   type="color"
+                   class="form-control mt-1"
                    placeholder="#fffff"
                    :class="{ 'is-invalid': validation.buttonSecondary.length > 0 }"
                    @change="validation.buttonSecondary.length = 0">
@@ -259,14 +242,11 @@
               {{ error }}
             </small>
 
-            <div v-if="settings.buttonSecondary.length > 0"
-                 class="color-preview"
-                 :style="{ backgroundColor: settings.buttonSecondary }" />
           </div>
 
           <div class="form-floating position-relative">
             <input v-model="settings.buttonTextPrimary"
-                   type="text"
+                   type="color"
                    class="form-control"
                    placeholder="#fffff"
                    :class="{ 'is-invalid': validation.buttonTextPrimary.length > 0 }"
@@ -276,14 +256,11 @@
               {{ error }}
             </small>
 
-            <div v-if="settings.buttonTextPrimary.length > 0"
-                 class="color-preview"
-                 :style="{ backgroundColor: settings.buttonTextPrimary }" />
           </div>
 
           <div class="form-floating position-relative">
             <input v-model="settings.buttonTextSecondary"
-                   type="text"
+                   type="color"
                    class="form-control"
                    placeholder="#fffff"
                    :class="{ 'is-invalid': validation.buttonTextSecondary.length > 0 }"
@@ -293,9 +270,7 @@
               {{ error }}
             </small>
 
-            <div v-if="settings.buttonTextSecondary.length > 0"
-                 class="color-preview"
-                 :style="{ backgroundColor: settings.buttonTextSecondary }" />
+
           </div>
         </div>
 
@@ -347,4 +322,5 @@
   .flex-50 > div {
     flex: 1 1 calc(50% - 1rem);
   }
+
 </style>
