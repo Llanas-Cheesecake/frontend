@@ -49,6 +49,10 @@
           </span>
         </div>
 
+        <p class="text-truncate mb-3">
+          {{ product.description }}
+        </p>
+
         <client-only>
           <vue-3-star-ratings v-model="product.average_ratings" inactive-color="#8a8a8a" star-size="16" disable-click />
         </client-only>
