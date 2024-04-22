@@ -42,6 +42,8 @@ export interface OrderDelivery {
     customer_name: string
     email: string
     phone_number: string
+    pickup_type: string
+    pickup_datetime: string
     courier_name: string
     additional_info: string
     status: string

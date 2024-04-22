@@ -30,6 +30,8 @@
       customer_name: '',
       email: '',
       phone_number: '',
+      pickup_type: '',
+      pickup_datetime: '',
       courier_name: '',
       additional_info: '',
       status: ''
@@ -113,6 +115,21 @@
                 <h5 class="mb-4">
                   Order Details
                 </h5>
+                <p class="mb-1 fw-bold">Pickup Type:</p>
+                <p class="mb-3">{{ order.delivery_information?.pickup_type }}</p>
+
+                <div class="mb-3">
+                  <p class="mb-1 fw-bold">Pickup Date:</p>
+                  <nuxt-time :datetime="order.delivery_information!!.pickup_datetime"
+                             weekday="long"
+                             month="long"
+                             year="numeric"
+                             day="numeric"
+                             hour="numeric"
+                             minute="2-digit"
+                  />
+                </div>
+
                 <p class="mb-1 fw-bold">Chosen Courier:</p>
                 <p class="mb-3">{{ order.delivery_information?.courier_name }}</p>
 

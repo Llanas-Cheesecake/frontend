@@ -328,6 +328,10 @@
     z-index: 99;
   }
 
+  .was-validated .form-control:invalid, .form-control.is-invalid {
+    border-color: var(--bs-form-invalid-border-color)!important; // Override regardless
+  }
+
   //@media (max-height: 775px) {
   //  .main-content {
   //    min-height: initial;

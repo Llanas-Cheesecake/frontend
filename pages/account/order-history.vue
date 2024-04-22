@@ -48,6 +48,10 @@
                   </p>
                 </div>
                 <div>
+                  <p class="title">Pickup Type</p>
+                  <p class="subtitle">{{ order.delivery_information.pickup_type }}</p>
+                </div>
+                <div>
                   <p class="title">Courier</p>
                   <p class="subtitle">{{ order.delivery_information.courier_name }}</p>
                 </div>
@@ -83,8 +87,23 @@
             </div>
 
             <div class="card-footer">
+              <p class="mb-1">
+                <span class="fw-bold">
+                  Paid at:
+                </span> <NuxtTime :datetime="order.payment?.paid_at" month="long" day="numeric" year="numeric" />
+              </p>
               <p class="mb-0">
-                Paid at: <NuxtTime :datetime="order.payment?.paid_at" month="long" day="numeric" year="numeric" />
+                <span class="fw-bold">
+                  Pick-up Date:
+                </span>
+                <NuxtTime :datetime="order.delivery_information!!.pickup_datetime"
+                           weekday="long"
+                           month="long"
+                           year="numeric"
+                           day="numeric"
+                           hour="numeric"
+                           minute="2-digit"
+                />
               </p>
             </div>
           </div>

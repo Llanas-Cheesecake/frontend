@@ -17,7 +17,8 @@ export default defineNuxtConfig({
   // Components
   components: [
       '~/components',
-      { path: '~/components/admin', prefix: 'Admin' }
+      { path: '~/components/admin', prefix: 'Admin' },
+      { path: '~/components/checkout', prefix: 'Checkout' },
   ],
 
   // Site Metadata

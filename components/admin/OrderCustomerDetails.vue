@@ -4,6 +4,17 @@
   const props = defineProps<{
     deliveryInformation: OrderDelivery
   }>();
+
+  const pickupType = computed(() => {
+    switch (props.deliveryInformation.pickup_type) {
+      case 'SELF':
+        return 'Self Pickup';
+      case 'COURIER':
+        return 'Courier';
+      default:
+        return 'Unknown';
+    }
+  });
 </script>
 
 <template>
@@ -20,11 +31,32 @@
         <dd>{{ deliveryInformation.email }}</dd>
         <dt>Phone Number</dt>
         <dd>+63{{ deliveryInformation.phone_number }}</dd>
+
+      </dl>
+
+      <h5 class="fw-bold mb-4">
+        Pickup Details
+      </h5>
+
+      <dl class="mb-3">
+        <dt>Pickup Type</dt>
+        <dd>{{ pickupType }}</dd>
+        <dt>Pickup Date</dt>
+        <dd>
+          <nuxt-time :datetime="deliveryInformation.pickup_datetime"
+                     weekday="long"
+                     month="long"
+                     year="numeric"
+                     day="numeric"
+                     hour="numeric"
+                     minute="2-digit"
+          />
+        </dd>
         <dt>Chosen Courier</dt>
         <dd>{{ deliveryInformation.courier_name }}</dd>
       </dl>
 
-      <p class="fw-bold fs-5 mb-2">Notes</p>
+      <h5 class="fw-bold mb-2">Notes</h5>
       <p class="mb-0">{{ deliveryInformation.additional_info }}</p>
 
     </div>

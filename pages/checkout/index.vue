@@ -5,10 +5,11 @@
   import { useAuthStore } from "~/store/auth";
   import { useCartStore } from "~/store/cart";
 
-  import type { ApiResponse } from "~/types/ApiResponse";
   import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
-  import {useModal} from "vue-final-modal";
-  import {ModalUnavailablePaymentMethod} from "#components";
+  import { useModal } from "vue-final-modal";
+  import { ModalUnavailablePaymentMethod } from "#components";
+
+  import type { ApiResponse } from "~/types/ApiResponse";
 
   // Ensure that the user is authenticated when they're "logged in"
   definePageMeta({
@@ -42,6 +43,9 @@
 
   const email = ref( auth._customer?.email ? auth._customer.email : '' );
   const additionalInfo = ref('');
+
+  const pickupType = ref('SELF');
+  const pickupDateTime = ref('');
   const courier_name = ref('');
 
   const deliveryFirstName = ref( auth._customer?.first_name ? auth._customer.first_name : '' );
@@ -72,26 +76,42 @@
     last_name: [],
     email: [],
     phone_number: [],
+    pickup_type: [],
+    pickup_datetime: [],
     courier_name: []
   });
+
+  const handleScheduleChange = (e: string) => {
+    pickupDateTime.value = e;
+  }
 
   const handleCheckout = async () => {
     await fetchXSRFCookie();
 
     isCheckingOut.value = true;
 
+    const body = new FormData();
+    body.append('cart_session', cart._cart_id as string);
+
+    body.append('delivery_first_name', deliveryFirstName.value);
+    body.append('delivery_last_name', deliveryLastName.value);
+    body.append('delivery_email', email.value);
+    body.append('delivery_phone_number', deliveryPhoneNumber.value);
+
+    body.append('pickup_type', pickupType.value);
+
+    if (pickupType.value === 'courier') {
+      body.append('courier_name', courier_name.value);
+    }
+
+    body.append('pickup_datetime', pickupDateTime.value);
+
+    body.append('additional_info', additionalInfo.value);
+    body.append('captcha_token', captcha_token.value);
+
     const { data: result, error } = await useFetchAPI<ApiResponse>('/checkout', {
       method: "POST",
-      body: {
-        'cart_session': cart._cart_id,
-        'delivery_first_name': deliveryFirstName.value,
-        'delivery_last_name': deliveryLastName.value,
-        'delivery_email': email.value,
-        'delivery_phone_number': deliveryPhoneNumber.value,
-        'courier_name': courier_name.value,
-        'additional_info': additionalInfo.value,
-        'captcha_token': captcha_token.value
-      }
+      body: body
     })
 
     // Redirect to the checkout page
@@ -118,7 +138,11 @@
           validation.last_name = payload.delivery_last_name || [];
           validation.email = payload.delivery_email || [];
           validation.phone_number = payload.delivery_phone_number || [];
+          validation.pickup_type = payload.pickup_type || [];
+          validation.pickup_datetime = payload.pickup_datetime || [];
           validation.courier_name = payload.courier_name || [];
+
+          toast.error("There are some problems with your submission. Please check the form.");
           break;
         default:
           console.log(error.value.data);
@@ -146,133 +170,141 @@
 
         <div class="col-md-12 col-lg-8">
 
-          <div class="card p-2">
+          <!-- Contact Information -->
+          <div class="card p-2 mb-4">
             <div class="card-body">
-              <h5 class="fw-bold">Checkout</h5>
 
-              <hr />
+              <h5 class="fw-bold mb-4">Contact Information</h5>
 
-              <form>
-                <section class="mt-4 mb-5">
-                  <h5 class="fw-bold mb-4">Customer Details</h5>
-
-                  <div class="row mb-4">
-                    <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
-                      <div class="form-floating">
-                        <input v-model="deliveryFirstName" type="text" class="form-control" :class="{ 'is-invalid': validation.first_name.length > 0 }" placeholder="e.g. John" aria-label="First Name">
-                        <label class="form-label">First Name</label>
-                        <small v-for="error in validation.first_name" class="invalid-feedback">
-                          {{ error }}
-                        </small>
-                      </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
-                      <div class="form-floating">
-                        <input v-model="deliveryLastName" type="text" class="form-control" :class="{ 'is-invalid': validation.last_name.length > 0 }" placeholder="e.g. Doe" aria-label="Last Name">
-                        <label class="form-label">Last Name</label>
-                        <small v-for="error in validation.last_name" class="invalid-feedback">
-                          {{ error }}
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
-                      <div class="form-floating">
-                        <input v-model="email" type="email" class="form-control" :class="{ 'is-invalid': validation.email.length > 0 }" placeholder="e.g. johndoe@gmail.com" aria-label="Email">
-                        <label class="form-label">Email</label>
-                        <small v-for="error in validation.email" class="invalid-feedback">
-                          {{ error }}
-                        </small>
-                      </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
-                      <div class="input-group">
-                        <div class="input-group-text">+63</div>
-                        <div class="form-floating" :class="{ 'is-invalid': validation.phone_number.length > 0 }">
-                          <input v-model="deliveryPhoneNumber" type="text" class="form-control" :class="{ 'is-invalid': validation.phone_number.length > 0 }" placeholder="e.g. 9123456789">
-                          <label class="form-label">Phone Number</label>
-                        </div>
-                        <small v-for="error in validation.phone_number" class="invalid-feedback">
-                          {{ error }}
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                <section class="mb-5">
-                  <h5 class="fw-bold">Delivery Information</h5>
-                  <p class="mb-4">
-                    We only accept pick-up service. Please choose your desired pickup courier so we are aware.
-                  </p>
-
-                  <div class="form-floating mb-4" :class="{ 'is-invalid': validation.courier_name.length > 0 }">
-                    <input v-model="courier_name"
-                           type="text"
-                           class="form-control"
-                           :class="{ 'is-invalid': validation.courier_name.length > 0 }"
-                           placeholder="Grab, Lalamove"
-                           aria-label="Email">
-                    <label class="form-label">Courier</label>
-
-                    <small v-for="error in validation.courier_name" class="invalid-feedback">
+              <div class="row mb-4">
+                <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
+                  <div class="form-floating">
+                    <input v-model="deliveryFirstName" type="text" class="form-control" :class="{ 'is-invalid': validation.first_name.length > 0 }" placeholder="e.g. John" aria-label="First Name">
+                    <label class="form-label">First Name</label>
+                    <small v-for="error in validation.first_name" class="invalid-feedback">
                       {{ error }}
                     </small>
                   </div>
-
+                </div>
+                <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
                   <div class="form-floating">
-                    <textarea v-model="additionalInfo" class="form-control" placeholder="Additional information about your delivery" style="height: 100px"></textarea>
-                    <label class="form-label">Additional information</label>
+                    <input v-model="deliveryLastName" type="text" class="form-control" :class="{ 'is-invalid': validation.last_name.length > 0 }" placeholder="e.g. Doe" aria-label="Last Name">
+                    <label class="form-label">Last Name</label>
+                    <small v-for="error in validation.last_name" class="invalid-feedback">
+                      {{ error }}
+                    </small>
                   </div>
-                </section>
+                </div>
+              </div>
 
-                <section class="mb-5">
-                  <h5 class="fw-bold">PWD/Senior Citizen</h5>
-                  <p class="mb-2">
-                    Under RA No. 9994 & RA No. 10754, you may be eligible for a 20% discount if you are a Person with Disability (PWD) or a Senior Citizen.
-                  </p>
-                  <p class="mb-3">
-                    To redeem this discount, you must submit documents verifying your eligibility. Any uploaded documents will be deleted right after verifying them
-                    in accordance with our <nuxt-link to="/privacy-policy">Privacy Policy</nuxt-link>.
-                  </p>
-
-                  <div class="alert alert-warning">
-                    <span class="fw-bold">Note:</span>
-                    The discount won't be applied immediately upon checkout.
-                    The discounted price will only be applied after we verified your documents and after that, we will refund the 20% to your chosen payment method
-                    within 3-5 business days.
+              <div class="row">
+                <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
+                  <div class="form-floating">
+                    <input v-model="email" type="email" class="form-control" :class="{ 'is-invalid': validation.email.length > 0 }" placeholder="e.g. johndoe@gmail.com" aria-label="Email">
+                    <label class="form-label">Email</label>
+                    <small v-for="error in validation.email" class="invalid-feedback">
+                      {{ error }}
+                    </small>
                   </div>
-
-                  <div class="form-check mb-4">
-                    <input v-model="isEligiblePWD" class="form-check-input" type="checkbox">
-                    <label class="form-check-label">
-                      I am a PWD / Senior Citizen
-                    </label>
+                </div>
+                <div class="col-sm-12 col-md-6 mb-4 mb-md-0">
+                  <div class="input-group">
+                    <div class="input-group-text">+63</div>
+                    <div class="form-floating" :class="{ 'is-invalid': validation.phone_number.length > 0 }">
+                      <input v-model="deliveryPhoneNumber" type="text" class="form-control" :class="{ 'is-invalid': validation.phone_number.length > 0 }" placeholder="e.g. 9123456789">
+                      <label class="form-label">Phone Number</label>
+                    </div>
+                    <small v-for="error in validation.phone_number" class="invalid-feedback">
+                      {{ error }}
+                    </small>
                   </div>
+                </div>
+              </div>
 
-                  <div v-if="isEligiblePWD">
-                    <label class="form-label">Upload documents here...</label>
-                    <input class="form-control" type="file" multiple>
-                  </div>
-
-
-                </section>
-
-                <section v-if="!auth._isAuthenticated">
-                  <h5 class="fw-bold mb-4">Captcha</h5>
-                  <vue-hcaptcha :sitekey="hCaptchaSiteKey" @verify="handleCaptchaVerify"></vue-hcaptcha>
-                </section>
-              </form>
             </div>
           </div>
+          <!-- END Contact Information -->
+
+          <!-- Pickup Information -->
+          <div class="card p-2 mb-4">
+            <div class="card-body">
+
+              <h5 class="fw-bold">Pickup Information</h5>
+              <p class="mb-4">
+                We only accept pick-up service. Please choose either self pick-up or a courier service of your choice.
+              </p>
+
+              <div class="form-check form-check-inline">
+                <input v-model="pickupType" class="form-check-input" type="radio" value="SELF">
+                <label class="form-check-label" for="inlineRadio1">Self Pickup</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input v-model="pickupType" class="form-check-input" type="radio" value="COURIER">
+                <label class="form-check-label" for="inlineRadio2">Courier</label>
+              </div>
+
+              <div v-if="pickupType === 'COURIER'" class="form-floating my-4" :class="{ 'is-invalid': validation.courier_name.length > 0 }">
+                <input v-model="courier_name"
+                       type="text"
+                       class="form-control"
+                       :class="{ 'is-invalid': validation.courier_name.length > 0 }"
+                       placeholder="Grab, Lalamove"
+                       aria-label="Courier Service">
+                <label class="form-label">Courier Service</label>
+
+                <small class="form-text">
+                  e.g: Grab, Lalamove...
+                </small>
+
+                <small v-for="error in validation.courier_name" class="invalid-feedback">
+                  {{ error }}
+                </small>
+              </div>
+
+              <!-- Pickup Time -->
+              <CheckoutSchedulePickup class="mt-4" :errors="validation.pickup_datetime" @selection-changed="handleScheduleChange" />
+              <!-- END Pickup Time -->
+
+              <!-- Pickup Location -->
+              <h5 class="fw-bold my-4">Pickup Location</h5>
+
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1930.2077322895486!2d121.02998539527542!3d14.632341967078897!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b7d1433bf833%3A0xa7e2ef409b0a5f2a!2sLlana&#39;s!5e0!3m2!1sen!2sph!4v1713695510060!5m2!1sen!2sph" height="300" style="border:0; width: 100%" :allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <!-- END Pickup Location -->
+
+              <div class="form-floating mt-4">
+                <textarea v-model="additionalInfo" class="form-control" placeholder="Additional information about your delivery" style="height: 100px"></textarea>
+                <label class="form-label">Additional information</label>
+              </div>
+
+            </div>
+            <!-- END Pickup Information -->
+          </div>
+
+          <!-- PWD Discount -->
+          <div class="card p-2 mb-4">
+            <div class="card-body">
+              <LazyCheckoutPWDDiscount />
+            </div>
+          </div>
+          <!-- END PWD Discount -->
+
+          <!-- Captcha -->
+          <div class="card p-2" v-if="!auth._isAuthenticated">
+            <div class="card-body">
+              <h5 class="fw-bold mb-4">
+                Are you a bot?
+              </h5>
+
+              <vue-hcaptcha :sitekey="hCaptchaSiteKey" @verify="handleCaptchaVerify"></vue-hcaptcha>
+            </div>
+          </div>
+          <!-- END Captcha -->
         </div>
         <div class="col-md-12 col-lg-4">
 
           <div ref="intersection" />
 
-          <section class="sticky-top" :style="{ 'top': isSticking ? '1.5rem' : '0' }">
+          <section class="sticky-top" :style="{ 'top': isSticking ? '6rem' : '0' }">
             <div class="card p-2 mt-4 mt-lg-0 mb-3">
               <div class="card-body">
                 <h5 class="card-title">Order Summary</h5>
