@@ -31,7 +31,9 @@ const availableDates = computed(() => {
     let day = friendlyDate.split(',')[0];
     let monthAndDay = friendlyDate.split(',')[1].trim();
 
-    let unformattedDate = new Date(date).toISOString().split('T')[0];
+    console.log(date.toISOString());
+
+    let unformattedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().split('T')[0];
     nextFiveDays.push({ day, monthAndDay, unformattedDate });
   }
 
@@ -41,7 +43,7 @@ const availableDates = computed(() => {
 const availableTimes = computed(() => {
   let times = [];
 
-  for (let i = 12; i <= 22; i++) {
+  for (let i = 13; i <= 22; i++) {
     let time = i < 10 ? `0${i}:00:00` : `${i}:00:00`;
 
     times.push({
@@ -69,6 +71,15 @@ const confirmSelection = () => {
     time: selectedTime.value
   });
 }
+
+const minDate = computed(() => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed in JavaScript
+  const day = String(today.getDate() + 2).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+});
 
 </script>
 
@@ -104,6 +115,22 @@ const confirmSelection = () => {
                     {{ date.monthAndDay }}
                   </p>
                 </div>
+              </div>
+
+              <div class="separator my-5">
+                <hr />
+                <div class="separator-text">
+                  or
+                </div>
+              </div>
+
+              <div class="form-floating mb-4">
+                <input v-model="selectedDate"
+                       type="date"
+                       class="form-control"
+                       placeholder="Expiry Date"
+                       :min="minDate">
+                <label>Pickup Date</label>
               </div>
 
               <h5 class="text-heading fw-bold mb-1">Select pickup time</h5>
@@ -169,6 +196,44 @@ const confirmSelection = () => {
   .item {
     padding: 0.5rem;
   }
+}
+
+.separator {
+  position: relative;
+
+  .separator-text {
+    position: absolute;
+    background: white;
+    padding: 0 0.5rem;
+    top: -14px;
+    transform: translateX(-50%);
+    left: 50%;
+  }
+}
+
+.form-control {
+  background-color: var(--bs-body-bg);
+  border: 1px solid color-mix(in srgb, var(--bg-secondary), #000 20%);
+  &:focus {
+    background-color: var(--bs-body-bg);
+    border: 1px solid color-mix(in srgb, var(--bg-primary), #000 60%);
+    box-shadow: none;
+    color: var(--bs-body-color);
+  }
+  &:disabled {
+    background-color: var(--bs-secondary-bg);
+    color: rgba(var(--bs-body-color-rgb), 0.65);
+
+    &~ label::after {
+      background: var(--bs-secondary-bg)!important;
+      color: #6c757d
+    }
+  }
+  color: var(--color-text-primary);
+}
+
+.form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-select ~ label::after {
+  background-color: var(--bs-body-bg);
 }
 
 @media (min-width: 576px) {
