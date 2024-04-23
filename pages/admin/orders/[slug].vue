@@ -109,15 +109,15 @@
   const deliveryStatus = computed(() => {
     switch (order.delivery_information.status) {
       case "ON_GOING":
-        return "On the way";
+        return "Ready for pickup";
       case "UNFULFILLED":
-        return "Ready for pickup"
+        return "Confirmed"
       case "PROCESSING":
         return "Awaiting payment";
       case "CANCELED":
         return "Canceled";
       case "DELIVERED":
-        return "Delivered";
+        return "Picked up";
     }
   });
 

@@ -52,14 +52,20 @@ const changeDeliveryStatus = async () => {
             </div>
 
             <h5 class="fw-bold mb-2">
-              Change delivery status
+              Change pickup status
             </h5>
             <p class="mb-4">Select updated status for this order</p>
 
             <select v-model="selectedStatus" class="form-select" aria-label="Delivery Status">
-              <option value="UNFULFILLED">Ready for pickup</option>
-              <option value="ON_GOING">On the way</option>
-              <option value="DELIVERED">Delivered</option>
+              <option value="UNFULFILLED">
+                Confirmed
+              </option>
+              <option value="ON_GOING">
+                Ready for pick-up
+              </option>
+              <option value="DELIVERED">
+                Picked up
+              </option>
             </select>
 
             <div class="d-flex gap-2 mt-5">
