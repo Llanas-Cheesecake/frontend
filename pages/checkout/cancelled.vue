@@ -53,7 +53,7 @@
 
     if (!item) return 0;
 
-    return item.quantity * item.product.price;
+    return item.quantity * item.price;
   }
 </script>
 
@@ -97,7 +97,7 @@
             <hr />
 
             <section>
-              <ul class="cart-items my-4">
+              <ul class="cart-items mt-4 mb-0">
 
                 <li v-for="item in order.items" class="cart-item">
                   <img class="item-image" :src="item.product.thumbnail" alt="cart item" />
@@ -150,8 +150,8 @@
       margin-bottom: 1rem;
     }
     .item-image {
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       border-radius: 8px;
     }
     .item-info {

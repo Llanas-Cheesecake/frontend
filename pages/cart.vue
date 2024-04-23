@@ -120,7 +120,7 @@
 
             <div class="d-flex justify-content-between">
               <div>Subtotal:</div>
-              <div>{{ formatPrice(cart._totalPrice) }}</div>
+              <div>{{ formatPrice(cart._subtotalPrice) }}</div>
             </div>
 
             <nuxt-link v-if="hasItems" to="/checkout" class="btn btn-secondary d-block mt-4 w-100">

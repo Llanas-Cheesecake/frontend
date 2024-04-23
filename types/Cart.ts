@@ -6,7 +6,8 @@ export interface Cart {
 }
 
 export interface CartItem {
-    product: Product,
-    quantity: number,
+    product: Product
+    quantity: number
+    discounted_price: number
     type: string
 }

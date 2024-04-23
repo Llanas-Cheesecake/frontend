@@ -6,6 +6,7 @@ export interface Order {
     items: OrderItem[]
     payment?: OrderPayment
     delivery_information?: OrderDelivery
+    voucher_code?: string
     total_price: number
     status: string
     created_at: string
@@ -17,14 +18,16 @@ export interface DetailedOrder {
     items: OrderItem[]
     payment: OrderPayment
     delivery_information: OrderDelivery
+    voucher_code?: string
     total_price: number
     status: string
     created_at: string
 }
 
 export interface OrderItem {
-    product: Product,
-    quantity: number,
+    product: Product
+    quantity: number
+    price: number
     type: string
 }
 

@@ -11,8 +11,8 @@
 </script>
 
 <template>
-  <section>
-    <ul v-if="cart._items?.length > 0" class="cart-items my-4">
+  <section v-if="cart._items">
+    <ul v-if="cart._items.length > 0" class="cart-items my-4">
 
       <li v-for="item in cart._items" class="cart-item">
         <img class="item-image" :src="item.product.thumbnail" alt="cart item" />
@@ -55,8 +55,8 @@
       margin-bottom: 1rem;
     }
     .item-image {
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       border-radius: 8px;
     }
     .item-info {

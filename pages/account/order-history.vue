@@ -21,7 +21,7 @@
 
     if (!item) return 0;
 
-    return formatPrice(item.quantity * item.product.price);
+    return formatPrice(item.quantity * item.price);
   }
 </script>
 
@@ -39,7 +39,7 @@
               <div class="order-info">
                 <div>
                   <p class="title">Receipt ID</p>
-                  <p class="subtitle">{{ order.order_id }}</p>
+                  <p class="subtitle">#{{ order.order_id.slice(0, 7) }}</p>
                 </div>
                 <div>
                   <p class="title">Total Amount</p>
@@ -54,6 +54,12 @@
                 <div>
                   <p class="title">Courier</p>
                   <p class="subtitle">{{ order.delivery_information.courier_name }}</p>
+                </div>
+                <div v-if="order.voucher_code === 'special_discount'">
+                  <p class="title">Discount</p>
+                  <p class="subtitle">
+                    Special discount (20%)
+                  </p>
                 </div>
               </div>
             </div>
@@ -72,7 +78,7 @@
                 </div>
                 <div class="position-relative">
                   <div class="product-price">
-                    {{ getItemTotalPrice(order, item.product.product_id) }}
+                      {{ getItemTotalPrice(order, item.product.product_id) }}
                   </div>
                   <div class="product-actions">
                     <nuxt-link :to="`/products/${item.product.slug}/review`" class="action" role="button" >

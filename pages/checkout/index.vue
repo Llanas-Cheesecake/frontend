@@ -31,6 +31,15 @@
   })
 
   const isEligiblePWD = ref(false);
+  const isSpecialDiscountActivated = ref(false);
+
+  watch(isSpecialDiscountActivated, (value) => {
+    if (value) {
+      cart.setPercentDiscount(20);
+    } else {
+      cart.setPercentDiscount(0);
+    }
+  });
 
   const unavailablePaymentMethodModal = useModal({
     component: ModalUnavailablePaymentMethod,
@@ -107,6 +116,7 @@
     body.append('pickup_datetime', pickupDateTime.value);
 
     body.append('additional_info', additionalInfo.value);
+    body.append('is_special_discount_activated', isSpecialDiscountActivated.value ? '1' : '0');
     body.append('captcha_token', captcha_token.value);
 
     const { data: result, error } = await useFetchAPI<ApiResponse>('/checkout', {
@@ -154,6 +164,18 @@
   const handleCaptchaVerify = (token: string, eKey: string) => {
     captcha_token.value = token;
     // form.captchaEKey = eKey;
+  }
+
+  if (auth._isAuthenticated) {
+    const { data: results } = await useFetchAPI<ApiResponse>('/account/discount', {
+      method: "GET"
+    });
+
+    if (results.value) {
+      const payload = results.value.data;
+
+      isEligiblePWD.value = payload.is_verified;
+    }
   }
 
 </script>
@@ -280,6 +302,29 @@
             <!-- END Pickup Information -->
           </div>
 
+          <!-- Special Discount -->
+          <div v-if="isEligiblePWD" class="card p-2 mb-4">
+            <div class="card-body">
+
+              <h5 class="fw-bold">
+                PWD / Senior Citizen Discount
+              </h5>
+
+              <p class="mb-4">
+                You are eligible for a PWD / Senior citizen discount! Tick the checkbox to activate it.
+              </p>
+
+              <div class="form-check">
+                <input v-model="isSpecialDiscountActivated" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Activate 20% Discount
+                </label>
+              </div>
+
+            </div>
+          </div>
+          <!-- END Special Discount -->
+
           <!-- Captcha -->
           <div class="card p-2" v-if="!auth._isAuthenticated">
             <div class="card-body">
@@ -307,16 +352,27 @@
 
                 <hr />
 
-                <section>
+                <section v-if="isSpecialDiscountActivated">
                   <div class="d-flex justify-content-between mb-2">
                     <div>Subtotal:</div>
+                    <div>{{ formatPrice(cart._subtotalPrice) }}</div>
+                  </div>
+                  <div class="d-flex justify-content-between mb-2">
+                    <div>Discount:</div>
+                    <div>20%</div>
+                  </div>
+                  <div class="d-flex justify-content-between mb-2">
+                    <div>Total:</div>
                     <div>{{ formatPrice(cart._totalPrice) }}</div>
                   </div>
                 </section>
 
-                <div v-if="isEligiblePWD" class="alert alert-warning my-3">
-                  PayMaya & GrabPay won't be available for this checkout. <span class="clickable" @click="unavailablePaymentMethodModal.open()">Learn more</span>
-                </div>
+                <section v-else>
+                  <div class="d-flex justify-content-between mb-2">
+                    <div>Total:</div>
+                    <div>{{ formatPrice(cart._subtotalPrice) }}</div>
+                  </div>
+                </section>
 
                 <button class="btn btn-primary d-block w-100 mt-4 mb-3" :disabled="isCheckingOut" @click="handleCheckout">
                   <LoadingIcon v-if="isCheckingOut" width="20" height="20" class="position-relative me-1" style="top: -1px;" />

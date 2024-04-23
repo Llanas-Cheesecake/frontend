@@ -12,23 +12,48 @@ const toast = useToast();
 export const useCartStore = defineStore('cart', () => {
     // States
     const cart = reactive<Cart>({});
-    const isLoading = ref(true)
+    const isLoading = ref(true);
+    const percentDiscount = ref(0);
 
     // Getters
     const _is_loading = computed(() => isLoading.value)
     const _cart_id = computed(() => cart.cart_id)
-    const _items = computed(() => cart.items)
-    const _totalPrice = computed(() => {
+
+    const _items = computed(() => {
+        if (percentDiscount.value === 0) return cart.items;
+
+        return cart.items?.map((item) => {
+            const discountedPrice = parseFloat(item.product.price as unknown as string) * (percentDiscount.value / 100)
+
+            return {...item, discounted_price: item.product.price - discountedPrice}
+        })
+    })
+
+    const _subtotalPrice = computed(() => {
         if (!cart.items) return 0;
 
         let totalPrice = 0;
 
         cart.items.map((item) => {
             totalPrice += (parseFloat(item.product.price as unknown as string) * item.quantity)
-        })
+        });
 
         return totalPrice;
-    })
+    });
+
+    const _discountedPrice = computed(() => {
+        if (percentDiscount.value === 0) return 0;
+
+        return _subtotalPrice.value * (percentDiscount.value / 100)
+    });
+
+    const _totalPrice = computed(() => {
+        return _subtotalPrice.value - _discountedPrice.value
+    });
+
+    const setPercentDiscount = (percent: number) => {
+        percentDiscount.value = percent;
+    }
 
     const getCartContents = async () => {
         const cartCookie = useCookie('cart_session', {
@@ -201,12 +226,12 @@ export const useCartStore = defineStore('cart', () => {
     }, 1000)
 
     const getItemTotalPrice = (product_id: number) => {
-        const item = cart.items?.find(i => i.product.product_id === product_id);
+        const item = _items.value!!.find(i => i.product.product_id === product_id);
 
         if (!item) return 0;
 
-        return item.quantity * item.product.price;
+        return item.quantity * (percentDiscount.value > 0 ? item.discounted_price : item.product.price);
     }
 
-    return { _is_loading, _cart_id, _items, _totalPrice, getCartContents, getItemTotalPrice, addToCart, removeFromCart, removeAllItems, updateItemQuantity }
+    return { _is_loading, _cart_id, _items, _subtotalPrice, _totalPrice, setPercentDiscount, getCartContents, getItemTotalPrice, addToCart, removeFromCart, removeAllItems, updateItemQuantity }
 }, { persist: true })

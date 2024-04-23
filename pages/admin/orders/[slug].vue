@@ -39,9 +39,13 @@
       customer_name: '',
       email: '',
       phone_number: '',
+      pickup_type: '',
+      pickup_datetime: '',
+      courier_name: '',
       additional_info: '',
       status: ''
     },
+    voucher_code: '',
     total_price: 0,
     status: '',
     created_at: ''
@@ -64,6 +68,7 @@
     order.items = payload.items;
     order.payment = payload.payment;
     order.delivery_information = payload.delivery_information;
+    order.voucher_code = payload.voucher_code;
     order.total_price = payload.total_price;
     order.status = payload.status;
     order.created_at = payload.created_at;
@@ -90,6 +95,14 @@
 
     if (!item) return 0;
 
+    return formatPrice(item.quantity * item.price);
+  }
+
+  const getOriginalPrice = (product_id: number) => {
+    const item = order.items.find(i => i.product.product_id === product_id);
+
+    if (!item) return 0;
+
     return formatPrice(item.quantity * item.product.price);
   }
 
@@ -107,6 +120,16 @@
         return "Delivered";
     }
   });
+
+  const discount = computed(() => {
+    if (!order.voucher_code) return 'No discount';
+
+    if (order.voucher_code === 'special_discount') {
+      return 'Special discount (20%)';
+    } else {
+      return order.voucher_code;
+    }
+  })
 
   const paymentStatus = computed(() => {
     if (!order.payment) return;
@@ -235,16 +258,19 @@
                 <span>
                   {{ item.product.name }}
                 </span>
-                <span v-if="order.items[0].product.is_deleted" class="ms-2" v-tooltip="'This item has been deleted.'">
+                <span v-if="item.product.is_deleted" class="ms-2" v-tooltip="'This item has been deleted.'">
                   <img class="position-relative" style="top: -1px;" src="/icons/info-black.svg" alt="info icon" width="16" />
                 </span>
               </p>
               <p class="item-category">{{ item.product.category }}</p>
             </div>
             <div class="item-info-alt">
-              <p class="item-price">
-                <span>{{ getItemTotalPrice(item.product.product_id) }}</span>
+              <p class="item-price mb-0">
+                <span class="fw-bold">{{ getItemTotalPrice(item.product.product_id) }}</span>
               </p>
+              <small v-if="order.voucher_code" class="item-price text-decoration-line-through">
+                <span>{{ getOriginalPrice(item.product.product_id) }}</span>
+              </small>
               <p class="item-quantity">
                 Quantity: {{ item.quantity }}
               </p>
@@ -268,6 +294,7 @@
       <div class="col-sm-12 col-md-6">
         <AdminOrderPaymentDetails v-if="order.payment"
                                   :payment="order.payment"
+                                  :discount="discount"
                                   :delivery-status="order.delivery_information.status"
                                   @update-payment-status="handlePaymentStatusUpdate" />
 
@@ -277,7 +304,14 @@
               Payment Details
             </h5>
 
-            <p class="mb-0">This order is <span class="fw-bold">unpaid</span>. Likely abandoned by the customer.</p>
+            <div class="alert alert-danger">
+              This order is <span class="fw-bold">unpaid</span>. Likely abandoned by the customer.
+            </div>
+
+            <dl class="mb-0">
+              <dt>Discount</dt>
+              <dd>{{ discount }}</dd>
+            </dl>
           </div>
         </div>
       </div>

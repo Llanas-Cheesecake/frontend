@@ -7,6 +7,7 @@
   const props = defineProps<{
     payment: OrderPayment
     deliveryStatus: string
+    discount?: string
   }>();
 
   const emit = defineEmits<{
@@ -76,6 +77,8 @@
       <dl class="mb-4">
         <dt>Paymongo ID</dt>
         <dd>{{ payment.paymongo_id }}</dd>
+        <dt>Discount</dt>
+        <dd>{{ discount }}</dd>
         <dt>Amount paid</dt>
         <dd>{{ formatPrice(payment.amount_paid) }}</dd>
         <dt>Net amount</dt>

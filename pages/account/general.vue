@@ -8,8 +8,6 @@
     email: ''
   });
 
-  const newEmail = ref('');
-
   const { data: result } = await useFetchAPI<ApiResponse>('/account/general', {
     method: "GET"
   })
@@ -33,12 +31,21 @@
         <h4 class="card-title fw-bold">Account Settings</h4>
         <hr />
 
-        <ChangeAccountDetails :first_name="customer.first_name" :last_name="customer.last_name" />
-
         <div class="p-2 mt-4">
+          <h5 class="fw-bold mb-4">Change Personal Information</h5>
+
+          <ChangeAccountDetails :first_name="customer.first_name" :last_name="customer.last_name" />
+        </div>
+        <div class="p-2 mt-5">
           <h5 class="fw-bold mb-4">Change Password</h5>
 
           <ChangePassword endpoint="/account/change-password" />
+        </div>
+
+        <div class="p-2 mt-5">
+          <h5 class="fw-bold mb-4">PWD/Senior Citizen Discount</h5>
+
+          <SpecialDiscount />
         </div>
 
       </div>

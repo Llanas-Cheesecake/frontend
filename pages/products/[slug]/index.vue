@@ -222,11 +222,6 @@
 
             </button>
             <!-- Remove from wishlist button -->
-
-<!--            <button class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Share product">-->
-<!--              <img src="/icons/share.svg" alt="Share product" />-->
-<!--              <span class="visually-hidden">Share product</span>-->
-<!--            </button>-->
           </div>
         </div>
       </div>

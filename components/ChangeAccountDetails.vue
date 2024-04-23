@@ -82,9 +82,7 @@
 </script>
 
 <template>
-  <section class="p-2 mt-4">
-    <h5 class="fw-bold mb-4">Change Personal Information</h5>
-
+  <section class="reset">
     <form @submit.prevent="handleFormSubmit()">
       <div class="row">
         <div class="col-md-12 col-lg mb-4">

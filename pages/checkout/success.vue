@@ -64,7 +64,19 @@
     order.value = { ...result.order }
   }
 
+  const subtotal = computed(() => {
+    return order.value.items.map(i => i.quantity * i.product.price).reduce((a, b) => a + b, 0);
+  })
+
   const getItemTotalPrice = (product_id: number) => {
+    const item = order.value.items.find(i => i.product.product_id === product_id);
+
+    if (!item) return 0;
+
+    return item.quantity * item.price;
+  }
+
+  const getSubtotalPrice = (product_id: number) => {
     const item = order.value.items.find(i => i.product.product_id === product_id);
 
     if (!item) return 0;
@@ -167,17 +179,29 @@
 
                 <li v-for="item in order.items" class="cart-item">
                   <img class="item-image" :src="item.product.thumbnail" alt="cart item" />
-                  <div class="item-info">
-                    <p class="item-name">{{ item.product.name }}</p>
-                    <p class="item-category">{{ item.product.category }}</p>
-                  </div>
-                  <div class="item-info-alt">
-                    <p class="item-price">
-                      <span>{{ formatPrice(getItemTotalPrice(item.product.product_id)) }}</span>
-                    </p>
-                    <p class="item-quantity">
-                      Quantity: {{ item.quantity }}
-                    </p>
+                  <div class="d-flex flex-column w-100">
+                    <div class="item-info mb-2">
+                      <div class="flex-fill">
+                        <p class="item-name">
+                          {{ item.product.name }}
+                        </p>
+                        <p class="item-category flex-fill mb-0">
+                          {{ item.product.category }}
+                        </p>
+                        <p class="item-quantity">
+                          Quantity: {{ item.quantity }}
+                        </p>
+                      </div>
+
+                      <div class="text-end">
+                        <p class="item-price mb-0">
+                          <span class="fw-bold">{{ formatPrice(getItemTotalPrice(item.product.product_id)) }}</span>
+                        </p>
+                        <small v-if="order.voucher_code" class="item-price text-decoration-line-through">
+                          <span>{{ formatPrice(getSubtotalPrice(item.product.product_id)) }}</span>
+                        </small>
+                      </div>
+                    </div>
                   </div>
                 </li>
 
@@ -186,10 +210,25 @@
 
             <hr />
 
-            <section>
+            <section v-if="order.voucher_code">
+              <div class="d-flex justify-content-between mb-2">
+                <div>Subtotal:</div>
+                <div>{{ formatPrice(subtotal) }}</div>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <div>Discount:</div>
+                <div>20%</div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div>Total:</div>
+                <div>{{ formatPrice(order.payment!!.amount_paid) }}</div>
+              </div>
+            </section>
+
+            <section v-else>
               <div class="d-flex justify-content-between">
                 <div>Subtotal:</div>
-                <div>{{ formatPrice(order.payment?.amount_paid) }}</div>
+                <div>{{ formatPrice(order.payment!!.amount_paid) }}</div>
               </div>
             </section>
           </div>
@@ -220,16 +259,18 @@
     padding-left: 0;
     .cart-item {
       display: flex;
+      align-items: center;
       gap: 0.8rem;
       &:not(:last-child) {
         margin-bottom: 1rem;
       }
       .item-image {
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
         border-radius: 8px;
       }
       .item-info {
+        display: flex;
         flex: 1;
         .item-name {
           //font-weight: bold;
@@ -240,18 +281,17 @@
           margin-bottom: 0;
           font-size: 0.9rem;
         }
-      }
-      .item-info-alt {
-        //width: 100%;
-        text-align: end;
-        .item-price {
-          font-weight: bold;
-          margin-bottom: 0.2rem;
-        }
         .item-quantity {
           color: color-mix(in srgb,var(--color-text-primary), #000 50%);
           margin-bottom: 0;
           font-size: 0.9rem;
+        }
+      }
+      .item-info-alt {
+        display: flex;
+        align-items: center;
+        .item-price {
+          font-weight: bold;
         }
         .item-actions {
           img {
