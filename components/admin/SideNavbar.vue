@@ -39,12 +39,12 @@
           <span class="ms-3 d-none d-xl-inline" :class="{ 'd-xl-none': !isSidebarOpen }">Orders</span>
         </nuxt-link>
       </li>
-<!--      <li class="nav-item">-->
-<!--        <nuxt-link to="/admin/customers" class="nav-link">-->
-<!--          <img src="/icons/user-black.svg" alt="Customers Icon" />-->
-<!--          <span class="ms-3 d-none d-xl-inline" :class="{ 'd-xl-none': !isSidebarOpen }">Customers</span>-->
-<!--        </nuxt-link>-->
-<!--      </li>-->
+      <li class="nav-item">
+        <nuxt-link to="/admin/customers" class="nav-link">
+          <img src="/icons/user-black.svg" alt="Customers Icon" />
+          <span class="ms-3 d-none d-xl-inline" :class="{ 'd-xl-none': !isSidebarOpen }">Customers</span>
+        </nuxt-link>
+      </li>
       <li class="nav-item">
         <nuxt-link to="/admin/settings" class="nav-link">
           <img src="/icons/settings-black.svg" alt="Settings Icon" />
