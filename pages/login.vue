@@ -6,6 +6,7 @@
   const auth = useAuthStore()
 
   const isLoading = ref(false);
+  const isLoginSuccessful = ref(false);
 
   const email = ref('');
   const password = ref('');
@@ -35,6 +36,8 @@
 
     auth.loginAsCustomer({ email: email.value, password: password.value })
         .then(() => {
+          isLoginSuccessful.value = true;
+
           location.href = '/'
         })
         .catch((err) => {
@@ -79,9 +82,18 @@
           {{ error }}
         </div>
 
+        <div v-if="isLoginSuccessful" class="alert alert-success my-4" role="alert">
+          Login success! Redirecting...
+        </div>
+
         <form class="mt-4" @submit.prevent="handleForm">
           <div class="form-floating mb-4">
-            <input v-model="email" type="text" class="form-control" placeholder="Email Address" :class="{ 'is-invalid': validationErrors.email }">
+            <input v-model="email"
+                   type="email"
+                   class="form-control"
+                   placeholder="Email Address"
+                   :class="{ 'is-invalid': validationErrors.email }"
+                   :disabled="isLoading">
             <label class="form-label">Email address</label>
 
             <div v-if="validationErrors.email" class="invalid-feedback">
@@ -91,7 +103,12 @@
             </div>
           </div>
           <div class="form-floating mb-5">
-            <input v-model="password" type="password" class="form-control" placeholder="Password" :class="{ 'is-invalid': validationErrors.password }">
+            <input v-model="password"
+                   type="password"
+                   class="form-control"
+                   placeholder="Password"
+                   :class="{ 'is-invalid': validationErrors.password }"
+                   :disabled="isLoading">
             <label class="form-label">Password</label>
 
             <div v-if="validationErrors.password" class="invalid-feedback">

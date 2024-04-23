@@ -49,7 +49,7 @@
 
           <p class="text-center mb-5">You may now login to your account</p>
 
-          <nuxt-link to="/login" class="btn btn-primary d-block mx-auto">
+          <nuxt-link to="/login" class="btn btn-secondary d-block mx-auto">
             Login
           </nuxt-link>
         </section>
