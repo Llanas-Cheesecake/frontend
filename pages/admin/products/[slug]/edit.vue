@@ -4,7 +4,7 @@
 
   import type { ApiResponse } from "~/types/ApiResponse";
   import type { Category } from "~/types/Category";
-  import BackButton from "~/components/BackButton.vue";
+  import type { ProductInventory } from "~/types/Product";
 
   const { useToast } = Toast;
   const toast = useToast();
@@ -19,14 +19,15 @@
 
   const isSubmittingForm = ref(false);
 
-  const productId = ref(null);
+  const productId = ref<number>(0);
+
+  const inventory = ref<ProductInventory[]>([]);
 
   const form = reactive({
     category_id: '',
     name: '',
     description: '',
     price: 1,
-    stock: 1,
     files: [] as File[]
   });
 
@@ -35,7 +36,6 @@
     name: [],
     description: [],
     price: [],
-    stock: [],
     thumbnail: []
   });
 
@@ -58,8 +58,9 @@
     form.name = payload.name;
     form.description = payload.description;
     form.price = payload.price;
-    form.stock = payload.stock;
     form.category_id = payload.category_id;
+
+    inventory.value = payload.inventory;
 
     imageUrl.value = payload.thumbnail;
   }
@@ -103,7 +104,6 @@
     data.append('name', form.name);
     data.append('description', form.description);
     data.append('price', form.price as unknown as string);
-    data.append('stock', form.stock as unknown as string);
 
     if (form.files.length > 0) {
       data.append('thumbnail', form.files[0]);
@@ -136,7 +136,6 @@
           validation.name = payload.name || [];
           validation.description = payload.description || [];
           validation.price = payload.price || [];
-          validation.stock = payload.stock || [];
           validation.thumbnail = payload.thumbnail || [];
           break;
         default:
@@ -150,8 +149,17 @@
     validation.name = [];
     validation.description = [];
     validation.price = [];
-    validation.stock = [];
     validation.thumbnail = [];
+  }
+
+  const handleAddStock = (e: ProductInventory) => {
+    inventory.value = [...inventory.value, e];
+  }
+
+  const handleRemoveStock = (id: number) => {
+    inventory.value = inventory.value.filter((item) => {
+      return item.id !== id;
+    });
   }
 </script>
 
@@ -199,19 +207,21 @@
               </small>
             </div>
 
-            <div class="form-floating">
-              <textarea v-model="form.description"
-                        class="form-control"
-                        :class="{ 'is-invalid': validation.description.length > 0 }"
-                        placeholder="Description"
-                        style="height: 150px;">
-              </textarea>
-              <label class="form-label">Description</label>
+            <client-only>
+              <div class="form-floating">
+                <textarea v-model="form.description"
+                          class="form-control"
+                          :class="{ 'is-invalid': validation.description.length > 0 }"
+                          placeholder="Description"
+                          style="height: 150px;">
+                </textarea>
+                <label class="form-label">Description</label>
 
-              <small v-for="error in validation.description" class="invalid-feedback">
-                {{ error }}
-              </small>
-            </div>
+                <small v-for="error in validation.description" class="invalid-feedback">
+                  {{ error }}
+                </small>
+              </div>
+            </client-only>
 
           </div>
         </div>
@@ -219,10 +229,10 @@
         <div class="card p-2 mb-4">
           <div class="card-body">
 
-            <h5 class="mb-4">Pricing and Stock</h5>
+            <h5 class="mb-4">Pricing and Category</h5>
 
             <div class="row">
-              <div class="col-auto">
+              <div class="col">
                 <div class="form-floating">
                   <input v-model="form.price"
                          type="number"
@@ -239,16 +249,17 @@
                 </div>
               </div>
 
-              <div class="col-auto">
+              <div class="col">
                 <div class="form-floating">
-                  <input v-model="form.stock"
-                         type="number"
-                         inputmode="numeric"
-                         class="form-control" :class="{ 'is-invalid': validation.stock.length > 0 }"
-                         placeholder="e.g: 20" min="0">
-                  <label class="form-label">Stock</label>
+                  <select v-model="form.category_id" class="form-select" :class="{ 'is-invalid': validation.category_id.length > 0 }" required>
+                    <option selected disabled>Choose a category</option>
+                    <option v-for="category in categories" :value="category.category_id">
+                      {{ category.name }}
+                    </option>
+                  </select>
+                  <label class="form-label">Category</label>
 
-                  <small v-for="error in validation.stock" class="invalid-feedback">
+                  <small v-for="error in validation.category_id" class="invalid-feedback">
                     {{ error }}
                   </small>
                 </div>
@@ -257,6 +268,13 @@
 
           </div>
         </div>
+
+        <AdminProductInventory
+            :product_id="productId"
+            :inventory="inventory"
+            @stock-added="handleAddStock"
+            @stock-removed="handleRemoveStock"
+        />
 
       </div>
 
@@ -279,23 +297,6 @@
               </button>
             </div>
 
-          </div>
-        </div>
-
-        <div class="card p-2 mb-4">
-          <div class="card-body">
-            <h5 class="mb-4">Category</h5>
-
-            <select v-model="form.category_id" class="form-select" :class="{ 'is-invalid': validation.category_id.length > 0 }" required>
-              <option selected disabled>Choose a category</option>
-              <option v-for="category in categories" :value="category.category_id">
-                {{ category.name }}
-              </option>
-            </select>
-
-            <small v-for="error in validation.category_id" class="invalid-feedback">
-              {{ error }}
-            </small>
           </div>
         </div>
 

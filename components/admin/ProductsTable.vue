@@ -102,7 +102,14 @@
             </td>
             <td class="text-truncate overflow-hidden">{{ product.category }}</td>
             <td>{{ formatPrice(product.price) }}</td>
-            <td>{{ product.stock }}</td>
+            <td>
+              <span>
+                {{ product.stock }}
+              </span>
+              <span v-if="product.stock <= 2" class="badge text-bg-danger ms-2 position-relative" style="top: -1px;">
+                !
+              </span>
+            </td>
             <td>
               <div class="d-flex align-items-center">
                 <nuxt-link :to="`/admin/products/${ product.slug }`"

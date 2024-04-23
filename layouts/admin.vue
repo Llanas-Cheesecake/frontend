@@ -111,6 +111,7 @@
     }
     &.btn-secondary {
       background-color: color-mix(in srgb, var(--bg-secondary), #000 15%);
+      border: 2px solid var(--bg-secondary);
       color: var(--color-text-primary);
     }
     &.btn-danger {

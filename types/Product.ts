@@ -28,3 +28,11 @@ export interface ProductRating {
     review: string
     published_at: string
 }
+
+export interface ProductInventory {
+    id: number
+    quantity: number
+    expiry_date: string
+    created_at: string
+    updated_at: string
+}
