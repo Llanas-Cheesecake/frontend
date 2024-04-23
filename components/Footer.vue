@@ -67,7 +67,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="top: -1px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin position-relative">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>
               </svg>
-              <span class="ms-3">54 Scout Gandia Brgy. Laging Handa QC</span>
+              <span class="ms-3">54 Scout Gandia Brgy. Laging Handa QC, 1103</span>
             </li>
             <li class="mb-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="top: -1px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock position-relative">
