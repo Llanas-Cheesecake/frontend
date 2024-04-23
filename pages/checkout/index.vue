@@ -331,7 +331,7 @@
                   <span>Checkout</span>
                 </button>
                 <div class="form-text">
-                  You are agreeing to our <nuxt-link to="/termsandconditions">terms & conditions</nuxt-link> when you continue to checkout
+                  You are agreeing to our <nuxt-link to="/termsandconditions">terms & conditions</nuxt-link> and <nuxt-link to="/privacy-policy">privacy policy</nuxt-link> when you continue to checkout
                 </div>
               </div>
             </div>

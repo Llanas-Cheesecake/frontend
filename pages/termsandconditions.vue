@@ -7,7 +7,7 @@
     <div class="card-body">
       <div class="header">
         <h2>Terms and Conditions</h2>
-        <p>Last updated April 1, 2024</p>
+        <p>Last updated April 23, 2024</p>
       </div>
       <div class="mb-4">
         <p>
@@ -32,13 +32,6 @@
           <li>"Party," "Parties," or "Us," refers to both the Customer and ourselves.</li>
           <li>"Website" refers to Llana's Cheesecake's website.</li>
         </ul>
-      </div>
-
-      <div class="mb-4">
-        <h3>Cookies</h3>
-        <p>
-          We employ the use of cookies. By accessing Llana's Cheesecake, you agreed to use cookies in agreement with Llana's Cheesecake's Privacy Policy.
-        </p>
       </div>
 
       <div class="mb-4">
