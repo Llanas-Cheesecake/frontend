@@ -100,7 +100,7 @@
 
     body.append('pickup_type', pickupType.value);
 
-    if (pickupType.value === 'courier') {
+    if (pickupType.value === 'COURIER') {
       body.append('courier_name', courier_name.value);
     }
 
@@ -279,14 +279,6 @@
             </div>
             <!-- END Pickup Information -->
           </div>
-
-          <!-- PWD Discount -->
-          <div class="card p-2 mb-4">
-            <div class="card-body">
-              <LazyCheckoutPWDDiscount />
-            </div>
-          </div>
-          <!-- END PWD Discount -->
 
           <!-- Captcha -->
           <div class="card p-2" v-if="!auth._isAuthenticated">
