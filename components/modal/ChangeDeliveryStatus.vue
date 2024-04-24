@@ -68,6 +68,10 @@ const changeDeliveryStatus = async () => {
               </option>
             </select>
 
+            <div v-if="selectedStatus === 'ON_GOING'" class="alert alert-info mt-4">
+              This option will send a text message to the customer notifying them.
+            </div>
+
             <div class="d-flex gap-2 mt-5">
               <button type="button" class="btn btn-outline-primary" :disabled="isProcessing" @click="emit('cancel')">
                 Cancel
