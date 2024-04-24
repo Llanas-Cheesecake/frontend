@@ -12,7 +12,6 @@
   <nav class="sidebar sticky-top d-print-none" :class="{ show: isSidebarOpen }">
     <div class="header">
       <LazyLogo></LazyLogo>
-<!--      <img class="logo" src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />-->
       <h5 class="fw-bold mb-0 d-none d-xl-block flex-fill" :class="{ 'd-xl-none': !isSidebarOpen }">
         Llana's Cheesecake
       </h5>
@@ -39,12 +38,12 @@
           <span class="ms-3 d-none d-xl-inline" :class="{ 'd-xl-none': !isSidebarOpen }">Orders</span>
         </nuxt-link>
       </li>
-<!--      <li class="nav-item">-->
-<!--        <nuxt-link to="/admin/customers" class="nav-link">-->
-<!--          <img src="/icons/user-black.svg" alt="Customers Icon" />-->
-<!--          <span class="ms-3 d-none d-xl-inline" :class="{ 'd-xl-none': !isSidebarOpen }">Customers</span>-->
-<!--        </nuxt-link>-->
-<!--      </li>-->
+      <li class="nav-item">
+        <nuxt-link to="/admin/customers" class="nav-link">
+          <img src="/icons/user-black.svg" alt="Customers Icon" />
+          <span class="ms-3 d-none d-xl-inline" :class="{ 'd-xl-none': !isSidebarOpen }">Customers</span>
+        </nuxt-link>
+      </li>
       <li class="nav-item">
         <nuxt-link to="/admin/settings" class="nav-link">
           <img src="/icons/settings-black.svg" alt="Settings Icon" />

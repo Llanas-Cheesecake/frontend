@@ -13,6 +13,7 @@
   ];
 
   const document = ref<File>();
+  const isSubmitting = ref(false);
 
   const { data: results, error } = await useFetchAPI<ApiResponse>('/account/discount', {
     method: "GET"
@@ -45,9 +46,10 @@
       return;
     }
 
+    isSubmitting.value = true;
+
     const formData = new FormData();
     formData.append('document', document.value);
-
 
     const { data: result } = await useFetchAPI<ApiResponse>('/account/discount/verify', {
       method: "POST",
@@ -58,6 +60,7 @@
     });
 
     if (result.value) {
+      isSubmitting.value = false;
       isVerificationPending.value = true;
     }
   }
@@ -91,11 +94,12 @@
       <form @submit.prevent="">
         <div class="mb-4">
           <label class="form-label">Upload documents here...</label>
-          <input class="form-control" type="file" @change="handleFileInputChange">
+          <input class="form-control" type="file" :disabled="isSubmitting" @change="handleFileInputChange">
         </div>
 
-        <button type="submit" class="btn btn-primary" @click="handleFileUpload">
-          Submit documents
+        <button type="submit" class="btn btn-secondary" :disabled="isSubmitting" @click="handleFileUpload">
+          <span>Submit documents</span>
+          <LoadingIcon v-if="isSubmitting" color="white" width="20" height="20" class="ms-2 position-relative" style="top: -1px" />
         </button>
       </form>
     </div>
