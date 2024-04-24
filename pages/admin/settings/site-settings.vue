@@ -19,6 +19,7 @@
     buttonTextPrimary: '',
     buttonTextSecondary: '',
     email: '',
+    sms_number: ''
   });
 
   // Validation messages
@@ -33,6 +34,7 @@
     buttonTextPrimary: [],
     buttonTextSecondary: [],
     email: [],
+    sms_number: []
   })
 
   const { data: result, error } = await useFetchAPI<ApiResponse>('/admin/settings/site', {
@@ -54,6 +56,7 @@
     settings.buttonTextPrimary = payload['color-btn-text-primary'];
     settings.buttonTextSecondary = payload['color-btn-text-secondary'];
     settings.email = payload['email'] || '';
+    settings.sms_number = payload['sms_number'] || '';
   }
 
   // Handle form
@@ -72,6 +75,7 @@
     form.append('colorBtnTextPrimary', settings.buttonTextPrimary);
     form.append('colorBtnTextSecondary', settings.buttonTextSecondary);
     form.append('email', settings.email);
+    form.append('sms_number', settings.sms_number)
 
     const { data: result, error } = await useFetchAPI<ApiResponse>('/admin/settings/site', {
       method: "POST",
@@ -102,6 +106,7 @@
           validation.buttonTextPrimary = payload.colorBtnTextPrimary || [];
           validation.buttonTextSecondary = payload.colorBtnTextSecondary || [];
           validation.email = payload.email || [];
+          validation.sms_number = payload.sms_number || [];
           break;
         default:
           toast.error("Something went wrong while handling your request");
@@ -306,6 +311,45 @@
       </div>
 
     </div>
+
+    <div class="d-flex flex-column flex-lg-row gap-0 gap-lg-5 flex-50 mt-5">
+
+      <div class="mb-5">
+        <h5 class="fw-bold">
+          SMS Notifications
+        </h5>
+        <p class="mb-3">
+          Provide which number should the system send SMS notifications
+        </p>
+      </div>
+
+      <div>
+        <div class="input-group">
+          <div class="input-group-text">+63</div>
+          <div class="form-floating" :class="{ 'is-invalid': validation.sms_number.length > 0 }">
+            <input v-model="settings.sms_number"
+                   type="text"
+                   class="form-control"
+                   :class="{ 'is-invalid': validation.sms_number.length > 0 }"
+                   :disabled="isSubmitting"
+                   placeholder=""
+            >
+            <label class="form-label">Phone Number</label>
+          </div>
+
+          <small v-for="error in validation.sms_number" class="invalid-feedback">
+            {{ error }}
+          </small>
+        </div>
+
+        <div class="form-text">
+          e.g: 9123456789
+        </div>
+
+      </div>
+
+    </div>
+
   </section>
 </template>
 
@@ -323,4 +367,8 @@
     flex: 1 1 calc(50% - 1rem);
   }
 
+  .input-group-text {
+    background: var(--bs-tertiary-bg);
+    border-color: color-mix(in srgb, var(--bg-secondary), #000 20%);
+  }
 </style>
