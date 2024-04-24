@@ -236,10 +236,14 @@
                       <input v-model="deliveryPhoneNumber" type="text" class="form-control" :class="{ 'is-invalid': validation.phone_number.length > 0 }" placeholder="e.g. 9123456789">
                       <label class="form-label">Phone Number</label>
                     </div>
+
                     <small v-for="error in validation.phone_number" class="invalid-feedback">
                       {{ error }}
                     </small>
                   </div>
+                  <small class="form-text">
+                    e.g: 9123456789
+                  </small>
                 </div>
               </div>
 
