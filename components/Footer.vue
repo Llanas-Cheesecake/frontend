@@ -9,7 +9,7 @@
       <div class="row gy-5">
         <div class="col-sm-12 col-md-4">
           <h2 class="text-heading fw-bold">Llana's Cheesecake</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id semper leo.</p>
+          <p>The best homemade baked cheesecakes in town since 2020</p>
 
           <div class="d-flex gap-3 mt-4">
             <!-- Facebook Icon -->
