@@ -59,32 +59,32 @@
 
   onMounted(async () => {
     if (process.client) {
-      const { data, error, close } = useEventSource(`${apiBaseUrl}/notifications/live`, []);
-
-      // Listen for events
-      watch(data, (message) => {
-        if (message) {
-          const parsedMessage: Notification = JSON.parse(message);
-          notifications.value.push(parsedMessage);
-
-          // Toast notification
-          toast.info(parsedMessage.content);
-        }
-      });
-
-      // Handle errors
-      watch(error, (newError) => {
-        if (newError) {
-          console.error("An error occurred while listening for notifications", newError);
-          toast.error("An error occurred while listening for notifications. Try reloading the page.");
-
-          close(); // Close the connection to prevent memory leaks
-        }
-      })
-
-      window.addEventListener("beforeunload", () => {
-        close();
-      });
+      // const { data, error, close } = useEventSource(`${apiBaseUrl}/notifications/live`, []);
+      //
+      // // Listen for events
+      // watch(data, (message) => {
+      //   if (message) {
+      //     const parsedMessage: Notification = JSON.parse(message);
+      //     notifications.value.push(parsedMessage);
+      //
+      //     // Toast notification
+      //     toast.info(parsedMessage.content);
+      //   }
+      // });
+      //
+      // // Handle errors
+      // watch(error, (newError) => {
+      //   if (newError) {
+      //     console.error("An error occurred while listening for notifications", newError);
+      //     toast.error("An error occurred while listening for notifications. Try reloading the page.");
+      //
+      //     close(); // Close the connection to prevent memory leaks
+      //   }
+      // })
+      //
+      // window.addEventListener("beforeunload", () => {
+      //   close();
+      // });
     }
   })
 </script>
