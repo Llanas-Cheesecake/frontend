@@ -31,7 +31,7 @@ jobs:
       - name: 📝 Modify package.json
         run: |
           mv .output/server/package.json .output/package.json
-          jq '{name: .name, version: .version, private: .private, dependencies: .bundledDependencies}' .output/package.json > .output/temp.json
+          jq '{name: .name, version: .version, private: .private, dependencies: .dependencies}' .output/package.json > .output/temp.json
           mv .output/temp.json .output/package.json
 
       - name: 📝 Create server.js
@@ -55,6 +55,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             cd ${{ env.APP_DIR }}/.output
             npm install
             supervisorctl restart nuxt
