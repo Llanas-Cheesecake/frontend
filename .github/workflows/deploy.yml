@@ -59,4 +59,4 @@ jobs:
             source ~/.nvm/nvm.sh
             cd ${{ env.APP_DIR }}/.output
             npm install
-            supervisorctl restart nuxt
+            sudo supervisorctl restart nuxt
