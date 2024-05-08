@@ -55,6 +55,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ${{ env.APP_DIR }}
+            cd ${{ env.APP_DIR }}/.output
             npm install
-            sudo supervisorctl restart nuxt
+            supervisorctl restart nuxt
