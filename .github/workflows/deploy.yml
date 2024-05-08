@@ -14,7 +14,7 @@ jobs:
       API_VERSION: ${{ secrets.API_VERSION }}
       HCAPTCHA_SITE_KEY: ${{ secrets.HCAPTCHA_SITE_KEY }}
       TAWK_PROPERTY_ID: ${{ secrets.TAWK_PROPERTY_ID }}
-      TAWK_WIDGET_ID: ${{ env.TAWK_WIDGET_ID }}
+      TAWK_WIDGET_ID: ${{ secrets.TAWK_WIDGET_ID }}
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
