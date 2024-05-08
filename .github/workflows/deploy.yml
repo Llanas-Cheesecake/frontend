@@ -47,7 +47,7 @@ jobs:
           source: ".output/"
           target: ${{ env.APP_DIR }}
 
-      - name: 🚀 Install dependencies and restart Server with PM2
+      - name: 🚀 Install dependencies and restart Server with Supervisor
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -55,6 +55,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ${{ env.APP_DIR }}/.output
+            cd ${{ env.APP_DIR }}
             npm install
             sudo supervisorctl restart nuxt
