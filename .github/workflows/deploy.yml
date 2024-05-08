@@ -3,13 +3,18 @@ on:
   push:
     branches:
       - main
-      -
 jobs:
   build:
     name: 🏗️ Build
     runs-on: ubuntu-latest
     env:
       APP_DIR: /var/www/llanascheesecake.com
+      APP_URL: ${{ secrets.APP_URL }}
+      API_BASEURL: ${{ secrets.API_BASEURL }}
+      API_VERSION: ${{ secrets.API_VERSION }}
+      HCAPTCHA_SITE_KEY: ${{ secrets.HCAPTCHA_SITE_KEY }}
+      TAWK_PROPERTY_ID: ${{ secrets.TAWK_PROPERTY_ID }}
+      TAWK_WIDGET_ID: ${{ env.TAWK_WIDGET_ID }}
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -18,16 +23,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-
-      - name: 🗒️ Create .env file
-        run: |
-          touch .env
-          echo APP_URL=${{ env.APP_URL }} >> .env
-          echo API_BASEURL=${{ env.API_BASEURL }} >> .env
-          echo API_VERSION=${{ env.API_VERSION }} >> .env
-          echo HCAPTCHA_SITE_KEY=${{ env.HCAPTCHA_SITE_KEY }} >> .env
-          echo TAWK_PROPERTY_ID=${{ env.TAWK_PROPERTY_ID }} >> .env
-          echo TAWK_WIDGET_ID=${{ env.TAWK_WIDGET_ID }} >> .env
 
       - name: 📦 Install dependencies
         run: npm ci
