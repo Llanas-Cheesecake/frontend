@@ -13,7 +13,15 @@
 
 <template>
   <div>
-    <Carousel class="my-5"/>
+    <ClientOnly>
+      <Suspense timeout="0">
+        <LazyCarousel class="my-5"/>
+
+        <template #fallback>
+          <SkeletonCarousel />
+        </template>
+      </Suspense>
+    </ClientOnly>
 
     <div class="row">
       <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
