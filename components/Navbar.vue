@@ -285,9 +285,7 @@
       }
       span {
         color: var(--color-text-primary) !important;
-        font-family: "Cormorant", serif;
-        font-weight: bold;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         margin-left: 0.5rem;
       }
     }
