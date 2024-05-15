@@ -36,6 +36,8 @@
         return "Dashboard / Settings / Promotions";
       case "admin-settings-account":
         return "Dashboard / Settings / Account Settings";
+      case "admin-settings-products":
+        return "Dashboard / Settings / Product Settings";
     }
   })
 
