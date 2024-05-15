@@ -10,6 +10,7 @@
   const auth = useAuthStore();
 
   const isSubmitting = ref(false);
+  const isSuccessful = ref(false);
 
   const form = reactive({
     email: '',
@@ -39,6 +40,10 @@
 
     auth.loginAsAdministrator({ email: form.email, password: form.password })
         .then(() => {
+          // Show success message
+          isSuccessful.value = true;
+
+          // Redirect to dashboard
           location.href = '/admin/dashboard'
         })
         .catch((err) => {
@@ -76,6 +81,10 @@
 
       <div v-if="error.length > 0" class="alert alert-danger my-4" role="alert">
         {{ error }}
+      </div>
+
+      <div v-if="isSuccessful" class="alert alert-success" role="alert">
+        Login successful! Redirecting...
       </div>
 
       <form @submit.prevent="handleFormSubmit">
