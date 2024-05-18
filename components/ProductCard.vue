@@ -31,7 +31,7 @@
 </script>
 
 <template>
-  <div class="card">
+  <div class="card h-100">
     <nuxt-link :to="`/products/${product.slug}`" class="card-body">
       <div class="product-image rounded shadow-sm mb-3" :style="{ 'background-image': `url(${product.thumbnail})` }" />
       <section>
@@ -49,7 +49,7 @@
           </span>
         </div>
 
-        <p class="text-truncate mb-3">
+        <p class="truncate mb-3">
           {{ product.description }}
         </p>
 
@@ -75,7 +75,7 @@
 <style scoped lang="scss">
   .card {
     transition: 0.3s;
-    min-height: 552px;
+    //min-height: 552px;
     &:hover {
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     }
@@ -85,14 +85,27 @@
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
-
-        height: 100%;
         width: 100%;
+      }
+      .truncate {
+        overflow: hidden;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        white-space: normal;
       }
     }
     .card-bottom {
       width: 100%;
       padding: 1rem;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .card .card-body .product-image {
+      flex: 0 0 100px!important;
+      width: 100px!important;
+      min-height: 100px!important;
     }
   }
 
@@ -103,6 +116,7 @@
         display: flex;
         gap: 1rem;
         .product-image {
+          flex: 0 0 135px;
           width: 135px!important;
           min-height: 135px;
         }

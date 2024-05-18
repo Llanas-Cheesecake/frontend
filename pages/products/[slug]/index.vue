@@ -142,7 +142,7 @@
 
 <template>
   <div>
-    <div class="product-wrapper d-flex mt-5 justify-content-center gap-3">
+    <div class="product-wrapper d-flex mt-3 mt-lg-5 justify-content-center gap-3">
 
       <div class="product-images" :style="{ 'background-image': `url(${product.thumbnail})` }" />
 

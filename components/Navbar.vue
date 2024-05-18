@@ -3,13 +3,17 @@
 
   const props = defineProps<{
     isSticking: boolean
-  }>()
+  }>();
 
   const auth = useAuthStore();
   const route = useRoute();
 
   const isSidebarOpen = ref(false);
   const isAccountDropdownOpen = ref(false);
+
+  const isProductView = computed(() => {
+    return route.name === 'products-slug'
+  })
 
   const currentUserName = computed(() => {
     return `${auth._customer?.first_name} ${auth._customer?.last_name}`
@@ -47,7 +51,9 @@
           <nuxt-link to="/" class="nav-link">Home</nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
+          <nuxt-link to="/menu" class="nav-link" :class="{ 'router-link-active': isProductView }">
+            Menu
+          </nuxt-link>
         </li>
         <li class="nav-item">
           <nuxt-link to="/about" class="nav-link">About</nuxt-link>
@@ -61,8 +67,7 @@
     <div class="container">
 
       <nuxt-link to="/" class="navbar-brand d-flex align-items-center gap-2">
-        <LazyLogo />
-<!--        <img src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />-->
+        <img src="/images/llana_logo_m.png" alt="Llana's Cheesecake Logo" />
         <span>Llana's Cheesecake</span>
       </nuxt-link>
 
@@ -77,7 +82,9 @@
             <nuxt-link to="/" class="nav-link">Home</nuxt-link>
           </div>
           <div class="nav-item">
-            <nuxt-link to="/menu" class="nav-link">Menu</nuxt-link>
+            <nuxt-link to="/menu" class="nav-link" :class="{ 'router-link-active': isProductView }">
+              Menu
+            </nuxt-link>
           </div>
           <div class="nav-item">
             <nuxt-link to="/about" class="nav-link">About</nuxt-link>
@@ -239,7 +246,7 @@
             <span>Home</span>
           </nuxt-link>
 
-          <nuxt-link class="nav-link" to="/menu">
+          <nuxt-link class="nav-link" :class="{ 'router-link-active': isProductView }" to="/menu">
             <img src="/icons/tag.svg" width="20" height="20" alt="Home Icon"/>
             <span>Menu</span>
           </nuxt-link>
@@ -303,6 +310,10 @@
 
     .nav-links-alt {
       display: none;
+
+      .nav-item .nav-link {
+        padding: 0.5rem 1rem;
+      }
     }
 
     .nav-item {
