@@ -15,7 +15,7 @@
   <div>
     <ClientOnly>
       <Suspense timeout="0">
-        <LazyCarousel class="my-5"/>
+        <LazyCarousel class="mt-4 mt-md-5 mb-4 mb-md-5"/>
 
         <template #fallback>
           <SkeletonCarousel />

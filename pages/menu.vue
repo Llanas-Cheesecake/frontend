@@ -59,7 +59,7 @@ onMounted(() => {
   </client-only>
 
   <section>
-    <div class="my-5">
+    <div class="my-3 my-md-5">
       <div class="row">
         <div class="d-none d-md-block col-md-4 col-lg-3">
 
