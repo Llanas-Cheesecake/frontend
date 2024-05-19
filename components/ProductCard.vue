@@ -101,15 +101,13 @@
     }
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 502px) {
     .card .card-body .product-image {
-      flex: 0 0 100px!important;
-      width: 100px!important;
-      min-height: 100px!important;
+      height: 300px;
     }
   }
 
-  @media (max-width: 991px) {
+  @media (min-width: 503px) and (max-width: 991px) {
     .card {
       min-height: auto;
       .card-body {
