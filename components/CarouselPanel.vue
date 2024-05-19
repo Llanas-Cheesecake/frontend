@@ -15,15 +15,15 @@
   });
 
   const panelStyle = reactive({
-    backgroundImage: 'url(' + props.image + ')',
+    // backgroundImage: 'url(' + props.image + ')',
     maxWidth: props.width,
     height: props.height
   })
 </script>
 
 <template>
-  <div class="panel" :style="panelStyle">
-<!--    <img :src="props.image" alt="promotional banner" :style="panelStyle" />-->
+  <div class="panel">
+    <img :src="props.image" alt="promotional banner" :style="panelStyle" draggable="false" />
     <div v-if="props.text" class="overlay"></div>
     <div v-if="props.text" class="panel-text">
       <h3 :class="{
@@ -50,6 +50,7 @@
   img {
     width: 100%;
     border-radius: 12px;
+    max-height: 400px;
     //max-width: 1000px;
   }
   .overlay {
@@ -84,6 +85,10 @@
     transform: translate(-50%, -50%)!important;
     left: 50%!important;
     text-align: center;
+  }
+
+  .panel .img {
+    max-height: 300px;
   }
 }
 </style>
