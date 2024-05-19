@@ -28,10 +28,6 @@
   if (error.value) {
     // Handle errors
   }
-
-  const handleMoveEnd = (e) => {
-    e.currentTarget.resize();
-  }
 </script>
 
 <template>
@@ -41,7 +37,6 @@
           class="flicking"
           :options="{ circular: true, duration: 500 }"
           :plugins="FlickPlugins"
-          @moveEnd="handleMoveEnd"
       >
         <CarouselPanel v-for="(promotion, index) in promotions"
                        :key="index"
