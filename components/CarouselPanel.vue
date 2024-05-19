@@ -85,10 +85,19 @@
     transform: translate(-50%, -50%)!important;
     left: 50%!important;
     text-align: center;
+    h3 {
+      font-size: 1.2rem;
+    }
   }
 
   .panel .img {
     max-height: 300px;
+  }
+}
+
+@media (max-width: 398px) {
+  .panel-text {
+    width: 70%!important;
   }
 }
 </style>
